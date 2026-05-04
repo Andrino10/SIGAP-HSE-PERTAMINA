@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIGAP AI — Sistem Intelijen Garda Ancaman Pekerjaan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       BACKGROUND DECORATION
+  ════════════════════════════════ -->
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-glow" aria-hidden="true"></div>
+  <div class="bg-glow bg-glow--bottom" aria-hidden="true"></div>
+
+  <div class="wrapper">
+
+    <!-- ════════════════════════════════
+         HEADER
+    ════════════════════════════════ -->
+    <header class="header">
+
+      <!-- Top nav bar -->
+      <nav class="topbar">
+        <div class="topbar__left">
+          <span class="topbar__shield">🛡️</span>
+          <span class="topbar__brand">SIGAP AI</span>
+        </div>
+        <div class="topbar__right">
+          <div class="status-badge" id="system-status">
+            <span class="pulse-dot"></span>
+            <span class="status-text">SYSTEM READY</span>
+          </div>
+          <span class="topbar__version">v1.0.0</span>
+        </div>
+      </nav>
+
+      <!-- Hero -->
+      <div class="hero">
+        <div class="hero__eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-text">AI-Powered · K3 Intelligence · RAG Engine</span>
+          <span class="eyebrow-line"></span>
+        </div>
+
+        <h1 class="hero__title">
+          <span class="hero__title-main">SIGAP</span>
+          <span class="hero__title-accent"> AI</span>
+        </h1>
+
+        <p class="hero__subtitle">Sistem Intelijen Garda Ancaman Pekerjaan</p>
+
+        <p class="hero__desc">
+          Platform kecerdasan buatan berbasis <em>Retrieval-Augmented Generation</em> yang menganalisis
+          laporan aktivitas kerja lapangan, mendeteksi potensi risiko kecelakaan, dan memberikan
+          rekomendasi tindakan keselamatan secara otomatis dan real-time.
+        </p>
+
+        <div class="hero__stats">
+          <div class="stat-item">
+            <span class="stat-num">6+</span>
+            <span class="stat-label">Kategori Risiko</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">8</span>
+            <span class="stat-label">Basis Regulasi K3</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-num">RAG</span>
+            <span class="stat-label">FAISS + LLM Engine</span>
+          </div>
+        </div>
+      </div>
+
+    </header>
+
+    <!-- ════════════════════════════════
+         INPUT SECTION
+    ════════════════════════════════ -->
+    <section class="section" id="input-section">
+      <div class="section-label">
+        <span class="section-label__icon">📋</span>
+        Input Laporan Kerja
+      </div>
+
+      <div class="input-card" id="input-card">
+
+        <!-- Toolbar -->
+        <div class="input-toolbar">
+          <span class="input-toolbar__title">Laporan Aktivitas Lapangan</span>
+          <div class="input-toolbar__actions">
+            <button class="toolbar-btn" id="btn-clear" onclick="clearInput()" title="Bersihkan input">
+              🗑️ Hapus
+            </button>
+            <button class="toolbar-btn toolbar-btn--sample" onclick="loadSample()" title="Muat contoh laporan">
+              📄 Contoh
+            </button>
+          </div>
+        </div>
+
+        <!-- Textarea -->
+        <textarea
+          id="report-input"
+          class="report-textarea"
+          placeholder="Masukkan laporan aktivitas kerja lapangan...&#10;&#10;Contoh: Pekerja melakukan pengelasan di ketinggian 10 meter tanpa menggunakan harness dan helm pengaman. Lantai area kerja dalam kondisi licin akibat tumpahan oli. Tidak tersedia APAR di sekitar lokasi kerja..."
+          spellcheck="false"
+          oninput="onInputChange()"
+        ></textarea>
+
+        <!-- Footer bar -->
+        <div class="input-footer">
+          <div class="input-meta">
+            <span class="char-badge" id="char-badge">0 karakter</span>
+            <span class="input-hint">Ctrl + Enter untuk analisis</span>
+          </div>
+          <button class="btn-analyze" id="analyze-btn" onclick="analyzeReport()">
+            <span class="btn-analyze__icon">⚡</span>
+            <span class="btn-analyze__text">ANALISIS SEKARANG</span>
+            <span class="btn-analyze__arrow">→</span>
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ════════════════════════════════
+         LOADING SECTION
+    ════════════════════════════════ -->
+    <div class="loading-section" id="loading-section" aria-live="polite" aria-hidden="true">
+      <div class="loader-ring"></div>
+      <p class="loader-text" id="loader-text">Menginisialisasi analisis...</p>
+
+      <div class="loader-pipeline">
+        <div class="pipeline-step" id="step-1">
+          <div class="pipeline-step__dot"></div>
+          <div class="pipeline-step__label">Parsing Input</div>
+        </div>
+        <div class="pipeline-connector"></div>
+        <div class="pipeline-step" id="step-2">
+          <div class="pipeline-step__dot"></div>
+          <div class="pipeline-step__label">RAG Retrieval</div>
+        </div>
+        <div class="pipeline-connector"></div>
+        <div class="pipeline-step" id="step-3">
+          <div class="pipeline-step__dot"></div>
+          <div class="pipeline-step__label">Risk Detection</div>
+        </div>
+        <div class="pipeline-connector"></div>
+        <div class="pipeline-step" id="step-4">
+          <div class="pipeline-step__dot"></div>
+          <div class="pipeline-step__label">Generating Output</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ════════════════════════════════
+         RESULT SECTION
+    ════════════════════════════════ -->
+    <section class="section result-section" id="result-section" aria-hidden="true">
+
+      <div class="section-label">
+        <span class="section-label__icon">📊</span>
+        Hasil Analisis SIGAP AI
+        <button class="btn-reanalyze" onclick="resetToInput()">← Analisis Ulang</button>
+      </div>
+
+      <!-- ── ROW 1: Risk Level (full width) ── -->
+      <div class="risk-banner" id="risk-banner">
+        <div class="risk-banner__left">
+          <span class="risk-banner__label">Level Risiko Terdeteksi</span>
+          <div class="risk-badge-large" id="risk-badge-large">—</div>
+        </div>
+        <div class="risk-banner__center">
+          <div class="risk-gauge" id="risk-gauge">
+            <svg class="gauge-svg" viewBox="0 0 200 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M 20 100 A 80 80 0 0 1 180 100" stroke="rgba(255,255,255,0.06)" stroke-width="14" stroke-linecap="round"/>
+              <path class="gauge-track" id="gauge-track" d="M 20 100 A 80 80 0 0 1 180 100" stroke="#FACC15" stroke-width="14" stroke-linecap="round" stroke-dasharray="251" stroke-dashoffset="251"/>
+            </svg>
+            <div class="gauge-score" id="gauge-score">0%</div>
+          </div>
+        </div>
+        <div class="risk-banner__right">
+          <div class="risk-indicator-row">
+            <div class="risk-indicator" data-level="rendah">
+              <div class="risk-indicator__dot"></div>
+              <span>Rendah</span>
+            </div>
+            <div class="risk-indicator" data-level="sedang">
+              <div class="risk-indicator__dot"></div>
+              <span>Sedang</span>
+            </div>
+            <div class="risk-indicator" data-level="tinggi">
+              <div class="risk-indicator__dot"></div>
+              <span>Tinggi</span>
+            </div>
+          </div>
+          <p class="risk-banner__caption" id="risk-caption">—</p>
+        </div>
+      </div>
+
+      <!-- ── ROW 2: Grid 2 kolom ── -->
+      <div class="cards-grid">
+
+        <!-- Card: Temuan Risiko -->
+        <div class="card card--findings" id="card-findings">
+          <div class="card__header">
+            <div class="card__icon card__icon--red">🔍</div>
+            <div>
+              <div class="card__title">Temuan Risiko</div>
+              <div class="card__subtitle">Faktor bahaya teridentifikasi</div>
+            </div>
+          </div>
+          <ul class="finding-list" id="finding-list"></ul>
+        </div>
+
+        <!-- Card: Analisis Penyebab -->
+        <div class="card card--cause" id="card-cause">
+          <div class="card__header">
+            <div class="card__icon card__icon--amber">🧩</div>
+            <div>
+              <div class="card__title">Analisis Penyebab</div>
+              <div class="card__subtitle">Root cause analysis</div>
+            </div>
+          </div>
+          <p class="cause-text" id="cause-text">—</p>
+        </div>
+
+        <!-- Card: Rekomendasi Tindakan -->
+        <div class="card card--reco" id="card-reco">
+          <div class="card__header">
+            <div class="card__icon card__icon--green">✅</div>
+            <div>
+              <div class="card__title">Rekomendasi Tindakan</div>
+              <div class="card__subtitle">Langkah mitigasi risiko</div>
+            </div>
+          </div>
+          <ol class="reco-list" id="reco-list"></ol>
+        </div>
+
+        <!-- Card: Referensi Knowledge -->
+        <div class="card card--refs" id="card-refs">
+          <div class="card__header">
+            <div class="card__icon card__icon--blue">📚</div>
+            <div>
+              <div class="card__title">Referensi Knowledge Base</div>
+              <div class="card__subtitle">Hasil RAG retrieval</div>
+            </div>
+          </div>
+          <div class="ref-list" id="ref-list"></div>
+        </div>
+
+      </div><!-- /cards-grid -->
+
+      <!-- ── Meta Info Bar ── -->
+      <div class="meta-bar" id="meta-bar">
+        <div class="meta-item">
+          <span class="meta-item__icon">🕒</span>
+          <span class="meta-item__label">Dianalisis:</span>
+          <strong id="meta-time">—</strong>
+        </div>
+        <div class="meta-item">
+          <span class="meta-item__icon">📝</span>
+          <span class="meta-item__label">Panjang laporan:</span>
+          <strong id="meta-words">—</strong>
+        </div>
+        <div class="meta-item">
+          <span class="meta-item__icon">🧠</span>
+          <span class="meta-item__label">Model:</span>
+          <strong>SIGAP-RAG v1.0</strong>
+        </div>
+        <div class="meta-item">
+          <span class="meta-item__icon">⚙️</span>
+          <span class="meta-item__label">Engine:</span>
+          <strong>FAISS + SentenceTransformer</strong>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ════════════════════════════════
+         FOOTER
+    ════════════════════════════════ -->
+    <footer class="footer">
+      <div class="footer__logo">🛡️ SIGAP AI</div>
+      <p class="footer__tagline">Sistem Intelijen Garda Ancaman Pekerjaan</p>
+      <p class="footer__copy">Dikembangkan untuk keselamatan dan keamanan tenaga kerja Indonesia</p>
+      <div class="footer__tags">
+        <span class="ftag">🐍 Python Backend</span>
+        <span class="ftag">🤗 Sentence Transformers</span>
+        <span class="ftag">⚡ FAISS Index</span>
+        <span class="ftag">🧠 DistilGPT2</span>
+        <span class="ftag">🔗 RAG Pipeline</span>
+        <span class="ftag">🔌 REST API Ready</span>
+      </div>
+    
+        <div class="footer__author">
+        <span class="author-label">Authors</span>
+        <span class="author-names">
+      Andrino Syaddani · Muhammad Irfan Saputra · Muhammad Aidhil
+        </span>
+        </div>
+    </footer>
+
+  </div><!-- /wrapper -->
+
+  <script src="app.js"></script>
+</body>
+</html>
