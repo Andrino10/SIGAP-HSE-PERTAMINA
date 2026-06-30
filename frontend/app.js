@@ -252,12 +252,36 @@ async function analyzeReport() {
 
     if (!response.ok) throw new Error('Server error: ' + response.status);
 
-    const data = await response.json();
-    await delay(500); // beri waktu animasi step selesai
+const data = await response.json();
+await delay(500);
 
-    const mappedData = mapBackendResponse(data);
-    renderResult(mappedData, input);
-    return;
+// Tampilkan skor similarity
+document.getElementById("similarity").innerHTML =
+`${(data.similarity * 100).toFixed(2)}%`;
+
+// Tentukan kategori similarity
+const score = data.similarity;
+
+let kategori = "Rendah";
+
+if (score >= 0.80) {
+    kategori = "Sangat Baik";
+}
+else if (score >= 0.70) {
+    kategori = "Baik";
+}
+else if (score >= 0.60) {
+    kategori = "Cukup Baik";
+}
+
+// Tampilkan kategori
+document.getElementById("similarity-label").textContent =
+    kategori;
+
+const mappedData = mapBackendResponse(data);
+renderResult(mappedData, input);
+
+return;
 
   } catch (err) {
     console.warn('[SIGAP AI] Backend tidak tersedia, fallback ke demo mode:', err.message);

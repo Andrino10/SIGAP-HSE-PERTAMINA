@@ -206,58 +206,133 @@
       </div>
 
       <!-- ── ROW 2: Grid 2 kolom ── -->
-      <div class="cards-grid">
+      <!-- ─────────────────────────────
+     ROW 2 : ANALYSIS LAYOUT
+───────────────────────────── -->
+<div class="analysis-layout">
 
-        <!-- Card: Temuan Risiko -->
+    <!-- LEFT SIDE -->
+    <div class="analysis-left">
+
+        <!-- Temuan Risiko -->
         <div class="card card--findings" id="card-findings">
-          <div class="card__header">
-            <div class="card__icon card__icon--red">🔍</div>
-            <div>
-              <div class="card__title">Temuan Risiko</div>
-              <div class="card__subtitle">Faktor bahaya teridentifikasi</div>
+            <div class="card__header">
+                <div class="card__icon card__icon--red">🔍</div>
+                <div>
+                    <div class="card__title">Temuan Risiko</div>
+                    <div class="card__subtitle">
+                        Faktor bahaya teridentifikasi
+                    </div>
+                </div>
             </div>
-          </div>
-          <ul class="finding-list" id="finding-list"></ul>
+
+            <ul class="finding-list" id="finding-list"></ul>
         </div>
 
-        <!-- Card: Analisis Penyebab -->
+        <!-- Analisis Penyebab -->
         <div class="card card--cause" id="card-cause">
-          <div class="card__header">
-            <div class="card__icon card__icon--amber">🧩</div>
-            <div>
-              <div class="card__title">Analisis Penyebab</div>
-              <div class="card__subtitle">Root cause analysis</div>
+            <div class="card__header">
+                <div class="card__icon card__icon--amber">🧩</div>
+                <div>
+                    <div class="card__title">Analisis Penyebab</div>
+                    <div class="card__subtitle">
+                        Root Cause Analysis
+                    </div>
+                </div>
             </div>
-          </div>
-          <p class="cause-text" id="cause-text">—</p>
+
+            <p class="cause-text" id="cause-text">—</p>
         </div>
 
-        <!-- Card: Rekomendasi Tindakan -->
+        <!-- Rekomendasi -->
         <div class="card card--reco" id="card-reco">
-          <div class="card__header">
-            <div class="card__icon card__icon--green">✅</div>
-            <div>
-              <div class="card__title">Rekomendasi Tindakan</div>
-              <div class="card__subtitle">Langkah mitigasi risiko</div>
+            <div class="card__header">
+                <div class="card__icon card__icon--green">✅</div>
+                <div>
+                    <div class="card__title">
+                        Rekomendasi Tindakan
+                    </div>
+                    <div class="card__subtitle">
+                        Langkah mitigasi risiko
+                    </div>
+                </div>
             </div>
-          </div>
-          <ol class="reco-list" id="reco-list"></ol>
+
+            <ol class="reco-list" id="reco-list"></ol>
         </div>
 
-        <!-- Card: Referensi Knowledge -->
+        <!-- Referensi -->
         <div class="card card--refs" id="card-refs">
-          <div class="card__header">
-            <div class="card__icon card__icon--blue">📚</div>
-            <div>
-              <div class="card__title">Referensi Knowledge Base</div>
-              <div class="card__subtitle">Hasil RAG retrieval</div>
+            <div class="card__header">
+                <div class="card__icon card__icon--blue">📚</div>
+                <div>
+                    <div class="card__title">
+                        Referensi Knowledge Base
+                    </div>
+                    <div class="card__subtitle">
+                        Hasil RAG Retrieval
+                    </div>
+                </div>
             </div>
-          </div>
-          <div class="ref-list" id="ref-list"></div>
+
+            <div class="ref-list" id="ref-list"></div>
         </div>
 
-      </div><!-- /cards-grid -->
+    </div>
 
+    <!-- RIGHT SIDE -->
+    <div class="analysis-right">
+
+        <div class="card card--similarity" id="card-similarity">
+
+            <div class="card__header">
+
+                <div class="card__icon card__icon--purple">
+                    📈
+                </div>
+
+                <div>
+                    <div class="card__title">
+                        Evaluasi Semantic Similarity
+                    </div>
+
+                    <div class="card__subtitle">
+                        Tingkat kesamaan jawaban SIGAP AI
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="similarity-content">
+
+                <div
+                    class="similarity-score"
+                    id="similarity"
+                >
+                    0%
+                </div>
+
+                <div
+                    class="similarity-label"
+                    id="similarity-label"
+                >
+                    Belum dianalisis
+                </div>
+
+                <div class="similarity-desc">
+                    Mengukur tingkat kesamaan semantik
+                    antara laporan pengguna dan knowledge
+                    yang ditemukan oleh model
+                    all-MiniLM-L6-v2.
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
       <!-- ── Meta Info Bar ── -->
       <div class="meta-bar" id="meta-bar">
         <div class="meta-item">
@@ -281,9 +356,7 @@
           <strong>FAISS + SentenceTransformer</strong>
         </div>
       </div>
-
-    </section>
-
+      
     <!-- ════════════════════════════════
          FOOTER
     ════════════════════════════════ -->
@@ -295,7 +368,6 @@
         <span class="ftag">🐍 Python Backend</span>
         <span class="ftag">🤗 Sentence Transformers</span>
         <span class="ftag">⚡ FAISS Index</span>
-        <span class="ftag">🧠 DistilGPT2</span>
         <span class="ftag">🔗 RAG Pipeline</span>
         <span class="ftag">🔌 REST API Ready</span>
       </div>

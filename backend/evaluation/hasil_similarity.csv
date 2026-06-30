@@ -1,0 +1,51 @@
+question,similarity
+Pekerja mengelas tanpa menggunakan kacamata pelindung.,0.5174
+Pekerja bekerja di ketinggian tanpa full body harness.,0.7742
+Operator forklift membawa beban melebihi kapasitas.,0.8183
+Pekerja tidak memakai helm keselamatan di proyek konstruksi.,0.6542
+Teknisi memperbaiki panel listrik tanpa mematikan sumber listrik.,0.719
+Pekerja menghirup debu semen tanpa masker.,0.7289
+Pekerja mengangkat beban berat dengan posisi membungkuk.,0.7263
+Pekerja berjalan di area yang licin akibat tumpahan oli.,0.6253
+Pekerja menggunakan tangga yang rusak.,0.7377
+Pekerja menangani bahan kimia tanpa sarung tangan.,0.7619
+Pekerja memasuki tangki tertutup tanpa pengukuran gas.,0.7904
+Operator mesin membersihkan mesin saat masih berjalan.,0.6807
+Pekerja melakukan pengelasan dekat bahan mudah terbakar.,0.7545
+Pekerja tidak memakai sepatu keselamatan saat bongkar muat.,0.6536
+Pekerja bekerja di area bising tanpa earplug.,0.7559
+Pekerja laboratorium menuangkan asam kuat tanpa face shield.,0.7087
+Pekerja memanjat atap tanpa sistem pengaman.,0.7183
+Operator forklift tidak menggunakan sabuk pengaman.,0.6424
+Pekerja menggunakan kabel listrik yang terkelupas.,0.7148
+Pekerja memindahkan drum secara manual tanpa alat bantu.,0.6853
+Pekerja menggunakan APD yang sudah rusak.,0.7258
+Pekerja memotong logam tanpa pelindung mesin.,0.6888
+Pekerja berada di bawah beban yang diangkat crane.,0.49
+Pekerja mengoperasikan genset dalam ruangan tertutup.,0.667
+Pekerja menghirup asap las tanpa respirator.,0.6716
+Pekerja membersihkan conveyor tanpa LOTO.,0.6059
+Pekerja menggunakan scaffolding tanpa guardrail.,0.6771
+Pekerja memasuki confined space tanpa permit kerja.,0.7197
+Pekerja memeriksa listrik dengan tangan basah.,0.7525
+Pekerja bekerja saat cuaca sangat panas tanpa istirahat.,0.4931
+Pekerja mengangkut material tajam tanpa sarung tangan.,0.6636
+Pekerja menggunakan kompresor dengan selang bocor.,0.7064
+Pekerja tidak menggunakan rompi reflektif di area alat berat.,0.7305
+Operator crane tidak memeriksa sling sebelum digunakan.,0.5794
+Pekerja menyimpan bahan kimia tanpa label.,0.7923
+Pekerja menggunakan masker yang sudah sobek.,0.6622
+Pekerja berdiri terlalu dekat dengan alat berat.,0.6585
+Pekerja tidak menggunakan pelindung wajah saat menggerinda.,0.696
+Pekerja sawit memanen tanpa sarung tangan.,0.7042
+Pekerja terkena uap panas dari perebusan sawit.,0.6538
+Pekerja tidak menggunakan kacamata saat memotong keramik.,0.667
+Pekerja mengangkat karung 60 kg sendirian.,0.7109
+Pekerja bekerja malam hari dengan pencahayaan minim.,0.7894
+Pekerja melakukan hot work tanpa izin kerja.,0.7505
+Pekerja masuk area produksi tanpa briefing keselamatan.,0.5693
+Pekerja tidak memakai masker saat menangani serbuk kimia.,0.637
+Pekerja memperbaiki mesin tanpa pelatihan.,0.7035
+Operator forklift melaju terlalu cepat di gudang.,0.6747
+Pekerja menggunakan alat listrik tanpa grounding.,0.7467
+Pekerja membersihkan tumpahan bahan kimia tanpa APD.,0.7455
