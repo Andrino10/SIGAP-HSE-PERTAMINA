@@ -1,0 +1,10 @@
+.git
+.pytest_cache
+.vercel
+**/__pycache__
+**/*.pyc
+backend/tests
+backend/scripts
+backend/data/storage
+frontend/tests
+requirements-ai.txt

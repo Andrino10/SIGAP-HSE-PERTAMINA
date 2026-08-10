@@ -8,7 +8,7 @@ from datetime import datetime, timezone
 
 SEMANTIC_SEARCH_DISABLED = os.getenv(
     "SIGAP_DISABLE_SEMANTIC_SEARCH", ""
-).strip().lower() in {"1", "true", "yes", "on"}
+).strip().lower() in {"1", "true", "yes", "on"} or bool(os.getenv("VERCEL"))
 
 faiss = None
 np = None

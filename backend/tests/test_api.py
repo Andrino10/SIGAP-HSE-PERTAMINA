@@ -28,6 +28,21 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         for session_id in self.session_ids:
             conversation_repo.clear_session(session_id)
 
+    def test_deployment_routes_serve_frontend_assets_and_health(self):
+        homepage = self.client.get("/")
+        stylesheet = self.client.get("/style.css")
+        script = self.client.get("/app.js")
+        health = self.client.get("/api/health")
+
+        self.assertEqual(homepage.status_code, 200)
+        self.assertIn(b"SIGAP-AI HSE", homepage.data)
+        self.assertEqual(stylesheet.status_code, 200)
+        self.assertIn("text/css", stylesheet.content_type)
+        self.assertEqual(script.status_code, 200)
+        self.assertIn("javascript", script.content_type)
+        self.assertEqual(health.status_code, 200)
+        self.assertEqual(health.get_json()["data"]["status"], "ready")
+
     def post_chat(self, session_id, message, category=None, categories=None):
         self.session_ids.append(session_id)
         payload = {

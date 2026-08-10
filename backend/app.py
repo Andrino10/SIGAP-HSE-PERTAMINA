@@ -1,10 +1,15 @@
 import sys
 import os
+from pathlib import Path
 
 # Reconfigure stdout for Windows unicode support
-sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except (AttributeError, OSError):
+        pass
 
-from flask import Flask, request, jsonify
+from flask import Flask, abort, jsonify, request, send_from_directory
 from flask_cors import CORS
 
 from config.settings import SYSTEM_NAME, CATEGORIES
@@ -26,6 +31,30 @@ app.register_blueprint(chatbot_bp)
 app.register_blueprint(complaint_bp)
 app.register_blueprint(consultation_bp)
 app.register_blueprint(knowledge_bp)
+
+FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
+
+
+@app.route("/", methods=["GET"])
+def frontend_index():
+    """Menyajikan SPA dari origin yang sama di lokal dan Vercel."""
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
+
+@app.route("/<path:asset_path>", methods=["GET"])
+def frontend_asset(asset_path):
+    """Fallback aset frontend; rute /api yang spesifik tetap diprioritaskan Flask."""
+    if asset_path.startswith("api/"):
+        abort(404)
+    return send_from_directory(FRONTEND_DIR, asset_path)
+
+
+@app.route("/api/health", methods=["GET"])
+def health_check():
+    return success_response(
+        data={"service": "sigap-ai-hse", "status": "ready"},
+        message="Layanan SIGAP-AI HSE siap digunakan.",
+    )
 
 # Legacy compatibility route (/api/analyze)
 @app.route("/api/analyze", methods=["POST"])

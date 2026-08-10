@@ -1,8 +1,11 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "flask",
   "functions": {
     "app.py": {
-      "excludeFiles": "{backend/tests/**,backend/scripts/**,backend/**/__pycache__/**,.pytest_cache/**,requirements-ai.txt}"
+      "maxDuration": 60,
+      "includeFiles": "{frontend/**,backend/data/knowledge.json}",
+      "excludeFiles": "{backend/tests/**,frontend/tests/**,backend/scripts/**,backend/data/storage/**,**/__pycache__/**,.pytest_cache/**,requirements-ai.txt}"
     }
   }
 }

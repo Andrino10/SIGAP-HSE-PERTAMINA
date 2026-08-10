@@ -1,4 +1,5 @@
 import os
+import tempfile
 
 # Identitas Sistem
 NAMA_SISTEM = "SIGAP-AI HSE COMPANION"
@@ -12,7 +13,12 @@ ASSET_NAME = NAMA_AREA
 DIREKTORI_UTAMA = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIREKTORI_DATA = os.path.join(DIREKTORI_UTAMA, "data")
 JALUR_KNOWLEDGE_JSON = os.path.join(DIREKTORI_DATA, "knowledge.json")
-DIREKTORI_PENYIMPANAN = os.path.join(DIREKTORI_DATA, "storage")
+BERJALAN_DI_VERCEL = bool(os.getenv("VERCEL"))
+DIREKTORI_PENYIMPANAN = os.getenv("SIGAP_STORAGE_DIR") or (
+    os.path.join(tempfile.gettempdir(), "sigap-ai-hse", "storage")
+    if BERJALAN_DI_VERCEL
+    else os.path.join(DIREKTORI_DATA, "storage")
+)
 
 # Path Legacy Compatibility
 BASE_DIR = DIREKTORI_UTAMA

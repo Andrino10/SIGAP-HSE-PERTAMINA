@@ -78,7 +78,31 @@ const context = vm.createContext({
 });
 
 const appPath = path.join(__dirname, '..', 'app.js');
-vm.runInContext(fs.readFileSync(appPath, 'utf8'), context, { filename: appPath });
+const appSource = fs.readFileSync(appPath, 'utf8');
+vm.runInContext(appSource, context, { filename: appPath });
+
+const productionContext = vm.createContext({
+  document: documentStub,
+  window: {
+    location: {
+      hostname: 'sigap-hse.vercel.app',
+      protocol: 'https:',
+      origin: 'https://sigap-hse.vercel.app',
+      port: '',
+    },
+  },
+  console,
+  setTimeout,
+  clearTimeout,
+  AbortController,
+  URL,
+});
+vm.runInContext(appSource, productionContext, { filename: appPath });
+assert.equal(
+  vm.runInContext('URL_DASAR_API', productionContext),
+  'https://sigap-hse.vercel.app/api',
+  'Deployment Vercel harus memakai API pada origin HTTPS yang sama.',
+);
 
 function run(script) {
   return vm.runInContext(script, context);

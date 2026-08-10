@@ -8,7 +8,9 @@
 
 const HOST_API = window.location.hostname || 'localhost';
 const PROTOKOL_API = window.location.protocol === 'https:' ? 'https:' : 'http:';
-const URL_DASAR_API = window.SIGAP_API_URL || `${PROTOKOL_API}//${HOST_API}:5000/api`;
+const ASAL_APLIKASI = window.location.origin
+  || `${PROTOKOL_API}//${HOST_API}${window.location.port ? `:${window.location.port}` : ''}`;
+const URL_DASAR_API = String(window.SIGAP_API_URL || `${ASAL_APLIKASI}/api`).replace(/\/+$/, '');
 const API_BASE_URL = URL_DASAR_API;
 
 let idSesiSaatIni = 'SESI-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.random().toString(36).substring(2, 7).toUpperCase();
