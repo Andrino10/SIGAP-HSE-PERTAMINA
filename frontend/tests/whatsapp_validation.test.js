@@ -203,6 +203,15 @@ const requiredIds = [
 
 const indexHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 const styleSource = fs.readFileSync(path.join(__dirname, '..', 'style.css'), 'utf8');
+const inlineHandlers = [...indexHtml.matchAll(/\bonclick="([A-Za-z_$][\w$]*)\(/g)]
+  .map(match => match[1]);
+for (const handler of new Set(inlineHandlers)) {
+  assert.match(
+    appSource,
+    new RegExp(`function\\s+${handler}\\s*\\(`),
+    `Handler tombol ${handler} harus tersedia di app.js.`,
+  );
+}
 assert.match(
   indexHtml,
   /<textarea\b(?=[^>]*\bid="chat-input")(?=[^>]*\brows="2")[^>]*>/i,
