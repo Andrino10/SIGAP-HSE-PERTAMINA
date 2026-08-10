@@ -108,6 +108,28 @@ function run(script) {
   return vm.runInContext(script, context);
 }
 
+const categoryGroups = JSON.parse(run('JSON.stringify(KELOMPOK_KATEGORI_UI)'));
+const groupedCategories = categoryGroups.flatMap(group => group.kategori);
+const uniqueGroupedCategories = [...new Set(groupedCategories)].sort((a, b) => a.localeCompare(b, 'id'));
+const knowledgeEntries = JSON.parse(
+  fs.readFileSync(path.join(__dirname, '..', '..', 'backend', 'data', 'knowledge.json'), 'utf8'),
+);
+const knowledgeCategories = [...new Set(knowledgeEntries.map(item => item.kategori))]
+  .sort((a, b) => a.localeCompare(b, 'id'));
+
+assert.equal(categoryGroups.length, 6, 'Antarmuka harus merangkum kategori ke dalam 6 kelompok.');
+assert.equal(groupedCategories.length, uniqueGroupedCategories.length, 'Kategori tidak boleh muncul pada dua kelompok.');
+assert.deepEqual(uniqueGroupedCategories, knowledgeCategories, 'Seluruh kategori Knowledge Base harus tetap tersedia.');
+
+const groupedOptionHtml = run(`buatOpsiKategoriTerkelompok(
+  KELOMPOK_KATEGORI_UI.flatMap(group => group.kategori.map(nama => ({ nama, jumlah: 20 }))),
+  '',
+  '-- Pilih Kategori --',
+  true
+)`);
+assert.equal((groupedOptionHtml.match(/<optgroup\b/g) || []).length, 6, 'Dropdown harus memakai 6 optgroup.');
+assert.equal((groupedOptionHtml.match(/<option\b/g) || []).length, 28, 'Placeholder dan 27 kategori harus tetap ada.');
+
 function setCompleteReport() {
   elements['wa-tech-select'].value = '6281234567890';
   elements['wa-input-name'].value = 'Budi Santoso';

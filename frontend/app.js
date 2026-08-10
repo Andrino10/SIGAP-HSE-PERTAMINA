@@ -25,6 +25,83 @@ let muatanKonsultasiTertunda = null;
 let pembuatPemberhentiDebounce = null;
 let kategoriTerpilih = [];
 const MAKSIMAL_KATEGORI_TERPILIH = 5;
+const KELOMPOK_KATEGORI_UI = [
+  {
+    id: 'aktivitas-berisiko',
+    nama: 'Aktivitas Berisiko',
+    deskripsi: 'Izin kerja dan pekerjaan berisiko tinggi',
+    ikon: 'alert',
+    kategori: [
+      'Pekerjaan di Ketinggian',
+      'Pekerjaan Panas (Hot Work)',
+      'Ruang Terbatas (Confined Space)',
+      'Kelistrikan',
+      'Pengangkatan & Rigging',
+      'Penggunaan Tangga'
+    ]
+  },
+  {
+    id: 'peralatan-kendaraan',
+    nama: 'Peralatan & Kendaraan',
+    deskripsi: 'APD, alat kerja, kendaraan dan alat berat',
+    ikon: 'truck',
+    kategori: [
+      'Alat Berat & Kendaraan',
+      'Peralatan Kerja',
+      'Alat Pelindung Diri (APD)'
+    ]
+  },
+  {
+    id: 'kesehatan-lingkungan',
+    nama: 'Kesehatan & Lingkungan',
+    deskripsi: 'Paparan, ergonomi dan kondisi area kerja',
+    ikon: 'leaf',
+    kategori: [
+      'Bahan Kimia & B3',
+      'Lingkungan Kerja',
+      'Ergonomi',
+      'Higienitas & Konsumsi',
+      'Kelelahan & Jam Kerja',
+      'Kondisi Khusus'
+    ]
+  },
+  {
+    id: 'sistem-risiko',
+    nama: 'Sistem, Risiko & Umum',
+    deskripsi: 'SOP, audit, regulasi dan laporan campuran',
+    ikon: 'clipboard',
+    kategori: [
+      'Audit & Sistem Manajemen K3',
+      'Manajemen Risiko',
+      'Pengawasan & Prosedur',
+      'Standar & Regulasi',
+      'Umum'
+    ]
+  },
+  {
+    id: 'budaya-kompetensi',
+    nama: 'Budaya & Kompetensi',
+    deskripsi: 'Perilaku, pelatihan dan komunikasi keselamatan',
+    ikon: 'users',
+    kategori: [
+      'Budaya Keselamatan',
+      'Pelatihan & Kompetensi',
+      'Komunikasi & Pelaporan',
+      'Perilaku & Disiplin Kerja'
+    ]
+  },
+  {
+    id: 'insiden-koordinasi',
+    nama: 'Insiden & Koordinasi',
+    deskripsi: 'Darurat, investigasi dan pekerjaan simultan',
+    ikon: 'siren',
+    kategori: [
+      'Investigasi & Insiden',
+      'Tanggap Darurat',
+      'Koordinasi & SIMOPS'
+    ]
+  }
+];
 let pemicuModalTerakhir = null;
 let pemuatanFaqBerlangsung = false;
 let metadataKnowledge = null;
@@ -61,6 +138,49 @@ function kategoriUtamaTerpilih() {
 
 function adaKategoriTerpilih() {
   return daftarKategoriTerpilih().length > 0;
+}
+
+function kelompokkanDetailKategori(categories) {
+  const details = (Array.isArray(categories) ? categories : [])
+    .map(item => typeof item === 'string' ? { nama: item, jumlah: null } : item)
+    .filter(item => item && item.nama);
+  const belumDikelompokkan = new Map(details.map(item => [item.nama, item]));
+  const groups = KELOMPOK_KATEGORI_UI.map(group => ({
+    ...group,
+    items: group.kategori
+      .map(category => belumDikelompokkan.get(category))
+      .filter(Boolean)
+  })).filter(group => group.items.length > 0);
+
+  KELOMPOK_KATEGORI_UI.forEach(group => {
+    group.kategori.forEach(category => belumDikelompokkan.delete(category));
+  });
+  if (belumDikelompokkan.size > 0) {
+    groups.push({
+      id: 'kategori-lainnya',
+      nama: 'Kategori Lainnya',
+      deskripsi: 'Kategori tambahan dari Knowledge Base',
+      ikon: 'grid',
+      kategori: [...belumDikelompokkan.keys()],
+      items: [...belumDikelompokkan.values()]
+    });
+  }
+  return groups;
+}
+
+function buatOpsiKategoriTerkelompok(categories, nilaiAwal, labelAwal, tampilkanJumlah = false) {
+  const groups = kelompokkanDetailKategori(categories);
+  const options = [`<option value="${sanitasiHtml(nilaiAwal)}">${sanitasiHtml(labelAwal)}</option>`];
+  groups.forEach(group => {
+    options.push(`<optgroup label="${sanitasiHtml(group.nama)} (${group.items.length})">`);
+    group.items.forEach(item => {
+      const count = Number(item.jumlah) || 0;
+      const suffix = tampilkanJumlah ? ` (${count})` : '';
+      options.push(`<option value="${sanitasiHtml(item.nama)}">${sanitasiHtml(item.nama)}${suffix}</option>`);
+    });
+    options.push('</optgroup>');
+  });
+  return options.join('');
 }
 
 const DAFTAR_PETUGAS_HSE_FALLBACK = [
@@ -187,6 +307,7 @@ function terapkanAksesibilitasAntarmuka() {
   document.querySelectorAll('button:not([type])').forEach(tombol => tombol.type = 'button');
   document.querySelectorAll('.cat-card, .roster-card').forEach(kartu => {
     if (!kartu.hasAttribute('onclick')) return;
+    if (kartu.matches('button, a')) return;
     kartu.setAttribute('role', 'button');
     kartu.setAttribute('tabindex', '0');
     kartu.addEventListener('keydown', peristiwa => {
@@ -253,6 +374,10 @@ function terapkanAksesibilitasAntarmuka() {
 
 // Inisialisasi Aplikasi
 document.addEventListener('DOMContentLoaded', () => {
+  tampilkanKelompokKategoriBeranda();
+  tampilkanSeluruhKategoriChat(
+    KELOMPOK_KATEGORI_UI.flatMap(group => group.kategori.map(nama => ({ nama, jumlah: null })))
+  );
   terapkanIkonAntarmuka();
   terapkanAksesibilitasAntarmuka();
   inisialisasiValidasiWhatsApp();
@@ -364,20 +489,41 @@ function sakelarMenuSeluler() {
 }
 function toggleMobileMenu() { sakelarMenuSeluler(); }
 
-function sakelarDaftarKategori() {
-  const tombol = document.getElementById('toggle-category-list');
-  const kartuTambahan = document.querySelectorAll('.category-extra');
-  if (!tombol || kartuTambahan.length === 0) return;
-  const akanDibuka = tombol.getAttribute('aria-expanded') !== 'true';
-  kartuTambahan.forEach(kartu => kartu.hidden = !akanDibuka);
-  tombol.setAttribute('aria-expanded', String(akanDibuka));
-  tombol.innerHTML = `${buatIkonAntarmuka('grid')} ${akanDibuka ? 'Tampilkan lebih ringkas' : 'Lihat semua kategori'}`;
-  const keterangan = document.querySelector('.category-toolbar > span');
-  if (keterangan) keterangan.textContent = akanDibuka
-    ? 'Menampilkan seluruh 12 kategori operasional.'
-    : 'Menampilkan 6 kategori prioritas dari 12 kategori operasional.';
+function tampilkanKelompokKategoriBeranda() {
+  const container = document.querySelector('#section-services .category-grid');
+  if (!container) return;
+  container.innerHTML = KELOMPOK_KATEGORI_UI.map(group => `
+    <button class="cat-card category-group-card" type="button" onclick="openChatWithGroup('${group.id}')">
+      <div class="cat-card-header">
+        <span class="cat-icon" aria-hidden="true">${buatIkonAntarmuka(group.ikon)}</span>
+        <span class="cat-badge">${group.kategori.length} kategori</span>
+      </div>
+      <h3>${sanitasiHtml(group.nama)}</h3>
+      <p>${sanitasiHtml(group.deskripsi)}.</p>
+      <div class="cat-vendor-tag">${sanitasiHtml(group.kategori.slice(0, 3).join(' • '))}${group.kategori.length > 3 ? ' • lainnya' : ''}</div>
+    </button>
+  `).join('');
+
+  const toolbar = document.querySelector('#section-services .category-toolbar');
+  if (toolbar) {
+    toolbar.innerHTML = `
+      <span><strong>27 kategori tetap tersedia</strong> dalam 6 kelompok agar lebih cepat ditemukan.</span>
+      <button class="btn btn-secondary" type="button" data-ui-icon="book" onclick="switchView('services-panel')">Buka Knowledge Base</button>
+    `;
+  }
 }
-function toggleCategoryList() { sakelarDaftarKategori(); }
+
+function bukaChatDenganKelompok(idKelompok) {
+  alihkanTampilan('chatbot');
+  const target = document.querySelector(`.guided-cat-group[data-group="${idKelompok}"]`);
+  if (!target) return;
+  document.querySelectorAll('.guided-cat-group').forEach(group => {
+    group.open = group === target;
+  });
+  target.querySelector('summary')?.focus({ preventScroll: true });
+  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+function openChatWithGroup(groupId) { bukaChatDenganKelompok(groupId); }
 
 // ==========================================================================
 // 2. Pemeriksaan Kesehatan Backend & Memuat Petugas
@@ -400,20 +546,22 @@ function sinkronkanKategoriFormulir(details) {
   const consultationSelect = document.getElementById('cons-category');
   if (consultationSelect) {
     const previousValue = consultationSelect.value;
-    consultationSelect.innerHTML = [
-      '<option value="">-- Pilih Kategori Bahaya --</option>',
-      ...categories.map(item => `<option value="${sanitasiHtml(item.nama)}">${sanitasiHtml(item.nama)}</option>`)
-    ].join('');
+    consultationSelect.innerHTML = buatOpsiKategoriTerkelompok(
+      categories,
+      '',
+      '-- Pilih Kelompok dan Kategori Bahaya --'
+    );
     consultationSelect.value = categories.some(item => item.nama === previousValue) ? previousValue : '';
   }
 
   const whatsappSelect = document.getElementById('wa-input-category');
   if (whatsappSelect) {
     const previousValue = whatsappSelect.value;
-    whatsappSelect.innerHTML = [
-      '<option value="">-- Pilih Kategori Bahaya --</option>',
-      ...categories.map(item => `<option value="${sanitasiHtml(item.nama)}">${sanitasiHtml(item.nama)}</option>`)
-    ].join('');
+    whatsappSelect.innerHTML = buatOpsiKategoriTerkelompok(
+      categories,
+      '',
+      '-- Pilih Kelompok dan Kategori Bahaya --'
+    );
     whatsappSelect.value = categories.some(item => item.nama === previousValue)
       ? previousValue
       : '';
@@ -426,8 +574,12 @@ function sinkronkanKategoriFormulir(details) {
 function tampilkanSeluruhKategoriChat(categories = detailKategoriKnowledge) {
   const container = document.querySelector('.guided-cat-grid');
   if (!container || !Array.isArray(categories) || categories.length === 0) return;
+  const groups = kelompokkanDetailKategori(categories);
+  const selectedCategories = daftarKategoriTerpilih();
   const title = document.querySelector('.guided-cat-title');
-  if (title) title.textContent = `Pilih satu atau beberapa kategori (${categories.length} tersedia)`;
+  if (title) title.textContent = 'Pilih kelompok, lalu kategori yang sesuai';
+  const help = document.querySelector('.guided-cat-help');
+  if (help) help.textContent = `${groups.length} kelompok merangkum ${categories.length} kategori. Maksimal 5 kategori dapat dipilih; kategori Umum digunakan sendiri.`;
   const iconMap = {
     'Alat Pelindung Diri (APD)': 'hardhat',
     'Pekerjaan di Ketinggian': 'activity',
@@ -443,19 +595,38 @@ function tampilkanSeluruhKategoriChat(categories = detailKategoriKnowledge) {
     'Umum': 'process'
   };
 
-  container.innerHTML = categories.map(item => {
-    const officer = petugasBerdasarkanKategori(item.nama);
-    const officerName = officer?.nama || officer?.name || 'Tim HSE';
-    const active = daftarKategoriTerpilih().includes(item.nama);
+  container.innerHTML = groups.map(group => {
+    const selectedCount = group.items.filter(item => selectedCategories.includes(item.nama)).length;
+    const categoryCards = group.items.map(item => {
+      const officer = petugasBerdasarkanKategori(item.nama);
+      const officerName = officer?.nama || officer?.name || 'Tim HSE';
+      const active = selectedCategories.includes(item.nama);
+      return `
+        <button class="guided-cat-card ${active ? 'active' : ''}" type="button"
+          data-cat="${sanitasiHtml(item.nama)}" aria-pressed="${active}">
+          <span class="gcat-icon">${buatIkonAntarmuka(iconMap[item.nama] || 'shield')}</span>
+          <span class="gcat-info">
+            <span class="gcat-name">${sanitasiHtml(item.nama)}</span>
+            <span class="gcat-tech">${sanitasiHtml(officerName)} &bull; ${Number(item.jumlah) || 0} artikel</span>
+          </span>
+        </button>
+      `;
+    }).join('');
+
     return `
-      <button class="guided-cat-card ${active ? 'active' : ''}" type="button"
-        data-cat="${sanitasiHtml(item.nama)}" aria-pressed="${active}">
-        <span class="gcat-icon">${buatIkonAntarmuka(iconMap[item.nama] || 'shield')}</span>
-        <div class="gcat-info">
-          <span class="gcat-name">${sanitasiHtml(item.nama)}</span>
-          <span class="gcat-tech">${sanitasiHtml(officerName)} • ${Number(item.jumlah) || 0} artikel</span>
-        </div>
-      </button>
+      <details class="guided-cat-group ${selectedCount ? 'has-selection' : ''}"
+        data-group="${sanitasiHtml(group.id)}" data-total="${group.items.length}" ${selectedCount ? 'open' : ''}>
+        <summary>
+          <span class="guided-group-icon" aria-hidden="true">${buatIkonAntarmuka(group.ikon)}</span>
+          <span class="guided-group-copy">
+            <strong>${sanitasiHtml(group.nama)}</strong>
+            <small>${sanitasiHtml(group.deskripsi)}</small>
+          </span>
+          <span class="guided-group-count">${selectedCount ? `${selectedCount} dipilih` : `${group.items.length} kategori`}</span>
+          <span class="guided-group-chevron" aria-hidden="true"></span>
+        </summary>
+        <div class="guided-subcategory-grid">${categoryCards}</div>
+      </details>
     `;
   }).join('');
 
@@ -808,6 +979,14 @@ function perbaruiTampilanKategoriTerpilih() {
     k.setAttribute('aria-pressed', String(aktif));
   });
 
+  document.querySelectorAll('.guided-cat-group').forEach(group => {
+    const selectedCount = group.querySelectorAll('.guided-cat-card.active').length;
+    const total = Number(group.dataset.total) || group.querySelectorAll('.guided-cat-card').length;
+    group.classList.toggle('has-selection', selectedCount > 0);
+    const count = group.querySelector('.guided-group-count');
+    if (count) count.textContent = selectedCount > 0 ? `${selectedCount} dipilih` : `${total} kategori`;
+  });
+
   const tombolBersihkan = document.getElementById('btn-clear-cat');
   if (tombolBersihkan) tombolBersihkan.hidden = categories.length === 0;
 
@@ -907,6 +1086,11 @@ function bukaChatDenganKategori(namaKategori) {
   alihkanTampilan('chatbot');
   kategoriTerpilih = [];
   pilihKategori(namaKategori);
+
+  const categoryCard = [...document.querySelectorAll('.guided-cat-card')]
+    .find(card => card.dataset.cat === namaKategori);
+  const group = categoryCard?.closest('.guided-cat-group');
+  if (group) group.open = true;
 
   // Sinkronkan filter FAQ Knowledge Base ke kategori yang dipilih
   if (typeof saringKategoriFaq === 'function') {
@@ -1630,6 +1814,12 @@ function resetChatConversation() { resetPercakapanChat(); }
 // ==========================================================================
 let kategoriFaqAktif = 'Semua';
 
+function cariKelompokDariFilterFaq(filter) {
+  if (!String(filter).startsWith('kelompok:')) return null;
+  const groupId = String(filter).slice('kelompok:'.length);
+  return KELOMPOK_KATEGORI_UI.find(group => group.id === groupId) || null;
+}
+
 function eksekusiFilterFaq() {
   const elemenInput = document.getElementById('faq-search-input');
   const kueri = elemenInput ? elemenInput.value.toLowerCase().trim() : '';
@@ -1652,7 +1842,12 @@ function eksekusiFilterFaq() {
 
     // Category Filter match using precise ID Prefix and Category Name matching
     if (kategoriFaqAktif && kategoriFaqAktif !== 'Semua') {
-      if (!apakahCocokKategoriItem(item, kategoriFaqAktif)) {
+      const activeGroup = cariKelompokDariFilterFaq(kategoriFaqAktif);
+      const itemCategory = item.kategori || item.category || 'Umum';
+      const categoryMatches = activeGroup
+        ? activeGroup.kategori.includes(itemCategory)
+        : apakahCocokKategoriItem(item, kategoriFaqAktif);
+      if (!categoryMatches) {
         return false;
       }
     }
@@ -1695,18 +1890,7 @@ function saringKategoriFaq(namaKategori, elemenTombol) {
   // Update active status on category chip buttons
   const tombolTombol = document.querySelectorAll('#faq-cat-filters .chip-btn');
   tombolTombol.forEach(b => {
-    b.classList.remove('active');
-    if (elemenTombol && b === elemenTombol) {
-      b.classList.add('active');
-    } else if (kategoriFaqAktif) {
-      const btnTxt = b.textContent.toLowerCase();
-      const catNorm = kategoriFaqAktif.toLowerCase();
-      if (kategoriFaqAktif === 'Semua' && btnTxt.includes('semua')) {
-        b.classList.add('active');
-      } else if (kategoriFaqAktif !== 'Semua' && (btnTxt.includes(catNorm) || catNorm.includes(btnTxt.replace(/[^a-z0-9]/g, '')))) {
-        b.classList.add('active');
-      }
-    }
+    b.classList.toggle('active', b.dataset.filter === kategoriFaqAktif);
   });
 
   // Execute filter instantly without delay
@@ -1725,29 +1909,33 @@ function perbaruiKontrolKategoriFaq(entries, metadata = {}) {
   });
   const categories = Array.from(counts.entries())
     .sort(([a], [b]) => a.localeCompare(b, 'id'));
+  const categoryDetails = categories.map(([nama, jumlah]) => ({ nama, jumlah }));
+  const groups = kelompokkanDetailKategori(categoryDetails);
   const total = entries.length;
 
   const select = document.getElementById('faq-cat-select');
   if (select) {
-    select.innerHTML = [
-      `<option value="Semua">Semua Kategori Bahaya (${total} Artikel)</option>`,
-      ...categories.map(([category, count]) =>
-        `<option value="${sanitasiHtml(category)}">${sanitasiHtml(category)} (${count})</option>`
-      )
-    ].join('');
+    select.innerHTML = buatOpsiKategoriTerkelompok(
+      categoryDetails,
+      'Semua',
+      `Semua Kategori Bahaya (${total} Artikel)`,
+      true
+    );
     select.value = counts.has(kategoriFaqAktif) ? kategoriFaqAktif : 'Semua';
   }
 
   const chipContainer = document.getElementById('faq-cat-filters');
   if (chipContainer) {
     chipContainer.innerHTML = [
-      `<button class="chip-btn ${kategoriFaqAktif === 'Semua' ? 'active' : ''}" type="button" data-category="Semua">Semua (${total})</button>`,
-      ...categories.map(([category, count]) =>
-        `<button class="chip-btn ${kategoriFaqAktif === category ? 'active' : ''}" type="button" data-category="${sanitasiHtml(category)}">${sanitasiHtml(category)} (${count})</button>`
-      )
+      `<button class="chip-btn ${kategoriFaqAktif === 'Semua' ? 'active' : ''}" type="button" data-filter="Semua">Semua (${total})</button>`,
+      ...groups.map(group => {
+        const filter = `kelompok:${group.id}`;
+        const count = group.items.reduce((sum, item) => sum + (Number(item.jumlah) || 0), 0);
+        return `<button class="chip-btn ${kategoriFaqAktif === filter ? 'active' : ''}" type="button" data-filter="${sanitasiHtml(filter)}">${sanitasiHtml(group.nama)} (${count})</button>`;
+      })
     ].join('');
-    chipContainer.querySelectorAll('[data-category]').forEach(button => {
-      button.addEventListener('click', () => saringKategoriFaq(button.dataset.category, button));
+    chipContainer.querySelectorAll('[data-filter]').forEach(button => {
+      button.addEventListener('click', () => saringKategoriFaq(button.dataset.filter, button));
     });
   }
 
