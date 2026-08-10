@@ -31,6 +31,14 @@ let kategoriTerpilih = [];
 const MAKSIMAL_KATEGORI_TERPILIH = 5;
 const KUNCI_RIWAYAT_CHAT = 'sigap_hse_chat_sessions_v1';
 const KUNCI_SESI_CHAT_AKTIF = 'sigap_hse_active_chat_v1';
+const KATEGORI_PRIORITAS_MOBILE = [
+  'Alat Pelindung Diri (APD)',
+  'Pekerjaan di Ketinggian',
+  'Kelistrikan',
+  'Alat Berat & Kendaraan',
+  'Bahan Kimia & B3',
+  'Tanggap Darurat'
+];
 let daftarSesiChatLokal = [];
 let sedangMemulihkanSesiChat = false;
 let pengirimanChatBerlangsung = false;
@@ -579,26 +587,91 @@ function tampilkanKategoriInlineMobile(categories = detailKategoriKnowledge) {
   if (!container || !Array.isArray(categories) || categories.length === 0) return;
   const groups = kelompokkanDetailKategori(categories);
   const selectedCategories = daftarKategoriTerpilih();
-  container.innerHTML = groups.map(group => `
-    <section class="mobile-inline-category-group" aria-label="${sanitasiHtml(group.nama)}">
-      <div class="mobile-inline-category-group-title">
-        <strong>${sanitasiHtml(group.nama)}</strong>
-        <span>${group.items.length}</span>
+  const categoryMap = new Map(categories.map(item => [item.nama, item]));
+  const prioritas = KATEGORI_PRIORITAS_MOBILE.map(nama => categoryMap.get(nama)).filter(Boolean);
+  const kategoriLain = new Set(categories.map(item => item.nama).filter(nama => !KATEGORI_PRIORITAS_MOBILE.includes(nama)));
+  const selectedInOther = selectedCategories.some(category => kategoriLain.has(category));
+  const buatTombol = item => {
+    const active = selectedCategories.includes(item.nama);
+    return `
+      <button class="mobile-category-option ${active ? 'active' : ''}" type="button"
+        data-mobile-category="${sanitasiHtml(item.nama)}" aria-pressed="${active}">
+        <span>${sanitasiHtml(item.nama)}</span>
+        <small>${active ? 'Dipilih' : 'Pilih'}</small>
+      </button>
+    `;
+  };
+
+  const kelompokLain = groups.map(group => ({
+    ...group,
+    items: group.items.filter(item => kategoriLain.has(item.nama))
+  })).filter(group => group.items.length > 0);
+
+  container.innerHTML = `
+    <section class="mobile-category-quick" aria-label="Pilihan kategori cepat">
+      <div class="mobile-category-section-label">
+        <strong>Pilihan cepat</strong>
+        <span>Jenis bahaya yang paling sering dilaporkan</span>
       </div>
       <div class="mobile-inline-category-grid">
-        ${group.items.map(item => {
-          const active = selectedCategories.includes(item.nama);
-          return `
-            <button class="mobile-category-option ${active ? 'active' : ''}" type="button"
-              data-mobile-category="${sanitasiHtml(item.nama)}" aria-pressed="${active}">
-              <span>${sanitasiHtml(item.nama)}</span>
-              <small>${active ? 'Dipilih' : 'Pilih'}</small>
-            </button>
-          `;
-        }).join('')}
+        ${prioritas.map(buatTombol).join('')}
       </div>
     </section>
-  `).join('');
+    <button class="mobile-category-more-toggle" type="button" aria-expanded="${selectedInOther}">
+      <span>Lihat kategori lainnya</span>
+      <small>${kategoriLain.size} kategori</small>
+    </button>
+    <div class="mobile-category-all ${selectedInOther ? 'open' : ''}">
+      ${kelompokLain.map(group => `
+        <section class="mobile-inline-category-group" aria-label="${sanitasiHtml(group.nama)}">
+          <div class="mobile-inline-category-group-title">
+            <strong>${sanitasiHtml(group.nama)}</strong>
+            <span>${group.items.length}</span>
+          </div>
+          <div class="mobile-inline-category-grid">
+            ${group.items.map(buatTombol).join('')}
+          </div>
+        </section>
+      `).join('')}
+    </div>
+    <div class="mobile-category-empty" hidden>Tidak ada kategori yang cocok. Coba kata lain.</div>
+  `;
+
+  const allCategories = container.querySelector('.mobile-category-all');
+  const toggleAll = container.querySelector('.mobile-category-more-toggle');
+  const search = document.getElementById('mobile-category-search');
+  const empty = container.querySelector('.mobile-category-empty');
+  const setExpanded = expanded => {
+    allCategories?.classList.toggle('open', expanded);
+    toggleAll?.setAttribute('aria-expanded', String(expanded));
+    const label = toggleAll?.querySelector('span');
+    if (label) label.textContent = expanded ? 'Sembunyikan kategori lainnya' : 'Lihat kategori lainnya';
+  };
+  toggleAll?.addEventListener('click', () => {
+    toggleAll.dataset.manualOpen = allCategories?.classList.contains('open') ? 'false' : 'true';
+    setExpanded(toggleAll.dataset.manualOpen === 'true');
+  });
+  if (search) {
+    search.oninput = () => {
+      const query = search.value.trim().toLocaleLowerCase('id-ID');
+      let visibleCount = 0;
+      container.querySelectorAll('.mobile-category-option').forEach(button => {
+        const matched = !query || button.dataset.mobileCategory.toLocaleLowerCase('id-ID').includes(query);
+        button.hidden = !matched;
+        if (matched) visibleCount += 1;
+      });
+      container.querySelectorAll('.mobile-inline-category-group').forEach(group => {
+        group.hidden = ![...group.querySelectorAll('.mobile-category-option')].some(button => !button.hidden);
+      });
+      container.querySelector('.mobile-category-quick').hidden = Boolean(query)
+        && ![...container.querySelectorAll('.mobile-category-quick .mobile-category-option')].some(button => !button.hidden);
+      if (query) setExpanded(true);
+      else setExpanded(toggleAll?.dataset.manualOpen === 'true' || selectedInOther);
+      if (empty) empty.hidden = visibleCount > 0;
+    };
+    search.value = '';
+  }
+
   container.querySelectorAll('[data-mobile-category]').forEach(button => {
     button.addEventListener('click', () => pilihKategori(button.dataset.mobileCategory));
   });
@@ -1831,6 +1904,54 @@ async function tanganiMasalahSelesai(apakahSelesai) {
 }
 function handleIssueResolved(isResolved) { tanganiMasalahSelesai(isResolved); }
 
+function pecahKalimatAnalisisRisiko(teks) {
+  const nilai = String(teks || '').replace(/\s+/g, ' ').trim();
+  const prefixMatch = nilai.match(/^(Kondisi #\d+)\s*:\s*/i);
+  const judul = prefixMatch ? prefixMatch[1] : '';
+  const isi = prefixMatch ? nilai.slice(prefixMatch[0].length) : nilai;
+  const kalimat = (isi.match(/[^.!?]+(?:[.!?]+|$)/g) || [isi])
+    .map(item => item.trim())
+    .filter(Boolean);
+  return { judul, kalimat };
+}
+
+function labelPoinAnalisisRisiko(kalimat, indeks) {
+  const nilai = String(kalimat || '').toLocaleLowerCase('id-ID');
+  if (/mekanisme|berkaitan|sumber bahaya/.test(nilai)) return 'Mengapa berbahaya';
+  if (/konsekuensi|dampak|bila|berisiko|meningkatkan risiko/.test(nilai)) return 'Dampak potensial';
+  if (/faktor|tingkat risiko|paparan/.test(nilai)) return 'Faktor penentu';
+  if (/verifik|dicocokkan|jsa|sop|izin kerja/.test(nilai)) return 'Verifikasi lapangan';
+  return `Analisis ${indeks + 1}`;
+}
+
+function buatHtmlAnalisisRisiko(teks, indeksKelompok) {
+  const { judul, kalimat } = pecahKalimatAnalisisRisiko(teks);
+  if (kalimat.length === 0) return '';
+  const ringkasan = sanitasiHtml(kalimat[0]);
+  const kelompokPoin = new Map();
+  kalimat.slice(1).forEach((item, indeks) => {
+    const label = labelPoinAnalisisRisiko(item, indeks);
+    if (!kelompokPoin.has(label)) kelompokPoin.set(label, []);
+    kelompokPoin.get(label).push(item);
+  });
+  const poin = [...kelompokPoin.entries()].map(([label, items]) => `
+      <div class="res-analysis-point">
+        <span>${sanitasiHtml(label)}</span>
+        <p>${sanitasiHtml(items.join(' '))}</p>
+      </div>
+    `).join('');
+  return `
+    <section class="res-analysis-case">
+      ${judul ? `<div class="res-analysis-heading">${sanitasiHtml(judul)}</div>` : (indeksKelompok > 0 ? `<div class="res-analysis-heading">Analisis tambahan</div>` : '')}
+      <div class="res-analysis-summary">
+        <span aria-hidden="true"></span>
+        <p>${ringkasan}</p>
+      </div>
+      ${poin ? `<div class="res-analysis-points">${poin}</div>` : ''}
+    </section>
+  `;
+}
+
 // Format Respons 6-Bagian Analisis HSE ke HTML Terstruktur (Bebas Tag <br> Mentah & Sangat Rapi)
 function formatHtmlResponsTerstruktur(teksMentah) {
   if (!teksMentah) return '';
@@ -1926,19 +2047,17 @@ function formatHtmlResponsTerstruktur(teksMentah) {
   if (bagian.penjelasan.length > 0) {
     const pFilt = bagian.penjelasan.filter(p => p.trim() !== '' && p.trim() !== '-');
     if (pFilt.length > 0) {
-      const paragrafPenjelasan = pFilt.map(p => {
-        const pClean = sanitasiHtml(p);
-        if (pClean.startsWith('Pelanggaran #')) {
-          return `<div class="res-analysis-heading">${pClean}</div>`;
-        } else if (pClean.startsWith('Dampak')) {
-          return `<div class="res-analysis-impact">${pClean}</div>`;
-        }
-        return `<p class="res-analysis-text">${pClean}</p>`;
-      }).join('');
+      const paragrafPenjelasan = pFilt.map(buatHtmlAnalisisRisiko).join('');
 
       html += `
         <div class="res-analysis-block">
-          <div class="res-section-title">Penjelasan risiko dan analisis bahaya</div>
+          <div class="res-section-heading">
+            <span class="res-section-icon">${buatIkonAntarmuka('alert')}</span>
+            <div>
+              <div class="res-section-title">Penjelasan risiko</div>
+              <small>Ringkasan analisis bahaya berdasarkan Knowledge Base HSE</small>
+            </div>
+          </div>
           ${paragrafPenjelasan}
         </div>
       `;

@@ -719,11 +719,15 @@
         <section class="mobile-inline-category-picker" id="mobile-inline-category-picker" aria-labelledby="mobile-inline-category-title" aria-hidden="true">
           <div class="mobile-inline-category-header">
             <div>
-              <strong id="mobile-inline-category-title">Pilih kategori bahaya</strong>
-              <span>Ketuk satu kategori untuk melanjutkan</span>
+              <strong id="mobile-inline-category-title">Apa jenis bahayanya?</strong>
+              <span>Pilih yang paling mendekati. Kategori dapat diubah nanti.</span>
             </div>
             <button class="mobile-inline-category-close" type="button" aria-label="Tutup daftar kategori" onclick="closeMobileCategoryPanel()">×</button>
           </div>
+          <label class="mobile-category-search-field" for="mobile-category-search">
+            <span>Cari</span>
+            <input id="mobile-category-search" type="search" placeholder="Contoh: kabel, APD, bahan kimia…" autocomplete="off" />
+          </label>
           <div class="mobile-inline-category-options" id="mobile-inline-category-options"></div>
         </section>
 

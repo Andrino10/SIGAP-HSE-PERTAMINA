@@ -220,6 +220,7 @@ assert.match(
 assert.match(indexHtml, /id="mobile-category-trigger"/i, 'Chatbot harus memiliki pemicu kategori ringkas di mobile.');
 assert.match(indexHtml, /id="mobile-inline-category-picker"/i, 'Kategori mobile harus tersedia langsung di dalam area chatbot.');
 assert.match(indexHtml, /id="mobile-inline-category-options"/i, 'Kategori mobile harus memiliki daftar pilihan yang dapat digulir.');
+assert.match(indexHtml, /id="mobile-category-search"/i, 'Kategori mobile harus dapat dicari dengan bahasa sederhana.');
 assert.match(indexHtml, /id="mobile-category-backdrop"/i, 'Pemilih kategori mobile harus memiliki backdrop yang dapat ditutup.');
 assert.match(indexHtml, /id="chat-session-drawer"/i, 'Chatbot mobile harus memiliki drawer riwayat sesi.');
 assert.match(
@@ -237,6 +238,14 @@ assert.match(styleSource, /\.chat-drawer-history\s*\{[^}]*overflow-y:\s*auto/s, 
 assert.match(styleSource, /#view-chatbot \.chat-messages-stream\s*\{[^}]*touch-action:\s*pan-y/s, 'Isi chat harus mendukung gestur gulir vertikal.');
 assert.match(styleSource, /\.mobile-inline-category-picker\.open\s*\{[^}]*display:\s*flex/s, 'Pemilih kategori inline harus terlihat ketika dibuka.');
 assert.match(styleSource, /\.mobile-inline-category-options\s*\{[^}]*overflow-y:\s*auto/s, 'Daftar kategori inline harus dapat digulir di mobile.');
+const structuredRiskHtml = run(`formatStructuredResponseHTML(
+  'PENJELASAN RISIKO\\nKabel terbuka berada di jalur pekerja. Mekanisme bahayanya adalah kontak langsung dengan konduktor. Konsekuensi yang perlu dicegah adalah sengatan dan kebakaran. Faktor penentu meliputi tegangan dan jumlah pekerja terpapar. Temuan harus diverifikasi terhadap kondisi aktual dan SOP.'
+)`);
+assert.match(structuredRiskHtml, /res-analysis-summary/, 'Analisis risiko harus memiliki ringkasan temuan.');
+assert.match(structuredRiskHtml, /res-analysis-points/, 'Analisis risiko panjang harus dipecah menjadi poin yang mudah dibaca.');
+assert.match(structuredRiskHtml, /Mengapa berbahaya/, 'Mekanisme bahaya harus diberi label yang jelas.');
+assert.match(structuredRiskHtml, /Dampak potensial/, 'Dampak risiko harus diberi label yang jelas.');
+assert.match(structuredRiskHtml, /Verifikasi lapangan/, 'Kebutuhan verifikasi harus diberi label yang jelas.');
 assert.equal(
   run("buatJudulSesiChat('Kabel terbuka di area pompa utama')"),
   'Kabel terbuka di area pompa utama',
