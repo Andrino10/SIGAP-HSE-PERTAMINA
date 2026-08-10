@@ -387,6 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
   tampilkanSeluruhKategoriChat(
     KELOMPOK_KATEGORI_UI.flatMap(group => group.kategori.map(nama => ({ nama, jumlah: null })))
   );
+  pasangOverlayChatPadaBody();
   inisialisasiRiwayatSesiChat();
   terapkanIkonAntarmuka();
   terapkanAksesibilitasAntarmuka();
@@ -510,6 +511,16 @@ function apakahChatMobile() {
   return typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 820px)').matches;
 }
 
+function pasangOverlayChatPadaBody() {
+  [
+    document.getElementById('mobile-category-backdrop'),
+    document.getElementById('chat-drawer-backdrop'),
+    document.getElementById('chat-session-drawer')
+  ].forEach(element => {
+    if (element && element.parentElement !== document.body) document.body.appendChild(element);
+  });
+}
+
 function gulirKePesanChatTerbaru() {
   const aliran = document.getElementById('chat-messages');
   if (aliran) aliran.scrollTop = aliran.scrollHeight;
@@ -569,6 +580,7 @@ function inisialisasiModeChatSeluler() {
   const input = document.getElementById('chat-input');
   if (!input) return;
   const viewport = window.visualViewport;
+  let tinggiViewportNormal = Math.round(window.innerHeight || document.documentElement.clientHeight);
 
   const sinkronkanViewport = () => {
     const tinggiViewport = Math.round(viewport?.height || window.innerHeight || document.documentElement.clientHeight);
@@ -579,16 +591,23 @@ function inisialisasiModeChatSeluler() {
       document.body.classList.remove('chat-keyboard-open', 'chat-composer-active');
       return;
     }
+    if (document.activeElement !== input) {
+      tinggiViewportNormal = tinggiViewport;
+    }
+    const selisihViewport = viewport
+      ? Math.max(0, Math.round(window.innerHeight - viewport.height))
+      : Math.max(0, tinggiViewportNormal - tinggiViewport);
     const keyboardTerbuka = apakahChatMobile()
       && document.activeElement === input
-      && Boolean(viewport && window.innerHeight - viewport.height > 100);
+      && selisihViewport > 100;
     document.body.classList.toggle('chat-keyboard-open', keyboardTerbuka);
+    document.body.classList.toggle('chat-composer-active', keyboardTerbuka);
     if (keyboardTerbuka) window.requestAnimationFrame(gulirKePesanChatTerbaru);
   };
 
   input.addEventListener('focus', () => {
     tutupDrawerChat(false);
-    document.body.classList.add('chat-composer-active');
+    sinkronkanViewport();
     window.setTimeout(() => {
       sinkronkanViewport();
       gulirKePesanChatTerbaru();
@@ -852,9 +871,11 @@ function switchChatSession(sessionId) { pilihSesiChat(sessionId); }
 function bukaDrawerChat() {
   if (!apakahChatMobile()) return;
   document.getElementById('chat-input')?.blur();
+  document.body.classList.remove('chat-keyboard-open', 'chat-composer-active');
   tutupPemilihKategoriMobile(false);
   const drawer = document.getElementById('chat-session-drawer');
   const backdrop = document.getElementById('chat-drawer-backdrop');
+  if (drawer) drawer.inert = false;
   drawer?.classList.add('open');
   drawer?.setAttribute('aria-hidden', 'false');
   if (backdrop) backdrop.hidden = false;
@@ -869,6 +890,7 @@ function tutupDrawerChat(kembalikanFokus = true) {
   const backdrop = document.getElementById('chat-drawer-backdrop');
   drawer?.classList.remove('open');
   drawer?.setAttribute('aria-hidden', 'true');
+  if (drawer) drawer.inert = true;
   if (backdrop) backdrop.hidden = true;
   document.body.classList.remove('chat-drawer-open');
   const trigger = document.getElementById('chat-drawer-trigger');

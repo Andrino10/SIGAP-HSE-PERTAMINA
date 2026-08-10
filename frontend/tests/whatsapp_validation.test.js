@@ -202,6 +202,7 @@ const requiredIds = [
 ];
 
 const indexHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+const styleSource = fs.readFileSync(path.join(__dirname, '..', 'style.css'), 'utf8');
 assert.match(
   indexHtml,
   /<textarea\b(?=[^>]*\bid="chat-input")(?=[^>]*\brows="2")[^>]*>/i,
@@ -210,10 +211,19 @@ assert.match(
 assert.match(indexHtml, /id="mobile-category-trigger"/i, 'Chatbot harus memiliki pemicu kategori ringkas di mobile.');
 assert.match(indexHtml, /id="mobile-category-backdrop"/i, 'Pemilih kategori mobile harus memiliki backdrop yang dapat ditutup.');
 assert.match(indexHtml, /id="chat-session-drawer"/i, 'Chatbot mobile harus memiliki drawer riwayat sesi.');
+assert.match(
+  indexHtml,
+  /<aside\b(?=[^>]*\bid="chat-session-drawer")(?=[^>]*\binert\b)[^>]*>/i,
+  'Drawer tersembunyi tidak boleh menangkap fokus atau sentuhan.',
+);
 assert.match(indexHtml, /id="chat-session-list"/i, 'Drawer harus menyediakan daftar sesi percakapan.');
 assert.match(appSource, /window\.visualViewport/, 'Tinggi chatbot harus mengikuti viewport saat keyboard mobile terbuka.');
+assert.match(appSource, /document\.body\.appendChild\(element\)/, 'Overlay mobile harus dipasang di body agar tidak terpotong kontainer chat.');
 assert.match(appSource, /window\.localStorage/, 'Riwayat sesi chatbot harus disimpan pada perangkat pengguna.');
 assert.doesNotMatch(appSource, /\/chatbot\/reset/, 'Membuat chat baru tidak boleh menghapus sesi lama di backend.');
+assert.match(styleSource, /\.chat-session-drawer\.open\s*\{[^}]*pointer-events:\s*auto/s, 'Drawer aktif harus dapat menerima sentuhan.');
+assert.match(styleSource, /\.chat-drawer-history\s*\{[^}]*overflow-y:\s*auto/s, 'Daftar sesi harus dapat digulir vertikal.');
+assert.match(styleSource, /#view-chatbot \.chat-messages-stream\s*\{[^}]*touch-action:\s*pan-y/s, 'Isi chat harus mendukung gestur gulir vertikal.');
 assert.equal(
   run("buatJudulSesiChat('Kabel terbuka di area pompa utama')"),
   'Kabel terbuka di area pompa utama',
