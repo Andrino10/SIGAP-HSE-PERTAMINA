@@ -711,10 +711,21 @@
             <span>Kategori aktif</span>
             <strong id="mobile-category-summary">Belum dipilih</strong>
           </div>
-          <button class="btn btn-sm btn-secondary" id="mobile-category-trigger" type="button" aria-controls="category-selector-bar" aria-expanded="false" onclick="openMobileCategoryPanel()">
+          <button class="btn btn-sm btn-secondary" id="mobile-category-trigger" type="button" aria-controls="mobile-inline-category-picker" aria-expanded="false" onclick="openMobileCategoryPanel()">
             Pilih
           </button>
         </div>
+
+        <section class="mobile-inline-category-picker" id="mobile-inline-category-picker" aria-labelledby="mobile-inline-category-title" aria-hidden="true">
+          <div class="mobile-inline-category-header">
+            <div>
+              <strong id="mobile-inline-category-title">Pilih kategori bahaya</strong>
+              <span>Ketuk satu kategori untuk melanjutkan</span>
+            </div>
+            <button class="mobile-inline-category-close" type="button" aria-label="Tutup daftar kategori" onclick="closeMobileCategoryPanel()">×</button>
+          </div>
+          <div class="mobile-inline-category-options" id="mobile-inline-category-options"></div>
+        </section>
 
         <!-- Mandatory Category Required Alert Banner -->
         <div class="cat-required-wrap">

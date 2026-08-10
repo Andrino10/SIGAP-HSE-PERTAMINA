@@ -574,6 +574,36 @@ function siapkanPanelKategoriMobile(panel) {
   if (help) help.textContent = 'Ketuk kategori yang paling sesuai. Pilihan langsung diterapkan ke percakapan.';
 }
 
+function tampilkanKategoriInlineMobile(categories = detailKategoriKnowledge) {
+  const container = document.getElementById('mobile-inline-category-options');
+  if (!container || !Array.isArray(categories) || categories.length === 0) return;
+  const groups = kelompokkanDetailKategori(categories);
+  const selectedCategories = daftarKategoriTerpilih();
+  container.innerHTML = groups.map(group => `
+    <section class="mobile-inline-category-group" aria-label="${sanitasiHtml(group.nama)}">
+      <div class="mobile-inline-category-group-title">
+        <strong>${sanitasiHtml(group.nama)}</strong>
+        <span>${group.items.length}</span>
+      </div>
+      <div class="mobile-inline-category-grid">
+        ${group.items.map(item => {
+          const active = selectedCategories.includes(item.nama);
+          return `
+            <button class="mobile-category-option ${active ? 'active' : ''}" type="button"
+              data-mobile-category="${sanitasiHtml(item.nama)}" aria-pressed="${active}">
+              <span>${sanitasiHtml(item.nama)}</span>
+              <small>${active ? 'Dipilih' : 'Pilih'}</small>
+            </button>
+          `;
+        }).join('')}
+      </div>
+    </section>
+  `).join('');
+  container.querySelectorAll('[data-mobile-category]').forEach(button => {
+    button.addEventListener('click', () => pilihKategori(button.dataset.mobileCategory));
+  });
+}
+
 function gulirKePesanChatTerbaru() {
   const aliran = document.getElementById('chat-messages');
   if (aliran) aliran.scrollTop = aliran.scrollHeight;
@@ -582,6 +612,23 @@ function gulirKePesanChatTerbaru() {
 function bukaPemilihKategoriMobile() {
   const panel = document.getElementById('category-selector-bar');
   if (!panel) return;
+  const inlinePicker = document.getElementById('mobile-inline-category-picker');
+  if (apakahChatMobile() && inlinePicker) {
+    tutupDrawerChat(false);
+    inlinePicker.classList.add('open');
+    inlinePicker.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('mobile-inline-category-open');
+    document.body.classList.remove('mobile-category-open');
+    const backdrop = document.getElementById('mobile-category-backdrop');
+    if (backdrop) backdrop.hidden = true;
+    document.getElementById('mobile-category-trigger')?.setAttribute('aria-expanded', 'true');
+    window.requestAnimationFrame(() => {
+      const active = inlinePicker.querySelector('.mobile-category-option.active');
+      const options = document.getElementById('mobile-inline-category-options');
+      if (active && options) options.scrollTop = Math.max(0, active.offsetTop - 70);
+    });
+    return;
+  }
   if (!apakahChatMobile()) {
     panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
     return;
@@ -608,6 +655,10 @@ function openMobileCategoryPanel() { bukaPemilihKategoriMobile(); }
 function tutupPemilihKategoriMobile(kembalikanFokus = true) {
   const panel = document.getElementById('category-selector-bar');
   const backdrop = document.getElementById('mobile-category-backdrop');
+  const inlinePicker = document.getElementById('mobile-inline-category-picker');
+  inlinePicker?.classList.remove('open');
+  inlinePicker?.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('mobile-inline-category-open');
   if (panel) {
     panel.classList.remove('mobile-open');
     panel.removeAttribute('role');
@@ -667,6 +718,7 @@ function inisialisasiModeChatSeluler() {
 
   input.addEventListener('focus', () => {
     tutupDrawerChat(false);
+    tutupPemilihKategoriMobile(false);
     sinkronkanViewport();
     window.setTimeout(() => {
       sinkronkanViewport();
@@ -1140,6 +1192,7 @@ function tampilkanSeluruhKategoriChat(categories = detailKategoriKnowledge) {
   container.querySelectorAll('.guided-cat-card').forEach(card => {
     card.addEventListener('click', () => pilihKategori(card.dataset.cat));
   });
+  tampilkanKategoriInlineMobile(categories);
   if (document.body.classList.contains('mobile-category-open')) {
     siapkanPanelKategoriMobile(document.getElementById('category-selector-bar'));
   }
@@ -1481,12 +1534,14 @@ function loadStarterQuestions() { muatPertanyaanAwal(); }
 
 function perbaruiTampilanKategoriTerpilih() {
   const categories = daftarKategoriTerpilih();
-  const kartuKartu = document.querySelectorAll('.guided-cat-card, .cat-select-btn');
+  const kartuKartu = document.querySelectorAll('.guided-cat-card, .cat-select-btn, .mobile-category-option');
   kartuKartu.forEach(k => {
-    const kCat = k.getAttribute('data-cat');
+    const kCat = k.getAttribute('data-cat') || k.getAttribute('data-mobile-category');
     const aktif = Boolean(kCat && categories.includes(kCat));
     k.classList.toggle('active', aktif);
     k.setAttribute('aria-pressed', String(aktif));
+    const status = k.querySelector('small');
+    if (k.classList.contains('mobile-category-option') && status) status.textContent = aktif ? 'Dipilih' : 'Pilih';
   });
 
   document.querySelectorAll('.guided-cat-group').forEach(group => {
@@ -1512,6 +1567,14 @@ function perbaruiTampilanKategoriTerpilih() {
   }
   if (pemicuKategoriMobile) pemicuKategoriMobile.textContent = categories.length > 0 ? 'Ubah' : 'Pilih';
   barKategoriMobile?.classList.toggle('has-selection', categories.length > 0);
+
+  const inlinePicker = document.getElementById('mobile-inline-category-picker');
+  if (inlinePicker && apakahChatMobile() && categories.length === 0) {
+    inlinePicker.classList.add('open');
+    inlinePicker.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('mobile-inline-category-open');
+    pemicuKategoriMobile?.setAttribute('aria-expanded', 'true');
+  }
 
   tampilkanTombolContohKategori(categories);
 
@@ -1574,7 +1637,8 @@ function pilihKategori(namaKategori) {
   kategoriTerpilih = categories;
   perbaruiTampilanKategoriTerpilih();
   perbaruiKategoriPadaSesiChat();
-  if (!sudahDipilih && apakahChatMobile() && document.body.classList.contains('mobile-category-open')) {
+  const inlinePickerTerbuka = document.getElementById('mobile-inline-category-picker')?.classList.contains('open');
+  if (!sudahDipilih && apakahChatMobile() && (inlinePickerTerbuka || document.body.classList.contains('mobile-category-open'))) {
     window.setTimeout(() => {
       tutupPemilihKategoriMobile(false);
       document.getElementById('chat-input')?.focus();

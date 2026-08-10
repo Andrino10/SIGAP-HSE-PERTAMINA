@@ -218,6 +218,8 @@ assert.match(
   'Input chatbot mobile harus mendukung pesan dua baris.',
 );
 assert.match(indexHtml, /id="mobile-category-trigger"/i, 'Chatbot harus memiliki pemicu kategori ringkas di mobile.');
+assert.match(indexHtml, /id="mobile-inline-category-picker"/i, 'Kategori mobile harus tersedia langsung di dalam area chatbot.');
+assert.match(indexHtml, /id="mobile-inline-category-options"/i, 'Kategori mobile harus memiliki daftar pilihan yang dapat digulir.');
 assert.match(indexHtml, /id="mobile-category-backdrop"/i, 'Pemilih kategori mobile harus memiliki backdrop yang dapat ditutup.');
 assert.match(indexHtml, /id="chat-session-drawer"/i, 'Chatbot mobile harus memiliki drawer riwayat sesi.');
 assert.match(
@@ -233,6 +235,8 @@ assert.doesNotMatch(appSource, /\/chatbot\/reset/, 'Membuat chat baru tidak bole
 assert.match(styleSource, /\.chat-session-drawer\.open\s*\{[^}]*pointer-events:\s*auto/s, 'Drawer aktif harus dapat menerima sentuhan.');
 assert.match(styleSource, /\.chat-drawer-history\s*\{[^}]*overflow-y:\s*auto/s, 'Daftar sesi harus dapat digulir vertikal.');
 assert.match(styleSource, /#view-chatbot \.chat-messages-stream\s*\{[^}]*touch-action:\s*pan-y/s, 'Isi chat harus mendukung gestur gulir vertikal.');
+assert.match(styleSource, /\.mobile-inline-category-picker\.open\s*\{[^}]*display:\s*flex/s, 'Pemilih kategori inline harus terlihat ketika dibuka.');
+assert.match(styleSource, /\.mobile-inline-category-options\s*\{[^}]*overflow-y:\s*auto/s, 'Daftar kategori inline harus dapat digulir di mobile.');
 assert.equal(
   run("buatJudulSesiChat('Kabel terbuka di area pompa utama')"),
   'Kabel terbuka di area pompa utama',
