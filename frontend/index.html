@@ -666,7 +666,7 @@
             </div>
           </div>
           <button class="btn btn-sm btn-secondary" onclick="resetChatConversation()" title="Mulai Percakapan Baru">
-             Percakapan Baru
+             Mulai Baru
           </button>
         </div>
 
@@ -713,7 +713,7 @@
 
         <!-- Chat Input Footer -->
         <div class="chat-input-bar">
-          <input type="text" id="chat-input" class="chat-input-field" placeholder="Silakan pilih salah satu Kategori Bahaya di atas terlebih dahulu..." disabled onkeydown="handleChatKeyDown(event)" />
+          <textarea id="chat-input" class="chat-input-field" rows="2" placeholder="Pilih kategori di atas untuk mulai." disabled onkeydown="handleChatKeyDown(event)"></textarea>
           <button class="btn btn-primary" id="btn-send-chat" disabled onclick="sendChatMessage()">
             Kirim
           </button>

@@ -1022,8 +1022,8 @@ function perbaruiTampilanKategoriTerpilih() {
   if (elemenInput) {
     elemenInput.disabled = categories.length === 0;
     elemenInput.placeholder = categories.length > 0
-      ? `Tuliskan kondisi bahaya untuk ${categories.length} kategori terpilih... (Tekan Enter atau Kirim)`
-      : 'Pilih minimal satu kategori bahaya terlebih dahulu';
+      ? `Jelaskan kondisi bahaya untuk ${categories.length} kategori terpilih...`
+      : 'Pilih kategori di atas untuk mulai.';
   }
   if (tombolKirim) {
     tombolKirim.disabled = categories.length === 0;
