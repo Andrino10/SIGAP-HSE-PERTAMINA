@@ -706,37 +706,12 @@
           </button>
         </div>
 
-        <div class="chat-mobile-category-bar">
-          <div class="chat-mobile-category-copy">
-            <span>Kategori aktif</span>
-            <strong id="mobile-category-summary">Belum dipilih</strong>
-          </div>
-          <button class="btn btn-sm btn-secondary" id="mobile-category-trigger" type="button" aria-controls="mobile-inline-category-picker" aria-expanded="false" onclick="openMobileCategoryPanel()">
-            Pilih
-          </button>
-        </div>
-
-        <section class="mobile-inline-category-picker" id="mobile-inline-category-picker" aria-labelledby="mobile-inline-category-title" aria-hidden="true">
-          <div class="mobile-inline-category-header">
-            <div>
-              <strong id="mobile-inline-category-title">Apa jenis bahayanya?</strong>
-              <span>Pilih yang paling mendekati. Kategori dapat diubah nanti.</span>
-            </div>
-            <button class="mobile-inline-category-close" type="button" aria-label="Tutup daftar kategori" onclick="closeMobileCategoryPanel()">×</button>
-          </div>
-          <label class="mobile-category-search-field" for="mobile-category-search">
-            <span>Cari</span>
-            <input id="mobile-category-search" type="search" placeholder="Contoh: kabel, APD, bahan kimia…" autocomplete="off" />
-          </label>
-          <div class="mobile-inline-category-options" id="mobile-inline-category-options"></div>
-        </section>
-
         <!-- Mandatory Category Required Alert Banner -->
         <div class="cat-required-wrap">
-          <div class="cat-req-banner" id="cat-req-banner">
+          <div class="cat-req-banner optional" id="cat-req-banner">
             <span></span>
             <div id="cat-req-text">
-              <strong>Langkah 1 (Wajib):</strong> Pilih satu atau beberapa <strong>Kategori Bahaya</strong> di atas untuk membuka kolom pesan percakapan.
+              <strong>Kategori bersifat fleksibel:</strong> Anda dapat memilih kategori atau langsung menulis laporan agar sistem menentukannya.
             </div>
           </div>
         </div>
@@ -754,7 +729,7 @@
           <div class="chat-bubble system-bubble">
             <div class="bubble-sender">SIGAP-AI HSE Companion</div>
             <div class="bubble-text">
-              Selamat datang di Sistem Pendamping Keselamatan Kerja! Pilih satu atau beberapa kategori bahaya, kemudian laporkan kondisi keselamatan yang Anda temui di area kerja.
+              Selamat datang di Sistem Pendamping Keselamatan Kerja! Langsung tuliskan kondisi bahaya yang Anda temui. Sistem akan membantu menentukan kategorinya secara otomatis.
             </div>
           </div>
         </div>
@@ -772,10 +747,35 @@
           </div>
         </div>
 
+        <div class="chat-mobile-category-bar">
+          <div class="chat-mobile-category-copy">
+            <span>Kategori laporan</span>
+            <strong id="mobile-category-summary">Akan dideteksi dari pesan</strong>
+          </div>
+          <button class="btn btn-sm btn-secondary" id="mobile-category-trigger" type="button" aria-controls="mobile-inline-category-picker" aria-expanded="false" onclick="openMobileCategoryPanel()">
+            Pilih manual
+          </button>
+        </div>
+
+        <section class="mobile-inline-category-picker" id="mobile-inline-category-picker" aria-labelledby="mobile-inline-category-title" aria-hidden="true">
+          <div class="mobile-inline-category-header">
+            <div>
+              <strong id="mobile-inline-category-title">Pilih kategori secara manual</strong>
+              <span>Opsional—pilih jika Anda sudah mengetahui jenis bahayanya.</span>
+            </div>
+            <button class="mobile-inline-category-close" type="button" aria-label="Tutup daftar kategori" onclick="closeMobileCategoryPanel()">×</button>
+          </div>
+          <label class="mobile-category-search-field" for="mobile-category-search">
+            <span>Cari</span>
+            <input id="mobile-category-search" type="search" placeholder="Contoh: kabel, APD, bahan kimia…" autocomplete="off" />
+          </label>
+          <div class="mobile-inline-category-options" id="mobile-inline-category-options"></div>
+        </section>
+
         <!-- Chat Input Footer -->
         <div class="chat-input-bar">
-          <textarea id="chat-input" class="chat-input-field" rows="2" placeholder="Pilih kategori di atas untuk mulai." disabled onkeydown="handleChatKeyDown(event)"></textarea>
-          <button class="btn btn-primary" id="btn-send-chat" disabled onclick="sendChatMessage()">
+          <textarea id="chat-input" class="chat-input-field" rows="2" placeholder="Ceritakan kondisi bahaya, lokasi, dan aktivitas yang sedang berlangsung…" onkeydown="handleChatKeyDown(event)"></textarea>
+          <button class="btn btn-primary" id="btn-send-chat" onclick="sendChatMessage()">
             Kirim
           </button>
         </div>

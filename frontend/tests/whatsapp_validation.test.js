@@ -217,6 +217,11 @@ assert.match(
   /<textarea\b(?=[^>]*\bid="chat-input")(?=[^>]*\brows="2")[^>]*>/i,
   'Input chatbot mobile harus mendukung pesan dua baris.',
 );
+assert.doesNotMatch(
+  indexHtml.match(/<textarea\b(?=[^>]*\bid="chat-input")[^>]*>/i)?.[0] || '',
+  /\bdisabled\b/i,
+  'Pengguna harus dapat langsung menulis tanpa memilih kategori lebih dahulu.',
+);
 assert.match(indexHtml, /id="mobile-category-trigger"/i, 'Chatbot harus memiliki pemicu kategori ringkas di mobile.');
 assert.match(indexHtml, /id="mobile-inline-category-picker"/i, 'Kategori mobile harus tersedia langsung di dalam area chatbot.');
 assert.match(indexHtml, /id="mobile-inline-category-options"/i, 'Kategori mobile harus memiliki daftar pilihan yang dapat digulir.');
@@ -246,6 +251,9 @@ assert.match(structuredRiskHtml, /res-analysis-points/, 'Analisis risiko panjang
 assert.match(structuredRiskHtml, /Mengapa berbahaya/, 'Mekanisme bahaya harus diberi label yang jelas.');
 assert.match(structuredRiskHtml, /Dampak potensial/, 'Dampak risiko harus diberi label yang jelas.');
 assert.match(structuredRiskHtml, /Verifikasi lapangan/, 'Kebutuhan verifikasi harus diberi label yang jelas.');
+assert.equal(run("deteksiKategoriDariPesan('Ada kabel listrik terbuka di dekat panel')"), 'Kelistrikan');
+assert.equal(run("deteksiKategoriDariPesan('Pekerja mengelas tanpa fire watcher')"), 'Pekerjaan Panas (Hot Work)');
+assert.equal(run("deteksiKategoriDariPesan('Kondisi yang belum dapat dikenali')"), null);
 assert.equal(
   run("buatJudulSesiChat('Kabel terbuka di area pompa utama')"),
   'Kabel terbuka di area pompa utama',

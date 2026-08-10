@@ -39,6 +39,35 @@ const KATEGORI_PRIORITAS_MOBILE = [
   'Bahan Kimia & B3',
   'Tanggap Darurat'
 ];
+const ATURAN_DETEKSI_KATEGORI = [
+  ['Kelistrikan', ['listrik', 'kabel', 'tegangan', 'panel', 'stop kontak', 'korsleting', 'setrum']],
+  ['Alat Pelindung Diri (APD)', ['apd', 'helm', 'safety shoes', 'sarung tangan', 'goggles', 'masker', 'rompi']],
+  ['Pekerjaan di Ketinggian', ['ketinggian', 'harness', 'scaffolding', 'perancah', 'atap', 'lifeline']],
+  ['Pekerjaan Panas (Hot Work)', ['pengelasan', 'mengelas', 'gerinda', 'hot work', 'percikan api', 'fire watcher']],
+  ['Ruang Terbatas (Confined Space)', ['ruang terbatas', 'confined space', 'manhole', 'tangki', 'h2s', 'gas detector']],
+  ['Pengangkatan & Rigging', ['crane', 'rigging', 'sling', 'lifting', 'rigger', 'beban gantung']],
+  ['Alat Berat & Kendaraan', ['alat berat', 'kendaraan', 'forklift', 'excavator', 'dump truck', 'blind spot']],
+  ['Bahan Kimia & B3', ['bahan kimia', 'b3', 'tumpahan', 'msds', 'asam', 'gas bocor', 'limbah kimia']],
+  ['Tanggap Darurat', ['darurat', 'kebakaran', 'apar', 'evakuasi', 'p3k', 'assembly point', 'korban']],
+  ['Lingkungan Kerja', ['licin', 'pencahayaan', 'kebisingan', 'ventilasi', 'housekeeping', 'berdebu']],
+  ['Penggunaan Tangga', ['tangga', 'ladder']],
+  ['Peralatan Kerja', ['alat kerja', 'mesin', 'guarding', 'perkakas', 'equipment']],
+  ['Ergonomi', ['ergonomi', 'postur', 'mengangkat manual', 'nyeri punggung', 'repetitif']],
+  ['Kelelahan & Jam Kerja', ['kelelahan', 'mengantuk', 'lembur', 'jam kerja', 'fatigue']],
+  ['Pengawasan & Prosedur', ['sop', 'prosedur', 'izin kerja', 'permit', 'toolbox meeting', 'pengawasan']],
+  ['Investigasi & Insiden', ['insiden', 'kecelakaan', 'near miss', 'hampir celaka', 'investigasi']],
+  ['Koordinasi & SIMOPS', ['simops', 'pekerjaan bersamaan', 'koordinasi', 'tumpang tindih']],
+  ['Pelatihan & Kompetensi', ['pelatihan', 'kompetensi', 'sertifikat', 'belum terlatih']],
+  ['Komunikasi & Pelaporan', ['pelaporan', 'komunikasi', 'laporan bahaya', 'informasi keselamatan']],
+  ['Perilaku & Disiplin Kerja', ['melanggar', 'tidak disiplin', 'bercanda', 'unsafe act', 'perilaku tidak aman']],
+  ['Manajemen Risiko', ['hiradc', 'jsa', 'risk assessment', 'matriks risiko', 'residual risk']],
+  ['Standar & Regulasi', ['regulasi', 'peraturan', 'standar', 'kepatuhan hukum']],
+  ['Audit & Sistem Manajemen K3', ['audit', 'smk3', 'sistem manajemen', 'temuan audit']],
+  ['Budaya Keselamatan', ['budaya keselamatan', 'safety culture', 'intervensi keselamatan']],
+  ['Higienitas & Konsumsi', ['higienitas', 'makanan', 'air minum', 'kantin', 'keracunan makanan']],
+  ['Kondisi Khusus', ['hamil', 'disabilitas', 'kondisi medis', 'pekerja rentan']]
+];
+let kategoriSaranSaatIni = null;
 let daftarSesiChatLokal = [];
 let sedangMemulihkanSesiChat = false;
 let pengirimanChatBerlangsung = false;
@@ -158,6 +187,39 @@ function kategoriUtamaTerpilih() {
 
 function adaKategoriTerpilih() {
   return daftarKategoriTerpilih().length > 0;
+}
+
+function deteksiKategoriDariPesan(teks) {
+  const nilai = String(teks || '').toLocaleLowerCase('id-ID').replace(/\s+/g, ' ').trim();
+  if (nilai.length < 3) return null;
+  let hasilTerbaik = null;
+  let skorTerbaik = 0;
+  ATURAN_DETEKSI_KATEGORI.forEach(([kategori, keywords]) => {
+    const skor = keywords.reduce((total, keyword) => {
+      if (!nilai.includes(keyword)) return total;
+      return total + (keyword.includes(' ') ? 3 : 2);
+    }, 0);
+    if (skor > skorTerbaik) {
+      skorTerbaik = skor;
+      hasilTerbaik = kategori;
+    }
+  });
+  return hasilTerbaik;
+}
+
+function perbaruiSaranKategoriDariInput() {
+  if (adaKategoriTerpilih()) return;
+  const input = document.getElementById('chat-input');
+  const summary = document.getElementById('mobile-category-summary');
+  const bar = document.querySelector('.chat-mobile-category-bar');
+  kategoriSaranSaatIni = deteksiKategoriDariPesan(input?.value || '');
+  if (summary) {
+    summary.textContent = kategoriSaranSaatIni
+      ? `Saran: ${kategoriSaranSaatIni}`
+      : 'Akan dideteksi dari pesan';
+    summary.title = kategoriSaranSaatIni || '';
+  }
+  bar?.classList.toggle('has-suggestion', Boolean(kategoriSaranSaatIni));
 }
 
 function kelompokkanDetailKategori(categories) {
@@ -798,6 +860,7 @@ function inisialisasiModeChatSeluler() {
       gulirKePesanChatTerbaru();
     }, 120);
   });
+  input.addEventListener('input', perbaruiSaranKategoriDariInput);
   input.addEventListener('blur', () => {
     window.setTimeout(() => {
       if (document.activeElement !== input) {
@@ -968,7 +1031,7 @@ function htmlPembukaChat() {
   return `
     <div class="chat-bubble system-bubble">
       <div class="bubble-sender">SIGAP-AI HSE Companion</div>
-      <div class="bubble-text">Selamat datang di Sistem Pendamping Keselamatan Kerja! Pilih satu atau beberapa kategori bahaya, kemudian laporkan kondisi keselamatan yang Anda temui di area kerja.</div>
+      <div class="bubble-text">Selamat datang di Sistem Pendamping Keselamatan Kerja! Langsung tuliskan kondisi bahaya yang Anda temui. Sistem akan membantu menentukan kategorinya secara otomatis.</div>
     </div>
   `;
 }
@@ -1100,7 +1163,7 @@ function mulaiPercakapanChatBaru() {
   tampilkanSesiChat(session);
   tutupDrawerChat(false);
   tutupPemilihKategoriMobile(false);
-  tampilkanNotifikasi('Percakapan baru siap. Pilih kategori bahaya untuk melanjutkan.', 'info');
+  tampilkanNotifikasi('Percakapan baru siap. Tulis kondisi bahaya; kategori akan dideteksi otomatis.', 'info');
 }
 
 function startNewChatFromDrawer() { mulaiPercakapanChatBaru(); }
@@ -1633,21 +1696,17 @@ function perbaruiTampilanKategoriTerpilih() {
   const barKategoriMobile = document.querySelector('.chat-mobile-category-bar');
   if (ringkasanKategoriMobile) {
     const ringkasan = categories.length === 0
-      ? 'Belum dipilih'
+      ? 'Akan dideteksi dari pesan'
       : `${categories.slice(0, 2).join(', ')}${categories.length > 2 ? ` +${categories.length - 2}` : ''}`;
     ringkasanKategoriMobile.textContent = ringkasan;
     ringkasanKategoriMobile.title = categories.join(', ');
   }
-  if (pemicuKategoriMobile) pemicuKategoriMobile.textContent = categories.length > 0 ? 'Ubah' : 'Pilih';
+  if (pemicuKategoriMobile) pemicuKategoriMobile.textContent = categories.length > 0 ? 'Ubah' : 'Pilih manual';
   barKategoriMobile?.classList.toggle('has-selection', categories.length > 0);
+  barKategoriMobile?.classList.remove('has-suggestion');
 
-  const inlinePicker = document.getElementById('mobile-inline-category-picker');
-  if (inlinePicker && apakahChatMobile() && categories.length === 0) {
-    inlinePicker.classList.add('open');
-    inlinePicker.setAttribute('aria-hidden', 'false');
-    document.body.classList.add('mobile-inline-category-open');
-    pemicuKategoriMobile?.setAttribute('aria-expanded', 'true');
-  }
+  const starterBar = document.getElementById('starter-bar');
+  if (starterBar) starterBar.hidden = categories.length === 0;
 
   tampilkanTombolContohKategori(categories);
 
@@ -1656,7 +1715,7 @@ function perbaruiTampilanKategoriTerpilih() {
     lencanaLangkah.classList.toggle('step-active', categories.length > 0);
     lencanaLangkah.textContent = categories.length > 0
       ? `KATEGORI TERPILIH · ${categories.length}/${MAKSIMAL_KATEGORI_TERPILIH}`
-      : 'LANGKAH 1 · WAJIB';
+      : 'KATEGORI OPSIONAL';
   }
 
   const kategoriUtama = categories[0];
@@ -1668,25 +1727,23 @@ function perbaruiTampilanKategoriTerpilih() {
   const elemenBanner = document.getElementById('cat-req-banner');
   const teksBanner = document.getElementById('cat-req-text');
   if (elemenBanner) {
-    elemenBanner.className = categories.length > 0 ? 'cat-req-banner selected' : 'cat-req-banner';
+    elemenBanner.className = categories.length > 0 ? 'cat-req-banner selected' : 'cat-req-banner optional';
   }
   if (teksBanner) {
     teksBanner.innerHTML = categories.length > 0
       ? `<div><strong>${categories.length} kategori dipilih:</strong><div class="selected-category-list">${categories.map(category => `<span>${sanitasiHtml(category)}</span>`).join('')}</div><small>Kategori utama: <strong>${sanitasiHtml(kategoriUtama)}</strong>. Pendamping: <strong>${sanitasiHtml(namaPetugas)}</strong> (${sanitasiHtml(peranPetugas)}).</small></div>`
-      : '<strong>Langkah 1 (Wajib):</strong> Pilih satu atau beberapa <strong>Kategori Bahaya</strong> di atas untuk membuka kolom pesan percakapan.';
+      : '<strong>Kategori opsional:</strong> Langsung tulis kondisi bahaya. Sistem akan menentukan kategori yang paling sesuai, dan Anda tetap dapat mengubahnya.';
   }
 
   const elemenInput = document.getElementById('chat-input');
   const tombolKirim = document.getElementById('btn-send-chat');
   if (elemenInput) {
-    elemenInput.disabled = categories.length === 0;
     elemenInput.placeholder = categories.length > 0
       ? `Jelaskan kondisi bahaya untuk ${categories.length} kategori terpilih...`
-      : 'Pilih kategori di atas untuk mulai.';
+      : 'Ceritakan kondisi bahaya, lokasi, dan aktivitas yang sedang berlangsung...';
   }
-  if (tombolKirim) {
-    tombolKirim.disabled = categories.length === 0;
-  }
+  if (tombolKirim) tombolKirim.disabled = false;
+  if (categories.length === 0) perbaruiSaranKategoriDariInput();
 }
 
 function pilihKategori(namaKategori) {
@@ -1723,8 +1780,6 @@ function selectCategory(catName) { pilihKategori(catName); }
 
 function bersihkanKategoriTerpilih() {
   kategoriTerpilih = [];
-  const elemenInput = document.getElementById('chat-input');
-  if (elemenInput) elemenInput.value = '';
   perbaruiTampilanKategoriTerpilih();
   perbaruiKategoriPadaSesiChat();
 }
@@ -1782,18 +1837,17 @@ function tanganiTekanTombolInput(peristiwa) {
 function handleChatKeyDown(event) { tanganiTekanTombolInput(event); }
 
 async function kirimPesanChat() {
-  if (!adaKategoriTerpilih()) {
-    tampilkanNotifikasi('Pilih minimal satu kategori bahaya terlebih dahulu.', 'warning');
-    const elemenBanner = document.getElementById('cat-req-banner');
-    if (elemenBanner) elemenBanner.scrollIntoView({ behavior: 'smooth' });
-    return;
-  }
-
   const elemenInput = document.getElementById('chat-input');
   const tombolKirim = document.getElementById('btn-send-chat');
   const teksPesan = elemenInput.value.trim();
 
   if (!teksPesan) return;
+  if (!adaKategoriTerpilih()) {
+    const kategoriOtomatis = kategoriSaranSaatIni || deteksiKategoriDariPesan(teksPesan) || 'Umum';
+    kategoriTerpilih = [kategoriOtomatis];
+    perbaruiTampilanKategoriTerpilih();
+    perbaruiKategoriPadaSesiChat();
+  }
 
   aturStatusPengirimanChat(true);
   sembunyikanBilahPenyelesaian();
@@ -1854,12 +1908,12 @@ async function kirimPesanChat() {
     tampilkanNotifikasi('Layanan analisis belum terhubung.', 'error');
   } finally {
     aturStatusPengirimanChat(false);
-    elemenInput.disabled = !adaKategoriTerpilih();
+    elemenInput.disabled = false;
     if (tombolKirim) {
-      tombolKirim.disabled = !adaKategoriTerpilih();
+      tombolKirim.disabled = false;
       tombolKirim.removeAttribute('aria-busy');
     }
-    if (adaKategoriTerpilih()) elemenInput.focus();
+    elemenInput.focus();
   }
 }
 function sendChatMessage() { kirimPesanChat(); }
