@@ -3005,160 +3005,6 @@
       }
     ]
   },
-  "SESSION-TEST-DIRECT-WA": {
-    "session_id": "SESSION-TEST-DIRECT-WA",
-    "created_at": "2026-08-05T14:53:22.196504",
-    "updated_at": "2026-08-05T14:53:22.196516",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-HELM": {
-    "session_id": "SESSION-TEST-HELM",
-    "created_at": "2026-08-05T14:53:51.425990",
-    "updated_at": "2026-08-05T14:53:51.425999",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-MIXED": {
-    "session_id": "SESSION-TEST-MIXED",
-    "created_at": "2026-08-05T14:53:51.570101",
-    "updated_at": "2026-08-05T14:53:51.570110",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-INFERENCE": {
-    "session_id": "SESSION-TEST-INFERENCE",
-    "created_at": "2026-08-05T14:53:51.681788",
-    "updated_at": "2026-08-05T14:53:51.681795",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-RIGGING-INFERENCE": {
-    "session_id": "SESSION-TEST-RIGGING-INFERENCE",
-    "created_at": "2026-08-05T14:53:51.765851",
-    "updated_at": "2026-08-05T14:53:51.765858",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-LISTRIK": {
-    "session_id": "SESSION-TEST-LISTRIK",
-    "created_at": "2026-08-05T14:53:51.858548",
-    "updated_at": "2026-08-05T14:53:51.858563",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-UNKNOWN": {
-    "session_id": "SESSION-TEST-UNKNOWN",
-    "created_at": "2026-08-05T14:53:51.939468",
-    "updated_at": "2026-08-05T14:53:51.939478",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
   "SESI-20260805-60R2F": {
     "session_id": "SESI-20260805-60R2F",
     "created_at": "2026-08-05T15:10:51.190091",
@@ -3243,6 +3089,259 @@
         "meta": {
           "confidence": 1.0,
           "kb_id": "HSE-KOORDINASI-002"
+        }
+      }
+    ]
+  },
+  "SESSION-TEST-HELM": {
+    "session_id": "SESSION-TEST-HELM",
+    "created_at": "2026-08-06T14:49:02.969299",
+    "updated_at": "2026-08-06T14:49:02.969306",
+    "context": {
+      "category": null,
+      "categories": [],
+      "kategori_list": [],
+      "category_source": null,
+      "assigned_category": null,
+      "device": null,
+      "location": null,
+      "initial_description": null,
+      "last_user_message": null,
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": null
+    },
+    "messages": []
+  },
+  "SESSION-TEST-MIXED": {
+    "session_id": "SESSION-TEST-MIXED",
+    "created_at": "2026-08-06T14:49:03.092384",
+    "updated_at": "2026-08-06T14:49:03.092391",
+    "context": {
+      "category": null,
+      "categories": [],
+      "kategori_list": [],
+      "category_source": null,
+      "assigned_category": null,
+      "device": null,
+      "location": null,
+      "initial_description": null,
+      "last_user_message": null,
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": null
+    },
+    "messages": []
+  },
+  "SESSION-TEST-INFERENCE": {
+    "session_id": "SESSION-TEST-INFERENCE",
+    "created_at": "2026-08-06T14:49:03.188749",
+    "updated_at": "2026-08-06T14:49:03.188756",
+    "context": {
+      "category": null,
+      "categories": [],
+      "kategori_list": [],
+      "category_source": null,
+      "assigned_category": null,
+      "device": null,
+      "location": null,
+      "initial_description": null,
+      "last_user_message": null,
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": null
+    },
+    "messages": []
+  },
+  "SESSION-TEST-MULTI-ROUTING": {
+    "session_id": "SESSION-TEST-MULTI-ROUTING",
+    "created_at": "2026-08-06T14:49:03.275170",
+    "updated_at": "2026-08-06T14:49:03.275177",
+    "context": {
+      "category": null,
+      "categories": [],
+      "kategori_list": [],
+      "category_source": null,
+      "assigned_category": null,
+      "device": null,
+      "location": null,
+      "initial_description": null,
+      "last_user_message": null,
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": null
+    },
+    "messages": []
+  },
+  "SESSION-TEST-RIGGING-INFERENCE": {
+    "session_id": "SESSION-TEST-RIGGING-INFERENCE",
+    "created_at": "2026-08-06T14:49:03.356979",
+    "updated_at": "2026-08-06T14:49:03.356984",
+    "context": {
+      "category": null,
+      "categories": [],
+      "kategori_list": [],
+      "category_source": null,
+      "assigned_category": null,
+      "device": null,
+      "location": null,
+      "initial_description": null,
+      "last_user_message": null,
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": null
+    },
+    "messages": []
+  },
+  "SESSION-TEST-LISTRIK": {
+    "session_id": "SESSION-TEST-LISTRIK",
+    "created_at": "2026-08-06T14:49:03.439898",
+    "updated_at": "2026-08-06T14:49:03.439904",
+    "context": {
+      "category": null,
+      "categories": [],
+      "kategori_list": [],
+      "category_source": null,
+      "assigned_category": null,
+      "device": null,
+      "location": null,
+      "initial_description": null,
+      "last_user_message": null,
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": null
+    },
+    "messages": []
+  },
+  "SESSION-TEST-UNKNOWN": {
+    "session_id": "SESSION-TEST-UNKNOWN",
+    "created_at": "2026-08-06T14:49:03.524449",
+    "updated_at": "2026-08-06T14:49:03.524457",
+    "context": {
+      "category": null,
+      "categories": [],
+      "kategori_list": [],
+      "category_source": null,
+      "assigned_category": null,
+      "device": null,
+      "location": null,
+      "initial_description": null,
+      "last_user_message": null,
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": null
+    },
+    "messages": []
+  },
+  "SESI-20260810-Y66U2": {
+    "session_id": "SESI-20260810-Y66U2",
+    "created_at": "2026-08-10T09:22:19.687180",
+    "updated_at": "2026-08-10T09:22:31.281989",
+    "context": {
+      "category": "Tanggap Darurat",
+      "categories": [
+        "Tanggap Darurat"
+      ],
+      "kategori_list": [
+        "Tanggap Darurat"
+      ],
+      "category_source": "explicit",
+      "assigned_category": "Tanggap Darurat",
+      "device": null,
+      "location": null,
+      "initial_description": "Tidak tersedia APAR di area kerja berisiko tinggi kebakaran",
+      "last_user_message": "Tidak tersedia APAR di area kerja berisiko tinggi kebakaran",
+      "symptoms": [
+        "risiko kebakaran"
+      ],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "perlu_bantuan_hse",
+      "kb_id": "HSE-DARURAT-004",
+      "kategori": "Tanggap Darurat"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "Tidak tersedia APAR di area kerja berisiko tinggi kebakaran",
+        "timestamp": "2026-08-10T09:22:19.687191",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "KONDISI TERIDENTIFIKASI\nTidak tersedia alat pemadam api [Kategori: Tanggap Darurat] [Kode KB: HSE-DARURAT-004].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSE.\n\nPENJELASAN RISIKO\nKondisi 'Tidak tersedia alat pemadam api' pada kategori Tanggap Darurat menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan area kerja yang tidak dilengkapi APAR yang sesuai jenis risikonya gagal memadamkan api awal sehingga membesar menjadi kebakaran hebat. Mekanisme bahayanya berkaitan dengan kesiapan alarm, evakuasi, pemadaman, pertolongan, komunikasi, dan akuntabilitas personel yang lemah memperlambat respons pada menit kritis. Konsekuensi yang perlu dicegah adalah insiden awal dapat membesar, korban terlambat ditolong, orang masuk kembali ke zona bahaya, dan proses evakuasi menjadi tidak terkendali. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan dengan risiko kebakaran sampai APAR atau sarana pemadam yang sesuai tersedia dan mudah dijangkau.\n2. Pengendalian: Tempatkan APAR yang sesuai jenis bahaya (APAR Powder untuk umum, CO2 untuk listrik) di lokasi yang mudah dijangkau dan bertanda jelas.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Dr. Irsyad Yoga (Kedaruratan Medis & K3 Emergency Lead).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSE-DARURAT-004 — Tidak tersedia alat pemadam api (Tanggap Darurat); kecocokan 59%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenakertrans PER.15/MEN/VIII/2008 tentang P3K di Tempat Kerja: https://jdih.kemnaker.go.id/peraturan/detail/193/peraturan-menteri-nomor-15-tahun-2008\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSE.",
+        "timestamp": "2026-08-10T09:22:19.757561",
+        "meta": {
+          "confidence": 0.5859,
+          "kb_id": "HSE-DARURAT-004"
+        }
+      }
+    ]
+  },
+  "SESI-20260810-QY7YF": {
+    "session_id": "SESI-20260810-QY7YF",
+    "created_at": "2026-08-10T09:43:18.570435",
+    "updated_at": "2026-08-10T09:43:27.358188",
+    "context": {
+      "category": "Peralatan Kerja",
+      "categories": [
+        "Peralatan Kerja"
+      ],
+      "kategori_list": [
+        "Peralatan Kerja"
+      ],
+      "category_source": "explicit",
+      "assigned_category": "Peralatan Kerja",
+      "device": null,
+      "location": null,
+      "initial_description": "Pekerja bekerja dengan alat manual yang sudah aus",
+      "last_user_message": "Pekerja bekerja dengan alat manual yang sudah aus",
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [
+        "Pekerja bekerja dengan alat manual yang sudah aus"
+      ],
+      "last_result": null,
+      "status": "perlu_bantuan_hse",
+      "kb_id": "HSE-ALAT-002",
+      "kategori": "Peralatan Kerja"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "Pekerja bekerja dengan alat manual yang sudah aus",
+        "timestamp": "2026-08-10T09:43:18.570448",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "KONDISI TERIDENTIFIKASI\nPekerja bekerja dengan alat manual yang sudah aus [Kategori: Peralatan Kerja] [Kode KB: HSE-ALAT-002].\n\nTINGKAT RISIKO\nRISIKO SEDANG — lakukan tindakan korektif dan verifikasi pengawas sebelum aktivitas dilanjutkan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja bekerja dengan alat manual yang sudah aus' pada kategori Peralatan Kerja menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan peralatan yang retak, aus, atau rusak tetap dipakai dapat patah tiba-tiba saat dioperasikan dan mencederai pekerja. Mekanisme bahayanya berkaitan dengan guard, kapasitas, aksesori, pemicu, selang, kalibrasi, atau kondisi mekanis yang tidak sesuai dapat melepaskan energi dan material tanpa kendali. Konsekuensi yang perlu dicegah adalah pekerja dapat terpotong, terjepit, tertusuk, terkena serpihan, tekanan, getaran, atau kegagalan alat saat digunakan. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan penggunaan alat aus, lepaskan dari sumber energi bila ada, dan tandai sebagai tidak layak sampai diganti.\n2. Pengendalian: Ganti alat secara berkala. Lakukan pengawasan langsung oleh supervisor K3 dan pastikan seluruh tindakan keselamatan diterapkan sesuai standar regulasi.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSE-ALAT-002 — Pekerja bekerja dengan alat manual yang sudah aus (Peralatan Kerja); kecocokan 100%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 38 Tahun 2016 tentang K3 Pesawat Tenaga dan Produksi: https://jdih.kemnaker.go.id/peraturan/detail/1430/peraturan-menteri-ketenagakerjaan-nomor-38-tahun-2016\n\nSTATUS PENANGANAN\nDapat ditindaklanjuti oleh Supervisor dengan pengawasan K3 dan verifikasi sebelum pekerjaan dilanjutkan.",
+        "timestamp": "2026-08-10T09:43:18.640632",
+        "meta": {
+          "confidence": 1.0,
+          "kb_id": "HSE-ALAT-002"
         }
       }
     ]

@@ -29,6 +29,17 @@ let metadataKnowledge = null;
 let detailKategoriKnowledge = [];
 let percobaanKesehatanBackend = 0;
 
+const KONFIGURASI_KOLOM_WHATSAPP = [
+  { id: 'wa-tech-select', label: 'HSE Officer tujuan', jenis: 'petugas' },
+  { id: 'wa-input-name', label: 'Nama pelapor', min: 2, larangan: ['pelapor anonim', 'anonim'] },
+  { id: 'wa-input-division', label: 'Fungsi / Divisi', min: 2 },
+  { id: 'wa-input-location', label: 'Lokasi temuan', min: 3 },
+  { id: 'wa-input-category', label: 'Kategori bahaya' },
+  { id: 'wa-input-device', label: 'Detail temuan', min: 3 },
+  { id: 'wa-input-urgency', label: 'Tingkat urgensi' },
+  { id: 'wa-input-description', label: 'Deskripsi kondisi bahaya', min: 10 }
+];
+
 let faqGlobalEntries = daftarEntriFaq;
 let technicianRoster = daftarPetugasHse;
 let currentAssignedTech = petugasTerpilihSaatIni;
@@ -242,6 +253,7 @@ function terapkanAksesibilitasAntarmuka() {
 document.addEventListener('DOMContentLoaded', () => {
   terapkanIkonAntarmuka();
   terapkanAksesibilitasAntarmuka();
+  inisialisasiValidasiWhatsApp();
   periksaKesehatanBackend();
   muatPertanyaanAwal();
   muatRosterPetugas();
@@ -396,12 +408,14 @@ function sinkronkanKategoriFormulir(details) {
   const whatsappSelect = document.getElementById('wa-input-category');
   if (whatsappSelect) {
     const previousValue = whatsappSelect.value;
-    whatsappSelect.innerHTML = categories
-      .map(item => `<option value="${sanitasiHtml(item.nama)}">${sanitasiHtml(item.nama)}</option>`)
-      .join('');
+    whatsappSelect.innerHTML = [
+      '<option value="">-- Pilih Kategori Bahaya --</option>',
+      ...categories.map(item => `<option value="${sanitasiHtml(item.nama)}">${sanitasiHtml(item.nama)}</option>`)
+    ].join('');
     whatsappSelect.value = categories.some(item => item.nama === previousValue)
       ? previousValue
-      : (categories.find(item => item.nama === 'Umum')?.nama || categories[0].nama);
+      : '';
+    perbaruiPesanWhatsAppLangsung();
   }
 
   tampilkanSeluruhKategoriChat(categories);
@@ -1241,23 +1255,83 @@ function tambahkanGelembungChatTerstruktur(peran, namaPengirim, teksMentah) {
 // ==========================================================================
 // 5. Modal WhatsApp & Komposisi Pesan Real-Time
 // ==========================================================================
-function perbaruiPesanWhatsAppLangsung() {
+function pesanKesalahanKolomWhatsApp(konfigurasi, nilai) {
+  if (!nilai) return `${konfigurasi.label} wajib diisi.`;
+  if (konfigurasi.larangan?.includes(nilai.toLowerCase())) {
+    return `${konfigurasi.label} harus menggunakan identitas pelapor yang jelas.`;
+  }
+  if (konfigurasi.min && nilai.length < konfigurasi.min) {
+    return `${konfigurasi.label} minimal ${konfigurasi.min} karakter.`;
+  }
+  if (konfigurasi.jenis === 'petugas' && String(nilai).replace(/\D/g, '').length < 8) {
+    return 'Nomor HSE Officer tujuan tidak valid.';
+  }
+  return '';
+}
+
+function evaluasiFormWhatsApp({ tampilkanKesalahan = false } = {}) {
+  const kesalahan = [];
+
+  KONFIGURASI_KOLOM_WHATSAPP.forEach(konfigurasi => {
+    const elemen = document.getElementById(konfigurasi.id);
+    if (!elemen) {
+      kesalahan.push({ ...konfigurasi, elemen: null, pesan: `${konfigurasi.label} tidak tersedia.` });
+      return;
+    }
+
+    const nilai = String(elemen.value || '').trim();
+    const pesan = pesanKesalahanKolomWhatsApp(konfigurasi, nilai);
+    elemen.setCustomValidity(pesan);
+    elemen.setAttribute('aria-invalid', String(Boolean(pesan)));
+    const perluDitandai = Boolean(pesan) && (tampilkanKesalahan || elemen.dataset.waTouched === 'true');
+    elemen.classList.toggle('is-invalid', perluDitandai);
+    if (pesan) kesalahan.push({ ...konfigurasi, elemen, pesan });
+  });
+
+  const status = document.getElementById('wa-form-status');
+  if (status) {
+    const lengkap = kesalahan.length === 0;
+    status.classList.toggle('is-complete', lengkap);
+    status.classList.toggle('has-errors', !lengkap);
+    status.textContent = lengkap
+      ? 'Data lengkap. Pesan siap dikirim ke HSE Officer melalui WhatsApp.'
+      : `Belum lengkap (${kesalahan.length}): ${kesalahan.map(item => item.label).join(', ')}.`;
+  }
+
+  return { valid: kesalahan.length === 0, kesalahan };
+}
+
+function inisialisasiValidasiWhatsApp() {
+  KONFIGURASI_KOLOM_WHATSAPP.forEach(konfigurasi => {
+    const elemen = document.getElementById(konfigurasi.id);
+    if (!elemen) return;
+    elemen.addEventListener('blur', () => {
+      elemen.dataset.waTouched = 'true';
+      perbaruiPesanWhatsAppLangsung();
+    });
+  });
+  perbaruiPesanWhatsAppLangsung();
+}
+
+function perbaruiPesanWhatsAppLangsung(opsiValidasi = {}) {
   const namaVal = (document.getElementById('wa-input-name')?.value || '').trim();
   const divVal = (document.getElementById('wa-input-division')?.value || '').trim();
   const locVal = (document.getElementById('wa-input-location')?.value || '').trim();
   const catVal = (document.getElementById('wa-input-category')?.value || '').trim();
   const devVal = (document.getElementById('wa-input-device')?.value || '').trim();
   const descVal = (document.getElementById('wa-input-description')?.value || '').trim();
-  const urgencyVal = (document.getElementById('wa-input-urgency')?.value || 'Sedang').trim();
+  const urgencyVal = (document.getElementById('wa-input-urgency')?.value || '').trim();
   const namaPetugas = petugasTerpilihSaatIni ? (petugasTerpilihSaatIni.nama || petugasTerpilihSaatIni.name) : 'M. Solihin';
   const peranPetugas = petugasTerpilihSaatIni ? (petugasTerpilihSaatIni.peran || petugasTerpilihSaatIni.role) : 'Superintendent HSSE PT Pertamina EP Lirik Field';
   const nomorPetugas = petugasTerpilihSaatIni ? (petugasTerpilihSaatIni.nomor || petugasTerpilihSaatIni.number) : '6281234567890';
-  const kategoriPesan = daftarKategoriTerpilih().length > 0
-    ? daftarKategoriTerpilih()
-    : [catVal || 'Keselamatan Kerja'];
+  const daftarKategoriAktif = daftarKategoriTerpilih();
+  const kategoriPesan = daftarKategoriAktif.length > 1 && daftarKategoriAktif.includes(catVal)
+    ? daftarKategoriAktif
+    : [catVal];
   const teksKategori = kategoriPesan.length === 1
-    ? kategoriPesan[0]
+    ? (kategoriPesan[0] || '[Belum diisi]')
     : kategoriPesan.map((category, index) => `${index + 1}. ${category}`).join('\n');
+  const tampilkanNilai = nilai => nilai || '[Belum diisi]';
 
   const barisPesan = [
     `Halo ${namaPetugas} (${peranPetugas}),`,
@@ -1265,25 +1339,25 @@ function perbaruiPesanWhatsAppLangsung() {
     `Saya melaporkan kondisi bahaya/temuan keselamatan melalui SIGAP-AI HSE Companion.`,
     ``,
     `Nama Pelapor:`,
-    `${namaVal || 'Pelapor Anonim'}`,
+    `${tampilkanNilai(namaVal)}`,
     ``,
     `Fungsi/Divisi:`,
-    `${divVal || 'Operations / Konstruksi'}`,
+    `${tampilkanNilai(divVal)}`,
     ``,
     `Lokasi Temuan:`,
-    `${locVal || 'Area Kerja'}`,
+    `${tampilkanNilai(locVal)}`,
     ``,
     `Kategori Bahaya:`,
     `${teksKategori}`,
     ``,
     `Detail Temuan:`,
-    `${devVal || '-'}`,
+    `${tampilkanNilai(devVal)}`,
     ``,
     `Deskripsi Kondisi Bahaya:`,
-    `${descVal || 'Temuan potensi bahaya di lapangan'}`,
+    `${tampilkanNilai(descVal)}`,
     ``,
     `Tingkat Urgensi:`,
-    `${urgencyVal}`,
+    `${tampilkanNilai(urgencyVal)}`,
     ``,
     `Mohon penanganan dan pengawasan lebih lanjut demi keselamatan kerja. Terima kasih.`
   ];
@@ -1292,18 +1366,46 @@ function perbaruiPesanWhatsAppLangsung() {
   const kotakPratinjau = document.getElementById('wa-preview-text');
   if (kotakPratinjau) kotakPratinjau.textContent = teksMentah;
 
+  const hasilValidasi = evaluasiFormWhatsApp(opsiValidasi);
+
   let nomorBersih = String(nomorPetugas).replace(/\D/g, '');
   if (nomorBersih.startsWith('0')) nomorBersih = '62' + nomorBersih.substring(1);
 
-  const tautanWa = `https://wa.me/${nomorBersih}?text=${encodeURIComponent(teksMentah)}`;
+  const tautanWa = hasilValidasi.valid
+    ? `https://wa.me/${nomorBersih}?text=${encodeURIComponent(teksMentah)}`
+    : null;
 
   const tautanAksi = document.getElementById('wa-action-link');
-  if (tautanAksi) tautanAksi.href = tautanWa;
+  if (tautanAksi) {
+    tautanAksi.disabled = !hasilValidasi.valid;
+    tautanAksi.setAttribute('aria-disabled', String(!hasilValidasi.valid));
+  }
 
   tautanWhatsAppTerakhir = tautanWa;
-  pesanWhatsAppTerakhir = teksMentah;
+  pesanWhatsAppTerakhir = hasilValidasi.valid ? teksMentah : null;
+  lastWhatsAppUrl = tautanWhatsAppTerakhir;
+  lastWhatsAppMessage = pesanWhatsAppTerakhir;
+  return hasilValidasi;
 }
 function updateLiveWhatsAppMessage() { perbaruiPesanWhatsAppLangsung(); }
+
+function kirimLaporanWhatsApp() {
+  const hasilValidasi = perbaruiPesanWhatsAppLangsung({ tampilkanKesalahan: true });
+  if (!hasilValidasi.valid || !tautanWhatsAppTerakhir) {
+    hasilValidasi.kesalahan[0]?.elemen?.focus();
+    tampilkanNotifikasi('Lengkapi seluruh data wajib sebelum mengirim laporan ke Tim HSE.', 'error');
+    return;
+  }
+
+  const tautanPembuka = document.createElement('a');
+  tautanPembuka.href = tautanWhatsAppTerakhir;
+  tautanPembuka.target = '_blank';
+  tautanPembuka.rel = 'noopener noreferrer';
+  document.body.appendChild(tautanPembuka);
+  tautanPembuka.click();
+  tautanPembuka.remove();
+}
+function sendWhatsAppReport() { kirimLaporanWhatsApp(); }
 
 function saatKategoriDipilihDiModalWa() {
   const elemenPilih = document.getElementById('wa-input-category');
@@ -1312,6 +1414,7 @@ function saatKategoriDipilihDiModalWa() {
   kategoriTerpilih = kategoriDipilih ? [kategoriDipilih] : [];
   const cocok = petugasBerdasarkanKategori(kategoriDipilih);
   petugasTerpilihSaatIni = cocok;
+  currentAssignedTech = petugasTerpilihSaatIni;
   const namaEl = document.getElementById('tech-assigned-name');
   const peranEl = document.getElementById('tech-assigned-role');
   if (namaEl) namaEl.textContent = cocok.nama || cocok.name;
@@ -1328,9 +1431,14 @@ function bukaModalWhatsApp(tautan, teksMentah) {
   const namaEl = document.getElementById('tech-assigned-name');
   const peranEl = document.getElementById('tech-assigned-role');
   const modal = document.getElementById('whatsapp-modal');
+  const daftarKontak = daftarKontakHse();
+
+  if (!petugasTerpilihSaatIni || !daftarKontak.some(p => (p.nomor || p.number) === (petugasTerpilihSaatIni.nomor || petugasTerpilihSaatIni.number))) {
+    petugasTerpilihSaatIni = daftarKontak[0] || null;
+  }
 
   if (elemenPilih) {
-    elemenPilih.innerHTML = daftarKontakHse().map(p => {
+    elemenPilih.innerHTML = daftarKontak.map(p => {
       const isSelected = petugasTerpilihSaatIni && ((petugasTerpilihSaatIni.nama || petugasTerpilihSaatIni.name) === (p.nama || p.name));
       const nama = p.nama || p.name;
       const peran = p.peran || p.role;
@@ -1344,7 +1452,8 @@ function bukaModalWhatsApp(tautan, teksMentah) {
   }
 
   if (muatanKonsultasiTertunda) {
-    if (muatanKonsultasiTertunda.nama_pelapor || muatanKonsultasiTertunda.reporter_name) document.getElementById('wa-input-name').value = muatanKonsultasiTertunda.nama_pelapor || muatanKonsultasiTertunda.reporter_name;
+    const namaDraf = String(muatanKonsultasiTertunda.nama_pelapor || muatanKonsultasiTertunda.reporter_name || '').trim();
+    document.getElementById('wa-input-name').value = ['pelapor anonim', 'anonim'].includes(namaDraf.toLowerCase()) ? '' : namaDraf;
     if (muatanKonsultasiTertunda.divisi || muatanKonsultasiTertunda.division) document.getElementById('wa-input-division').value = muatanKonsultasiTertunda.divisi || muatanKonsultasiTertunda.division;
     if (muatanKonsultasiTertunda.lokasi || muatanKonsultasiTertunda.location) document.getElementById('wa-input-location').value = muatanKonsultasiTertunda.lokasi || muatanKonsultasiTertunda.location;
     if (muatanKonsultasiTertunda.kategori || muatanKonsultasiTertunda.category) document.getElementById('wa-input-category').value = muatanKonsultasiTertunda.kategori || muatanKonsultasiTertunda.category;
@@ -1357,6 +1466,13 @@ function bukaModalWhatsApp(tautan, teksMentah) {
     }
   }
 
+  KONFIGURASI_KOLOM_WHATSAPP.forEach(konfigurasi => {
+    const elemen = document.getElementById(konfigurasi.id);
+    if (!elemen) return;
+    delete elemen.dataset.waTouched;
+    elemen.classList.remove('is-invalid');
+  });
+
   if (petugasTerpilihSaatIni) {
     if (namaEl) namaEl.textContent = petugasTerpilihSaatIni.nama || petugasTerpilihSaatIni.name || 'M. Solihin';
     if (peranEl) peranEl.textContent = petugasTerpilihSaatIni.peran || petugasTerpilihSaatIni.role || 'Superintendent HSSE PT Pertamina EP Lirik Field';
@@ -1364,6 +1480,8 @@ function bukaModalWhatsApp(tautan, teksMentah) {
     if (namaEl) namaEl.textContent = 'M. Solihin';
     if (peranEl) peranEl.textContent = 'Superintendent HSSE PT Pertamina EP Lirik Field';
   }
+
+  currentAssignedTech = petugasTerpilihSaatIni;
 
   perbaruiPesanWhatsAppLangsung();
 
@@ -1380,6 +1498,7 @@ async function saatPetugasDipilih() {
 
   if (cocok) {
     petugasTerpilihSaatIni = cocok;
+    currentAssignedTech = petugasTerpilihSaatIni;
     document.getElementById('tech-assigned-name').textContent = cocok.nama || cocok.name;
     document.getElementById('tech-assigned-role').textContent = cocok.peran || cocok.role;
     perbaruiPesanWhatsAppLangsung();
@@ -1455,7 +1574,7 @@ function hapusIndikatorPengetikan(id) {
 }
 function removeTypingIndicator(id) { hapusIndikatorPengetikan(id); }
 
-function tambahkanPetunjukEskalasi(tautanWa) {
+function tambahkanPetunjukEskalasi() {
   const aliran = document.getElementById('chat-messages');
   const gelembung = document.createElement('div');
   gelembung.className = 'chat-bubble system-bubble escalation-bubble';
@@ -1468,7 +1587,7 @@ function tambahkanPetunjukEskalasi(tautanWa) {
     <div class="bubble-text">
       Kondisi ini tergolong berisiko tinggi / memerlukan penanganan langsung oleh <strong>${sanitasiHtml(namaPetugas)}</strong> (${sanitasiHtml(peranPetugas)}).
     </div>
-    <button class="btn btn-sm btn-primary escalation-action" onclick="bukaModalWhatsApp('${tautanWa}', pesanWhatsAppTerakhir)">
+    <button class="btn btn-sm btn-primary escalation-action" onclick="bukaModalWhatsApp()">
       ${buatIkonAntarmuka('message')} Hubungi ${sanitasiHtml(namaPetugas)} via WhatsApp
     </button>
   `;

@@ -5,9 +5,27 @@ import threading
 from collections import Counter
 from datetime import datetime, timezone
 
-import faiss
-import numpy as np
-from sentence_transformers import SentenceTransformer
+
+SEMANTIC_SEARCH_DISABLED = os.getenv(
+    "SIGAP_DISABLE_SEMANTIC_SEARCH", ""
+).strip().lower() in {"1", "true", "yes", "on"}
+
+faiss = None
+np = None
+SentenceTransformer = None
+SEMANTIC_IMPORT_ERROR = None
+
+if SEMANTIC_SEARCH_DISABLED:
+    SEMANTIC_IMPORT_ERROR = "Semantic search dinonaktifkan melalui konfigurasi."
+else:
+    try:
+        import faiss
+        import numpy as np
+        from sentence_transformers import SentenceTransformer
+    except ImportError as exc:
+        # Deployment serverless memakai pencarian leksikal agar bundle tidak
+        # membawa PyTorch, Transformers, SciPy, dan model embedding berukuran GB.
+        SEMANTIC_IMPORT_ERROR = str(exc)
 
 from config.settings import EMBEDDING_MODEL_NAME, KNOWLEDGE_JSON_PATH
 from utils.text_normalizer import normalisasi_teks
@@ -201,6 +219,16 @@ class KnowledgeRepository:
         return f"{title} {title} {category} {keywords} {keywords} {tags} {explanation}".strip()
 
     def _build_semantic_index(self, docs):
+        if SentenceTransformer is None or faiss is None or np is None:
+            self._semantic_error = SEMANTIC_IMPORT_ERROR or (
+                "Dependensi semantic search tidak tersedia."
+            )
+            print(
+                "[KnowledgeRepository] Memakai pencarian leksikal: "
+                + self._semantic_error
+            )
+            return None, None
+
         try:
             if self.embed_model is None:
                 print(

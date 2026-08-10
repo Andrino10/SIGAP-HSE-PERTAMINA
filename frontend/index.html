@@ -111,23 +111,31 @@
       <section class="hero-stats" aria-label="Ringkasan sistem">
         <div class="stat-box">
           <span class="stat-icon" aria-hidden="true"></span>
-          <span class="stat-value">540+</span>
-          <span class="stat-label">Artikel HSE terstruktur</span>
+          <span class="stat-copy">
+            <strong class="stat-value">540+</strong>
+            <span class="stat-label">Artikel HSE terstruktur</span>
+          </span>
         </div>
         <div class="stat-box">
           <span class="stat-icon" aria-hidden="true"></span>
-          <span class="stat-value">27</span>
-          <span class="stat-label">Kategori bahaya K3</span>
+          <span class="stat-copy">
+            <strong class="stat-value">27</strong>
+            <span class="stat-label">Kategori bahaya K3</span>
+          </span>
         </div>
         <div class="stat-box">
           <span class="stat-icon" aria-hidden="true"></span>
-          <span class="stat-value">5 Officer</span>
-          <span class="stat-label">Tim HSE terdedikasi</span>
+          <span class="stat-copy">
+            <strong class="stat-value">5 Officer</strong>
+            <span class="stat-label">Tim HSE terdedikasi</span>
+          </span>
         </div>
         <div class="stat-box">
           <span class="stat-icon" aria-hidden="true"></span>
-          <span class="stat-value">Tanpa login</span>
-          <span class="stat-label">Akses langsung bagi pekerja</span>
+          <span class="stat-copy">
+            <strong class="stat-value">Tanpa login</strong>
+            <span class="stat-label">Akses langsung bagi pekerja</span>
+          </span>
         </div>
       </section>
 
@@ -533,7 +541,7 @@
           </details>
           <details class="faq-disclosure">
             <summary>Apakah laporan WhatsApp dapat disesuaikan?</summary>
-            <p>Ya. Nama pelapor bersifat opsional, sementara divisi, lokasi, kategori, urgensi, dan deskripsi dapat dilengkapi sebelum pesan dikirim.</p>
+            <p>Ya. Nama pelapor, divisi, lokasi, kategori, detail temuan, urgensi, dan deskripsi wajib dilengkapi sebelum pesan dapat dikirim.</p>
           </details>
         </div>
       </section>
@@ -879,7 +887,7 @@
         <button class="modal-close-btn" onclick="closeWhatsAppModal()"></button>
         <div class="modal-header-centered">
           <h3>Hubungi Tim HSE via WhatsApp</h3>
-          <p class="modal-sub">Lengkapi data berikut. Draf pesan akan diperbarui otomatis sebelum dikirim.</p>
+          <p class="modal-sub">Semua kolom wajib dilengkapi. Pesan WhatsApp baru dapat dikirim setelah seluruh data valid.</p>
         </div>
 
         <!-- Recommended HSE Officer Card -->
@@ -893,8 +901,8 @@
 
         <!-- HSE Officer Selector Dropdown -->
         <div class="form-group">
-          <label for="wa-tech-select">HSE Officer tujuan</label>
-          <select id="wa-tech-select" class="form-input" onchange="onTechnicianSelected()">
+          <label for="wa-tech-select">HSE Officer tujuan <span class="field-required">*</span></label>
+          <select id="wa-tech-select" class="form-input" onchange="onTechnicianSelected()" required aria-describedby="wa-form-status">
             <!-- Injected via JS -->
           </select>
         </div>
@@ -907,25 +915,26 @@
 
           <div class="wa-form-grid">
             <div class="form-group">
-              <label for="wa-input-name">Nama pelapor <span class="field-optional">Opsional</span></label>
-              <input type="text" id="wa-input-name" class="form-input" placeholder="Kosongkan untuk anonim" autocomplete="name" oninput="updateLiveWhatsAppMessage()" />
+              <label for="wa-input-name">Nama pelapor <span class="field-required">*</span></label>
+              <input type="text" id="wa-input-name" class="form-input" placeholder="Masukkan nama lengkap" autocomplete="name" minlength="2" maxlength="150" oninput="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status" />
             </div>
 
             <div class="form-group">
-              <label for="wa-input-division">Fungsi / Divisi</label>
-              <input type="text" id="wa-input-division" class="form-input" placeholder="Contoh: Operations" autocomplete="organization-title" oninput="updateLiveWhatsAppMessage()" />
+              <label for="wa-input-division">Fungsi / Divisi <span class="field-required">*</span></label>
+              <input type="text" id="wa-input-division" class="form-input" placeholder="Contoh: Operations" autocomplete="organization-title" minlength="2" maxlength="150" oninput="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status" />
             </div>
           </div>
 
           <div class="wa-form-grid">
             <div class="form-group">
-              <label for="wa-input-location">Lokasi temuan</label>
-              <input type="text" id="wa-input-location" class="form-input" placeholder="Contoh: Workshop Welding" oninput="updateLiveWhatsAppMessage()" />
+              <label for="wa-input-location">Lokasi temuan <span class="field-required">*</span></label>
+              <input type="text" id="wa-input-location" class="form-input" placeholder="Contoh: Workshop Welding" minlength="3" maxlength="250" oninput="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status" />
             </div>
 
             <div class="form-group">
-              <label for="wa-input-category">Kategori bahaya</label>
-              <select id="wa-input-category" class="form-input" onchange="onCategorySelectInWaModal()">
+              <label for="wa-input-category">Kategori bahaya <span class="field-required">*</span></label>
+              <select id="wa-input-category" class="form-input" onchange="onCategorySelectInWaModal()" required aria-describedby="wa-form-status">
+                <option value="">-- Pilih Kategori Bahaya --</option>
                 <option value="Alat Pelindung Diri (APD)">APD</option>
                 <option value="Pekerjaan di Ketinggian">Ketinggian</option>
                 <option value="Kelistrikan">Kelistrikan</option>
@@ -944,24 +953,29 @@
 
           <div class="wa-form-grid">
             <div class="form-group">
-              <label for="wa-input-device">Detail temuan</label>
-              <input type="text" id="wa-input-device" class="form-input" placeholder="Contoh: Pekerja tanpa helm" oninput="updateLiveWhatsAppMessage()" />
+              <label for="wa-input-device">Detail temuan <span class="field-required">*</span></label>
+              <input type="text" id="wa-input-device" class="form-input" placeholder="Contoh: Pekerja tanpa helm" minlength="3" maxlength="150" oninput="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status" />
             </div>
 
             <div class="form-group">
-              <label for="wa-input-urgency">Tingkat urgensi</label>
-              <select id="wa-input-urgency" class="form-input urgency-select" onchange="updateLiveWhatsAppMessage()">
+              <label for="wa-input-urgency">Tingkat urgensi <span class="field-required">*</span></label>
+              <select id="wa-input-urgency" class="form-input urgency-select" onchange="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status">
+                <option value="">-- Pilih Tingkat Urgensi --</option>
                 <option value="Ringan">Ringan (Potensi kecil)</option>
-                <option value="Sedang" selected>Sedang (Perlu tindakan)</option>
+                <option value="Sedang">Sedang (Perlu tindakan)</option>
                 <option value="Berat">Berat (Hentikan pekerjaan)</option>
               </select>
             </div>
           </div>
 
           <div class="form-group wa-description-field">
-            <label for="wa-input-description">Deskripsi kondisi bahaya</label>
-            <textarea id="wa-input-description" class="form-input" rows="3" placeholder="Jelaskan kondisi bahaya yang ditemukan" oninput="updateLiveWhatsAppMessage()"></textarea>
+            <label for="wa-input-description">Deskripsi kondisi bahaya <span class="field-required">*</span></label>
+            <textarea id="wa-input-description" class="form-input" rows="3" placeholder="Jelaskan kondisi bahaya yang ditemukan (minimal 10 karakter)" minlength="10" maxlength="3000" oninput="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status"></textarea>
           </div>
+        </div>
+
+        <div class="wa-form-status" id="wa-form-status" role="status" aria-live="polite">
+          Lengkapi seluruh kolom wajib untuk mengaktifkan pengiriman WhatsApp.
         </div>
 
         <!-- Pre-filled Message Preview -->
@@ -972,9 +986,9 @@
 
         <div class="modal-actions">
           <button class="btn btn-secondary" onclick="closeWhatsAppModal()">Batal</button>
-          <a class="btn btn-success" id="wa-action-link" href="#" target="_blank" rel="noopener noreferrer">
+          <button type="button" class="btn btn-success" id="wa-action-link" onclick="sendWhatsAppReport()" disabled aria-disabled="true">
              Kirim WhatsApp ke Tim HSE
-          </a>
+          </button>
         </div>
       </div>
     </div>
