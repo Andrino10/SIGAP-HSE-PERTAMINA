@@ -569,6 +569,34 @@
     ========================================== -->
     <main class="view-panel" id="view-chatbot">
 
+      <button class="chat-drawer-backdrop" id="chat-drawer-backdrop" type="button" aria-label="Tutup riwayat percakapan" onclick="closeChatDrawer()" hidden></button>
+      <aside class="chat-session-drawer" id="chat-session-drawer" aria-labelledby="chat-drawer-title" aria-hidden="true">
+        <div class="chat-drawer-header">
+          <div>
+            <span>Asisten HSE</span>
+            <strong id="chat-drawer-title">Riwayat percakapan</strong>
+          </div>
+          <button class="chat-drawer-close" type="button" aria-label="Tutup riwayat percakapan" onclick="closeChatDrawer()">×</button>
+        </div>
+
+        <button class="chat-drawer-new btn btn-primary" type="button" data-ui-icon="message" onclick="startNewChatFromDrawer()">
+          Percakapan Baru
+        </button>
+
+        <div class="chat-drawer-history" id="chat-session-list" aria-live="polite">
+          <div class="chat-drawer-empty">Belum ada riwayat percakapan.</div>
+        </div>
+
+        <nav class="chat-drawer-nav" aria-label="Akses cepat Asisten HSE">
+          <button type="button" data-ui-icon="book" onclick="openKnowledgeFromChatDrawer()">Knowledge Base</button>
+          <button type="button" data-ui-icon="message" onclick="openHseContactFromChatDrawer()">Hubungi Tim HSE</button>
+        </nav>
+
+        <div class="chat-drawer-device-note">
+          Riwayat disimpan pada perangkat ini tanpa login.
+        </div>
+      </aside>
+
       <!-- Step 1: Guided Category Selector Panel -->
       <button class="mobile-category-backdrop" id="mobile-category-backdrop" type="button" aria-label="Tutup pilihan kategori" onclick="closeMobileCategoryPanel()" hidden></button>
       <div class="guided-cat-section" id="category-selector-bar" aria-labelledby="guided-category-title">
@@ -663,6 +691,9 @@
 
         <!-- Chat Header Bar -->
         <div class="chat-header">
+          <button class="chat-drawer-toggle" id="chat-drawer-trigger" type="button" aria-label="Buka riwayat percakapan" aria-controls="chat-session-drawer" aria-expanded="false" onclick="openChatDrawer()">
+            <span class="chat-drawer-toggle-lines" aria-hidden="true"></span>
+          </button>
           <div class="chat-title-group">
             <div class="chat-icon-badge"></div>
             <div>
@@ -670,8 +701,8 @@
               <div class="chat-subtitle">Sistem Pendamping Keselamatan Kerja Cerdas berbasis Knowledge Base</div>
             </div>
           </div>
-          <button class="btn btn-sm btn-secondary" onclick="resetChatConversation()" title="Mulai Percakapan Baru">
-             Mulai Baru
+          <button class="chat-new-button btn btn-sm btn-secondary" onclick="resetChatConversation()" title="Mulai Percakapan Baru">
+             Baru
           </button>
         </div>
 

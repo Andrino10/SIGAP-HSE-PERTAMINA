@@ -13,7 +13,11 @@ const ASAL_APLIKASI = window.location.origin
 const URL_DASAR_API = String(window.SIGAP_API_URL || `${ASAL_APLIKASI}/api`).replace(/\/+$/, '');
 const API_BASE_URL = URL_DASAR_API;
 
-let idSesiSaatIni = 'SESI-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+function buatIdSesiChat() {
+  return 'SESI-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.random().toString(36).substring(2, 7).toUpperCase();
+}
+
+let idSesiSaatIni = buatIdSesiChat();
 let currentSessionId = idSesiSaatIni;
 
 let daftarEntriFaq = [];
@@ -25,6 +29,11 @@ let muatanKonsultasiTertunda = null;
 let pembuatPemberhentiDebounce = null;
 let kategoriTerpilih = [];
 const MAKSIMAL_KATEGORI_TERPILIH = 5;
+const KUNCI_RIWAYAT_CHAT = 'sigap_hse_chat_sessions_v1';
+const KUNCI_SESI_CHAT_AKTIF = 'sigap_hse_active_chat_v1';
+let daftarSesiChatLokal = [];
+let sedangMemulihkanSesiChat = false;
+let pengirimanChatBerlangsung = false;
 const KELOMPOK_KATEGORI_UI = [
   {
     id: 'aktivitas-berisiko',
@@ -378,6 +387,7 @@ document.addEventListener('DOMContentLoaded', () => {
   tampilkanSeluruhKategoriChat(
     KELOMPOK_KATEGORI_UI.flatMap(group => group.kategori.map(nama => ({ nama, jumlah: null })))
   );
+  inisialisasiRiwayatSesiChat();
   terapkanIkonAntarmuka();
   terapkanAksesibilitasAntarmuka();
   inisialisasiModeChatSeluler();
@@ -479,6 +489,7 @@ function alihkanTampilan(namaTampilan) {
 
   if (namaTampilan !== 'chatbot') {
     tutupPemilihKategoriMobile(false);
+    tutupDrawerChat(false);
     document.body.classList.remove('chat-keyboard-open', 'chat-composer-active');
   }
 
@@ -513,6 +524,7 @@ function bukaPemilihKategoriMobile() {
   }
 
   const backdrop = document.getElementById('mobile-category-backdrop');
+  tutupDrawerChat(false);
   panel.classList.add('mobile-open');
   panel.setAttribute('role', 'dialog');
   panel.setAttribute('aria-modal', 'true');
@@ -563,6 +575,7 @@ function inisialisasiModeChatSeluler() {
     document.documentElement.style.setProperty('--chat-viewport-height', `${tinggiViewport}px`);
     if (!apakahChatMobile()) {
       tutupPemilihKategoriMobile(false);
+      tutupDrawerChat(false);
       document.body.classList.remove('chat-keyboard-open', 'chat-composer-active');
       return;
     }
@@ -574,6 +587,7 @@ function inisialisasiModeChatSeluler() {
   };
 
   input.addEventListener('focus', () => {
+    tutupDrawerChat(false);
     document.body.classList.add('chat-composer-active');
     window.setTimeout(() => {
       sinkronkanViewport();
@@ -592,12 +606,309 @@ function inisialisasiModeChatSeluler() {
   viewport?.addEventListener('scroll', sinkronkanViewport);
   window.addEventListener('resize', sinkronkanViewport);
   document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && document.body.classList.contains('mobile-category-open')) {
-      tutupPemilihKategoriMobile(true);
+    if (event.key === 'Escape') {
+      if (document.body.classList.contains('mobile-category-open')) {
+        tutupPemilihKategoriMobile(true);
+      } else if (document.body.classList.contains('chat-drawer-open')) {
+        tutupDrawerChat(true);
+      }
     }
   });
   sinkronkanViewport();
 }
+
+function bacaRiwayatChatLokal() {
+  try {
+    const data = JSON.parse(window.localStorage.getItem(KUNCI_RIWAYAT_CHAT) || '[]');
+    if (!Array.isArray(data)) return [];
+    return data
+      .filter(item => item && typeof item.id === 'string')
+      .map(item => ({
+        id: item.id,
+        judul: String(item.judul || 'Percakapan baru'),
+        dibuat: item.dibuat || new Date().toISOString(),
+        diperbarui: item.diperbarui || item.dibuat || new Date().toISOString(),
+        kategori: Array.isArray(item.kategori) ? item.kategori.filter(Boolean) : [],
+        pesan: Array.isArray(item.pesan)
+          ? item.pesan.filter(message => message && typeof message.teks === 'string').map(message => ({
+              peran: message.peran === 'user' ? 'user' : 'system',
+              pengirim: String(message.pengirim || (message.peran === 'user' ? 'Pelapor' : 'SIGAP-AI HSE Companion')),
+              teks: message.teks,
+              terstruktur: Boolean(message.terstruktur),
+              waktu: message.waktu || item.diperbarui || new Date().toISOString()
+            }))
+          : []
+      }));
+  } catch (error) {
+    return [];
+  }
+}
+
+function simpanRiwayatChatLokal() {
+  try {
+    window.localStorage.setItem(KUNCI_RIWAYAT_CHAT, JSON.stringify(daftarSesiChatLokal));
+    window.localStorage.setItem(KUNCI_SESI_CHAT_AKTIF, idSesiSaatIni);
+  } catch (error) {
+    // Aplikasi tetap dapat digunakan ketika penyimpanan perangkat dibatasi browser.
+  }
+}
+
+function buatDataSesiChat(id = buatIdSesiChat()) {
+  const sekarang = new Date().toISOString();
+  return {
+    id,
+    judul: 'Percakapan baru',
+    dibuat: sekarang,
+    diperbarui: sekarang,
+    kategori: [],
+    pesan: []
+  };
+}
+
+function dapatkanSesiChatAktif() {
+  return daftarSesiChatLokal.find(session => session.id === idSesiSaatIni) || null;
+}
+
+function pastikanSesiChatAktif() {
+  let session = dapatkanSesiChatAktif();
+  if (!session) {
+    session = buatDataSesiChat(idSesiSaatIni);
+    daftarSesiChatLokal.unshift(session);
+  }
+  return session;
+}
+
+function buatJudulSesiChat(teks) {
+  const ringkas = String(teks || '').replace(/\s+/g, ' ').trim();
+  if (!ringkas) return 'Percakapan baru';
+  return ringkas.length > 46 ? `${ringkas.slice(0, 46).trim()}…` : ringkas;
+}
+
+function labelKelompokTanggalSesi(timestamp) {
+  const tanggal = new Date(timestamp);
+  if (Number.isNaN(tanggal.getTime())) return 'Sebelumnya';
+  const hariIni = new Date();
+  hariIni.setHours(0, 0, 0, 0);
+  const hariSesi = new Date(tanggal);
+  hariSesi.setHours(0, 0, 0, 0);
+  const selisihHari = Math.floor((hariIni - hariSesi) / 86400000);
+  if (selisihHari <= 0) return 'Hari ini';
+  if (selisihHari === 1) return 'Kemarin';
+  if (selisihHari < 7) return '7 hari terakhir';
+  return 'Sebelumnya';
+}
+
+function formatWaktuSesi(timestamp) {
+  const tanggal = new Date(timestamp);
+  if (Number.isNaN(tanggal.getTime())) return '';
+  const kelompok = labelKelompokTanggalSesi(timestamp);
+  if (kelompok === 'Hari ini' || kelompok === 'Kemarin') {
+    return new Intl.DateTimeFormat('id-ID', { hour: '2-digit', minute: '2-digit' }).format(tanggal);
+  }
+  return new Intl.DateTimeFormat('id-ID', { day: '2-digit', month: 'short' }).format(tanggal);
+}
+
+function tampilkanDaftarSesiChat() {
+  const container = document.getElementById('chat-session-list');
+  if (!container) return;
+  const sessions = [...daftarSesiChatLokal]
+    .sort((a, b) => new Date(b.diperbarui) - new Date(a.diperbarui));
+  if (sessions.length === 0) {
+    container.innerHTML = '<div class="chat-drawer-empty">Belum ada riwayat percakapan.</div>';
+    return;
+  }
+
+  const groups = new Map();
+  sessions.forEach(session => {
+    const label = labelKelompokTanggalSesi(session.diperbarui);
+    if (!groups.has(label)) groups.set(label, []);
+    groups.get(label).push(session);
+  });
+
+  container.innerHTML = [...groups.entries()].map(([label, items]) => `
+    <section class="chat-session-group">
+      <h4>${sanitasiHtml(label)}</h4>
+      ${items.map(session => {
+        const metadata = session.kategori.length > 0
+          ? session.kategori.slice(0, 2).join(', ')
+          : 'Belum ada kategori';
+        return `
+          <button class="chat-session-item ${session.id === idSesiSaatIni ? 'active' : ''}" type="button" ${pengirimanChatBerlangsung ? 'disabled' : ''}
+            data-session-id="${sanitasiHtml(session.id)}" aria-current="${session.id === idSesiSaatIni ? 'true' : 'false'}">
+            <span class="chat-session-item-mark" aria-hidden="true"></span>
+            <span class="chat-session-item-copy">
+              <strong>${sanitasiHtml(session.judul)}</strong>
+              <small>${sanitasiHtml(metadata)}</small>
+            </span>
+            <time>${sanitasiHtml(formatWaktuSesi(session.diperbarui))}</time>
+          </button>
+        `;
+      }).join('')}
+    </section>
+  `).join('');
+
+  container.querySelectorAll('[data-session-id]').forEach(button => {
+    button.addEventListener('click', () => pilihSesiChat(button.dataset.sessionId));
+  });
+}
+
+function aturStatusPengirimanChat(aktif) {
+  pengirimanChatBerlangsung = Boolean(aktif);
+  document.querySelectorAll('.chat-new-button, .chat-drawer-new').forEach(button => {
+    button.disabled = pengirimanChatBerlangsung;
+  });
+  tampilkanDaftarSesiChat();
+}
+
+function htmlPembukaChat() {
+  return `
+    <div class="chat-bubble system-bubble">
+      <div class="bubble-sender">SIGAP-AI HSE Companion</div>
+      <div class="bubble-text">Selamat datang di Sistem Pendamping Keselamatan Kerja! Pilih satu atau beberapa kategori bahaya, kemudian laporkan kondisi keselamatan yang Anda temui di area kerja.</div>
+    </div>
+  `;
+}
+
+function tampilkanSesiChat(session) {
+  if (!session) return;
+  idSesiSaatIni = session.id;
+  currentSessionId = idSesiSaatIni;
+  kategoriTerpilih = [...session.kategori];
+  petugasTerpilihSaatIni = kategoriTerpilih.length > 0
+    ? petugasBerdasarkanKategori(kategoriTerpilih[0])
+    : null;
+  tautanWhatsAppTerakhir = null;
+  pesanWhatsAppTerakhir = null;
+  sembunyikanBilahPenyelesaian();
+
+  const stream = document.getElementById('chat-messages');
+  if (stream) stream.innerHTML = session.pesan.length > 0 ? '' : htmlPembukaChat();
+  sedangMemulihkanSesiChat = true;
+  session.pesan.forEach(message => {
+    if (message.terstruktur) {
+      tambahkanGelembungChatTerstruktur(message.peran, message.pengirim, message.teks);
+    } else {
+      tambahkanGelembungChat(message.peran, message.pengirim, message.teks);
+    }
+  });
+  sedangMemulihkanSesiChat = false;
+
+  const input = document.getElementById('chat-input');
+  if (input) input.value = '';
+  perbaruiTampilanKategoriTerpilih();
+  simpanRiwayatChatLokal();
+  tampilkanDaftarSesiChat();
+  window.requestAnimationFrame(gulirKePesanChatTerbaru);
+}
+
+function inisialisasiRiwayatSesiChat() {
+  daftarSesiChatLokal = bacaRiwayatChatLokal();
+  let idTersimpan = null;
+  try {
+    idTersimpan = window.localStorage.getItem(KUNCI_SESI_CHAT_AKTIF);
+  } catch (error) {}
+  const session = daftarSesiChatLokal.find(item => item.id === idTersimpan)
+    || daftarSesiChatLokal[0]
+    || buatDataSesiChat(idSesiSaatIni);
+  if (!daftarSesiChatLokal.some(item => item.id === session.id)) daftarSesiChatLokal.unshift(session);
+  tampilkanSesiChat(session);
+}
+
+function catatPesanPadaSesiChat(peran, pengirim, teks, terstruktur = false) {
+  if (sedangMemulihkanSesiChat) return;
+  const session = pastikanSesiChatAktif();
+  const sekarang = new Date().toISOString();
+  session.pesan.push({ peran, pengirim, teks: String(teks), terstruktur, waktu: sekarang });
+  session.kategori = daftarKategoriTerpilih();
+  session.diperbarui = sekarang;
+  if (peran === 'user' && session.judul === 'Percakapan baru') {
+    session.judul = buatJudulSesiChat(teks);
+  }
+  simpanRiwayatChatLokal();
+  tampilkanDaftarSesiChat();
+}
+
+function perbaruiKategoriPadaSesiChat() {
+  const session = pastikanSesiChatAktif();
+  session.kategori = daftarKategoriTerpilih();
+  session.diperbarui = new Date().toISOString();
+  simpanRiwayatChatLokal();
+  tampilkanDaftarSesiChat();
+}
+
+function pilihSesiChat(sessionId) {
+  if (pengirimanChatBerlangsung) {
+    tampilkanNotifikasi('Tunggu analisis HSE selesai sebelum berpindah sesi.', 'warning');
+    return;
+  }
+  const session = daftarSesiChatLokal.find(item => item.id === sessionId);
+  if (!session) return;
+  alihkanTampilan('chatbot');
+  tampilkanSesiChat(session);
+  tutupDrawerChat(false);
+}
+function switchChatSession(sessionId) { pilihSesiChat(sessionId); }
+
+function bukaDrawerChat() {
+  if (!apakahChatMobile()) return;
+  document.getElementById('chat-input')?.blur();
+  tutupPemilihKategoriMobile(false);
+  const drawer = document.getElementById('chat-session-drawer');
+  const backdrop = document.getElementById('chat-drawer-backdrop');
+  drawer?.classList.add('open');
+  drawer?.setAttribute('aria-hidden', 'false');
+  if (backdrop) backdrop.hidden = false;
+  document.body.classList.add('chat-drawer-open');
+  document.getElementById('chat-drawer-trigger')?.setAttribute('aria-expanded', 'true');
+  window.setTimeout(() => drawer?.querySelector('.chat-drawer-close')?.focus({ preventScroll: true }), 80);
+}
+function openChatDrawer() { bukaDrawerChat(); }
+
+function tutupDrawerChat(kembalikanFokus = true) {
+  const drawer = document.getElementById('chat-session-drawer');
+  const backdrop = document.getElementById('chat-drawer-backdrop');
+  drawer?.classList.remove('open');
+  drawer?.setAttribute('aria-hidden', 'true');
+  if (backdrop) backdrop.hidden = true;
+  document.body.classList.remove('chat-drawer-open');
+  const trigger = document.getElementById('chat-drawer-trigger');
+  trigger?.setAttribute('aria-expanded', 'false');
+  if (kembalikanFokus && apakahChatMobile()) trigger?.focus({ preventScroll: true });
+}
+function closeChatDrawer() { tutupDrawerChat(true); }
+
+function mulaiPercakapanChatBaru() {
+  if (pengirimanChatBerlangsung) {
+    tampilkanNotifikasi('Tunggu analisis HSE selesai sebelum membuat percakapan baru.', 'warning');
+    return;
+  }
+  const sessionAktif = dapatkanSesiChatAktif();
+  if (sessionAktif && sessionAktif.pesan.length === 0 && sessionAktif.kategori.length === 0) {
+    tampilkanSesiChat(sessionAktif);
+    tutupDrawerChat(false);
+    return;
+  }
+  const session = buatDataSesiChat();
+  daftarSesiChatLokal.unshift(session);
+  tampilkanSesiChat(session);
+  tutupDrawerChat(false);
+  tutupPemilihKategoriMobile(false);
+  tampilkanNotifikasi('Percakapan baru siap. Pilih kategori bahaya untuk melanjutkan.', 'info');
+}
+
+function startNewChatFromDrawer() { mulaiPercakapanChatBaru(); }
+
+function bukaKnowledgeDariDrawerChat() {
+  tutupDrawerChat(false);
+  alihkanTampilan('services-panel');
+}
+function openKnowledgeFromChatDrawer() { bukaKnowledgeDariDrawerChat(); }
+
+function bukaKontakHseDariDrawerChat() {
+  tutupDrawerChat(false);
+  bukaWhatsAppLangsung();
+}
+function openHseContactFromChatDrawer() { bukaKontakHseDariDrawerChat(); }
 
 function tampilkanKelompokKategoriBeranda() {
   const container = document.querySelector('#section-services .category-grid');
@@ -1177,6 +1488,7 @@ function pilihKategori(namaKategori) {
 
   kategoriTerpilih = categories;
   perbaruiTampilanKategoriTerpilih();
+  perbaruiKategoriPadaSesiChat();
   if (adaKategoriTerpilih() && !apakahChatMobile()) document.getElementById('chat-input')?.focus();
 }
 function selectCategory(catName) { pilihKategori(catName); }
@@ -1186,6 +1498,7 @@ function bersihkanKategoriTerpilih() {
   const elemenInput = document.getElementById('chat-input');
   if (elemenInput) elemenInput.value = '';
   perbaruiTampilanKategoriTerpilih();
+  perbaruiKategoriPadaSesiChat();
 }
 function clearSelectedCategory() { bersihkanKategoriTerpilih(); }
 
@@ -1254,6 +1567,7 @@ async function kirimPesanChat() {
 
   if (!teksPesan) return;
 
+  aturStatusPengirimanChat(true);
   sembunyikanBilahPenyelesaian();
   tambahkanGelembungChat('user', 'Pelapor', teksPesan);
   elemenInput.value = '';
@@ -1311,6 +1625,7 @@ async function kirimPesanChat() {
     tambahkanGelembungChat('system', 'SIGAP-AI HSE Companion', 'Layanan analisis belum dapat dihubungi. Coba kembali atau eskalasikan langsung ke Tim HSE.');
     tampilkanNotifikasi('Layanan analisis belum terhubung.', 'error');
   } finally {
+    aturStatusPengirimanChat(false);
     elemenInput.disabled = !adaKategoriTerpilih();
     if (tombolKirim) {
       tombolKirim.disabled = !adaKategoriTerpilih();
@@ -1563,6 +1878,7 @@ function tambahkanGelembungChatTerstruktur(peran, namaPengirim, teksMentah) {
 
   aliran.appendChild(gelembung);
   aliran.scrollTop = aliran.scrollHeight;
+  catatPesanPadaSesiChat(peran, namaPengirim, teksMentah, true);
 }
 
 // ==========================================================================
@@ -1863,6 +2179,7 @@ function tambahkanGelembungChat(peran, namaPengirim, teks) {
 
   aliran.appendChild(gelembung);
   aliran.scrollTop = aliran.scrollHeight;
+  catatPesanPadaSesiChat(peran, namaPengirim, teks, false);
 }
 function appendChatBubble(role, senderName, text) { tambahkanGelembungChat(role, senderName, text); }
 
@@ -1909,31 +2226,7 @@ function tambahkanPetunjukEskalasi() {
   aliran.scrollTop = aliran.scrollHeight;
 }
 
-async function resetPercakapanChat() {
-  try {
-    await fetchDenganBatasWaktu(`${URL_DASAR_API}/chatbot/reset`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ session_id: idSesiSaatIni, id_sesi: idSesiSaatIni })
-    }, 8000);
-  } catch (err) {}
-
-  idSesiSaatIni = 'SESI-' + new Date().toISOString().slice(0,10).replace(/-/g,'') + '-' + Math.random().toString(36).substring(2, 7).toUpperCase();
-  currentSessionId = idSesiSaatIni;
-  sembunyikanBilahPenyelesaian();
-
-  const aliran = document.getElementById('chat-messages');
-  if (aliran) {
-    aliran.innerHTML = `
-      <div class="chat-bubble system-bubble">
-        <div class="bubble-sender">SIGAP-AI HSE Companion</div>
-        <div class="bubble-text">Percakapan telah dibersihkan. Silakan pilih kategori dan sampaikan kondisi bahaya Anda.</div>
-      </div>
-    `;
-  }
-  bersihkanKategoriTerpilih();
-  tampilkanNotifikasi('Percakapan baru siap. Pilih kategori bahaya untuk melanjutkan.', 'info');
-}
+async function resetPercakapanChat() { mulaiPercakapanChatBaru(); }
 function resetChatConversation() { resetPercakapanChat(); }
 
 // ==========================================================================

@@ -130,6 +130,28 @@ const groupedOptionHtml = run(`buatOpsiKategoriTerkelompok(
 assert.equal((groupedOptionHtml.match(/<optgroup\b/g) || []).length, 6, 'Dropdown harus memakai 6 optgroup.');
 assert.equal((groupedOptionHtml.match(/<option\b/g) || []).length, 28, 'Placeholder dan 27 kategori harus tetap ada.');
 
+const restoredChatSessions = JSON.parse(run(`(() => {
+  const storageData = {};
+  window.localStorage = {
+    getItem(key) { return Object.prototype.hasOwnProperty.call(storageData, key) ? storageData[key] : null; },
+    setItem(key, value) { storageData[key] = String(value); }
+  };
+  idSesiSaatIni = 'SESSION-LOCAL-TEST';
+  daftarSesiChatLokal = [{
+    id: idSesiSaatIni,
+    judul: 'Kabel terbuka',
+    dibuat: '2026-08-10T08:00:00.000Z',
+    diperbarui: '2026-08-10T08:01:00.000Z',
+    kategori: ['Kelistrikan'],
+    pesan: [{ peran: 'user', pengirim: 'Pelapor', teks: 'Kabel terbuka', terstruktur: false }]
+  }];
+  simpanRiwayatChatLokal();
+  return JSON.stringify(bacaRiwayatChatLokal());
+})()`));
+assert.equal(restoredChatSessions.length, 1, 'Riwayat chat lokal harus dapat dibaca kembali.');
+assert.equal(restoredChatSessions[0].id, 'SESSION-LOCAL-TEST');
+assert.deepEqual(restoredChatSessions[0].kategori, ['Kelistrikan']);
+
 function setCompleteReport() {
   elements['wa-tech-select'].value = '6281234567890';
   elements['wa-input-name'].value = 'Budi Santoso';
@@ -187,7 +209,16 @@ assert.match(
 );
 assert.match(indexHtml, /id="mobile-category-trigger"/i, 'Chatbot harus memiliki pemicu kategori ringkas di mobile.');
 assert.match(indexHtml, /id="mobile-category-backdrop"/i, 'Pemilih kategori mobile harus memiliki backdrop yang dapat ditutup.');
+assert.match(indexHtml, /id="chat-session-drawer"/i, 'Chatbot mobile harus memiliki drawer riwayat sesi.');
+assert.match(indexHtml, /id="chat-session-list"/i, 'Drawer harus menyediakan daftar sesi percakapan.');
 assert.match(appSource, /window\.visualViewport/, 'Tinggi chatbot harus mengikuti viewport saat keyboard mobile terbuka.');
+assert.match(appSource, /window\.localStorage/, 'Riwayat sesi chatbot harus disimpan pada perangkat pengguna.');
+assert.doesNotMatch(appSource, /\/chatbot\/reset/, 'Membuat chat baru tidak boleh menghapus sesi lama di backend.');
+assert.equal(
+  run("buatJudulSesiChat('Kabel terbuka di area pompa utama')"),
+  'Kabel terbuka di area pompa utama',
+  'Judul sesi harus berasal dari pesan pertama pengguna.',
+);
 for (const id of requiredIds) {
   const requiredControl = new RegExp(
     `<(?:input|select|textarea)\\b(?=[^>]*\\bid="${id}")(?=[^>]*\\brequired\\b)[^>]*>`,
