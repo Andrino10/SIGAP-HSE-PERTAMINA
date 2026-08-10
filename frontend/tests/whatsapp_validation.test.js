@@ -180,6 +180,14 @@ const requiredIds = [
 ];
 
 const indexHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
+assert.match(
+  indexHtml,
+  /<textarea\b(?=[^>]*\bid="chat-input")(?=[^>]*\brows="2")[^>]*>/i,
+  'Input chatbot mobile harus mendukung pesan dua baris.',
+);
+assert.match(indexHtml, /id="mobile-category-trigger"/i, 'Chatbot harus memiliki pemicu kategori ringkas di mobile.');
+assert.match(indexHtml, /id="mobile-category-backdrop"/i, 'Pemilih kategori mobile harus memiliki backdrop yang dapat ditutup.');
+assert.match(appSource, /window\.visualViewport/, 'Tinggi chatbot harus mengikuti viewport saat keyboard mobile terbuka.');
 for (const id of requiredIds) {
   const requiredControl = new RegExp(
     `<(?:input|select|textarea)\\b(?=[^>]*\\bid="${id}")(?=[^>]*\\brequired\\b)[^>]*>`,

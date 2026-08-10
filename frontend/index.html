@@ -570,11 +570,13 @@
     <main class="view-panel" id="view-chatbot">
 
       <!-- Step 1: Guided Category Selector Panel -->
-      <div class="guided-cat-section" id="category-selector-bar">
+      <button class="mobile-category-backdrop" id="mobile-category-backdrop" type="button" aria-label="Tutup pilihan kategori" onclick="closeMobileCategoryPanel()" hidden></button>
+      <div class="guided-cat-section" id="category-selector-bar" aria-labelledby="guided-category-title">
         <div class="guided-cat-header">
           <span class="guided-step-badge" id="guided-step-1">LANGKAH 1 · WAJIB</span>
-          <span class="guided-cat-title">Pilih kelompok, lalu kategori yang sesuai</span>
+          <span class="guided-cat-title" id="guided-category-title">Pilih kelompok, lalu kategori yang sesuai</span>
           <button class="btn-clear-cat btn btn-sm btn-secondary" id="btn-clear-cat" onclick="clearSelectedCategory()" hidden>Hapus Semua Pilihan</button>
+          <button class="mobile-category-close" type="button" aria-label="Tutup pilihan kategori" onclick="closeMobileCategoryPanel()">×</button>
         </div>
         <p class="guided-cat-help">6 kelompok merangkum 27 kategori. Maksimal 5 kategori dapat dipilih; kategori Umum digunakan sendiri.</p>
 
@@ -651,6 +653,9 @@
             </div>
           </button>
         </div>
+        <div class="mobile-category-footer">
+          <button class="btn btn-primary" type="button" onclick="finishMobileCategorySelection()">Selesai &amp; Tulis Pesan</button>
+        </div>
       </div>
 
       <!-- Main Chat Console Container -->
@@ -667,6 +672,16 @@
           </div>
           <button class="btn btn-sm btn-secondary" onclick="resetChatConversation()" title="Mulai Percakapan Baru">
              Mulai Baru
+          </button>
+        </div>
+
+        <div class="chat-mobile-category-bar">
+          <div class="chat-mobile-category-copy">
+            <span>Kategori aktif</span>
+            <strong id="mobile-category-summary">Belum dipilih</strong>
+          </div>
+          <button class="btn btn-sm btn-secondary" id="mobile-category-trigger" type="button" aria-controls="category-selector-bar" aria-expanded="false" onclick="openMobileCategoryPanel()">
+            Pilih
           </button>
         </div>
 
@@ -693,7 +708,7 @@
           <div class="chat-bubble system-bubble">
             <div class="bubble-sender">SIGAP-AI HSE Companion</div>
             <div class="bubble-text">
-              Selamat datang di Sistem Pendamping Keselamatan Kerja! Pilih satu atau beberapa kategori bahaya di atas, kemudian laporkan kondisi keselamatan yang Anda temui di area kerja.
+              Selamat datang di Sistem Pendamping Keselamatan Kerja! Pilih satu atau beberapa kategori bahaya, kemudian laporkan kondisi keselamatan yang Anda temui di area kerja.
             </div>
           </div>
         </div>

@@ -380,6 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
   );
   terapkanIkonAntarmuka();
   terapkanAksesibilitasAntarmuka();
+  inisialisasiModeChatSeluler();
   inisialisasiValidasiWhatsApp();
   periksaKesehatanBackend();
   muatPertanyaanAwal();
@@ -476,6 +477,11 @@ function alihkanTampilan(namaTampilan) {
   if (menu) menu.classList.remove('active');
   document.querySelector('.mobile-toggle')?.setAttribute('aria-expanded', 'false');
 
+  if (namaTampilan !== 'chatbot') {
+    tutupPemilihKategoriMobile(false);
+    document.body.classList.remove('chat-keyboard-open', 'chat-composer-active');
+  }
+
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 function switchView(viewName) { alihkanTampilan(viewName); }
@@ -488,6 +494,110 @@ function sakelarMenuSeluler() {
   }
 }
 function toggleMobileMenu() { sakelarMenuSeluler(); }
+
+function apakahChatMobile() {
+  return typeof window.matchMedia === 'function' && window.matchMedia('(max-width: 820px)').matches;
+}
+
+function gulirKePesanChatTerbaru() {
+  const aliran = document.getElementById('chat-messages');
+  if (aliran) aliran.scrollTop = aliran.scrollHeight;
+}
+
+function bukaPemilihKategoriMobile() {
+  const panel = document.getElementById('category-selector-bar');
+  if (!panel) return;
+  if (!apakahChatMobile()) {
+    panel.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    return;
+  }
+
+  const backdrop = document.getElementById('mobile-category-backdrop');
+  panel.classList.add('mobile-open');
+  panel.setAttribute('role', 'dialog');
+  panel.setAttribute('aria-modal', 'true');
+  if (backdrop) backdrop.hidden = false;
+  document.body.classList.add('mobile-category-open');
+  document.getElementById('mobile-category-trigger')?.setAttribute('aria-expanded', 'true');
+
+  const selectedCard = panel.querySelector('.guided-cat-card.active');
+  window.setTimeout(() => {
+    (selectedCard || panel.querySelector('summary, .mobile-category-close'))?.focus({ preventScroll: true });
+  }, 80);
+}
+function openMobileCategoryPanel() { bukaPemilihKategoriMobile(); }
+
+function tutupPemilihKategoriMobile(kembalikanFokus = true) {
+  const panel = document.getElementById('category-selector-bar');
+  const backdrop = document.getElementById('mobile-category-backdrop');
+  if (panel) {
+    panel.classList.remove('mobile-open');
+    panel.removeAttribute('role');
+    panel.removeAttribute('aria-modal');
+  }
+  if (backdrop) backdrop.hidden = true;
+  document.body.classList.remove('mobile-category-open');
+  const trigger = document.getElementById('mobile-category-trigger');
+  trigger?.setAttribute('aria-expanded', 'false');
+  if (kembalikanFokus && apakahChatMobile()) trigger?.focus({ preventScroll: true });
+}
+function closeMobileCategoryPanel() { tutupPemilihKategoriMobile(true); }
+
+function selesaikanPilihanKategoriMobile() {
+  if (!adaKategoriTerpilih()) {
+    tampilkanNotifikasi('Pilih minimal satu kategori bahaya terlebih dahulu.', 'warning');
+    return;
+  }
+  tutupPemilihKategoriMobile(false);
+  window.setTimeout(() => document.getElementById('chat-input')?.focus(), 120);
+}
+function finishMobileCategorySelection() { selesaikanPilihanKategoriMobile(); }
+
+function inisialisasiModeChatSeluler() {
+  const input = document.getElementById('chat-input');
+  if (!input) return;
+  const viewport = window.visualViewport;
+
+  const sinkronkanViewport = () => {
+    const tinggiViewport = Math.round(viewport?.height || window.innerHeight || document.documentElement.clientHeight);
+    document.documentElement.style.setProperty('--chat-viewport-height', `${tinggiViewport}px`);
+    if (!apakahChatMobile()) {
+      tutupPemilihKategoriMobile(false);
+      document.body.classList.remove('chat-keyboard-open', 'chat-composer-active');
+      return;
+    }
+    const keyboardTerbuka = apakahChatMobile()
+      && document.activeElement === input
+      && Boolean(viewport && window.innerHeight - viewport.height > 100);
+    document.body.classList.toggle('chat-keyboard-open', keyboardTerbuka);
+    if (keyboardTerbuka) window.requestAnimationFrame(gulirKePesanChatTerbaru);
+  };
+
+  input.addEventListener('focus', () => {
+    document.body.classList.add('chat-composer-active');
+    window.setTimeout(() => {
+      sinkronkanViewport();
+      gulirKePesanChatTerbaru();
+    }, 120);
+  });
+  input.addEventListener('blur', () => {
+    window.setTimeout(() => {
+      if (document.activeElement !== input) {
+        document.body.classList.remove('chat-keyboard-open', 'chat-composer-active');
+        sinkronkanViewport();
+      }
+    }, 120);
+  });
+  viewport?.addEventListener('resize', sinkronkanViewport);
+  viewport?.addEventListener('scroll', sinkronkanViewport);
+  window.addEventListener('resize', sinkronkanViewport);
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && document.body.classList.contains('mobile-category-open')) {
+      tutupPemilihKategoriMobile(true);
+    }
+  });
+  sinkronkanViewport();
+}
 
 function tampilkanKelompokKategoriBeranda() {
   const container = document.querySelector('#section-services .category-grid');
@@ -520,8 +630,12 @@ function bukaChatDenganKelompok(idKelompok) {
   document.querySelectorAll('.guided-cat-group').forEach(group => {
     group.open = group === target;
   });
-  target.querySelector('summary')?.focus({ preventScroll: true });
-  target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (apakahChatMobile()) {
+    bukaPemilihKategoriMobile();
+  } else {
+    target.querySelector('summary')?.focus({ preventScroll: true });
+    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 function openChatWithGroup(groupId) { bukaChatDenganKelompok(groupId); }
 
@@ -990,6 +1104,19 @@ function perbaruiTampilanKategoriTerpilih() {
   const tombolBersihkan = document.getElementById('btn-clear-cat');
   if (tombolBersihkan) tombolBersihkan.hidden = categories.length === 0;
 
+  const ringkasanKategoriMobile = document.getElementById('mobile-category-summary');
+  const pemicuKategoriMobile = document.getElementById('mobile-category-trigger');
+  const barKategoriMobile = document.querySelector('.chat-mobile-category-bar');
+  if (ringkasanKategoriMobile) {
+    const ringkasan = categories.length === 0
+      ? 'Belum dipilih'
+      : `${categories.slice(0, 2).join(', ')}${categories.length > 2 ? ` +${categories.length - 2}` : ''}`;
+    ringkasanKategoriMobile.textContent = ringkasan;
+    ringkasanKategoriMobile.title = categories.join(', ');
+  }
+  if (pemicuKategoriMobile) pemicuKategoriMobile.textContent = categories.length > 0 ? 'Ubah' : 'Pilih';
+  barKategoriMobile?.classList.toggle('has-selection', categories.length > 0);
+
   tampilkanTombolContohKategori(categories);
 
   const lencanaLangkah = document.getElementById('guided-step-1');
@@ -1050,7 +1177,7 @@ function pilihKategori(namaKategori) {
 
   kategoriTerpilih = categories;
   perbaruiTampilanKategoriTerpilih();
-  if (adaKategoriTerpilih()) document.getElementById('chat-input')?.focus();
+  if (adaKategoriTerpilih() && !apakahChatMobile()) document.getElementById('chat-input')?.focus();
 }
 function selectCategory(catName) { pilihKategori(catName); }
 
@@ -1100,7 +1227,7 @@ function bukaChatDenganKategori(namaKategori) {
   const elemenInput = document.getElementById('chat-input');
   if (elemenInput) {
     elemenInput.value = '';
-    elemenInput.focus();
+    if (!apakahChatMobile()) elemenInput.focus();
   }
 }
 function openChatWithCategory(categoryName) { bukaChatDenganKategori(categoryName); }
