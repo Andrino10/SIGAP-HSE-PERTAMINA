@@ -34,6 +34,9 @@ const KUNCI_SESI_CHAT_AKTIF = 'sigap_hse_active_chat_v1';
 let daftarSesiChatLokal = [];
 let sedangMemulihkanSesiChat = false;
 let pengirimanChatBerlangsung = false;
+let indukPanelKategoriChat = null;
+let elemenSetelahPanelKategoriChat = null;
+let pemulihPanelKategoriTimeout = null;
 const KELOMPOK_KATEGORI_UI = [
   {
     id: 'aktivitas-berisiko',
@@ -512,6 +515,11 @@ function apakahChatMobile() {
 }
 
 function pasangOverlayChatPadaBody() {
+  const panelKategori = document.getElementById('category-selector-bar');
+  if (panelKategori && !indukPanelKategoriChat) {
+    indukPanelKategoriChat = panelKategori.parentElement;
+    elemenSetelahPanelKategoriChat = panelKategori.nextSibling;
+  }
   [
     document.getElementById('mobile-category-backdrop'),
     document.getElementById('chat-drawer-backdrop'),
@@ -519,6 +527,51 @@ function pasangOverlayChatPadaBody() {
   ].forEach(element => {
     if (element && element.parentElement !== document.body) document.body.appendChild(element);
   });
+}
+
+function pasangPanelKategoriPadaBody() {
+  const panel = document.getElementById('category-selector-bar');
+  if (!panel || !apakahChatMobile()) return;
+  if (pemulihPanelKategoriTimeout) {
+    window.clearTimeout(pemulihPanelKategoriTimeout);
+    pemulihPanelKategoriTimeout = null;
+  }
+  if (!indukPanelKategoriChat) {
+    indukPanelKategoriChat = panel.parentElement;
+    elemenSetelahPanelKategoriChat = panel.nextSibling;
+  }
+  if (panel.parentElement !== document.body) document.body.appendChild(panel);
+}
+
+function pulihkanPosisiPanelKategori() {
+  const panel = document.getElementById('category-selector-bar');
+  if (!panel || !indukPanelKategoriChat || panel.parentElement === indukPanelKategoriChat) return;
+  if (elemenSetelahPanelKategoriChat?.parentElement === indukPanelKategoriChat) {
+    indukPanelKategoriChat.insertBefore(panel, elemenSetelahPanelKategoriChat);
+  } else {
+    indukPanelKategoriChat.appendChild(panel);
+  }
+  if (!apakahChatMobile()) {
+    panel.querySelectorAll('.guided-cat-group').forEach(group => {
+      group.open = group.classList.contains('has-selection');
+    });
+    const title = panel.querySelector('.guided-cat-title');
+    const help = panel.querySelector('.guided-cat-help');
+    if (title) title.textContent = 'Pilih kelompok, lalu kategori yang sesuai';
+    if (help) help.textContent = '6 kelompok merangkum 27 kategori. Maksimal 5 kategori dapat dipilih; kategori Umum digunakan sendiri.';
+  }
+}
+
+function siapkanPanelKategoriMobile(panel) {
+  if (!panel || !apakahChatMobile()) return;
+  panel.querySelectorAll('.guided-cat-group').forEach(group => {
+    group.open = true;
+    group.querySelector('summary')?.setAttribute('tabindex', '-1');
+  });
+  const title = panel.querySelector('.guided-cat-title');
+  const help = panel.querySelector('.guided-cat-help');
+  if (title) title.textContent = 'Pilih kategori bahaya';
+  if (help) help.textContent = 'Ketuk kategori yang paling sesuai. Pilihan langsung diterapkan ke percakapan.';
 }
 
 function gulirKePesanChatTerbaru() {
@@ -536,6 +589,8 @@ function bukaPemilihKategoriMobile() {
 
   const backdrop = document.getElementById('mobile-category-backdrop');
   tutupDrawerChat(false);
+  pasangPanelKategoriPadaBody();
+  siapkanPanelKategoriMobile(panel);
   panel.classList.add('mobile-open');
   panel.setAttribute('role', 'dialog');
   panel.setAttribute('aria-modal', 'true');
@@ -545,7 +600,7 @@ function bukaPemilihKategoriMobile() {
 
   const selectedCard = panel.querySelector('.guided-cat-card.active');
   window.setTimeout(() => {
-    (selectedCard || panel.querySelector('summary, .mobile-category-close'))?.focus({ preventScroll: true });
+    (selectedCard || panel.querySelector('.guided-cat-card, .mobile-category-close'))?.focus({ preventScroll: true });
   }, 80);
 }
 function openMobileCategoryPanel() { bukaPemilihKategoriMobile(); }
@@ -557,12 +612,17 @@ function tutupPemilihKategoriMobile(kembalikanFokus = true) {
     panel.classList.remove('mobile-open');
     panel.removeAttribute('role');
     panel.removeAttribute('aria-modal');
+    panel.querySelectorAll('.guided-cat-group > summary').forEach(summary => summary.removeAttribute('tabindex'));
   }
   if (backdrop) backdrop.hidden = true;
   document.body.classList.remove('mobile-category-open');
   const trigger = document.getElementById('mobile-category-trigger');
   trigger?.setAttribute('aria-expanded', 'false');
   if (kembalikanFokus && apakahChatMobile()) trigger?.focus({ preventScroll: true });
+  pemulihPanelKategoriTimeout = window.setTimeout(() => {
+    pulihkanPosisiPanelKategori();
+    pemulihPanelKategoriTimeout = null;
+  }, 230);
 }
 function closeMobileCategoryPanel() { tutupPemilihKategoriMobile(true); }
 
@@ -1080,6 +1140,9 @@ function tampilkanSeluruhKategoriChat(categories = detailKategoriKnowledge) {
   container.querySelectorAll('.guided-cat-card').forEach(card => {
     card.addEventListener('click', () => pilihKategori(card.dataset.cat));
   });
+  if (document.body.classList.contains('mobile-category-open')) {
+    siapkanPanelKategoriMobile(document.getElementById('category-selector-bar'));
+  }
 }
 
 async function periksaKesehatanBackend() {
@@ -1511,6 +1574,12 @@ function pilihKategori(namaKategori) {
   kategoriTerpilih = categories;
   perbaruiTampilanKategoriTerpilih();
   perbaruiKategoriPadaSesiChat();
+  if (!sudahDipilih && apakahChatMobile() && document.body.classList.contains('mobile-category-open')) {
+    window.setTimeout(() => {
+      tutupPemilihKategoriMobile(false);
+      document.getElementById('chat-input')?.focus();
+    }, 120);
+  }
   if (adaKategoriTerpilih() && !apakahChatMobile()) document.getElementById('chat-input')?.focus();
 }
 function selectCategory(catName) { pilihKategori(catName); }

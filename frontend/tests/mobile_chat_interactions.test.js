@@ -40,6 +40,7 @@ class FakeElement {
     if (selector.includes('mobile-category-close') || selector.includes('summary')) return this.ownerDocument.getElementById('category-close');
     return null;
   }
+  querySelectorAll() { return []; }
   scrollIntoView() {}
 }
 
@@ -58,6 +59,10 @@ function createMobileContext() {
     classList: new FakeClassList(),
     appendChild(element) { element.parentElement = this; },
   };
+  documentStub.chatView = {
+    appendChild(element) { element.parentElement = this; },
+    insertBefore(element) { element.parentElement = this; },
+  };
 
   for (const id of [
     'chat-input', 'chat-session-drawer', 'chat-drawer-backdrop', 'chat-drawer-trigger',
@@ -66,6 +71,7 @@ function createMobileContext() {
   ]) {
     documentStub.elements[id] = new FakeElement(id, documentStub);
   }
+  documentStub.elements['category-selector-bar'].parentElement = documentStub.chatView;
 
   const viewportListeners = {};
   const visualViewport = {
@@ -80,6 +86,7 @@ function createMobileContext() {
     addEventListener() {},
     requestAnimationFrame(callback) { callback(); },
     setTimeout(callback) { callback(); return 1; },
+    clearTimeout() {},
     scrollTo() {},
   };
 
@@ -88,7 +95,7 @@ function createMobileContext() {
     window: windowStub,
     console,
     setTimeout: windowStub.setTimeout,
-    clearTimeout() {},
+    clearTimeout: windowStub.clearTimeout,
     AbortController,
     URL,
   });
@@ -123,8 +130,10 @@ test('pemilih kategori mobile dapat dibuka dan ditutup tanpa menyisakan scroll l
   const { context, documentStub } = createMobileContext();
   const panel = documentStub.getElementById('category-selector-bar');
   const backdrop = documentStub.getElementById('mobile-category-backdrop');
+  vm.runInContext('pasangOverlayChatPadaBody()', context);
 
   vm.runInContext('bukaPemilihKategoriMobile()', context);
+  assert.equal(panel.parentElement, documentStub.body);
   assert.equal(panel.classList.contains('mobile-open'), true);
   assert.equal(backdrop.hidden, false);
   assert.equal(documentStub.body.classList.contains('mobile-category-open'), true);
@@ -133,6 +142,20 @@ test('pemilih kategori mobile dapat dibuka dan ditutup tanpa menyisakan scroll l
   assert.equal(panel.classList.contains('mobile-open'), false);
   assert.equal(backdrop.hidden, true);
   assert.equal(documentStub.body.classList.contains('mobile-category-open'), false);
+  assert.equal(panel.parentElement, documentStub.chatView);
+});
+
+test('satu ketukan kategori mobile langsung menerapkan pilihan dan membuka input', () => {
+  const { context, documentStub } = createMobileContext();
+  vm.runInContext(`
+    perbaruiTampilanKategoriTerpilih = () => {};
+    perbaruiKategoriPadaSesiChat = () => {};
+    document.body.classList.add('mobile-category-open');
+    pilihKategori('Kelistrikan');
+  `, context);
+  assert.equal(vm.runInContext("kategoriTerpilih.includes('Kelistrikan')", context), true);
+  assert.equal(documentStub.body.classList.contains('mobile-category-open'), false);
+  assert.equal(documentStub.activeElement, documentStub.getElementById('chat-input'));
 });
 
 test('mode keyboard dilepas saat visual viewport kembali penuh meski input tetap fokus', () => {
