@@ -152,19 +152,22 @@ test('pemilih kategori inline mobile dapat dibuka dan ditutup tanpa overlay', ()
   assert.equal(panel.parentElement, documentStub.chatView);
 });
 
-test('satu ketukan kategori mobile langsung menerapkan pilihan dan membuka input', () => {
+test('memilih kelompok mobile menyimpan konteks tanpa menutup panel atau memindahkan fokus', () => {
   const { context, documentStub } = createMobileContext();
   vm.runInContext(`
     perbaruiTampilanKategoriTerpilih = () => {};
     perbaruiKategoriPadaSesiChat = () => {};
+    tampilkanKelompokKategoriBeranda = () => {};
+    tampilkanNotifikasi = () => {};
     document.getElementById('mobile-inline-category-picker').classList.add('open');
     document.body.classList.add('mobile-inline-category-open');
-    pilihKategori('Kelistrikan');
+    pilihKelompokKategori('aktivitas-berisiko');
   `, context);
-  assert.equal(vm.runInContext("kategoriTerpilih.includes('Kelistrikan')", context), true);
-  assert.equal(documentStub.body.classList.contains('mobile-inline-category-open'), false);
-  assert.equal(documentStub.getElementById('mobile-inline-category-picker').classList.contains('open'), false);
-  assert.equal(documentStub.activeElement, documentStub.getElementById('chat-input'));
+  assert.equal(vm.runInContext("kelompokKategoriTerpilih", context), 'aktivitas-berisiko');
+  assert.equal(vm.runInContext("kategoriTerpilih.length", context), 0);
+  assert.equal(documentStub.body.classList.contains('mobile-inline-category-open'), true);
+  assert.equal(documentStub.getElementById('mobile-inline-category-picker').classList.contains('open'), true);
+  assert.equal(documentStub.activeElement, null);
 });
 
 test('mode keyboard dilepas saat visual viewport kembali penuh meski input tetap fokus', () => {

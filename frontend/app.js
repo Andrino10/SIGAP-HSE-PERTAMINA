@@ -28,17 +28,10 @@ let pesanWhatsAppTerakhir = null;
 let muatanKonsultasiTertunda = null;
 let pembuatPemberhentiDebounce = null;
 let kategoriTerpilih = [];
+let kelompokKategoriTerpilih = null;
 const MAKSIMAL_KATEGORI_TERPILIH = 5;
 const KUNCI_RIWAYAT_CHAT = 'sigap_hse_chat_sessions_v1';
 const KUNCI_SESI_CHAT_AKTIF = 'sigap_hse_active_chat_v1';
-const KATEGORI_PRIORITAS_MOBILE = [
-  'Alat Pelindung Diri (APD)',
-  'Pekerjaan di Ketinggian',
-  'Kelistrikan',
-  'Alat Berat & Kendaraan',
-  'Bahan Kimia & B3',
-  'Tanggap Darurat'
-];
 const ATURAN_DETEKSI_KATEGORI = [
   ['Kelistrikan', ['listrik', 'kabel', 'tegangan', 'panel', 'stop kontak', 'korsleting', 'setrum']],
   ['Alat Pelindung Diri (APD)', ['apd', 'helm', 'safety shoes', 'sarung tangan', 'goggles', 'masker', 'rompi']],
@@ -189,34 +182,60 @@ function adaKategoriTerpilih() {
   return daftarKategoriTerpilih().length > 0;
 }
 
-function deteksiKategoriDariPesan(teks) {
+function dapatkanKelompokKategori(idKelompok) {
+  return KELOMPOK_KATEGORI_UI.find(group => group.id === idKelompok) || null;
+}
+
+function dapatkanKelompokDariKategori(namaKategori) {
+  return KELOMPOK_KATEGORI_UI.find(group => group.kategori.includes(namaKategori)) || null;
+}
+
+function deteksiKategoriDariPesan(teks, idKelompok = kelompokKategoriTerpilih) {
   const nilai = String(teks || '').toLocaleLowerCase('id-ID').replace(/\s+/g, ' ').trim();
   if (nilai.length < 3) return null;
-  let hasilTerbaik = null;
-  let skorTerbaik = 0;
-  ATURAN_DETEKSI_KATEGORI.forEach(([kategori, keywords]) => {
+  const kelompok = dapatkanKelompokKategori(idKelompok);
+  const hasilSkor = ATURAN_DETEKSI_KATEGORI.map(([kategori, keywords]) => {
     const skor = keywords.reduce((total, keyword) => {
       if (!nilai.includes(keyword)) return total;
       return total + (keyword.includes(' ') ? 3 : 2);
     }, 0);
-    if (skor > skorTerbaik) {
-      skorTerbaik = skor;
-      hasilTerbaik = kategori;
-    }
-  });
-  return hasilTerbaik;
+    return { kategori, skor };
+  }).filter(item => item.skor > 0);
+  if (hasilSkor.length === 0) return null;
+  hasilSkor.sort((a, b) => b.skor - a.skor);
+  const hasilDalamKelompok = kelompok
+    ? hasilSkor.find(item => kelompok.kategori.includes(item.kategori))
+    : null;
+  return (hasilDalamKelompok || hasilSkor[0]).kategori;
+}
+
+function teksRingkasanKategori() {
+  const kelompok = dapatkanKelompokKategori(kelompokKategoriTerpilih);
+  const kategori = kategoriSaranSaatIni || kategoriUtamaTerpilih();
+  if (kelompok && kategori) return `${kelompok.nama} · ${kategori}`;
+  if (kelompok) return `${kelompok.nama} · kategori otomatis`;
+  if (kategori) return `Terdeteksi: ${kategori}`;
+  return 'Akan dideteksi dari pesan';
 }
 
 function perbaruiSaranKategoriDariInput() {
-  if (adaKategoriTerpilih()) return;
   const input = document.getElementById('chat-input');
   const summary = document.getElementById('mobile-category-summary');
   const bar = document.querySelector('.chat-mobile-category-bar');
-  kategoriSaranSaatIni = deteksiKategoriDariPesan(input?.value || '');
+  kategoriSaranSaatIni = deteksiKategoriDariPesan(
+    input?.value || '',
+    kelompokKategoriTerpilih
+  );
+  const kelompokSaran = dapatkanKelompokDariKategori(kategoriSaranSaatIni);
+  if (kelompokSaran && kelompokSaran.id !== kelompokKategoriTerpilih) {
+    kelompokKategoriTerpilih = kelompokSaran.id;
+    kategoriTerpilih = [];
+    perbaruiTampilanKategoriTerpilih();
+    perbaruiKategoriPadaSesiChat();
+    tampilkanKelompokKategoriBeranda();
+  }
   if (summary) {
-    summary.textContent = kategoriSaranSaatIni
-      ? `Saran: ${kategoriSaranSaatIni}`
-      : 'Akan dideteksi dari pesan';
+    summary.textContent = teksRingkasanKategori();
     summary.title = kategoriSaranSaatIni || '';
   }
   bar?.classList.toggle('has-suggestion', Boolean(kategoriSaranSaatIni));
@@ -622,120 +641,59 @@ function pulihkanPosisiPanelKategori() {
     indukPanelKategoriChat.appendChild(panel);
   }
   if (!apakahChatMobile()) {
-    panel.querySelectorAll('.guided-cat-group').forEach(group => {
-      group.open = group.classList.contains('has-selection');
-    });
     const title = panel.querySelector('.guided-cat-title');
     const help = panel.querySelector('.guided-cat-help');
-    if (title) title.textContent = 'Pilih kelompok, lalu kategori yang sesuai';
-    if (help) help.textContent = '6 kelompok merangkum 27 kategori. Maksimal 5 kategori dapat dipilih; kategori Umum digunakan sendiri.';
+    if (title) title.textContent = 'Pilih kelompok utama';
+    if (help) help.textContent = 'Kategori rinci akan ditentukan otomatis dari isi laporan.';
   }
 }
 
 function siapkanPanelKategoriMobile(panel) {
   if (!panel || !apakahChatMobile()) return;
-  panel.querySelectorAll('.guided-cat-group').forEach(group => {
-    group.open = true;
-    group.querySelector('summary')?.setAttribute('tabindex', '-1');
-  });
   const title = panel.querySelector('.guided-cat-title');
   const help = panel.querySelector('.guided-cat-help');
-  if (title) title.textContent = 'Pilih kategori bahaya';
-  if (help) help.textContent = 'Ketuk kategori yang paling sesuai. Pilihan langsung diterapkan ke percakapan.';
+  if (title) title.textContent = 'Pilih satu kelompok utama';
+  if (help) help.textContent = 'Pilihan tersimpan di tempat ini; kategori rinci menyesuaikan otomatis saat Anda menulis.';
 }
 
 function tampilkanKategoriInlineMobile(categories = detailKategoriKnowledge) {
   const container = document.getElementById('mobile-inline-category-options');
   if (!container || !Array.isArray(categories) || categories.length === 0) return;
   const groups = kelompokkanDetailKategori(categories);
-  const selectedCategories = daftarKategoriTerpilih();
-  const categoryMap = new Map(categories.map(item => [item.nama, item]));
-  const prioritas = KATEGORI_PRIORITAS_MOBILE.map(nama => categoryMap.get(nama)).filter(Boolean);
-  const kategoriLain = new Set(categories.map(item => item.nama).filter(nama => !KATEGORI_PRIORITAS_MOBILE.includes(nama)));
-  const selectedInOther = selectedCategories.some(category => kategoriLain.has(category));
-  const buatTombol = item => {
-    const active = selectedCategories.includes(item.nama);
+  const buatTombol = group => {
+    const active = kelompokKategoriTerpilih === group.id;
     return `
-      <button class="mobile-category-option ${active ? 'active' : ''}" type="button"
-        data-mobile-category="${sanitasiHtml(item.nama)}" aria-pressed="${active}">
-        <span>${sanitasiHtml(item.nama)}</span>
-        <small>${active ? 'Dipilih' : 'Pilih'}</small>
+      <button class="mobile-category-option mobile-category-group-option ${active ? 'active' : ''}" type="button"
+        data-category-group="${sanitasiHtml(group.id)}" aria-pressed="${active}">
+        <span class="mobile-category-group-icon" aria-hidden="true">${buatIkonAntarmuka(group.ikon)}</span>
+        <span class="mobile-category-group-copy">
+          <strong>${sanitasiHtml(group.nama)}</strong>
+          <small>${sanitasiHtml(group.deskripsi)}</small>
+        </span>
+        <span class="mobile-category-group-count">${group.items.length} jenis</span>
+        <span class="mobile-category-group-state">${active ? 'Dipilih' : 'Pilih'}</span>
       </button>
     `;
   };
 
-  const kelompokLain = groups.map(group => ({
-    ...group,
-    items: group.items.filter(item => kategoriLain.has(item.nama))
-  })).filter(group => group.items.length > 0);
-
   container.innerHTML = `
-    <section class="mobile-category-quick" aria-label="Pilihan kategori cepat">
+    <section class="mobile-category-quick" aria-label="Enam kelompok kategori utama">
       <div class="mobile-category-section-label">
-        <strong>Pilihan cepat</strong>
-        <span>Jenis bahaya yang paling sering dilaporkan</span>
+        <strong>6 kelompok utama</strong>
+        <span>Pilih konteks umum; jenis rinci akan menyesuaikan otomatis</span>
       </div>
-      <div class="mobile-inline-category-grid">
-        ${prioritas.map(buatTombol).join('')}
+      <div class="mobile-inline-group-grid">
+        ${groups.map(buatTombol).join('')}
       </div>
     </section>
-    <button class="mobile-category-more-toggle" type="button" aria-expanded="${selectedInOther}">
-      <span>Lihat kategori lainnya</span>
-      <small>${kategoriLain.size} kategori</small>
-    </button>
-    <div class="mobile-category-all ${selectedInOther ? 'open' : ''}">
-      ${kelompokLain.map(group => `
-        <section class="mobile-inline-category-group" aria-label="${sanitasiHtml(group.nama)}">
-          <div class="mobile-inline-category-group-title">
-            <strong>${sanitasiHtml(group.nama)}</strong>
-            <span>${group.items.length}</span>
-          </div>
-          <div class="mobile-inline-category-grid">
-            ${group.items.map(buatTombol).join('')}
-          </div>
-        </section>
-      `).join('')}
+    <div class="mobile-category-auto-note">
+      <strong>27 kategori rinci tetap aktif.</strong>
+      <span>Sistem menentukannya dari aktivitas, kondisi, lokasi, alat, dan APD yang Anda tulis.</span>
     </div>
-    <div class="mobile-category-empty" hidden>Tidak ada kategori yang cocok. Coba kata lain.</div>
   `;
 
-  const allCategories = container.querySelector('.mobile-category-all');
-  const toggleAll = container.querySelector('.mobile-category-more-toggle');
-  const search = document.getElementById('mobile-category-search');
-  const empty = container.querySelector('.mobile-category-empty');
-  const setExpanded = expanded => {
-    allCategories?.classList.toggle('open', expanded);
-    toggleAll?.setAttribute('aria-expanded', String(expanded));
-    const label = toggleAll?.querySelector('span');
-    if (label) label.textContent = expanded ? 'Sembunyikan kategori lainnya' : 'Lihat kategori lainnya';
-  };
-  toggleAll?.addEventListener('click', () => {
-    toggleAll.dataset.manualOpen = allCategories?.classList.contains('open') ? 'false' : 'true';
-    setExpanded(toggleAll.dataset.manualOpen === 'true');
-  });
-  if (search) {
-    search.oninput = () => {
-      const query = search.value.trim().toLocaleLowerCase('id-ID');
-      let visibleCount = 0;
-      container.querySelectorAll('.mobile-category-option').forEach(button => {
-        const matched = !query || button.dataset.mobileCategory.toLocaleLowerCase('id-ID').includes(query);
-        button.hidden = !matched;
-        if (matched) visibleCount += 1;
-      });
-      container.querySelectorAll('.mobile-inline-category-group').forEach(group => {
-        group.hidden = ![...group.querySelectorAll('.mobile-category-option')].some(button => !button.hidden);
-      });
-      container.querySelector('.mobile-category-quick').hidden = Boolean(query)
-        && ![...container.querySelectorAll('.mobile-category-quick .mobile-category-option')].some(button => !button.hidden);
-      if (query) setExpanded(true);
-      else setExpanded(toggleAll?.dataset.manualOpen === 'true' || selectedInOther);
-      if (empty) empty.hidden = visibleCount > 0;
-    };
-    search.value = '';
-  }
-
-  container.querySelectorAll('[data-mobile-category]').forEach(button => {
-    button.addEventListener('click', () => pilihKategori(button.dataset.mobileCategory));
+  container.querySelectorAll('[data-category-group]').forEach(button => {
+    button.addEventListener('click', () => pilihKelompokKategori(button.dataset.categoryGroup));
   });
 }
 
@@ -780,9 +738,9 @@ function bukaPemilihKategoriMobile() {
   document.body.classList.add('mobile-category-open');
   document.getElementById('mobile-category-trigger')?.setAttribute('aria-expanded', 'true');
 
-  const selectedCard = panel.querySelector('.guided-cat-card.active');
+  const selectedCard = panel.querySelector('.guided-cat-group-card.active');
   window.setTimeout(() => {
-    (selectedCard || panel.querySelector('.guided-cat-card, .mobile-category-close'))?.focus({ preventScroll: true });
+    (selectedCard || panel.querySelector('.guided-cat-group-card, .mobile-category-close'))?.focus({ preventScroll: true });
   }, 80);
 }
 function openMobileCategoryPanel() { bukaPemilihKategoriMobile(); }
@@ -813,12 +771,7 @@ function tutupPemilihKategoriMobile(kembalikanFokus = true) {
 function closeMobileCategoryPanel() { tutupPemilihKategoriMobile(true); }
 
 function selesaikanPilihanKategoriMobile() {
-  if (!adaKategoriTerpilih()) {
-    tampilkanNotifikasi('Pilih minimal satu kategori bahaya terlebih dahulu.', 'warning');
-    return;
-  }
-  tutupPemilihKategoriMobile(false);
-  window.setTimeout(() => document.getElementById('chat-input')?.focus(), 120);
+  tutupPemilihKategoriMobile(true);
 }
 function finishMobileCategorySelection() { selesaikanPilihanKategoriMobile(); }
 
@@ -896,6 +849,9 @@ function bacaRiwayatChatLokal() {
         dibuat: item.dibuat || new Date().toISOString(),
         diperbarui: item.diperbarui || item.dibuat || new Date().toISOString(),
         kategori: Array.isArray(item.kategori) ? item.kategori.filter(Boolean) : [],
+        kelompokKategori: dapatkanKelompokKategori(item.kelompokKategori)
+          ? item.kelompokKategori
+          : null,
         pesan: Array.isArray(item.pesan)
           ? item.pesan.filter(message => message && typeof message.teks === 'string').map(message => ({
               peran: message.peran === 'user' ? 'user' : 'system',
@@ -928,6 +884,7 @@ function buatDataSesiChat(id = buatIdSesiChat()) {
     dibuat: sekarang,
     diperbarui: sekarang,
     kategori: [],
+    kelompokKategori: null,
     pesan: []
   };
 }
@@ -996,9 +953,10 @@ function tampilkanDaftarSesiChat() {
     <section class="chat-session-group">
       <h4>${sanitasiHtml(label)}</h4>
       ${items.map(session => {
+        const kelompok = dapatkanKelompokKategori(session.kelompokKategori);
         const metadata = session.kategori.length > 0
           ? session.kategori.slice(0, 2).join(', ')
-          : 'Belum ada kategori';
+          : (kelompok ? `${kelompok.nama} · otomatis` : 'Kategori otomatis');
         return `
           <button class="chat-session-item ${session.id === idSesiSaatIni ? 'active' : ''}" type="button" ${pengirimanChatBerlangsung ? 'disabled' : ''}
             data-session-id="${sanitasiHtml(session.id)}" aria-current="${session.id === idSesiSaatIni ? 'true' : 'false'}">
@@ -1041,6 +999,9 @@ function tampilkanSesiChat(session) {
   idSesiSaatIni = session.id;
   currentSessionId = idSesiSaatIni;
   kategoriTerpilih = [...session.kategori];
+  kelompokKategoriTerpilih = dapatkanKelompokKategori(session.kelompokKategori)
+    ? session.kelompokKategori
+    : (dapatkanKelompokDariKategori(kategoriTerpilih[0])?.id || null);
   petugasTerpilihSaatIni = kategoriTerpilih.length > 0
     ? petugasBerdasarkanKategori(kategoriTerpilih[0])
     : null;
@@ -1087,6 +1048,7 @@ function catatPesanPadaSesiChat(peran, pengirim, teks, terstruktur = false) {
   const sekarang = new Date().toISOString();
   session.pesan.push({ peran, pengirim, teks: String(teks), terstruktur, waktu: sekarang });
   session.kategori = daftarKategoriTerpilih();
+  session.kelompokKategori = kelompokKategoriTerpilih;
   session.diperbarui = sekarang;
   if (peran === 'user' && session.judul === 'Percakapan baru') {
     session.judul = buatJudulSesiChat(teks);
@@ -1098,6 +1060,7 @@ function catatPesanPadaSesiChat(peran, pengirim, teks, terstruktur = false) {
 function perbaruiKategoriPadaSesiChat() {
   const session = pastikanSesiChatAktif();
   session.kategori = daftarKategoriTerpilih();
+  session.kelompokKategori = kelompokKategoriTerpilih;
   session.diperbarui = new Date().toISOString();
   simpanRiwayatChatLokal();
   tampilkanDaftarSesiChat();
@@ -1153,7 +1116,7 @@ function mulaiPercakapanChatBaru() {
     return;
   }
   const sessionAktif = dapatkanSesiChatAktif();
-  if (sessionAktif && sessionAktif.pesan.length === 0 && sessionAktif.kategori.length === 0) {
+  if (sessionAktif && sessionAktif.pesan.length === 0 && sessionAktif.kategori.length === 0 && !sessionAktif.kelompokKategori) {
     tampilkanSesiChat(sessionAktif);
     tutupDrawerChat(false);
     return;
@@ -1184,41 +1147,54 @@ function tampilkanKelompokKategoriBeranda() {
   const container = document.querySelector('#section-services .category-grid');
   if (!container) return;
   container.innerHTML = KELOMPOK_KATEGORI_UI.map(group => `
-    <button class="cat-card category-group-card" type="button" onclick="openChatWithGroup('${group.id}')">
+    <button class="cat-card category-group-card ${kelompokKategoriTerpilih === group.id ? 'active' : ''}" type="button"
+      data-category-group="${sanitasiHtml(group.id)}" aria-pressed="${kelompokKategoriTerpilih === group.id}"
+      onclick="openChatWithGroup('${group.id}')">
       <div class="cat-card-header">
         <span class="cat-icon" aria-hidden="true">${buatIkonAntarmuka(group.ikon)}</span>
-        <span class="cat-badge">${group.kategori.length} kategori</span>
+        <span class="cat-badge">${group.kategori.length} jenis otomatis</span>
       </div>
       <h3>${sanitasiHtml(group.nama)}</h3>
       <p>${sanitasiHtml(group.deskripsi)}.</p>
-      <div class="cat-vendor-tag">${sanitasiHtml(group.kategori.slice(0, 3).join(' • '))}${group.kategori.length > 3 ? ' • lainnya' : ''}</div>
+      <div class="cat-vendor-tag">Pilih sebagai konteks laporan</div>
     </button>
   `).join('');
 
   const toolbar = document.querySelector('#section-services .category-toolbar');
   if (toolbar) {
     toolbar.innerHTML = `
-      <span><strong>27 kategori tetap tersedia</strong> dalam 6 kelompok agar lebih cepat ditemukan.</span>
+      <span><strong>Pilih satu dari 6 kelompok utama.</strong> Jenis bahaya rinci akan menyesuaikan otomatis dari pesan.</span>
       <button class="btn btn-secondary" type="button" data-ui-icon="book" onclick="switchView('services-panel')">Buka Knowledge Base</button>
     `;
   }
 }
 
 function bukaChatDenganKelompok(idKelompok) {
-  alihkanTampilan('chatbot');
-  const target = document.querySelector(`.guided-cat-group[data-group="${idKelompok}"]`);
-  if (!target) return;
-  document.querySelectorAll('.guided-cat-group').forEach(group => {
-    group.open = group === target;
-  });
-  if (apakahChatMobile()) {
-    bukaPemilihKategoriMobile();
-  } else {
-    target.querySelector('summary')?.focus({ preventScroll: true });
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  pilihKelompokKategori(idKelompok);
 }
 function openChatWithGroup(groupId) { bukaChatDenganKelompok(groupId); }
+
+function pilihKelompokKategori(idKelompok) {
+  const kelompok = dapatkanKelompokKategori(idKelompok);
+  if (!kelompok) return;
+  const menonaktifkan = kelompokKategoriTerpilih === idKelompok;
+  kelompokKategoriTerpilih = menonaktifkan ? null : idKelompok;
+  kategoriTerpilih = [];
+  kategoriSaranSaatIni = deteksiKategoriDariPesan(
+    document.getElementById('chat-input')?.value || '',
+    kelompokKategoriTerpilih
+  );
+  perbaruiTampilanKategoriTerpilih();
+  perbaruiKategoriPadaSesiChat();
+  tampilkanKelompokKategoriBeranda();
+  if (!menonaktifkan) {
+    tampilkanNotifikasi(
+      `${kelompok.nama} dipilih. Jenis bahaya rinci akan ditentukan otomatis dari pesan.`,
+      'info'
+    );
+  }
+}
+function selectCategoryGroup(groupId) { pilihKelompokKategori(groupId); }
 
 // ==========================================================================
 // 2. Pemeriksaan Kesehatan Backend & Memuat Petugas
@@ -1270,68 +1246,35 @@ function tampilkanSeluruhKategoriChat(categories = detailKategoriKnowledge) {
   const container = document.querySelector('.guided-cat-grid');
   if (!container || !Array.isArray(categories) || categories.length === 0) return;
   const groups = kelompokkanDetailKategori(categories);
-  const selectedCategories = daftarKategoriTerpilih();
   const title = document.querySelector('.guided-cat-title');
-  if (title) title.textContent = 'Pilih kelompok, lalu kategori yang sesuai';
+  if (title) title.textContent = 'Pilih kelompok utama';
   const help = document.querySelector('.guided-cat-help');
-  if (help) help.textContent = `${groups.length} kelompok merangkum ${categories.length} kategori. Maksimal 5 kategori dapat dipilih; kategori Umum digunakan sendiri.`;
-  const iconMap = {
-    'Alat Pelindung Diri (APD)': 'hardhat',
-    'Pekerjaan di Ketinggian': 'activity',
-    'Kelistrikan': 'bolt',
-    'Alat Berat & Kendaraan': 'truck',
-    'Bahan Kimia & B3': 'flask',
-    'Tanggap Darurat': 'siren',
-    'Lingkungan Kerja': 'leaf',
-    'Pengawasan & Prosedur': 'clipboard',
-    'Pengangkatan & Rigging': 'anchor',
-    'Ruang Terbatas (Confined Space)': 'door',
-    'Pekerjaan Panas (Hot Work)': 'flame',
-    'Umum': 'process'
-  };
+  if (help) help.textContent = `${groups.length} kelompok utama tersedia. Kategori rinci dari ${categories.length} kategori Knowledge Base akan dipilih otomatis berdasarkan isi pesan.`;
 
   container.innerHTML = groups.map(group => {
-    const selectedCount = group.items.filter(item => selectedCategories.includes(item.nama)).length;
-    const categoryCards = group.items.map(item => {
-      const officer = petugasBerdasarkanKategori(item.nama);
-      const officerName = officer?.nama || officer?.name || 'Tim HSE';
-      const active = selectedCategories.includes(item.nama);
-      return `
-        <button class="guided-cat-card ${active ? 'active' : ''}" type="button"
-          data-cat="${sanitasiHtml(item.nama)}" aria-pressed="${active}">
-          <span class="gcat-icon">${buatIkonAntarmuka(iconMap[item.nama] || 'shield')}</span>
-          <span class="gcat-info">
-            <span class="gcat-name">${sanitasiHtml(item.nama)}</span>
-            <span class="gcat-tech">${sanitasiHtml(officerName)} &bull; ${Number(item.jumlah) || 0} artikel</span>
-          </span>
-        </button>
-      `;
-    }).join('');
-
+    const active = kelompokKategoriTerpilih === group.id;
+    const articleCount = group.items.reduce((total, item) => total + (Number(item.jumlah) || 0), 0);
     return `
-      <details class="guided-cat-group ${selectedCount ? 'has-selection' : ''}"
-        data-group="${sanitasiHtml(group.id)}" data-total="${group.items.length}" ${selectedCount ? 'open' : ''}>
-        <summary>
-          <span class="guided-group-icon" aria-hidden="true">${buatIkonAntarmuka(group.ikon)}</span>
-          <span class="guided-group-copy">
-            <strong>${sanitasiHtml(group.nama)}</strong>
-            <small>${sanitasiHtml(group.deskripsi)}</small>
-          </span>
-          <span class="guided-group-count">${selectedCount ? `${selectedCount} dipilih` : `${group.items.length} kategori`}</span>
-          <span class="guided-group-chevron" aria-hidden="true"></span>
-        </summary>
-        <div class="guided-subcategory-grid">${categoryCards}</div>
-      </details>
+      <button class="guided-cat-group-card ${active ? 'active' : ''}" type="button"
+        data-category-group="${sanitasiHtml(group.id)}" aria-pressed="${active}">
+        <span class="guided-group-icon" aria-hidden="true">${buatIkonAntarmuka(group.ikon)}</span>
+        <span class="guided-group-copy">
+          <strong>${sanitasiHtml(group.nama)}</strong>
+          <small>${sanitasiHtml(group.deskripsi)}</small>
+        </span>
+        <span class="guided-group-meta">
+          <strong>${group.items.length} jenis</strong>
+          <small>${articleCount > 0 ? `${articleCount} artikel` : 'Otomatis'}</small>
+        </span>
+        <span class="guided-group-state">${active ? 'Dipilih' : 'Pilih'}</span>
+      </button>
     `;
   }).join('');
 
-  container.querySelectorAll('.guided-cat-card').forEach(card => {
-    card.addEventListener('click', () => pilihKategori(card.dataset.cat));
+  container.querySelectorAll('[data-category-group]').forEach(card => {
+    card.addEventListener('click', () => pilihKelompokKategori(card.dataset.categoryGroup));
   });
   tampilkanKategoriInlineMobile(categories);
-  if (document.body.classList.contains('mobile-category-open')) {
-    siapkanPanelKategoriMobile(document.getElementById('category-selector-bar'));
-  }
 }
 
 async function periksaKesehatanBackend() {
@@ -1670,40 +1613,33 @@ function loadStarterQuestions() { muatPertanyaanAwal(); }
 
 function perbaruiTampilanKategoriTerpilih() {
   const categories = daftarKategoriTerpilih();
-  const kartuKartu = document.querySelectorAll('.guided-cat-card, .cat-select-btn, .mobile-category-option');
-  kartuKartu.forEach(k => {
-    const kCat = k.getAttribute('data-cat') || k.getAttribute('data-mobile-category');
-    const aktif = Boolean(kCat && categories.includes(kCat));
+  let kelompokAktif = dapatkanKelompokKategori(kelompokKategoriTerpilih);
+  const kelompokKategoriRinci = dapatkanKelompokDariKategori(categories[0]);
+  if (kelompokKategoriRinci && !kelompokAktif?.kategori.includes(categories[0])) {
+    kelompokKategoriTerpilih = kelompokKategoriRinci.id;
+    kelompokAktif = kelompokKategoriRinci;
+  }
+  document.querySelectorAll('[data-category-group]').forEach(k => {
+    const aktif = k.getAttribute('data-category-group') === kelompokKategoriTerpilih;
     k.classList.toggle('active', aktif);
     k.setAttribute('aria-pressed', String(aktif));
-    const status = k.querySelector('small');
-    if (k.classList.contains('mobile-category-option') && status) status.textContent = aktif ? 'Dipilih' : 'Pilih';
-  });
-
-  document.querySelectorAll('.guided-cat-group').forEach(group => {
-    const selectedCount = group.querySelectorAll('.guided-cat-card.active').length;
-    const total = Number(group.dataset.total) || group.querySelectorAll('.guided-cat-card').length;
-    group.classList.toggle('has-selection', selectedCount > 0);
-    const count = group.querySelector('.guided-group-count');
-    if (count) count.textContent = selectedCount > 0 ? `${selectedCount} dipilih` : `${total} kategori`;
+    const status = k.querySelector('.guided-group-state, .mobile-category-group-state');
+    if (status) status.textContent = aktif ? 'Dipilih' : 'Pilih';
   });
 
   const tombolBersihkan = document.getElementById('btn-clear-cat');
-  if (tombolBersihkan) tombolBersihkan.hidden = categories.length === 0;
+  if (tombolBersihkan) tombolBersihkan.hidden = !kelompokAktif && categories.length === 0;
 
   const ringkasanKategoriMobile = document.getElementById('mobile-category-summary');
   const pemicuKategoriMobile = document.getElementById('mobile-category-trigger');
   const barKategoriMobile = document.querySelector('.chat-mobile-category-bar');
   if (ringkasanKategoriMobile) {
-    const ringkasan = categories.length === 0
-      ? 'Akan dideteksi dari pesan'
-      : `${categories.slice(0, 2).join(', ')}${categories.length > 2 ? ` +${categories.length - 2}` : ''}`;
-    ringkasanKategoriMobile.textContent = ringkasan;
-    ringkasanKategoriMobile.title = categories.join(', ');
+    ringkasanKategoriMobile.textContent = teksRingkasanKategori();
+    ringkasanKategoriMobile.title = categories[0] || kelompokAktif?.nama || '';
   }
-  if (pemicuKategoriMobile) pemicuKategoriMobile.textContent = categories.length > 0 ? 'Ubah' : 'Pilih manual';
-  barKategoriMobile?.classList.toggle('has-selection', categories.length > 0);
-  barKategoriMobile?.classList.remove('has-suggestion');
+  if (pemicuKategoriMobile) pemicuKategoriMobile.textContent = kelompokAktif ? 'Ubah kelompok' : 'Pilih kelompok';
+  barKategoriMobile?.classList.toggle('has-selection', Boolean(kelompokAktif));
+  barKategoriMobile?.classList.toggle('has-suggestion', Boolean(kategoriSaranSaatIni));
 
   const starterBar = document.getElementById('starter-bar');
   if (starterBar) starterBar.hidden = categories.length === 0;
@@ -1712,10 +1648,10 @@ function perbaruiTampilanKategoriTerpilih() {
 
   const lencanaLangkah = document.getElementById('guided-step-1');
   if (lencanaLangkah) {
-    lencanaLangkah.classList.toggle('step-active', categories.length > 0);
-    lencanaLangkah.textContent = categories.length > 0
-      ? `KATEGORI TERPILIH · ${categories.length}/${MAKSIMAL_KATEGORI_TERPILIH}`
-      : 'KATEGORI OPSIONAL';
+    lencanaLangkah.classList.toggle('step-active', Boolean(kelompokAktif));
+    lencanaLangkah.textContent = kelompokAktif
+      ? `KELOMPOK AKTIF · ${kelompokAktif.nama.toUpperCase()}`
+      : 'KELOMPOK OPSIONAL';
   }
 
   const kategoriUtama = categories[0];
@@ -1727,23 +1663,22 @@ function perbaruiTampilanKategoriTerpilih() {
   const elemenBanner = document.getElementById('cat-req-banner');
   const teksBanner = document.getElementById('cat-req-text');
   if (elemenBanner) {
-    elemenBanner.className = categories.length > 0 ? 'cat-req-banner selected' : 'cat-req-banner optional';
+    elemenBanner.className = kelompokAktif ? 'cat-req-banner selected' : 'cat-req-banner optional';
   }
   if (teksBanner) {
-    teksBanner.innerHTML = categories.length > 0
-      ? `<div><strong>${categories.length} kategori dipilih:</strong><div class="selected-category-list">${categories.map(category => `<span>${sanitasiHtml(category)}</span>`).join('')}</div><small>Kategori utama: <strong>${sanitasiHtml(kategoriUtama)}</strong>. Pendamping: <strong>${sanitasiHtml(namaPetugas)}</strong> (${sanitasiHtml(peranPetugas)}).</small></div>`
-      : '<strong>Kategori opsional:</strong> Langsung tulis kondisi bahaya. Sistem akan menentukan kategori yang paling sesuai, dan Anda tetap dapat mengubahnya.';
+    teksBanner.innerHTML = kelompokAktif
+      ? `<div><strong>Kelompok aktif: ${sanitasiHtml(kelompokAktif.nama)}</strong><small>${kategoriUtama ? `Kategori rinci terdeteksi: <strong>${sanitasiHtml(kategoriUtama)}</strong>. Pendamping: <strong>${sanitasiHtml(namaPetugas)}</strong> (${sanitasiHtml(peranPetugas)}).` : 'Tuliskan kondisi bahaya; kategori rinci dan pendamping HSE akan menyesuaikan otomatis.'}</small></div>`
+      : '<strong>Kelompok bersifat opsional:</strong> Pilih salah satu dari 6 kelompok utama atau langsung tulis laporan agar sistem menentukan kelompok dan kategori rincinya.';
   }
 
   const elemenInput = document.getElementById('chat-input');
   const tombolKirim = document.getElementById('btn-send-chat');
   if (elemenInput) {
-    elemenInput.placeholder = categories.length > 0
-      ? `Jelaskan kondisi bahaya untuk ${categories.length} kategori terpilih...`
+    elemenInput.placeholder = kelompokAktif
+      ? `Ceritakan kondisi dalam kelompok ${kelompokAktif.nama}; jenis rinci akan dideteksi otomatis...`
       : 'Ceritakan kondisi bahaya, lokasi, dan aktivitas yang sedang berlangsung...';
   }
   if (tombolKirim) tombolKirim.disabled = false;
-  if (categories.length === 0) perbaruiSaranKategoriDariInput();
 }
 
 function pilihKategori(namaKategori) {
@@ -1765,23 +1700,20 @@ function pilihKategori(namaKategori) {
   }
 
   kategoriTerpilih = categories;
+  const kelompokKategori = dapatkanKelompokDariKategori(categories[0]);
+  if (kelompokKategori) kelompokKategoriTerpilih = kelompokKategori.id;
   perbaruiTampilanKategoriTerpilih();
   perbaruiKategoriPadaSesiChat();
-  const inlinePickerTerbuka = document.getElementById('mobile-inline-category-picker')?.classList.contains('open');
-  if (!sudahDipilih && apakahChatMobile() && (inlinePickerTerbuka || document.body.classList.contains('mobile-category-open'))) {
-    window.setTimeout(() => {
-      tutupPemilihKategoriMobile(false);
-      document.getElementById('chat-input')?.focus();
-    }, 120);
-  }
-  if (adaKategoriTerpilih() && !apakahChatMobile()) document.getElementById('chat-input')?.focus();
 }
 function selectCategory(catName) { pilihKategori(catName); }
 
 function bersihkanKategoriTerpilih() {
   kategoriTerpilih = [];
+  kelompokKategoriTerpilih = null;
+  kategoriSaranSaatIni = null;
   perbaruiTampilanKategoriTerpilih();
   perbaruiKategoriPadaSesiChat();
+  tampilkanKelompokKategoriBeranda();
 }
 function clearSelectedCategory() { bersihkanKategoriTerpilih(); }
 
@@ -1810,11 +1742,6 @@ function bukaChatDenganKategori(namaKategori) {
   kategoriTerpilih = [];
   pilihKategori(namaKategori);
 
-  const categoryCard = [...document.querySelectorAll('.guided-cat-card')]
-    .find(card => card.dataset.cat === namaKategori);
-  const group = categoryCard?.closest('.guided-cat-group');
-  if (group) group.open = true;
-
   // Sinkronkan filter FAQ Knowledge Base ke kategori yang dipilih
   if (typeof saringKategoriFaq === 'function') {
     saringKategoriFaq(namaKategori, null);
@@ -1842,9 +1769,12 @@ async function kirimPesanChat() {
   const teksPesan = elemenInput.value.trim();
 
   if (!teksPesan) return;
-  if (!adaKategoriTerpilih()) {
-    const kategoriOtomatis = kategoriSaranSaatIni || deteksiKategoriDariPesan(teksPesan) || 'Umum';
+  const kategoriOtomatis = deteksiKategoriDariPesan(teksPesan, kelompokKategoriTerpilih);
+  if (kategoriOtomatis) {
     kategoriTerpilih = [kategoriOtomatis];
+    kategoriSaranSaatIni = kategoriOtomatis;
+    const kelompokTerdeteksi = dapatkanKelompokDariKategori(kategoriOtomatis);
+    if (kelompokTerdeteksi) kelompokKategoriTerpilih = kelompokTerdeteksi.id;
     perbaruiTampilanKategoriTerpilih();
     perbaruiKategoriPadaSesiChat();
   }
@@ -1869,11 +1799,15 @@ async function kirimPesanChat() {
       id_sesi: idSesiSaatIni,
       message: teksPesan,
       pesan: teksPesan,
-      category: kategoriUtama,
-      kategori: kategoriUtama,
-      categories,
-      kategori_list: categories
+      category_group: kelompokKategoriTerpilih,
+      kelompok_kategori: kelompokKategoriTerpilih
     };
+    if (kategoriUtama) {
+      muatan.category = kategoriUtama;
+      muatan.kategori = kategoriUtama;
+      muatan.categories = categories;
+      muatan.kategori_list = categories;
+    }
 
     const res = await fetchDenganBatasWaktu(`${URL_DASAR_API}/chatbot/message`, {
       method: 'POST',
@@ -1886,6 +1820,19 @@ async function kirimPesanChat() {
 
     if (res.ok && data.success) {
       tambahkanGelembungChatTerstruktur('system', 'SIGAP-AI HSE Companion', data.data.response || data.data.jawaban);
+
+      const kategoriRespons = Array.isArray(data.data.categories)
+        ? data.data.categories.filter(Boolean)
+        : [data.data.category || data.data.kategori].filter(Boolean);
+      if (kategoriRespons.length > 0) {
+        kategoriTerpilih = kategoriRespons;
+        kategoriSaranSaatIni = null;
+        const kelompokRespons = dapatkanKelompokDariKategori(kategoriRespons[0]);
+        if (kelompokRespons) kelompokKategoriTerpilih = kelompokRespons.id;
+        perbaruiTampilanKategoriTerpilih();
+        perbaruiKategoriPadaSesiChat();
+        tampilkanKelompokKategoriBeranda();
+      }
 
       petugasTerpilihSaatIni = data.data.assigned_technician || data.data.petugas_ditunjuk;
       tautanWhatsAppTerakhir = data.data.whatsapp_url;

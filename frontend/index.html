@@ -601,88 +601,65 @@
       <button class="mobile-category-backdrop" id="mobile-category-backdrop" type="button" aria-label="Tutup pilihan kategori" onclick="closeMobileCategoryPanel()" hidden></button>
       <div class="guided-cat-section" id="category-selector-bar" aria-labelledby="guided-category-title">
         <div class="guided-cat-header">
-          <span class="guided-step-badge" id="guided-step-1">LANGKAH 1 · WAJIB</span>
-          <span class="guided-cat-title" id="guided-category-title">Pilih kategori bahaya</span>
-          <button class="btn-clear-cat btn btn-sm btn-secondary" id="btn-clear-cat" onclick="clearSelectedCategory()" hidden>Hapus Semua Pilihan</button>
+          <span class="guided-step-badge" id="guided-step-1">KELOMPOK OPSIONAL</span>
+          <span class="guided-cat-title" id="guided-category-title">Pilih kelompok utama</span>
+          <button class="btn-clear-cat btn btn-sm btn-secondary" id="btn-clear-cat" onclick="clearSelectedCategory()" hidden>Hapus Pilihan</button>
           <button class="mobile-category-close" type="button" aria-label="Tutup pilihan kategori" onclick="closeMobileCategoryPanel()">×</button>
         </div>
-        <p class="guided-cat-help">Ketuk kategori yang paling sesuai. Seluruh data tetap tersedia dalam 6 kelompok.</p>
+        <p class="guided-cat-help">Pilih konteks umum. Kategori rinci akan ditentukan otomatis dari isi laporan.</p>
 
         <div class="guided-cat-grid">
-          <button class="guided-cat-card" data-cat="Alat Pelindung Diri (APD)" onclick="selectCategory('Alat Pelindung Diri (APD)')">
+          <button class="guided-cat-group-card" type="button" data-category-group="aktivitas-berisiko" aria-pressed="false" onclick="selectCategoryGroup('aktivitas-berisiko')">
             <span class="gcat-icon"></span>
             <div class="gcat-info">
-              <span class="gcat-name">APD</span>
-              <span class="gcat-tech">Juni Trihardiyanto</span>
+              <span class="gcat-name">Aktivitas Berisiko</span>
+              <span class="gcat-tech">6 jenis otomatis</span>
             </div>
           </button>
 
-          <button class="guided-cat-card" data-cat="Pekerjaan di Ketinggian" onclick="selectCategory('Pekerjaan di Ketinggian')">
+          <button class="guided-cat-group-card" type="button" data-category-group="peralatan-kendaraan" aria-pressed="false" onclick="selectCategoryGroup('peralatan-kendaraan')">
             <span class="gcat-icon"></span>
             <div class="gcat-info">
-              <span class="gcat-name">Ketinggian</span>
-              <span class="gcat-tech">Juni Trihardiyanto</span>
+              <span class="gcat-name">Peralatan &amp; Kendaraan</span>
+              <span class="gcat-tech">3 jenis otomatis</span>
             </div>
           </button>
 
-          <button class="guided-cat-card" data-cat="Kelistrikan" onclick="selectCategory('Kelistrikan')">
+          <button class="guided-cat-group-card" type="button" data-category-group="kesehatan-lingkungan" aria-pressed="false" onclick="selectCategoryGroup('kesehatan-lingkungan')">
             <span class="gcat-icon"></span>
             <div class="gcat-info">
-              <span class="gcat-name">Kelistrikan</span>
-              <span class="gcat-tech">Juni Trihardiyanto</span>
+              <span class="gcat-name">Kesehatan &amp; Lingkungan</span>
+              <span class="gcat-tech">6 jenis otomatis</span>
             </div>
           </button>
 
-          <button class="guided-cat-card" data-cat="Alat Berat & Kendaraan" onclick="selectCategory('Alat Berat & Kendaraan')">
+          <button class="guided-cat-group-card" type="button" data-category-group="sistem-risiko" aria-pressed="false" onclick="selectCategoryGroup('sistem-risiko')">
             <span class="gcat-icon"></span>
             <div class="gcat-info">
-              <span class="gcat-name">Alat Berat</span>
-              <span class="gcat-tech">Juni Trihardiyanto</span>
+              <span class="gcat-name">Sistem, Risiko &amp; Umum</span>
+              <span class="gcat-tech">5 jenis otomatis</span>
             </div>
           </button>
 
-          <button class="guided-cat-card" data-cat="Bahan Kimia & B3" onclick="selectCategory('Bahan Kimia & B3')">
+          <button class="guided-cat-group-card" type="button" data-category-group="budaya-kompetensi" aria-pressed="false" onclick="selectCategoryGroup('budaya-kompetensi')">
             <span class="gcat-icon"></span>
             <div class="gcat-info">
-              <span class="gcat-name">Kimia & B3</span>
-              <span class="gcat-tech">Ronny Pribadi</span>
+              <span class="gcat-name">Budaya &amp; Kompetensi</span>
+              <span class="gcat-tech">4 jenis otomatis</span>
             </div>
           </button>
 
-          <button class="guided-cat-card" data-cat="Tanggap Darurat" onclick="selectCategory('Tanggap Darurat')">
+          <button class="guided-cat-group-card" type="button" data-category-group="insiden-koordinasi" aria-pressed="false" onclick="selectCategoryGroup('insiden-koordinasi')">
             <span class="gcat-icon"></span>
             <div class="gcat-info">
-              <span class="gcat-name">Darurat</span>
-              <span class="gcat-tech">Dr. Irsyad Yoga</span>
+              <span class="gcat-name">Insiden &amp; Koordinasi</span>
+              <span class="gcat-tech">3 jenis otomatis</span>
             </div>
           </button>
 
-          <button class="guided-cat-card" data-cat="Lingkungan Kerja" onclick="selectCategory('Lingkungan Kerja')">
-            <span class="gcat-icon"></span>
-            <div class="gcat-info">
-              <span class="gcat-name">Lingkungan</span>
-              <span class="gcat-tech">Ronny Pribadi</span>
-            </div>
-          </button>
-
-          <button class="guided-cat-card" data-cat="Pengawasan & Prosedur" onclick="selectCategory('Pengawasan & Prosedur')">
-            <span class="gcat-icon"></span>
-            <div class="gcat-info">
-              <span class="gcat-name">Prosedur</span>
-              <span class="gcat-tech">M. Solihin</span>
-            </div>
-          </button>
-
-          <button class="guided-cat-card" data-cat="Umum" onclick="selectCategory('Umum')">
-            <span class="gcat-icon"></span>
-            <div class="gcat-info">
-              <span class="gcat-name">Umum & Campuran</span>
-              <span class="gcat-tech">M. Solihin</span>
-            </div>
-          </button>
         </div>
         <div class="mobile-category-footer">
-          <button class="btn btn-primary" type="button" onclick="finishMobileCategorySelection()">Selesai &amp; Tulis Pesan</button>
+          <button class="btn btn-primary" type="button" onclick="finishMobileCategorySelection()">Tutup Pilihan</button>
         </div>
       </div>
 
@@ -749,26 +726,22 @@
 
         <div class="chat-mobile-category-bar">
           <div class="chat-mobile-category-copy">
-            <span>Kategori laporan</span>
+            <span>Kelompok laporan</span>
             <strong id="mobile-category-summary">Akan dideteksi dari pesan</strong>
           </div>
           <button class="btn btn-sm btn-secondary" id="mobile-category-trigger" type="button" aria-controls="mobile-inline-category-picker" aria-expanded="false" onclick="openMobileCategoryPanel()">
-            Pilih manual
+            Pilih kelompok
           </button>
         </div>
 
         <section class="mobile-inline-category-picker" id="mobile-inline-category-picker" aria-labelledby="mobile-inline-category-title" aria-hidden="true">
           <div class="mobile-inline-category-header">
             <div>
-              <strong id="mobile-inline-category-title">Pilih kategori secara manual</strong>
-              <span>Opsional—pilih jika Anda sudah mengetahui jenis bahayanya.</span>
+              <strong id="mobile-inline-category-title">Pilih kelompok utama</strong>
+              <span>Opsional—jenis bahaya rinci akan ditentukan otomatis dari pesan.</span>
             </div>
             <button class="mobile-inline-category-close" type="button" aria-label="Tutup daftar kategori" onclick="closeMobileCategoryPanel()">×</button>
           </div>
-          <label class="mobile-category-search-field" for="mobile-category-search">
-            <span>Cari</span>
-            <input id="mobile-category-search" type="search" placeholder="Contoh: kabel, APD, bahan kimia…" autocomplete="off" />
-          </label>
           <div class="mobile-inline-category-options" id="mobile-inline-category-options"></div>
         </section>
 

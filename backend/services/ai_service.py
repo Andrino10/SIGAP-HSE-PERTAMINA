@@ -5,6 +5,7 @@ langsung dari artikel ``knowledge.json`` yang lolos ambang relevansi.
 """
 
 from config.settings import dapatkan_petugas_per_kategori
+from services.scenario_analysis_service import layanan_analisis_skenario
 
 
 URUTAN_RISIKO = {"rendah": 1, "sedang": 2, "tinggi": 3}
@@ -32,6 +33,127 @@ class LayananAI:
             key=lambda value: URUTAN_RISIKO.get(value, 0),
         )
 
+    @staticmethod
+    def _referensi_unik(entries):
+        hasil = []
+        url_terlihat = set()
+        for entry in entries:
+            for reference in entry.get("referensi", []):
+                url = str(reference.get("url", "")).strip()
+                if url and url not in url_terlihat:
+                    url_terlihat.add(url)
+                    hasil.append(reference)
+        return hasil
+
+    def _buat_jawaban_pekerjaan_jaringan(
+        self,
+        entries,
+        konteks,
+        hasil_pencarian,
+        analisis_skenario,
+    ):
+        """Jawaban khusus rack/server yang membedakan LAN, PoE, dan listrik utama."""
+        lines = ["KONDISI TERIDENTIFIKASI"]
+        lines.extend(analisis_skenario.get("fakta") or [])
+        hal_belum_diketahui = analisis_skenario.get("hal_yang_belum_diketahui") or []
+        if hal_belum_diketahui:
+            lines.append(
+                "Belum dapat dipastikan dari laporan: "
+                + "; ".join(hal_belum_diketahui)
+                + "."
+            )
+        lines.append("")
+
+        tingkat = analisis_skenario.get("tingkat_risiko_sementara") or "sedang"
+        lines.append("TINGKAT RISIKO")
+        if tingkat == "tinggi":
+            lines.append(
+                "RISIKO TINGGI - terdapat indikasi bahaya listrik atau kerusakan yang "
+                "memerlukan penghentian pekerjaan, pengamanan area, dan verifikasi personel berwenang."
+            )
+        else:
+            lines.append(
+                "RISIKO SEDANG (SEMENTARA) - pekerjaan perlu dijeda sampai sumber energi, "
+                "status PoE, batas pekerjaan, dan kebutuhan APD diverifikasi."
+            )
+        lines.append("")
+
+        lines.append("PENJELASAN RISIKO")
+        lines.append(analisis_skenario["penjelasan"])
+        lines.append("")
+
+        lines.append("SOLUSI & TINDAKAN")
+        lines.extend(analisis_skenario.get("tindakan") or [])
+        lines.append("")
+
+        category = (
+            entries[0].get("kategori")
+            if entries
+            else konteks.get("assigned_category")
+            or konteks.get("category")
+            or "Umum"
+        )
+        officer = dapatkan_petugas_per_kategori(category)
+        lines.append("REKOMENDASI K3")
+        lines.append(
+            f"1. Penanggung jawab rujukan: {officer.get('nama', 'Tim HSE')} "
+            f"({officer.get('peran', 'HSE Officer')})."
+        )
+        lines.append(
+            "2. APD harus dipilih dari bahaya yang benar-benar ada, bukan dari istilah "
+            "'APD lengkap' saja; verifikasi daftar APD pada JSA/SOP pekerjaan jaringan dan server."
+        )
+        lines.append(
+            "3. Bila pekerjaan ternyata melibatkan bagian listrik terbuka atau bertegangan, "
+            "hanya personel kompeten dan berwenang yang boleh melanjutkan sesuai prosedur kelistrikan/LOTO."
+        )
+        lines.append(
+            "4. Bila hanya menyambungkan kabel LAN tanpa paparan listrik dan area sudah aman, "
+            "pekerjaan dapat dilanjutkan setelah APD serta izin kerja dikonfirmasi oleh pengawas."
+        )
+        lines.append("")
+
+        lines.append("REFERENSI KNOWLEDGE BASE")
+        match_by_id = {
+            match["entry"]["id"]: match
+            for match in (hasil_pencarian or {}).get("all_matches", [])
+            if match.get("entry")
+        }
+        if entries:
+            for number, entry in enumerate(entries, start=1):
+                match = match_by_id.get(entry["id"], {})
+                score = match.get(
+                    "hybrid_score", (hasil_pencarian or {}).get("confidence", 0.0)
+                )
+                lines.append(
+                    f"{number}. {entry['id']} - {entry['judul']} "
+                    f"({entry['kategori']}); kecocokan {round(float(score) * 100)}%."
+                )
+            for reference in self._referensi_unik(entries):
+                lines.append(
+                    f"Regulasi resmi - {reference['judul']}: {reference['url']}"
+                )
+        else:
+            lines.append(
+                "Tidak ada artikel yang cukup relevan untuk dijadikan dasar prosedur teknis."
+            )
+        if analisis_skenario.get("catatan_kb"):
+            lines.append("Catatan konteks - " + analisis_skenario["catatan_kb"])
+        lines.append("")
+
+        lines.append("STATUS PENANGANAN")
+        if tingkat == "tinggi":
+            lines.append(
+                "Hentikan pekerjaan dan koordinasikan segera dengan Supervisor, personel IT, "
+                "serta Tim HSE sebelum menyentuh peralatan."
+            )
+        else:
+            lines.append(
+                "Jeda dan verifikasi terlebih dahulu. Pekerjaan dapat dilanjutkan setelah "
+                "sumber energi, kondisi area, APD, dan kewenangan kerja dinyatakan sesuai."
+            )
+        return "\n".join(lines)
+
     def buat_jawaban(
         self,
         pesan_pengguna,
@@ -40,9 +162,20 @@ class LayananAI:
         konteks,
         hasil_eskalasi=None,
         hasil_pencarian=None,
+        analisis_skenario=None,
     ):
         lines = []
         entries = self._daftar_entri(entri_teratas, hasil_pencarian)
+        analisis_skenario = analisis_skenario or layanan_analisis_skenario.analisis(
+            pesan_pengguna
+        )
+        if analisis_skenario.get("jenis") == "pekerjaan_jaringan_server":
+            return self._buat_jawaban_pekerjaan_jaringan(
+                entries,
+                konteks,
+                hasil_pencarian,
+                analisis_skenario,
+            )
         kb_matched = bool(
             entri_teratas
             and entries
@@ -220,6 +353,7 @@ class LayananAI:
         context,
         escalation_res=None,
         hasil_pencarian=None,
+        analisis_skenario=None,
     ):
         return self.buat_jawaban(
             user_message,
@@ -228,6 +362,7 @@ class LayananAI:
             context,
             escalation_res,
             hasil_pencarian,
+            analisis_skenario,
         )
 
 

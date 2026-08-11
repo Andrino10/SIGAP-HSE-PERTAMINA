@@ -8,6 +8,7 @@ from unittest.mock import patch
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from app import app
+from controllers.chatbot_controller import KELOMPOK_KATEGORI_CHAT
 from repositories.conversation_repository import conversation_repo
 from repositories.knowledge_repository import KnowledgeRepository, knowledge_repo
 from services.retrieval_service import retrieval_service
@@ -110,6 +111,39 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         self.assertTrue(all(item["jumlah"] == 20 for item in payload["details"]))
         self.assertIn("Kelelahan & Jam Kerja", payload["categories"])
 
+    def test_six_chat_groups_cover_all_detailed_categories_without_duplicates(self):
+        grouped = [
+            category
+            for categories in KELOMPOK_KATEGORI_CHAT.values()
+            for category in categories
+        ]
+        knowledge_categories = {
+            item["nama"] for item in knowledge_repo.get_categories()
+        }
+        self.assertEqual(len(KELOMPOK_KATEGORI_CHAT), 6)
+        self.assertEqual(len(grouped), len(set(grouped)))
+        self.assertEqual(set(grouped), knowledge_categories)
+
+    def test_group_context_resolves_to_a_detailed_category_automatically(self):
+        session_id = "SESSION-TEST-GROUP-AUTO"
+        self.session_ids.append(session_id)
+        response = self.client.post(
+            "/api/chatbot/message",
+            data=json.dumps(
+                {
+                    "session_id": session_id,
+                    "message": "Mata gerinda memiliki batas RPM lebih rendah dari mesin",
+                    "category_group": "peralatan-kendaraan",
+                }
+            ),
+            content_type="application/json",
+        )
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()["data"]
+        self.assertEqual(data["kb_reference"]["id"], "HSE-ALAT-008")
+        self.assertEqual(data["category"], "Peralatan Kerja")
+        self.assertEqual(data["context"]["category_group"], "peralatan-kendaraan")
+
     def test_starters_cover_all_knowledge_categories(self):
         response = self.client.get("/api/chatbot/starters")
         self.assertEqual(response.status_code, 200)
@@ -169,6 +203,43 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         self.assertEqual(data["kb_reference"]["id"], "HSE-LISTRIK-001")
         self.assertEqual(len(data["kb_references"]), 1)
         self.assertNotIn("Kondisi #2", data["response"])
+
+    def test_network_cable_report_uses_contextual_not_generic_electrical_analysis(self):
+        response = self.post_chat(
+            "SESSION-TEST-LAN-CONTEXT",
+            (
+                "Saya dan Habib sedang memperbaiki kabel LAN yang lepas di server, "
+                "tetapi Habib tidak memakai sarung tangan dan APD lengkap"
+            ),
+            "Kelistrikan",
+        )
+        self.assertEqual(response.status_code, 200)
+        data = response.get_json()["data"]
+        answer = data["response"]
+
+        self.assertEqual(data["kb_reference"]["id"], "HSE-APD-004")
+        self.assertEqual(data["context"]["assigned_category"], "Alat Pelindung Diri (APD)")
+        self.assertIn("Anda dan Habib", answer)
+        self.assertIn("APD Habib dilaporkan belum lengkap", answer)
+        self.assertIn("Power over Ethernet (PoE)", answer)
+        self.assertIn("RISIKO SEDANG (SEMENTARA)", answer)
+        self.assertIn("bukan bukti bahwa kabel LAN", answer)
+        self.assertNotIn("Gunakan sarung tangan khusus listrik", answer)
+        self.assertNotIn("sarung tangan isolasi listrik yang sesuai tersedia", answer)
+
+    def test_network_cable_report_becomes_high_risk_when_live_hazard_is_explicit(self):
+        response = self.post_chat(
+            "SESSION-TEST-LAN-LIVE-ELECTRICAL",
+            (
+                "Memperbaiki kabel LAN di server dan terlihat kabel power "
+                "terkelupas serta percikan listrik"
+            ),
+            "Kelistrikan",
+        )
+        self.assertEqual(response.status_code, 200)
+        answer = response.get_json()["data"]["response"]
+        self.assertIn("RISIKO TINGGI", answer)
+        self.assertIn("Hentikan pekerjaan", answer)
 
     def test_unknown_condition_does_not_cite_weak_candidate(self):
         response = self.post_chat(

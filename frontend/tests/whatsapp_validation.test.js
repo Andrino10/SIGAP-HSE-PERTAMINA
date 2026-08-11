@@ -121,6 +121,22 @@ assert.equal(categoryGroups.length, 6, 'Antarmuka harus merangkum kategori ke da
 assert.equal(groupedCategories.length, uniqueGroupedCategories.length, 'Kategori tidak boleh muncul pada dua kelompok.');
 assert.deepEqual(uniqueGroupedCategories, knowledgeCategories, 'Seluruh kategori Knowledge Base harus tetap tersedia.');
 
+assert.equal(
+  run("deteksiKategoriDariPesan('Pekerja mengelas tanpa fire watcher', 'aktivitas-berisiko')"),
+  'Pekerjaan Panas (Hot Work)',
+  'Kelompok utama harus mengarahkan deteksi ke kategori rinci yang sesuai.',
+);
+assert.equal(
+  run("deteksiKategoriDariPesan('Forklift melintas dekat pekerja', 'peralatan-kendaraan')"),
+  'Alat Berat & Kendaraan',
+  'Kategori rinci peralatan harus ditentukan otomatis dari pesan.',
+);
+assert.equal(
+  run("deteksiKategoriDariPesan('Ada tumpahan bahan kimia', 'aktivitas-berisiko')"),
+  'Bahan Kimia & B3',
+  'Sistem harus mengoreksi kelompok bila isi laporan jelas berada di kelompok lain.',
+);
+
 const groupedOptionHtml = run(`buatOpsiKategoriTerkelompok(
   KELOMPOK_KATEGORI_UI.flatMap(group => group.kategori.map(nama => ({ nama, jumlah: 20 }))),
   '',
@@ -143,6 +159,7 @@ const restoredChatSessions = JSON.parse(run(`(() => {
     dibuat: '2026-08-10T08:00:00.000Z',
     diperbarui: '2026-08-10T08:01:00.000Z',
     kategori: ['Kelistrikan'],
+    kelompokKategori: 'aktivitas-berisiko',
     pesan: [{ peran: 'user', pengirim: 'Pelapor', teks: 'Kabel terbuka', terstruktur: false }]
   }];
   simpanRiwayatChatLokal();
@@ -151,6 +168,7 @@ const restoredChatSessions = JSON.parse(run(`(() => {
 assert.equal(restoredChatSessions.length, 1, 'Riwayat chat lokal harus dapat dibaca kembali.');
 assert.equal(restoredChatSessions[0].id, 'SESSION-LOCAL-TEST');
 assert.deepEqual(restoredChatSessions[0].kategori, ['Kelistrikan']);
+assert.equal(restoredChatSessions[0].kelompokKategori, 'aktivitas-berisiko');
 
 function setCompleteReport() {
   elements['wa-tech-select'].value = '6281234567890';
@@ -225,7 +243,9 @@ assert.doesNotMatch(
 assert.match(indexHtml, /id="mobile-category-trigger"/i, 'Chatbot harus memiliki pemicu kategori ringkas di mobile.');
 assert.match(indexHtml, /id="mobile-inline-category-picker"/i, 'Kategori mobile harus tersedia langsung di dalam area chatbot.');
 assert.match(indexHtml, /id="mobile-inline-category-options"/i, 'Kategori mobile harus memiliki daftar pilihan yang dapat digulir.');
-assert.match(indexHtml, /id="mobile-category-search"/i, 'Kategori mobile harus dapat dicari dengan bahasa sederhana.');
+assert.doesNotMatch(indexHtml, /id="mobile-category-search"/i, 'Pencarian kategori rinci tidak diperlukan ketika UI hanya menampilkan 6 kelompok utama.');
+assert.match(indexHtml, /data-category-group="aktivitas-berisiko"/i, 'Fallback HTML harus menampilkan kelompok utama, bukan kategori rinci.');
+assert.doesNotMatch(indexHtml, /data-mobile-category=/i, 'Kategori rinci tidak boleh diekspos sebagai pilihan mobile.');
 assert.match(indexHtml, /id="mobile-category-backdrop"/i, 'Pemilih kategori mobile harus memiliki backdrop yang dapat ditutup.');
 assert.match(indexHtml, /id="chat-session-drawer"/i, 'Chatbot mobile harus memiliki drawer riwayat sesi.');
 assert.match(
@@ -243,6 +263,14 @@ assert.match(styleSource, /\.chat-drawer-history\s*\{[^}]*overflow-y:\s*auto/s, 
 assert.match(styleSource, /#view-chatbot \.chat-messages-stream\s*\{[^}]*touch-action:\s*pan-y/s, 'Isi chat harus mendukung gestur gulir vertikal.');
 assert.match(styleSource, /\.mobile-inline-category-picker\.open\s*\{[^}]*display:\s*flex/s, 'Pemilih kategori inline harus terlihat ketika dibuka.');
 assert.match(styleSource, /\.mobile-inline-category-options\s*\{[^}]*overflow-y:\s*auto/s, 'Daftar kategori inline harus dapat digulir di mobile.');
+assert.doesNotMatch(
+  appSource.match(/function bukaChatDenganKelompok[\s\S]*?\n\}/)?.[0] || '',
+  /alihkanTampilan\s*\(/,
+  'Memilih kelompok di beranda tidak boleh langsung mengarahkan pengguna ke chatbot.',
+);
+const groupSelectionSource = appSource.match(/function pilihKelompokKategori[\s\S]*?\n\}/)?.[0] || '';
+assert.doesNotMatch(groupSelectionSource, /\.focus\s*\(/, 'Memilih kelompok tidak boleh memindahkan fokus ke input chat.');
+assert.doesNotMatch(groupSelectionSource, /tutupPemilihKategoriMobile\s*\(/, 'Memilih kelompok tidak boleh langsung menutup panel.');
 const structuredRiskHtml = run(`formatStructuredResponseHTML(
   'PENJELASAN RISIKO\\nKabel terbuka berada di jalur pekerja. Mekanisme bahayanya adalah kontak langsung dengan konduktor. Konsekuensi yang perlu dicegah adalah sengatan dan kebakaran. Faktor penentu meliputi tegangan dan jumlah pekerja terpapar. Temuan harus diverifikasi terhadap kondisi aktual dan SOP.'
 )`);
