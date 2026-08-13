@@ -581,6 +581,20 @@
           </div>
         </div>
 
+        <!-- Saran permasalahan tampil hanya di dalam kotak chat -->
+        <section class="chat-suggestion-popover" id="group-suggestion-popover" aria-labelledby="group-suggestion-title" aria-describedby="group-suggestion-description" aria-hidden="true" hidden>
+          <div class="group-suggestion-header">
+            <div>
+              <span class="group-suggestion-eyebrow">CONTOH PERMASALAHAN</span>
+              <h4 id="group-suggestion-title">Saran permasalahan</h4>
+            </div>
+            <button class="chat-suggestion-close" type="button" aria-label="Tutup saran permasalahan" onclick="closeGroupSuggestionModal()">Tutup</button>
+          </div>
+          <p id="group-suggestion-description">Pilih salah satu contoh untuk dijadikan draf laporan.</p>
+          <div class="group-suggestion-list" id="group-suggestion-list"></div>
+          <small class="group-suggestion-note">Draf tidak dikirim otomatis dan tetap dapat disesuaikan dengan kondisi sebenarnya.</small>
+        </section>
+
         <!-- Chat Stream Messages -->
         <div class="chat-messages-stream" id="chat-messages">
           <div class="chat-bubble system-bubble">
@@ -685,27 +699,6 @@
     </div>
 
     <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
-
-    <!-- Saran permasalahan setelah pengguna memilih kategori utama -->
-    <div class="modal-overlay group-suggestion-modal" id="group-suggestion-modal" aria-hidden="true">
-      <div class="modal-card group-suggestion-card" aria-labelledby="group-suggestion-title" aria-describedby="group-suggestion-description">
-        <button class="modal-close-btn" type="button" aria-label="Tutup saran permasalahan" onclick="closeGroupSuggestionModal()"></button>
-        <div class="group-suggestion-header">
-          <span class="group-suggestion-eyebrow">CONTOH PERMASALAHAN</span>
-          <h3 id="group-suggestion-title">Saran permasalahan</h3>
-          <p class="modal-sub" id="group-suggestion-description">
-            Pilih salah satu contoh untuk dijadikan draf laporan, atau tulis permasalahan Anda sendiri.
-          </p>
-        </div>
-        <div class="group-suggestion-list" id="group-suggestion-list"></div>
-        <div class="group-suggestion-note">
-          Sesuaikan contoh dengan lokasi, aktivitas, dan kondisi yang benar-benar ditemukan. Draf tidak akan dikirim otomatis.
-        </div>
-        <div class="modal-actions">
-          <button class="btn btn-secondary" type="button" onclick="closeGroupSuggestionModal()">Tulis sendiri</button>
-        </div>
-      </div>
-    </div>
 
     <!-- ==========================================
          CONSULTATION FORM MODAL (ANONYMOUS DATA)

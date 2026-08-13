@@ -11,6 +11,7 @@ from app import app
 from controllers.chatbot_controller import KELOMPOK_KATEGORI_CHAT
 from repositories.conversation_repository import conversation_repo
 from repositories.knowledge_repository import KnowledgeRepository, knowledge_repo
+from services.ai_service import layanan_ai
 from services.retrieval_service import retrieval_service
 from services.escalation_service import layanan_eskalasi
 from validators.request_validator import (
@@ -184,6 +185,8 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         self.assertGreaterEqual(len(data["kb_reference"]["referensi"]), 2)
         self.assertGreaterEqual(data["confidence"], 0.55)
         for section in (
+            "PERTANYAAN / LAPORAN ANDA",
+            "JAWABAN LANGSUNG",
             "KONDISI TERIDENTIFIKASI",
             "TINGKAT RISIKO",
             "PENJELASAN RISIKO",
@@ -193,6 +196,19 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
             "STATUS PENANGANAN",
         ):
             self.assertIn(section, data["response"])
+        self.assertIn(
+            "Pekerja tidak menggunakan helm di area konstruksi",
+            data["response"],
+        )
+        self.assertIn(
+            "Laporan paling sesuai dengan kondisi 'Pekerja tidak menggunakan helm di area konstruksi'",
+            data["response"],
+        )
+        self.assertIn("Hentikan tugas pekerja yang belum memakai helm", data["response"])
+        self.assertLess(
+            data["response"].index("JAWABAN LANGSUNG"),
+            data["response"].index("PENJELASAN RISIKO"),
+        )
 
     def test_single_condition_is_not_reported_as_three_violations(self):
         response = self.post_chat(
@@ -204,6 +220,25 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         self.assertEqual(data["kb_reference"]["id"], "HSSE-LISTRIK-001")
         self.assertEqual(len(data["kb_references"]), 1)
         self.assertNotIn("Kondisi #2", data["response"])
+
+    def test_direct_answer_follows_the_question_intent(self):
+        entry = knowledge_repo.get_by_id("HSSE-LISTRIK-001")
+        answer = layanan_ai._buat_jawaban_langsung(
+            "Bagaimana cara mengatasi kabel listrik terbuka?",
+            [entry],
+            True,
+        )
+        self.assertIn("Untuk menangani 'Kabel listrik terbuka'", answer)
+        self.assertIn("Jangan menyentuh kabel terbuka", answer)
+        self.assertNotIn("helm", answer.lower())
+
+        insufficient = layanan_ai._buat_jawaban_langsung(
+            "Ada masalah",
+            [],
+            False,
+        )
+        self.assertIn("belum cukup", insufficient)
+        self.assertIn("aktivitas", insufficient)
 
     def test_network_cable_report_uses_contextual_not_generic_electrical_analysis(self):
         response = self.post_chat(

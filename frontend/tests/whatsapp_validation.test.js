@@ -272,9 +272,15 @@ assert.doesNotMatch(indexHtml, /id="mobile-category-search"/i, 'Pencarian katego
 assert.match(indexHtml, /data-category-group="aktivitas-berisiko"/i, 'Fallback HTML harus menampilkan kelompok utama, bukan kategori rinci.');
 assert.doesNotMatch(indexHtml, /data-mobile-category=/i, 'Kategori rinci tidak boleh diekspos sebagai pilihan mobile.');
 assert.match(indexHtml, /id="mobile-category-backdrop"/i, 'Pemilih kategori mobile harus memiliki backdrop yang dapat ditutup.');
-assert.match(indexHtml, /id="group-suggestion-modal"/i, 'Pemilihan kategori harus menyediakan pop-up saran permasalahan.');
+assert.match(indexHtml, /id="group-suggestion-popover"/i, 'Pemilihan kategori harus menyediakan pop-up saran di dalam chat.');
 assert.match(indexHtml, /id="group-suggestion-list"/i, 'Pop-up harus memiliki daftar saran yang dapat dipilih.');
-assert.match(indexHtml, /Draf tidak akan dikirim otomatis/i, 'Pop-up harus menjelaskan bahwa draf tidak dikirim otomatis.');
+assert.match(indexHtml, /Draf tidak dikirim otomatis/i, 'Pop-up harus menjelaskan bahwa draf tidak dikirim otomatis.');
+assert.match(
+  indexHtml,
+  /<div class="chat-container">[\s\S]*id="group-suggestion-popover"[\s\S]*id="chat-input"/i,
+  'Pop-up saran harus berada di dalam kotak chat dan dekat dengan input laporan.',
+);
+assert.doesNotMatch(indexHtml, /group-suggestion-modal/i, 'Saran permasalahan tidak boleh menggunakan modal layar penuh.');
 assert.match(indexHtml, /id="chat-session-drawer"/i, 'Chatbot mobile harus memiliki drawer riwayat sesi.');
 assert.match(
   indexHtml,
@@ -292,7 +298,9 @@ assert.match(styleSource, /#view-chatbot \.chat-messages-stream\s*\{[^}]*touch-a
 assert.match(styleSource, /\.mobile-inline-category-picker\.open\s*\{[^}]*display:\s*flex/s, 'Pemilih kategori inline harus terlihat ketika dibuka.');
 assert.match(styleSource, /\.mobile-inline-category-options\s*\{[^}]*overflow-y:\s*auto/s, 'Daftar kategori inline harus dapat digulir di mobile.');
 assert.match(styleSource, /\.group-suggestion-list\s*\{[^}]*display:\s*grid/s, 'Saran permasalahan harus tersusun sebagai daftar yang rapi.');
-assert.match(styleSource, /@media \(max-width: 620px\)[\s\S]*\.group-suggestion-modal\s*\{[^}]*align-items:\s*flex-end/s, 'Pop-up saran harus nyaman digunakan di mobile.');
+assert.match(styleSource, /\.chat-suggestion-popover\[hidden\]\s*\{[^}]*display:\s*none/s, 'Panel saran yang ditutup harus benar-benar tersembunyi.');
+assert.match(styleSource, /@media \(max-width: 620px\)[\s\S]*\.group-suggestion-list\s*\{[^}]*display:\s*flex/s, 'Saran mobile harus ringkas dan dapat digeser horizontal.');
+assert.doesNotMatch(styleSource, /\.group-suggestion-modal\b/, 'Saran chat tidak boleh memiliki gaya modal layar penuh.');
 assert.match(
   appSource.match(/function bukaChatDenganKelompok[\s\S]*?\n\}/)?.[0] || '',
   /alihkanTampilan\s*\(/,
@@ -317,6 +325,18 @@ assert.match(structuredRiskHtml, /res-analysis-points/, 'Analisis risiko panjang
 assert.match(structuredRiskHtml, /Mengapa kondisi ini berbahaya/, 'Mekanisme bahaya harus diberi label yang jelas.');
 assert.match(structuredRiskHtml, /Dampak yang dapat terjadi/, 'Dampak risiko harus diberi label yang jelas.');
 assert.match(structuredRiskHtml, /Verifikasi sebelum bekerja/, 'Kebutuhan verifikasi harus diberi label yang jelas.');
+
+const questionAnswerHtml = run(`formatStructuredResponseHTML(
+  'PERTANYAAN / LAPORAN ANDA\\nBagaimana mengatasi kabel listrik terbuka?\\n\\nJAWABAN LANGSUNG\\nHentikan aktivitas dan isolasi area sebelum sumber listrik diputus oleh petugas berwenang.\\n\\nKONDISI TERIDENTIFIKASI\\nKabel listrik terbuka.'
+)`);
+assert.match(questionAnswerHtml, /res-question-block/, 'Pertanyaan pengguna harus ditampilkan kembali dengan jelas.');
+assert.match(questionAnswerHtml, /Bagaimana mengatasi kabel listrik terbuka/, 'Isi pertanyaan tidak boleh berubah menjadi topik lain.');
+assert.match(questionAnswerHtml, /res-direct-answer/, 'Jawaban langsung harus tampil sebelum analisis panjang.');
+assert.match(questionAnswerHtml, /Hentikan aktivitas dan isolasi area/, 'Jawaban langsung harus sesuai dengan pertanyaan.');
+
+const clarificationHtml = run("formatStructuredResponseHTML('Mohon jelaskan kondisi bahaya, lokasi, dan pekerja yang terdampak.')");
+assert.match(clarificationHtml, /res-plain-answer/, 'Pesan klarifikasi tanpa bagian teknis harus tetap terlihat di chat.');
+assert.match(clarificationHtml, /Mohon jelaskan kondisi bahaya/, 'Isi pesan klarifikasi tidak boleh hilang.');
 
 const knowledgeRiskHtml = run(`buatHtmlAnalisisRisikoKnowledge(
   'Kabel terbuka berada di jalur pekerja. Tanpa pengendalian, pekerja dapat menyentuh konduktor. Mekanisme bahayanya adalah kontak dengan bagian bertegangan. Konsekuensi yang perlu dicegah adalah sengatan dan kebakaran. Faktor penentu meliputi tegangan dan jumlah pekerja terpapar. Temuan harus diverifikasi terhadap kondisi aktual dan SOP.'

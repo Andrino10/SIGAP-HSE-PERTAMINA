@@ -646,6 +646,7 @@ function alihkanTampilan(namaTampilan) {
   document.querySelector('.mobile-toggle')?.setAttribute('aria-expanded', 'false');
 
   if (namaTampilan !== 'chatbot') {
+    tutupPopupSaranKelompok();
     tutupPemilihKategoriMobile(false);
     tutupDrawerChat(false);
     document.body.classList.remove('chat-keyboard-open', 'chat-composer-active');
@@ -1238,13 +1239,14 @@ function openChatWithGroup(groupId) { bukaChatDenganKelompok(groupId); }
 
 function tampilkanPopupSaranKelompok(idKelompok) {
   const kelompok = dapatkanKelompokKategori(idKelompok);
-  const modal = document.getElementById('group-suggestion-modal');
+  const panel = document.getElementById('group-suggestion-popover');
+  const tampilanChat = document.getElementById('view-chatbot');
   const daftar = document.getElementById('group-suggestion-list');
   const judul = document.getElementById('group-suggestion-title');
   const suggestions = SARAN_PERMASALAHAN_KATEGORI[idKelompok] || [];
-  if (!kelompok || !modal || !daftar || suggestions.length === 0) return;
+  if (!kelompok || !panel || !daftar || !tampilanChat?.classList.contains('active') || suggestions.length === 0) return;
 
-  modal.dataset.groupId = idKelompok;
+  panel.dataset.groupId = idKelompok;
   if (judul) judul.textContent = `Saran permasalahan: ${kelompok.nama}`;
   daftar.innerHTML = suggestions.map((item, index) => `
     <button class="group-suggestion-item" type="button" data-suggestion-index="${index}">
@@ -1259,17 +1261,23 @@ function tampilkanPopupSaranKelompok(idKelompok) {
   daftar.querySelectorAll('[data-suggestion-index]').forEach(button => {
     button.addEventListener('click', () => gunakanSaranPermasalahan(Number(button.dataset.suggestionIndex)));
   });
-  modal.classList.add('active');
+  panel.hidden = false;
+  panel.setAttribute('aria-hidden', 'false');
+  panel.classList.add('open');
 }
 
 function tutupPopupSaranKelompok() {
-  document.getElementById('group-suggestion-modal')?.classList.remove('active');
+  const panel = document.getElementById('group-suggestion-popover');
+  if (!panel) return;
+  panel.classList.remove('open');
+  panel.setAttribute('aria-hidden', 'true');
+  panel.hidden = true;
 }
 function closeGroupSuggestionModal() { tutupPopupSaranKelompok(); }
 
 function gunakanSaranPermasalahan(indexSaran) {
-  const modal = document.getElementById('group-suggestion-modal');
-  const suggestion = (SARAN_PERMASALAHAN_KATEGORI[modal?.dataset.groupId] || [])[indexSaran];
+  const panel = document.getElementById('group-suggestion-popover');
+  const suggestion = (SARAN_PERMASALAHAN_KATEGORI[panel?.dataset.groupId] || [])[indexSaran];
   const input = document.getElementById('chat-input');
   if (!suggestion || !input) return;
 
@@ -1815,6 +1823,7 @@ function bersihkanKategoriTerpilih() {
   kategoriTerpilih = [];
   kelompokKategoriTerpilih = null;
   kategoriSaranSaatIni = null;
+  tutupPopupSaranKelompok();
   perbaruiTampilanKategoriTerpilih();
   perbaruiKategoriPadaSesiChat();
   tampilkanKelompokKategoriBeranda();
@@ -1873,6 +1882,7 @@ async function kirimPesanChat() {
   const teksPesan = elemenInput.value.trim();
 
   if (!teksPesan) return;
+  tutupPopupSaranKelompok();
   const kategoriOtomatis = deteksiKategoriDariPesan(teksPesan, kelompokKategoriTerpilih);
   if (kategoriOtomatis) {
     kategoriTerpilih = [kategoriOtomatis];
@@ -2095,6 +2105,8 @@ function formatHtmlResponsTerstruktur(teksMentah) {
   if (!teksMentah) return '';
 
   const bagian = {
+    pertanyaan: '',
+    jawaban: [],
     kondisi: [],
     risiko: '',
     penjelasan: [],
@@ -2106,27 +2118,45 @@ function formatHtmlResponsTerstruktur(teksMentah) {
 
   const barisBaris = teksMentah.split('\n');
   let bagianSaatIni = '';
+  let adaBagianTerstruktur = false;
 
   barisBaris.forEach(b => {
     const pangkas = b.trim();
     if (!pangkas) return;
 
-    if (pangkas.startsWith('KONDISI TERIDENTIFIKASI')) {
+    if (pangkas.startsWith('PERTANYAAN / LAPORAN ANDA')) {
+      bagianSaatIni = 'pertanyaan';
+      adaBagianTerstruktur = true;
+    } else if (pangkas.startsWith('JAWABAN LANGSUNG')) {
+      bagianSaatIni = 'jawaban';
+      adaBagianTerstruktur = true;
+    } else if (pangkas.startsWith('KONDISI TERIDENTIFIKASI')) {
       bagianSaatIni = 'kondisi';
+      adaBagianTerstruktur = true;
     } else if (pangkas.startsWith('TINGKAT RISIKO')) {
       bagianSaatIni = 'risiko';
+      adaBagianTerstruktur = true;
     } else if (pangkas.startsWith('PENJELASAN RISIKO')) {
       bagianSaatIni = 'penjelasan';
+      adaBagianTerstruktur = true;
     } else if (pangkas.startsWith('SOLUSI & TINDAKAN')) {
       bagianSaatIni = 'solusi';
+      adaBagianTerstruktur = true;
     } else if (pangkas.startsWith('REKOMENDASI K3')) {
       bagianSaatIni = 'rekomendasi';
+      adaBagianTerstruktur = true;
     } else if (pangkas.startsWith('REFERENSI KNOWLEDGE BASE')) {
       bagianSaatIni = 'referensi';
+      adaBagianTerstruktur = true;
     } else if (pangkas.startsWith('STATUS PENANGANAN')) {
       bagianSaatIni = 'status';
+      adaBagianTerstruktur = true;
     } else {
-      if (bagianSaatIni === 'kondisi') {
+      if (bagianSaatIni === 'pertanyaan') {
+        bagian.pertanyaan += (bagian.pertanyaan ? ' ' : '') + pangkas;
+      } else if (bagianSaatIni === 'jawaban') {
+        bagian.jawaban.push(pangkas);
+      } else if (bagianSaatIni === 'kondisi') {
         bagian.kondisi.push(pangkas);
       } else if (bagianSaatIni === 'risiko') {
         bagian.risiko += (bagian.risiko ? ' ' : '') + pangkas;
@@ -2144,7 +2174,36 @@ function formatHtmlResponsTerstruktur(teksMentah) {
     }
   });
 
+  if (!adaBagianTerstruktur) {
+    return `
+      <div class="res-card-block">
+        <div class="res-plain-answer">${sanitasiHtml(teksMentah).replace(/\n/g, '<br>')}</div>
+      </div>
+    `;
+  }
+
   let html = `<div class="res-card-block">`;
+
+  if (bagian.pertanyaan) {
+    html += `
+      <div class="res-question-block">
+        <strong>Pertanyaan atau laporan Anda</strong>
+        <p>${sanitasiHtml(bagian.pertanyaan)}</p>
+      </div>
+    `;
+  }
+
+  if (bagian.jawaban.length > 0) {
+    html += `
+      <div class="res-direct-answer">
+        <span class="res-block-icon">${buatIkonAntarmuka('shield')}</span>
+        <div>
+          <strong>Jawaban langsung</strong>
+          ${bagian.jawaban.map(item => `<p>${sanitasiHtml(item)}</p>`).join('')}
+        </div>
+      </div>
+    `;
+  }
 
   // 1. Kondisi Teridentifikasi
   if (bagian.kondisi.length > 0) {

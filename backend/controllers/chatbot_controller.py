@@ -109,7 +109,7 @@ class PengontrolChatbot:
         knowledge_metadata = knowledge_repo.get_metadata()
         knowledge_version = (
             f"{knowledge_metadata.get('loaded_at')}:"
-            f"{knowledge_metadata.get('valid')}:response-v2"
+            f"{knowledge_metadata.get('valid')}:response-v3-question-answer"
         )
         cakupan_cache = list(
             konteks.get("categories")

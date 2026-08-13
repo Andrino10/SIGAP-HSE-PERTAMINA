@@ -4,6 +4,8 @@ Modul ini tidak mengarang prosedur. Kondisi, risiko, dan solusi utama diambil
 langsung dari artikel ``knowledge.json`` yang lolos ambang relevansi.
 """
 
+import re
+
 from config.settings import dapatkan_petugas_per_kategori
 from services.scenario_analysis_service import layanan_analisis_skenario
 
@@ -12,6 +14,75 @@ URUTAN_RISIKO = {"rendah": 1, "sedang": 2, "tinggi": 3}
 
 
 class LayananAI:
+    @staticmethod
+    def _ringkas_pesan_pengguna(pesan_pengguna, batas=360):
+        pesan = " ".join(str(pesan_pengguna or "").split()).strip()
+        if len(pesan) <= batas:
+            return pesan
+        return pesan[: batas - 3].rstrip() + "..."
+
+    @staticmethod
+    def _kalimat_pertama(teks, batas=320):
+        teks_bersih = " ".join(str(teks or "").split()).strip()
+        if not teks_bersih:
+            return ""
+        kalimat = re.split(r"(?<=[.!?])\s+", teks_bersih, maxsplit=1)[0]
+        if len(kalimat) <= batas:
+            return kalimat
+        return kalimat[: batas - 3].rstrip() + "..."
+
+    @staticmethod
+    def _tindakan_pertama(entry):
+        for baris in str(entry.get("solusi", "")).splitlines():
+            tindakan = baris.strip()
+            if not tindakan:
+                continue
+            tindakan = re.sub(r"^\d+[.)]\s*", "", tindakan)
+            tindakan = re.sub(r"^Tindakan\s+Segera\s*:\s*", "", tindakan, flags=re.I)
+            return tindakan
+        return "Ikuti tindakan pengendalian pada artikel rujukan dan verifikasi dengan Supervisor."
+
+    def _buat_jawaban_langsung(self, pesan_pengguna, entries, kb_matched):
+        if not kb_matched or not entries:
+            return (
+                "Informasi pada pertanyaan belum cukup untuk memberikan jawaban teknis yang tepat. "
+                "Sebutkan aktivitas, sumber bahaya, lokasi, kondisi peralatan atau APD, dan pekerja "
+                "yang terpapar agar jawaban dapat dicocokkan dengan artikel HSSE yang relevan."
+            )
+
+        pesan_normal = " ".join(str(pesan_pengguna or "").lower().split())
+        if len(entries) > 1:
+            daftar_kondisi = ", ".join(entry["judul"] for entry in entries)
+            tindakan = "; ".join(
+                f"{entry['judul']}: {self._tindakan_pertama(entry)}"
+                for entry in entries
+            )
+            return (
+                f"Pertanyaan memuat beberapa kondisi yang saling terkait: {daftar_kondisi}. "
+                f"Tindakan awal yang sesuai adalah {tindakan}"
+            )
+
+        entry = entries[0]
+        judul = entry["judul"]
+        tindakan = self._tindakan_pertama(entry)
+        penjelasan = self._kalimat_pertama(entry.get("penjelasan_risiko"))
+
+        if re.search(r"\b(apakah|bolehkah|bisakah|aman)\b", pesan_normal):
+            return (
+                f"Kondisi tersebut belum dapat dinyatakan aman sebelum pengendaliannya diverifikasi. "
+                f"Rujukan yang paling sesuai adalah '{judul}'. Tindakan pertama: {tindakan}"
+            )
+        if re.search(r"\b(bagaimana|cara|solusi|tindakan|mengatasi)\b", pesan_normal):
+            return f"Untuk menangani '{judul}', tindakan pertama yang sesuai adalah: {tindakan}"
+        if re.search(r"\b(mengapa|kenapa)\b", pesan_normal):
+            return f"'{judul}' perlu dikendalikan karena {penjelasan} Tindakan pertama: {tindakan}"
+        if re.search(r"\b(apa|risiko|bahaya)\b", pesan_normal):
+            return f"Kondisi yang paling sesuai adalah '{judul}'. {penjelasan} Tindakan pertama: {tindakan}"
+        return (
+            f"Laporan paling sesuai dengan kondisi '{judul}'. "
+            f"Tindakan pertama yang perlu dilakukan: {tindakan}"
+        )
+
     @staticmethod
     def _daftar_entri(entri_teratas, hasil_pencarian):
         matches = (hasil_pencarian or {}).get("all_matches") or []
@@ -47,13 +118,27 @@ class LayananAI:
 
     def _buat_jawaban_pekerjaan_jaringan(
         self,
+        pesan_pengguna,
         entries,
         konteks,
         hasil_pencarian,
         analisis_skenario,
     ):
         """Jawaban khusus rack/server yang membedakan LAN, PoE, dan listrik utama."""
-        lines = ["KONDISI TERIDENTIFIKASI"]
+        lines = [
+            "PERTANYAAN / LAPORAN ANDA",
+            self._ringkas_pesan_pengguna(pesan_pengguna),
+            "",
+            "JAWABAN LANGSUNG",
+            (
+                "Jeda pekerjaan dan verifikasi apakah kabel/port menggunakan PoE serta apakah "
+                "ada bagian daya server atau rack yang terbuka. Kabel LAN tidak boleh langsung "
+                "dianggap sebagai kabel listrik tegangan utama; APD harus mengikuti bahaya aktual "
+                "dan JSA/SOP pekerjaan."
+            ),
+            "",
+            "KONDISI TERIDENTIFIKASI",
+        ]
         lines.extend(analisis_skenario.get("fakta") or [])
         hal_belum_diketahui = analisis_skenario.get("hal_yang_belum_diketahui") or []
         if hal_belum_diketahui:
@@ -171,6 +256,7 @@ class LayananAI:
         )
         if analisis_skenario.get("jenis") == "pekerjaan_jaringan_server":
             return self._buat_jawaban_pekerjaan_jaringan(
+                pesan_pengguna,
                 entries,
                 konteks,
                 hasil_pencarian,
@@ -187,6 +273,14 @@ class LayananAI:
             else konteks.get("category") or konteks.get("kategori") or "Umum"
         )
         officer = dapatkan_petugas_per_kategori(category)
+
+        lines.append("PERTANYAAN / LAPORAN ANDA")
+        lines.append(self._ringkas_pesan_pengguna(pesan_pengguna))
+        lines.append("")
+
+        lines.append("JAWABAN LANGSUNG")
+        lines.append(self._buat_jawaban_langsung(pesan_pengguna, entries, kb_matched))
+        lines.append("")
 
         lines.append("KONDISI TERIDENTIFIKASI")
         if kb_matched and len(entries) == 1:

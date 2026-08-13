@@ -160,7 +160,12 @@ class LayananKonteks:
             or konteks.get("kategori")
         ):
             petunjuk = (
-                "Untuk membantu memberikan analisis keselamatan yang tepat, mohon sampaikan detail berikut:\n"
+                "PERTANYAAN / LAPORAN ANDA\n"
+                f"{pesan_asli.strip()}\n\n"
+                "JAWABAN LANGSUNG\n"
+                "Informasi yang diberikan belum cukup untuk menentukan bahaya dan tindakan yang tepat. "
+                "Mohon lengkapi rincian berikut agar jawaban sesuai dengan kondisi sebenarnya.\n\n"
+                "SOLUSI & TINDAKAN\n"
                 "1. Kondisi bahaya apa yang terjadi? (contoh: pekerja tanpa helm, kabel terbuka, area licin)\n"
                 "2. Di area kerja mana kondisi ini ditemukan?\n"
                 "3. Apakah ada pekerja yang terdampak langsung?"
