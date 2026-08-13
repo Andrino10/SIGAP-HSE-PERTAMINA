@@ -201,7 +201,7 @@ test('memilih kelompok mobile menyimpan konteks, menutup panel, lalu menampilkan
   assert.equal(documentStub.body.classList.contains('mobile-inline-category-open'), false);
   assert.equal(documentStub.getElementById('mobile-inline-category-picker').classList.contains('open'), false);
   assert.equal(documentStub.getElementById('group-suggestion-popover').classList.contains('open'), true);
-  assert.equal(documentStub.activeElement, documentStub.getElementById('mobile-category-trigger'));
+  assert.equal(documentStub.activeElement, null, 'Pemilihan kategori tidak boleh memindahkan fokus atau memicu zoom viewport.');
 });
 
 test('pop-up kategori menampilkan saran dan klik hanya mengisi draf pesan', () => {

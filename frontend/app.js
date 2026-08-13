@@ -1357,7 +1357,8 @@ function pilihKelompokKategori(idKelompok, opsi = {}) {
   tampilkanNotifikasi(`${kelompok.nama} dipilih. Silakan tulis kondisi yang ditemukan.`, 'info');
   const modeMobile = apakahChatMobile();
   if (opsi.tutupPanelMobile !== false && modeMobile) {
-    tutupPemilihKategoriMobile(true);
+    // Hindari perpindahan fokus yang dapat menggeser atau memperbesar viewport mobile.
+    tutupPemilihKategoriMobile(false);
   }
   if (opsi.tampilkanSaran !== false) {
     window.setTimeout(() => tampilkanPopupSaranKelompok(idKelompok), modeMobile ? 240 : 0);

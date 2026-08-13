@@ -309,6 +309,10 @@ assert.match(styleSource, /\.mobile-inline-category-picker\s*\{[^}]*top:\s*max\(
 assert.match(styleSource, /body\.mobile-inline-category-open\s*\{[^}]*overflow:\s*hidden/s, 'Layar belakang harus terkunci saat pemilih kategori terbuka.');
 assert.match(styleSource, /@media \(min-width:\s*821px\)[\s\S]*?#view-chatbot\s*\{[^}]*1320px/s, 'Kolom chat desktop harus lebih lebar dan tetap memiliki batas maksimum.');
 assert.match(styleSource, /#view-chatbot \.chat-bubble\.system-bubble\s*\{[^}]*max-width:\s*min\(90%,\s*960px\)/s, 'Jawaban sistem harus cukup lebar tanpa menghasilkan baris yang terlalu panjang.');
+assert.match(styleSource, /@media \(max-width:\s*820px\)[\s\S]*?#view-chatbot \.chat-input-field\s*\{[^}]*font-size:\s*16px/s, 'Kolom chat mobile harus memakai ukuran teks yang mencegah zoom otomatis saat fokus.');
+assert.match(styleSource, /body\[data-active-view="chatbot"\] #view-chatbot\s*\{[^}]*max-width:\s*100%/s, 'Area chatbot mobile harus selalu autofit terhadap lebar viewport.');
+assert.match(styleSource, /html\s*\{[^}]*text-size-adjust:\s*100%/s, 'Ukuran teks tidak boleh berubah otomatis setelah kategori dipilih.');
+assert.doesNotMatch(indexHtml, /maximum-scale\s*=|user-scalable\s*=\s*(?:no|0)/i, 'Pencegahan zoom otomatis tidak boleh menonaktifkan zoom aksesibilitas pengguna.');
 assert.match(styleSource, /\.group-suggestion-list\s*\{[^}]*display:\s*grid/s, 'Saran permasalahan harus tersusun sebagai daftar yang rapi.');
 assert.match(styleSource, /\.chat-suggestion-popover\[hidden\]\s*\{[^}]*display:\s*none/s, 'Panel saran yang ditutup harus benar-benar tersembunyi.');
 assert.match(styleSource, /\.chat-suggestion-popover\s*\{[^}]*position:\s*absolute/s, 'Saran harus melayang di bagian atas kotak chat.');
@@ -326,7 +330,7 @@ assert.match(
 );
 const groupSelectionSource = appSource.match(/function pilihKelompokKategori[\s\S]*?\n\}/)?.[0] || '';
 assert.doesNotMatch(groupSelectionSource, /\.focus\s*\(/, 'Memilih kelompok tidak boleh memindahkan fokus ke input chat.');
-assert.match(groupSelectionSource, /tutupPemilihKategoriMobile\s*\(/, 'Panel mobile harus tertutup setelah kategori dipilih.');
+assert.match(groupSelectionSource, /tutupPemilihKategoriMobile\s*\(false\)/, 'Panel mobile harus tertutup tanpa memindahkan fokus atau mengubah skala setelah kategori dipilih.');
 assert.match(groupSelectionSource, /tampilkanPopupSaranKelompok\(idKelompok\)/, 'Pemilihan kategori harus membuka pop-up saran permasalahan.');
 const useSuggestionSource = appSource.slice(
   appSource.indexOf('function gunakanSaranPermasalahan'),

@@ -269,6 +269,8 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -5676,20 +5678,45 @@ textarea:focus-visible,
   body[data-active-view="chatbot"] {
     overflow-x: hidden;
     overflow-y: auto;
+    scrollbar-gutter: stable;
   }
 
   body[data-active-view="chatbot"] #view-chatbot {
     width: calc(100% - 0.5rem);
+    max-width: 100%;
     height: auto;
     min-height: 0;
+    box-sizing: border-box;
+    margin-inline: auto;
     padding: 0.3rem 0 0.4rem;
     overflow: visible;
   }
 
   #view-chatbot .chat-container {
+    width: 100%;
+    max-width: 100%;
     height: calc(100dvh - 74px);
     min-height: 520px;
+    box-sizing: border-box;
     border-radius: 11px;
+  }
+
+  #view-chatbot .chat-input-bar {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+  }
+
+  #view-chatbot .chat-input-field {
+    min-width: 0;
+    max-width: 100%;
+    flex: 1 1 auto;
+    font-size: 16px;
+  }
+
+  .modal-overlay .form-input {
+    font-size: 16px;
   }
 
   #view-chatbot .chat-mobile-category-bar {
@@ -6522,6 +6549,7 @@ textarea:focus-visible,
     align-items: center;
     gap: 0.25rem 0.65rem;
     padding: 0.75rem;
+    touch-action: manipulation;
   }
 
   #view-chatbot .mobile-category-group-option > .mobile-category-group-icon {
