@@ -29,8 +29,20 @@ class FakeElement {
     this.hidden = true;
     this.inert = true;
     this.parentElement = null;
+    this.dataset = {};
+    this.textContent = '';
+    this.value = '';
+    this.dispatchedEvents = [];
+    this.childrenFromHtml = [];
+    this._innerHTML = '';
   }
   addEventListener(type, callback) { this.listeners[type] = callback; }
+  dispatchEvent(event) {
+    this.dispatchedEvents.push(event.type);
+    this.listeners[event.type]?.(event);
+    return true;
+  }
+  click() { this.listeners.click?.({ currentTarget: this, target: this }); }
   setAttribute(name, value) { this.attributes[name] = String(value); }
   getAttribute(name) { return this.attributes[name] ?? null; }
   removeAttribute(name) { delete this.attributes[name]; }
@@ -41,7 +53,20 @@ class FakeElement {
     if (selector.includes('mobile-category-close') || selector.includes('summary')) return this.ownerDocument.getElementById('category-close');
     return null;
   }
-  querySelectorAll() { return []; }
+  querySelectorAll(selector) {
+    if (selector === '[data-suggestion-index]') return this.childrenFromHtml;
+    return [];
+  }
+  set innerHTML(value) {
+    this._innerHTML = String(value);
+    if (this.id !== 'group-suggestion-list') return;
+    this.childrenFromHtml = [...this._innerHTML.matchAll(/data-suggestion-index="(\d+)"/g)].map(match => {
+      const button = new FakeElement(`suggestion-${match[1]}`, this.ownerDocument);
+      button.dataset.suggestionIndex = match[1];
+      return button;
+    });
+  }
+  get innerHTML() { return this._innerHTML; }
   scrollIntoView() {}
 }
 
@@ -70,6 +95,8 @@ function createMobileContext() {
     'drawer-close', 'category-selector-bar', 'mobile-category-backdrop',
     'mobile-category-trigger', 'category-close', 'mobile-inline-category-picker',
     'mobile-inline-category-options', 'mobile-inline-category-close',
+    'group-suggestion-modal', 'group-suggestion-list', 'group-suggestion-title',
+    'group-suggestion-description',
   ]) {
     documentStub.elements[id] = new FakeElement(id, documentStub);
   }
@@ -99,6 +126,7 @@ function createMobileContext() {
     setTimeout: windowStub.setTimeout,
     clearTimeout: windowStub.clearTimeout,
     AbortController,
+    Event: class Event { constructor(type, options = {}) { this.type = type; this.bubbles = Boolean(options.bubbles); } },
     URL,
   });
   const source = fs.readFileSync(path.join(__dirname, '..', 'app.js'), 'utf8');
@@ -167,7 +195,34 @@ test('memilih kelompok mobile menyimpan konteks tanpa menutup panel atau meminda
   assert.equal(vm.runInContext("kategoriTerpilih.length", context), 0);
   assert.equal(documentStub.body.classList.contains('mobile-inline-category-open'), true);
   assert.equal(documentStub.getElementById('mobile-inline-category-picker').classList.contains('open'), true);
+  assert.equal(documentStub.getElementById('group-suggestion-modal').classList.contains('active'), true);
   assert.equal(documentStub.activeElement, null);
+});
+
+test('pop-up kategori menampilkan saran dan klik hanya mengisi draf pesan', () => {
+  const { context, documentStub } = createMobileContext();
+  vm.runInContext(`
+    jumlahKirimPengujian = 0;
+    jumlahNavigasiPengujian = 0;
+    kirimPesanChat = () => { jumlahKirimPengujian += 1; };
+    alihkanTampilan = () => { jumlahNavigasiPengujian += 1; };
+    tampilkanNotifikasi = () => {};
+    tampilkanPopupSaranKelompok('peralatan-kendaraan');
+  `, context);
+
+  const modal = documentStub.getElementById('group-suggestion-modal');
+  const suggestionList = documentStub.getElementById('group-suggestion-list');
+  const input = documentStub.getElementById('chat-input');
+  assert.equal(modal.classList.contains('active'), true);
+  assert.match(documentStub.getElementById('group-suggestion-title').textContent, /Peralatan/);
+  assert.equal(suggestionList.childrenFromHtml.length, 3);
+
+  suggestionList.childrenFromHtml[1].click();
+  assert.match(input.value, /Pelindung mesin dilepas/);
+  assert.deepEqual(input.dispatchedEvents, ['input']);
+  assert.equal(modal.classList.contains('active'), false);
+  assert.equal(vm.runInContext('jumlahKirimPengujian', context), 0);
+  assert.equal(vm.runInContext('jumlahNavigasiPengujian', context), 0);
 });
 
 test('mode keyboard dilepas saat visual viewport kembali penuh meski input tetap fokus', () => {

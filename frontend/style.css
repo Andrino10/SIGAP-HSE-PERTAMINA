@@ -6336,3 +6336,157 @@ textarea:focus-visible,
     color: #08715f;
   }
 }
+
+/* Pop-up saran pesan untuk enam kelompok utama. */
+.group-suggestion-card {
+  width: min(100%, 620px);
+  padding: clamp(1.2rem, 3vw, 1.75rem);
+}
+
+.group-suggestion-header {
+  padding-right: 2.6rem;
+}
+
+.group-suggestion-eyebrow {
+  display: inline-flex;
+  margin-bottom: 0.45rem;
+  color: #1769aa;
+  font-size: 0.66rem;
+  font-weight: 850;
+  letter-spacing: 0.11em;
+}
+
+.group-suggestion-header h3 {
+  margin: 0;
+  padding: 0;
+  color: #102d48;
+  font-size: clamp(1.15rem, 3vw, 1.45rem);
+  line-height: 1.25;
+}
+
+.group-suggestion-header .modal-sub {
+  margin: 0.5rem 0 0;
+  color: #61768a;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.group-suggestion-list {
+  display: grid;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.group-suggestion-item {
+  width: 100%;
+  min-height: 78px;
+  display: grid;
+  grid-template-columns: 30px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.8rem;
+  color: #243f58;
+  border: 1px solid #d5e1eb;
+  border-radius: 12px;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  text-align: left;
+  transition: border-color 160ms ease, background-color 160ms ease, transform 160ms ease;
+}
+
+.group-suggestion-item:hover {
+  border-color: #8eb6d7;
+  background: #f5f9fd;
+  transform: translateY(-1px);
+}
+
+.group-suggestion-item:focus-visible {
+  outline: 3px solid rgba(23, 105, 170, 0.2);
+  outline-offset: 2px;
+}
+
+.group-suggestion-number {
+  width: 30px;
+  height: 30px;
+  display: grid;
+  place-items: center;
+  color: #1769aa;
+  border-radius: 9px;
+  background: #eaf3fb;
+  font-size: 0.7rem;
+  font-weight: 850;
+}
+
+.group-suggestion-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+}
+
+.group-suggestion-copy strong {
+  color: #17324d;
+  font-size: 0.86rem;
+  line-height: 1.35;
+}
+
+.group-suggestion-copy span {
+  color: #61768a;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.group-suggestion-action {
+  padding: 0.38rem 0.55rem;
+  color: #0d715e;
+  border-radius: 999px;
+  background: #e1f3ee;
+  font-size: 0.7rem;
+  font-weight: 850;
+  white-space: nowrap;
+}
+
+.group-suggestion-note {
+  margin-top: 0.75rem;
+  padding: 0.7rem 0.8rem;
+  color: #61768a;
+  border-radius: 10px;
+  background: #f2f6f9;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+.group-suggestion-card .modal-actions {
+  margin-top: 0.9rem;
+}
+
+@media (max-width: 620px) {
+  .group-suggestion-modal {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .group-suggestion-card {
+    max-height: min(84dvh, 720px);
+    padding: 1rem;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .group-suggestion-item {
+    grid-template-columns: 28px minmax(0, 1fr);
+    min-height: 76px;
+    gap: 0.65rem;
+    padding: 0.72rem;
+  }
+
+  .group-suggestion-action {
+    grid-column: 2;
+    justify-self: start;
+    margin-top: 0.12rem;
+  }
+
+  .group-suggestion-card .modal-actions .btn {
+    width: 100%;
+  }
+}

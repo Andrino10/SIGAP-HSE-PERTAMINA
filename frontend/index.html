@@ -806,6 +806,27 @@
 
     <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
 
+    <!-- Saran pesan setelah pengguna memilih satu dari 6 kelompok utama -->
+    <div class="modal-overlay group-suggestion-modal" id="group-suggestion-modal" aria-hidden="true">
+      <div class="modal-card group-suggestion-card" aria-labelledby="group-suggestion-title" aria-describedby="group-suggestion-description">
+        <button class="modal-close-btn" type="button" onclick="closeGroupSuggestionModal()"></button>
+        <div class="group-suggestion-header">
+          <span class="group-suggestion-eyebrow">SARAN PESAN</span>
+          <h3 id="group-suggestion-title">Contoh pesan keselamatan</h3>
+          <p class="modal-sub" id="group-suggestion-description">
+            Pilih contoh untuk dijadikan draf. Pesan tidak akan dikirim otomatis.
+          </p>
+        </div>
+        <div class="group-suggestion-list" id="group-suggestion-list"></div>
+        <div class="group-suggestion-note">
+          Contoh hanya panduan. Tambahkan lokasi, aktivitas, orang yang terlibat, dan kondisi aktual agar analisis lebih tepat.
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-secondary" type="button" onclick="closeGroupSuggestionModal()">Tulis sendiri</button>
+        </div>
+      </div>
+    </div>
+
     <!-- ==========================================
          CONSULTATION FORM MODAL (ANONYMOUS DATA)
     ========================================== -->

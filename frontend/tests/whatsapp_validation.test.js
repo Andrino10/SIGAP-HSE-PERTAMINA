@@ -109,6 +109,7 @@ function run(script) {
 }
 
 const categoryGroups = JSON.parse(run('JSON.stringify(KELOMPOK_KATEGORI_UI)'));
+const groupSuggestions = JSON.parse(run('JSON.stringify(SARAN_PESAN_KELOMPOK)'));
 const groupedCategories = categoryGroups.flatMap(group => group.kategori);
 const uniqueGroupedCategories = [...new Set(groupedCategories)].sort((a, b) => a.localeCompare(b, 'id'));
 const knowledgeEntries = JSON.parse(
@@ -118,6 +119,15 @@ const knowledgeCategories = [...new Set(knowledgeEntries.map(item => item.katego
   .sort((a, b) => a.localeCompare(b, 'id'));
 
 assert.equal(categoryGroups.length, 6, 'Antarmuka harus merangkum kategori ke dalam 6 kelompok.');
+assert.deepEqual(
+  Object.keys(groupSuggestions).sort(),
+  categoryGroups.map(group => group.id).sort(),
+  'Setiap kelompok utama harus memiliki kumpulan saran pesan.',
+);
+assert.ok(
+  Object.values(groupSuggestions).every(suggestions => suggestions.length === 3),
+  'Setiap kelompok utama harus menampilkan tepat tiga saran yang ringkas.',
+);
 assert.equal(groupedCategories.length, uniqueGroupedCategories.length, 'Kategori tidak boleh muncul pada dua kelompok.');
 assert.deepEqual(uniqueGroupedCategories, knowledgeCategories, 'Seluruh kategori Knowledge Base harus tetap tersedia.');
 
@@ -247,6 +257,9 @@ assert.doesNotMatch(indexHtml, /id="mobile-category-search"/i, 'Pencarian katego
 assert.match(indexHtml, /data-category-group="aktivitas-berisiko"/i, 'Fallback HTML harus menampilkan kelompok utama, bukan kategori rinci.');
 assert.doesNotMatch(indexHtml, /data-mobile-category=/i, 'Kategori rinci tidak boleh diekspos sebagai pilihan mobile.');
 assert.match(indexHtml, /id="mobile-category-backdrop"/i, 'Pemilih kategori mobile harus memiliki backdrop yang dapat ditutup.');
+assert.match(indexHtml, /id="group-suggestion-modal"/i, 'Pemilihan kelompok harus menyediakan pop-up saran pesan.');
+assert.match(indexHtml, /id="group-suggestion-list"/i, 'Pop-up harus memiliki daftar saran yang dapat dipilih.');
+assert.match(indexHtml, /Pesan tidak akan dikirim otomatis/i, 'Pop-up harus menjelaskan bahwa saran tidak dikirim otomatis.');
 assert.match(indexHtml, /id="chat-session-drawer"/i, 'Chatbot mobile harus memiliki drawer riwayat sesi.');
 assert.match(
   indexHtml,
@@ -263,6 +276,8 @@ assert.match(styleSource, /\.chat-drawer-history\s*\{[^}]*overflow-y:\s*auto/s, 
 assert.match(styleSource, /#view-chatbot \.chat-messages-stream\s*\{[^}]*touch-action:\s*pan-y/s, 'Isi chat harus mendukung gestur gulir vertikal.');
 assert.match(styleSource, /\.mobile-inline-category-picker\.open\s*\{[^}]*display:\s*flex/s, 'Pemilih kategori inline harus terlihat ketika dibuka.');
 assert.match(styleSource, /\.mobile-inline-category-options\s*\{[^}]*overflow-y:\s*auto/s, 'Daftar kategori inline harus dapat digulir di mobile.');
+assert.match(styleSource, /\.group-suggestion-list\s*\{[^}]*display:\s*grid/s, 'Saran pesan harus tersusun sebagai daftar yang rapi.');
+assert.match(styleSource, /@media \(max-width: 620px\)[\s\S]*\.group-suggestion-modal\s*\{[^}]*align-items:\s*flex-end/s, 'Pop-up saran harus menjadi bottom sheet yang nyaman di mobile.');
 assert.doesNotMatch(
   appSource.match(/function bukaChatDenganKelompok[\s\S]*?\n\}/)?.[0] || '',
   /alihkanTampilan\s*\(/,
@@ -271,6 +286,14 @@ assert.doesNotMatch(
 const groupSelectionSource = appSource.match(/function pilihKelompokKategori[\s\S]*?\n\}/)?.[0] || '';
 assert.doesNotMatch(groupSelectionSource, /\.focus\s*\(/, 'Memilih kelompok tidak boleh memindahkan fokus ke input chat.');
 assert.doesNotMatch(groupSelectionSource, /tutupPemilihKategoriMobile\s*\(/, 'Memilih kelompok tidak boleh langsung menutup panel.');
+assert.match(appSource, /function pilihKelompokKategori[\s\S]*tampilkanPopupSaranKelompok\(idKelompok\)/, 'Memilih kelompok harus membuka pop-up saran.');
+const useSuggestionSource = appSource.slice(
+  appSource.indexOf('function gunakanSaranPesanKelompok'),
+  appSource.indexOf('function useGroupSuggestion'),
+);
+assert.match(useSuggestionSource, /input\.value\s*=\s*suggestion\.teks/, 'Saran harus dimasukkan ke input sebagai draf.');
+assert.match(useSuggestionSource, /dispatchEvent\(new Event\('input'/, 'Input harus diperbarui setelah draf dipilih.');
+assert.doesNotMatch(useSuggestionSource, /kirimPesanChat|alihkanTampilan/, 'Memilih saran tidak boleh mengirim pesan atau berpindah halaman.');
 const structuredRiskHtml = run(`formatStructuredResponseHTML(
   'PENJELASAN RISIKO\\nKabel terbuka berada di jalur pekerja. Mekanisme bahayanya adalah kontak langsung dengan konduktor. Konsekuensi yang perlu dicegah adalah sengatan dan kebakaran. Faktor penentu meliputi tegangan dan jumlah pekerja terpapar. Temuan harus diverifikasi terhadap kondisi aktual dan SOP.'
 )`);

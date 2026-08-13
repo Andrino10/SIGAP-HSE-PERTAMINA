@@ -144,6 +144,38 @@ const KELOMPOK_KATEGORI_UI = [
     ]
   }
 ];
+const SARAN_PESAN_KELOMPOK = {
+  'aktivitas-berisiko': [
+    { judul: 'Pekerjaan panas', teks: 'Pekerja mengelas tanpa Hot Work Permit dan Fire Watcher di area kerja.' },
+    { judul: 'Kelistrikan', teks: 'Ditemukan kabel listrik terbuka di jalur pekerja dan belum diberi pembatas.' },
+    { judul: 'Ketinggian', teks: 'Pekerja melakukan pekerjaan di ketinggian tanpa safety harness dan lifeline.' }
+  ],
+  'peralatan-kendaraan': [
+    { judul: 'Alat berat', teks: 'Forklift membawa beban berlebih dan melintas dekat pekerja tanpa spotter.' },
+    { judul: 'Peralatan kerja', teks: 'Pelindung mesin dilepas saat peralatan masih digunakan oleh pekerja.' },
+    { judul: 'APD', teks: 'Pekerja menggunakan alat kerja tanpa sarung tangan dan kacamata keselamatan yang sesuai.' }
+  ],
+  'kesehatan-lingkungan': [
+    { judul: 'Bahan kimia', teks: 'Terdapat tumpahan bahan kimia di lantai yang belum diisolasi dan dibersihkan.' },
+    { judul: 'Kondisi area', teks: 'Lantai area kerja licin, pencahayaan kurang, dan jalur berjalan belum diamankan.' },
+    { judul: 'Kelelahan', teks: 'Pekerja terlihat mengantuk setelah lembur dan masih mengoperasikan peralatan.' }
+  ],
+  'sistem-risiko': [
+    { judul: 'SOP dan JSA', teks: 'Pekerjaan dimulai tanpa pemeriksaan JSA, SOP, dan izin kerja yang berlaku.' },
+    { judul: 'Pengawasan', teks: 'Pekerjaan berisiko berlangsung tanpa briefing dan verifikasi supervisor.' },
+    { judul: 'Temuan umum', teks: 'Saya menemukan beberapa kondisi tidak aman dan membutuhkan bantuan menentukan prioritas penanganannya.' }
+  ],
+  'budaya-kompetensi': [
+    { judul: 'Kompetensi', teks: 'Pekerja yang belum mendapatkan pelatihan ditugaskan mengoperasikan peralatan.' },
+    { judul: 'Perilaku tidak aman', teks: 'Pekerja mengabaikan instruksi keselamatan dan tetap melanjutkan aktivitas berisiko.' },
+    { judul: 'Pelaporan', teks: 'Kejadian hampir celaka belum dilaporkan dan belum dibahas dalam Toolbox Meeting.' }
+  ],
+  'insiden-koordinasi': [
+    { judul: 'Tanggap darurat', teks: 'Jalur evakuasi terhalang material dan APAR sulit dijangkau saat kondisi darurat.' },
+    { judul: 'Near miss', teks: 'Terjadi kejadian hampir celaka yang belum diamankan dan belum diinvestigasi.' },
+    { judul: 'SIMOPS', teks: 'Dua tim bekerja bersamaan di area yang sama tanpa koordinasi bahaya dan pembagian zona.' }
+  ]
+};
 let pemicuModalTerakhir = null;
 let pemuatanFaqBerlangsung = false;
 let metadataKnowledge = null;
@@ -1174,6 +1206,54 @@ function bukaChatDenganKelompok(idKelompok) {
 }
 function openChatWithGroup(groupId) { bukaChatDenganKelompok(groupId); }
 
+function tampilkanPopupSaranKelompok(idKelompok) {
+  const kelompok = dapatkanKelompokKategori(idKelompok);
+  const modal = document.getElementById('group-suggestion-modal');
+  const daftar = document.getElementById('group-suggestion-list');
+  const judul = document.getElementById('group-suggestion-title');
+  const keterangan = document.getElementById('group-suggestion-description');
+  const suggestions = SARAN_PESAN_KELOMPOK[idKelompok] || [];
+  if (!kelompok || !modal || !daftar || suggestions.length === 0) return;
+
+  modal.dataset.groupId = idKelompok;
+  if (judul) judul.textContent = `Contoh pesan · ${kelompok.nama}`;
+  if (keterangan) {
+    keterangan.textContent = 'Pilih salah satu contoh untuk dijadikan draf, atau tutup dan tulis laporan dengan bahasa Anda sendiri.';
+  }
+  daftar.innerHTML = suggestions.map((item, index) => `
+    <button class="group-suggestion-item" type="button" data-suggestion-index="${index}">
+      <span class="group-suggestion-number" aria-hidden="true">${index + 1}</span>
+      <span class="group-suggestion-copy">
+        <strong>${sanitasiHtml(item.judul)}</strong>
+        <span>${sanitasiHtml(item.teks)}</span>
+      </span>
+      <span class="group-suggestion-action">Gunakan draf</span>
+    </button>
+  `).join('');
+  daftar.querySelectorAll('[data-suggestion-index]').forEach(button => {
+    button.addEventListener('click', () => gunakanSaranPesanKelompok(Number(button.dataset.suggestionIndex)));
+  });
+  modal.classList.add('active');
+}
+
+function tutupPopupSaranKelompok() {
+  document.getElementById('group-suggestion-modal')?.classList.remove('active');
+}
+function closeGroupSuggestionModal() { tutupPopupSaranKelompok(); }
+
+function gunakanSaranPesanKelompok(indexSaran) {
+  const modal = document.getElementById('group-suggestion-modal');
+  const idKelompok = modal?.dataset.groupId;
+  const suggestion = (SARAN_PESAN_KELOMPOK[idKelompok] || [])[indexSaran];
+  const input = document.getElementById('chat-input');
+  if (!suggestion || !input) return;
+  input.value = suggestion.teks;
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+  tutupPopupSaranKelompok();
+  tampilkanNotifikasi('Contoh sudah disiapkan sebagai draf. Anda masih dapat mengubahnya sebelum dikirim.', 'success');
+}
+function useGroupSuggestion(suggestionIndex) { gunakanSaranPesanKelompok(suggestionIndex); }
+
 function pilihKelompokKategori(idKelompok) {
   const kelompok = dapatkanKelompokKategori(idKelompok);
   if (!kelompok) return;
@@ -1192,6 +1272,9 @@ function pilihKelompokKategori(idKelompok) {
       `${kelompok.nama} dipilih. Jenis bahaya rinci akan ditentukan otomatis dari pesan.`,
       'info'
     );
+    tampilkanPopupSaranKelompok(idKelompok);
+  } else {
+    tutupPopupSaranKelompok();
   }
 }
 function selectCategoryGroup(groupId) { pilihKelompokKategori(groupId); }
