@@ -95,7 +95,7 @@ function createMobileContext() {
     'drawer-close', 'category-selector-bar', 'mobile-category-backdrop',
     'mobile-category-trigger', 'category-close', 'mobile-inline-category-picker',
     'mobile-inline-category-options', 'mobile-inline-category-close',
-    'group-suggestion-modal', 'group-suggestion-list', 'group-suggestion-title',
+    'view-chatbot', 'group-suggestion-popover', 'group-suggestion-list', 'group-suggestion-title',
     'group-suggestion-description',
   ]) {
     documentStub.elements[id] = new FakeElement(id, documentStub);
@@ -156,7 +156,7 @@ test('drawer mobile membuka, menutup, dan tidak menghalangi klik saat tersembuny
   assert.equal(documentStub.body.classList.contains('chat-drawer-open'), false);
 });
 
-test('pemilih kategori inline mobile dapat dibuka dan ditutup tanpa overlay', () => {
+test('pemilih kategori mobile dapat dibuka hampir selayar dengan backdrop dan ditutup kembali', () => {
   const { context, documentStub } = createMobileContext();
   const panel = documentStub.getElementById('category-selector-bar');
   const backdrop = documentStub.getElementById('mobile-category-backdrop');
@@ -167,36 +167,41 @@ test('pemilih kategori inline mobile dapat dibuka dan ditutup tanpa overlay', ()
   assert.equal(panel.parentElement, documentStub.chatView);
   assert.equal(inlinePicker.classList.contains('open'), true);
   assert.equal(inlinePicker.attributes['aria-hidden'], 'false');
-  assert.equal(backdrop.hidden, true);
+  assert.equal(inlinePicker.attributes.role, 'dialog');
+  assert.equal(inlinePicker.attributes['aria-modal'], 'true');
+  assert.equal(backdrop.hidden, false);
   assert.equal(documentStub.body.classList.contains('mobile-inline-category-open'), true);
   assert.equal(documentStub.body.classList.contains('mobile-category-open'), false);
 
   vm.runInContext('tutupPemilihKategoriMobile(false)', context);
   assert.equal(inlinePicker.classList.contains('open'), false);
   assert.equal(inlinePicker.attributes['aria-hidden'], 'true');
+  assert.equal(inlinePicker.attributes.role, undefined);
+  assert.equal(inlinePicker.attributes['aria-modal'], undefined);
   assert.equal(backdrop.hidden, true);
   assert.equal(documentStub.body.classList.contains('mobile-inline-category-open'), false);
   assert.equal(documentStub.body.classList.contains('mobile-category-open'), false);
   assert.equal(panel.parentElement, documentStub.chatView);
 });
 
-test('memilih kelompok mobile menyimpan konteks tanpa menutup panel atau memindahkan fokus', () => {
+test('memilih kelompok mobile menyimpan konteks, menutup panel, lalu menampilkan saran', () => {
   const { context, documentStub } = createMobileContext();
   vm.runInContext(`
     perbaruiTampilanKategoriTerpilih = () => {};
     perbaruiKategoriPadaSesiChat = () => {};
     tampilkanKelompokKategoriBeranda = () => {};
     tampilkanNotifikasi = () => {};
+    document.getElementById('view-chatbot').classList.add('active');
     document.getElementById('mobile-inline-category-picker').classList.add('open');
     document.body.classList.add('mobile-inline-category-open');
     pilihKelompokKategori('aktivitas-berisiko');
   `, context);
   assert.equal(vm.runInContext("kelompokKategoriTerpilih", context), 'aktivitas-berisiko');
   assert.equal(vm.runInContext("kategoriTerpilih.length", context), 0);
-  assert.equal(documentStub.body.classList.contains('mobile-inline-category-open'), true);
-  assert.equal(documentStub.getElementById('mobile-inline-category-picker').classList.contains('open'), true);
-  assert.equal(documentStub.getElementById('group-suggestion-modal').classList.contains('active'), true);
-  assert.equal(documentStub.activeElement, null);
+  assert.equal(documentStub.body.classList.contains('mobile-inline-category-open'), false);
+  assert.equal(documentStub.getElementById('mobile-inline-category-picker').classList.contains('open'), false);
+  assert.equal(documentStub.getElementById('group-suggestion-popover').classList.contains('open'), true);
+  assert.equal(documentStub.activeElement, documentStub.getElementById('mobile-category-trigger'));
 });
 
 test('pop-up kategori menampilkan saran dan klik hanya mengisi draf pesan', () => {
@@ -207,20 +212,23 @@ test('pop-up kategori menampilkan saran dan klik hanya mengisi draf pesan', () =
     kirimPesanChat = () => { jumlahKirimPengujian += 1; };
     alihkanTampilan = () => { jumlahNavigasiPengujian += 1; };
     tampilkanNotifikasi = () => {};
+    document.getElementById('view-chatbot').classList.add('active');
     tampilkanPopupSaranKelompok('peralatan-kendaraan');
   `, context);
 
-  const modal = documentStub.getElementById('group-suggestion-modal');
+  const popover = documentStub.getElementById('group-suggestion-popover');
   const suggestionList = documentStub.getElementById('group-suggestion-list');
   const input = documentStub.getElementById('chat-input');
-  assert.equal(modal.classList.contains('active'), true);
+  assert.equal(popover.classList.contains('open'), true);
+  assert.equal(popover.hidden, false);
   assert.match(documentStub.getElementById('group-suggestion-title').textContent, /Peralatan/);
   assert.equal(suggestionList.childrenFromHtml.length, 3);
 
   suggestionList.childrenFromHtml[1].click();
   assert.match(input.value, /Pelindung mesin dilepas/);
   assert.deepEqual(input.dispatchedEvents, ['input']);
-  assert.equal(modal.classList.contains('active'), false);
+  assert.equal(popover.classList.contains('open'), false);
+  assert.equal(popover.hidden, true);
   assert.equal(vm.runInContext('jumlahKirimPengujian', context), 0);
   assert.equal(vm.runInContext('jumlahNavigasiPengujian', context), 0);
 });

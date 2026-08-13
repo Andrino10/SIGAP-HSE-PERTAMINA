@@ -771,16 +771,23 @@ function bukaPemilihKategoriMobile() {
     tutupDrawerChat(false);
     inlinePicker.classList.add('open');
     inlinePicker.setAttribute('aria-hidden', 'false');
+    inlinePicker.setAttribute('role', 'dialog');
+    inlinePicker.setAttribute('aria-modal', 'true');
     document.body.classList.add('mobile-inline-category-open');
     document.body.classList.remove('mobile-category-open');
     const backdrop = document.getElementById('mobile-category-backdrop');
-    if (backdrop) backdrop.hidden = true;
+    if (backdrop) backdrop.hidden = false;
     document.getElementById('mobile-category-trigger')?.setAttribute('aria-expanded', 'true');
     window.requestAnimationFrame(() => {
       const active = inlinePicker.querySelector('.mobile-category-option.active');
       const options = document.getElementById('mobile-inline-category-options');
       if (active && options) options.scrollTop = Math.max(0, active.offsetTop - 70);
     });
+    window.setTimeout(() => {
+      (inlinePicker.querySelector('.mobile-category-option.active')
+        || inlinePicker.querySelector('.mobile-category-option')
+        || inlinePicker.querySelector('.mobile-inline-category-close'))?.focus({ preventScroll: true });
+    }, 80);
     return;
   }
   if (!apakahChatMobile()) {
@@ -812,6 +819,8 @@ function tutupPemilihKategoriMobile(kembalikanFokus = true) {
   const inlinePicker = document.getElementById('mobile-inline-category-picker');
   inlinePicker?.classList.remove('open');
   inlinePicker?.setAttribute('aria-hidden', 'true');
+  inlinePicker?.removeAttribute('role');
+  inlinePicker?.removeAttribute('aria-modal');
   document.body.classList.remove('mobile-inline-category-open');
   if (panel) {
     panel.classList.remove('mobile-open');
@@ -891,7 +900,10 @@ function inisialisasiModeChatSeluler() {
     if (event.key === 'Escape') {
       if (document.getElementById('group-suggestion-popover')?.classList.contains('open')) {
         tutupPopupSaranKelompok();
-      } else if (document.body.classList.contains('mobile-category-open')) {
+      } else if (
+        document.body.classList.contains('mobile-inline-category-open')
+        || document.body.classList.contains('mobile-category-open')
+      ) {
         tutupPemilihKategoriMobile(true);
       } else if (document.body.classList.contains('chat-drawer-open')) {
         tutupDrawerChat(true);

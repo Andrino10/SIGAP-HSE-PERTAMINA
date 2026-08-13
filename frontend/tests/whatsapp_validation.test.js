@@ -297,8 +297,17 @@ assert.match(styleSource, /\.chat-drawer-history\s*\{[^}]*overflow-y:\s*auto/s, 
 assert.match(styleSource, /#view-chatbot \.chat-messages-stream\s*\{[^}]*touch-action:\s*pan-y/s, 'Isi chat harus mendukung gestur gulir vertikal.');
 assert.match(styleSource, /\.mobile-inline-category-picker\.open\s*\{[^}]*display:\s*flex/s, 'Pemilih kategori inline harus terlihat ketika dibuka.');
 assert.match(styleSource, /\.mobile-inline-category-options\s*\{[^}]*overflow-y:\s*auto/s, 'Daftar kategori inline harus dapat digulir di mobile.');
+assert.match(styleSource, /\.mobile-inline-category-picker\s*\{[^}]*position:\s*fixed/s, 'Pemilih kategori mobile harus tampil sebagai pop-up hampir memenuhi layar.');
+assert.match(styleSource, /\.mobile-inline-category-picker\s*\{[^}]*top:\s*max\(12px,\s*env\(safe-area-inset-top\)\)/s, 'Pop-up kategori harus dinaikkan mendekati bagian atas layar.');
+assert.match(styleSource, /body\.mobile-inline-category-open\s*\{[^}]*overflow:\s*hidden/s, 'Layar belakang harus terkunci saat pemilih kategori terbuka.');
 assert.match(styleSource, /\.group-suggestion-list\s*\{[^}]*display:\s*grid/s, 'Saran permasalahan harus tersusun sebagai daftar yang rapi.');
 assert.match(styleSource, /\.chat-suggestion-popover\[hidden\]\s*\{[^}]*display:\s*none/s, 'Panel saran yang ditutup harus benar-benar tersembunyi.');
+assert.match(styleSource, /\.chat-suggestion-popover\s*\{[^}]*position:\s*absolute/s, 'Saran harus melayang di bagian atas kotak chat.');
+assert.doesNotMatch(
+  styleSource.match(/\.chat-suggestion-popover\s*\{[^}]*\}/s)?.[0] || '',
+  /position:\s*fixed|inset:\s*0/,
+  'Saran tidak boleh menjadi lapisan layar penuh.',
+);
 assert.match(styleSource, /@media \(max-width: 620px\)[\s\S]*\.group-suggestion-list\s*\{[^}]*display:\s*flex/s, 'Saran mobile harus ringkas dan dapat digeser horizontal.');
 assert.doesNotMatch(styleSource, /\.group-suggestion-modal\b/, 'Saran chat tidak boleh memiliki gaya modal layar penuh.');
 assert.match(
