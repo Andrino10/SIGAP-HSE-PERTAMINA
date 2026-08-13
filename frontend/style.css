@@ -924,6 +924,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Chatbot Console Container - Taller Vertical Height (Memanjangkan Kolom Chat Ke Bawah) */
 .chat-container {
+  position: relative;
   background-color: #FFFFFF;
   border: 2px solid #E2E8F0;
   border-radius: var(--radius-xl);
@@ -6506,16 +6507,23 @@ textarea:focus-visible,
   }
 }
 
-/* Panel saran ringkas yang hanya tampil di dalam kotak chat. */
+/* Kartu saran melayang di bagian atas kotak chat tanpa backdrop. */
 .chat-suggestion-popover {
-  flex: 0 0 auto;
-  margin: 0.7rem 1rem 0;
-  padding: 0.85rem;
-  overflow: hidden;
+  position: absolute;
+  top: 88px;
+  right: 16px;
+  z-index: 35;
+  width: min(470px, calc(100% - 32px));
+  max-height: min(440px, calc(100% - 160px));
+  margin: 0;
+  padding: 0.8rem;
+  overflow-x: hidden;
+  overflow-y: auto;
   border: 1px solid #b9d3e8;
-  border-radius: 14px;
-  background: linear-gradient(180deg, #f8fbfe 0%, #ffffff 100%);
-  box-shadow: 0 8px 20px rgba(20, 67, 105, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 14px 32px rgba(20, 50, 78, 0.2);
+  backdrop-filter: blur(8px);
   animation: chatSuggestionIn 180ms ease-out;
 }
 
@@ -6524,7 +6532,7 @@ textarea:focus-visible,
 }
 
 @keyframes chatSuggestionIn {
-  from { opacity: 0; transform: translateY(-6px); }
+  from { opacity: 0; transform: translateY(-8px) scale(0.985); }
   to { opacity: 1; transform: translateY(0); }
 }
 
@@ -6580,19 +6588,19 @@ textarea:focus-visible,
 
 .group-suggestion-list {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 0.55rem;
+  grid-template-columns: 1fr;
+  gap: 0.45rem;
   margin-top: 0.65rem;
 }
 
 .group-suggestion-item {
   width: 100%;
-  min-height: 88px;
+  min-height: 62px;
   display: grid;
-  grid-template-columns: 26px minmax(0, 1fr);
-  align-content: start;
-  gap: 0.45rem;
-  padding: 0.65rem;
+  grid-template-columns: 26px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 0.6rem;
   color: #243f58;
   border: 1px solid #d5e1eb;
   border-radius: 10px;
@@ -6646,15 +6654,19 @@ textarea:focus-visible,
   font-size: 0.68rem;
   line-height: 1.4;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
 }
 
 .group-suggestion-action {
-  grid-column: 2;
-  justify-self: start;
+  grid-column: auto;
+  justify-self: end;
+  padding: 0.3rem 0.48rem;
   color: #0d715e;
+  border-radius: 999px;
+  background: #e1f3ee;
   font-size: 0.64rem;
   font-weight: 850;
+  white-space: nowrap;
 }
 
 .group-suggestion-note {
@@ -6667,9 +6679,15 @@ textarea:focus-visible,
 
 @media (max-width: 620px) {
   .chat-suggestion-popover {
-    margin: 0.5rem 0.55rem 0;
+    top: 72px;
+    right: 8px;
+    left: 8px;
+    width: auto;
+    max-height: min(315px, calc(100% - 150px));
+    margin: 0;
     padding: 0.7rem;
-    border-radius: 11px;
+    border-radius: 10px;
+    box-shadow: 0 10px 26px rgba(20, 50, 78, 0.2);
   }
 
   .group-suggestion-list {
@@ -6685,8 +6703,19 @@ textarea:focus-visible,
   }
 
   .group-suggestion-item {
-    flex: 0 0 min(78vw, 280px);
-    min-height: 92px;
+    flex: 0 0 min(76vw, 270px);
+    min-height: 78px;
+    grid-template-columns: 26px minmax(0, 1fr);
+    align-content: start;
     scroll-snap-align: start;
+  }
+
+  .group-suggestion-action {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+  .group-suggestion-note {
+    display: none;
   }
 }

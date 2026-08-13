@@ -866,6 +866,7 @@ function inisialisasiModeChatSeluler() {
   };
 
   input.addEventListener('focus', () => {
+    tutupPopupSaranKelompok();
     tutupDrawerChat(false);
     tutupPemilihKategoriMobile(false);
     sinkronkanViewport();
@@ -888,7 +889,9 @@ function inisialisasiModeChatSeluler() {
   window.addEventListener('resize', sinkronkanViewport);
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape') {
-      if (document.body.classList.contains('mobile-category-open')) {
+      if (document.getElementById('group-suggestion-popover')?.classList.contains('open')) {
+        tutupPopupSaranKelompok();
+      } else if (document.body.classList.contains('mobile-category-open')) {
         tutupPemilihKategoriMobile(true);
       } else if (document.body.classList.contains('chat-drawer-open')) {
         tutupDrawerChat(true);
@@ -1247,7 +1250,7 @@ function tampilkanPopupSaranKelompok(idKelompok) {
   if (!kelompok || !panel || !daftar || !tampilanChat?.classList.contains('active') || suggestions.length === 0) return;
 
   panel.dataset.groupId = idKelompok;
-  if (judul) judul.textContent = `Saran permasalahan: ${kelompok.nama}`;
+  if (judul) judul.textContent = `Contoh pesan · ${kelompok.nama}`;
   daftar.innerHTML = suggestions.map((item, index) => `
     <button class="group-suggestion-item" type="button" data-suggestion-index="${index}">
       <span class="group-suggestion-number" aria-hidden="true">${index + 1}</span>
@@ -1255,7 +1258,7 @@ function tampilkanPopupSaranKelompok(idKelompok) {
         <strong>${sanitasiHtml(item.judul)}</strong>
         <span>${sanitasiHtml(item.teks)}</span>
       </span>
-      <span class="group-suggestion-action">Gunakan contoh</span>
+      <span class="group-suggestion-action">Gunakan</span>
     </button>
   `).join('');
   daftar.querySelectorAll('[data-suggestion-index]').forEach(button => {
