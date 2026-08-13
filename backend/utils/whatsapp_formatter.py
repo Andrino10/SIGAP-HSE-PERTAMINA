@@ -1,5 +1,20 @@
 import urllib.parse
+import datetime
 from config.settings import NAMA_SISTEM, dapatkan_petugas_per_kategori, DAFTAR_PETUGAS_HSSE
+
+NAMA_BULAN_INDONESIA = (
+    "Januari", "Februari", "Maret", "April", "Mei", "Juni",
+    "Juli", "Agustus", "September", "Oktober", "November", "Desember",
+)
+
+
+def format_tanggal_kejadian(value):
+    """Ubah tanggal ISO menjadi tanggal Indonesia yang jelas untuk WhatsApp."""
+    try:
+        tanggal = datetime.date.fromisoformat(str(value or "").strip())
+    except ValueError:
+        return "Belum dicantumkan"
+    return f"{tanggal.day} {NAMA_BULAN_INDONESIA[tanggal.month - 1]} {tanggal.year}"
 
 def susun_pesan_whatsapp(konteks, umpan_balik=None, nomor_petugas_pilihan=None):
     """Menyusun teks pesan otomatis WhatsApp untuk dilaporkan ke Petugas HSSE."""
@@ -48,10 +63,12 @@ def susun_pesan_whatsapp(konteks, umpan_balik=None, nomor_petugas_pilihan=None):
                 peran_tujuan = petugas.get("peran") or petugas.get("role")
                 break
 
-    nama_pelapor = str(konteks.get("reporter_name") or konteks.get("nama_pelapor") or "Pelapor Anonim")
+    nama_pelapor = str(konteks.get("reporter_name") or konteks.get("nama_pelapor") or "Belum dicantumkan")
     divisi = str(konteks.get("division") or konteks.get("divisi") or "Umum")
     lokasi = str(konteks.get("location") or konteks.get("lokasi") or "Area Kerja")
-    detail_temuan = str(konteks.get("device") or konteks.get("detail_temuan") or "-")
+    tanggal_kejadian = format_tanggal_kejadian(
+        konteks.get("occurrence_date") or konteks.get("tanggal_kejadian")
+    )
     deskripsi = str(
         konteks.get("description")
         or konteks.get("deskripsi")
@@ -82,11 +99,11 @@ def susun_pesan_whatsapp(konteks, umpan_balik=None, nomor_petugas_pilihan=None):
         "Lokasi Temuan:",
         lokasi,
         "",
+        "Tanggal Kejadian:",
+        tanggal_kejadian,
+        "",
         "Kategori Bahaya:",
         teks_kategori,
-        "",
-        "Detail Temuan:",
-        detail_temuan,
         "",
         "Deskripsi Kondisi Bahaya:",
         deskripsi,

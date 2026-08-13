@@ -195,11 +195,48 @@ const KONFIGURASI_KOLOM_WHATSAPP = [
   { id: 'wa-input-name', label: 'Nama pelapor', min: 2, larangan: ['pelapor anonim', 'anonim'] },
   { id: 'wa-input-division', label: 'Fungsi / Divisi', min: 2 },
   { id: 'wa-input-location', label: 'Lokasi temuan', min: 3 },
+  { id: 'wa-input-occurrence-date', label: 'Tanggal kejadian', jenis: 'tanggal' },
   { id: 'wa-input-category', label: 'Kategori utama' },
-  { id: 'wa-input-device', label: 'Detail temuan', min: 3 },
   { id: 'wa-input-urgency', label: 'Tingkat urgensi' },
   { id: 'wa-input-description', label: 'Deskripsi kondisi bahaya', min: 10 }
 ];
+
+const NAMA_BULAN_INDONESIA = Object.freeze([
+  'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+  'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+]);
+
+function tanggalHariIniIso() {
+  const sekarang = new Date();
+  const tahun = sekarang.getFullYear();
+  const bulan = String(sekarang.getMonth() + 1).padStart(2, '0');
+  const tanggal = String(sekarang.getDate()).padStart(2, '0');
+  return `${tahun}-${bulan}-${tanggal}`;
+}
+
+function formatTanggalKejadianIndonesia(nilaiTanggal) {
+  const cocok = String(nilaiTanggal || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!cocok) return '';
+  const tahun = Number(cocok[1]);
+  const bulan = Number(cocok[2]);
+  const tanggal = Number(cocok[3]);
+  const ujiTanggal = new Date(tahun, bulan - 1, tanggal);
+  const valid = ujiTanggal.getFullYear() === tahun
+    && ujiTanggal.getMonth() === bulan - 1
+    && ujiTanggal.getDate() === tanggal;
+  if (!valid) return '';
+  return `${tanggal} ${NAMA_BULAN_INDONESIA[bulan - 1]} ${tahun}`;
+}
+
+function siapkanInputTanggalKejadian() {
+  const hariIni = tanggalHariIniIso();
+  ['cons-occurrence-date', 'wa-input-occurrence-date'].forEach(id => {
+    const input = document.getElementById(id);
+    if (!input) return;
+    input.max = hariIni;
+    if (!input.value) input.value = hariIni;
+  });
+}
 
 let faqGlobalEntries = daftarEntriFaq;
 let technicianRoster = daftarPetugasHsse;
@@ -549,6 +586,7 @@ document.addEventListener('DOMContentLoaded', () => {
   terapkanIkonAntarmuka();
   terapkanAksesibilitasAntarmuka();
   inisialisasiModeChatSeluler();
+  siapkanInputTanggalKejadian();
   inisialisasiValidasiWhatsApp();
   periksaKesehatanBackend();
   muatPertanyaanAwal();
@@ -1441,6 +1479,7 @@ function loadTechniciansRoster() { muatRosterPetugas(); }
 // 3. Logika Formulir & Modal Konsultasi
 // ==========================================================================
 function bukaModalKonsultasi() {
+  siapkanInputTanggalKejadian();
   document.getElementById('consultation-modal').classList.add('active');
 }
 function openConsultationModal() { bukaModalKonsultasi(); }
@@ -1451,13 +1490,23 @@ function tutupModalKonsultasi() {
 function closeConsultationModal() { tutupModalKonsultasi(); }
 
 async function kirimFormulirKonsultasi() {
+  const formulir = document.getElementById('consultation-form');
   const elemenUrgensi = document.getElementById('cons-urgency');
   const tombolKirim = document.getElementById('btn-submit-consultation');
-  const namaPelapor = document.getElementById('cons-name').value.trim() || 'Pelapor Anonim';
+  const inputNamaPelapor = document.getElementById('cons-name');
+  const namaPelapor = inputNamaPelapor.value.trim();
   const idKelompok = document.getElementById('cons-category').value;
-  const detailTemuan = document.getElementById('cons-device').value.trim();
+  const tanggalKejadian = document.getElementById('cons-occurrence-date').value;
   const deskripsi = document.getElementById('cons-description').value.trim();
-  const kategoriRinci = tentukanKategoriRinci(idKelompok, `${detailTemuan} ${deskripsi}`);
+  const kategoriRinci = tentukanKategoriRinci(idKelompok, deskripsi);
+  inputNamaPelapor.setCustomValidity('');
+  if (['anonim', 'pelapor anonim'].includes(namaPelapor.toLowerCase())) {
+    inputNamaPelapor.setCustomValidity('Masukkan nama pelapor yang jelas.');
+  }
+  if (formulir && !formulir.checkValidity()) {
+    formulir.reportValidity();
+    return;
+  }
   if (tombolKirim?.disabled) return;
   if (tombolKirim) {
     tombolKirim.disabled = true;
@@ -1473,13 +1522,13 @@ async function kirimFormulirKonsultasi() {
     divisi: document.getElementById('cons-division').value.trim(),
     location: document.getElementById('cons-location').value.trim(),
     lokasi: document.getElementById('cons-location').value.trim(),
+    occurrence_date: tanggalKejadian,
+    tanggal_kejadian: tanggalKejadian,
     category_group: idKelompok,
     kelompok_kategori: idKelompok,
     category_group_label: namaKelompokKategori(idKelompok),
     category: kategoriRinci,
     kategori: kategoriRinci,
-    device: detailTemuan,
-    detail_temuan: detailTemuan,
     description: deskripsi,
     deskripsi,
     urgency: elemenUrgensi ? elemenUrgensi.value : 'Sedang',
@@ -2382,6 +2431,10 @@ function pesanKesalahanKolomWhatsApp(konfigurasi, nilai) {
   if (konfigurasi.jenis === 'petugas' && String(nilai).replace(/\D/g, '').length < 8) {
     return 'Nomor HSSE Officer tujuan tidak valid.';
   }
+  if (konfigurasi.jenis === 'tanggal') {
+    if (!formatTanggalKejadianIndonesia(nilai)) return 'Tanggal kejadian tidak valid.';
+    if (nilai > tanggalHariIniIso()) return 'Tanggal kejadian tidak boleh melebihi hari ini.';
+  }
   return '';
 }
 
@@ -2433,8 +2486,8 @@ function perbaruiPesanWhatsAppLangsung(opsiValidasi = {}) {
   const namaVal = (document.getElementById('wa-input-name')?.value || '').trim();
   const divVal = (document.getElementById('wa-input-division')?.value || '').trim();
   const locVal = (document.getElementById('wa-input-location')?.value || '').trim();
+  const tanggalKejadianVal = (document.getElementById('wa-input-occurrence-date')?.value || '').trim();
   const catVal = (document.getElementById('wa-input-category')?.value || '').trim();
-  const devVal = (document.getElementById('wa-input-device')?.value || '').trim();
   const descVal = (document.getElementById('wa-input-description')?.value || '').trim();
   const urgencyVal = (document.getElementById('wa-input-urgency')?.value || '').trim();
   const namaPetugas = petugasTerpilihSaatIni ? (petugasTerpilihSaatIni.nama || petugasTerpilihSaatIni.name) : 'M. Solihin';
@@ -2457,11 +2510,11 @@ function perbaruiPesanWhatsAppLangsung(opsiValidasi = {}) {
     `Lokasi Temuan:`,
     `${tampilkanNilai(locVal)}`,
     ``,
+    `Tanggal Kejadian:`,
+    `${formatTanggalKejadianIndonesia(tanggalKejadianVal) || '[Belum diisi]'}`,
+    ``,
     `Kategori Bahaya:`,
     `${teksKategori}`,
-    ``,
-    `Detail Temuan:`,
-    `${tampilkanNilai(devVal)}`,
     ``,
     `Deskripsi Kondisi Bahaya:`,
     `${tampilkanNilai(descVal)}`,
@@ -2521,7 +2574,7 @@ function saatKategoriDipilihDiModalWa() {
   const elemenPilih = document.getElementById('wa-input-category');
   if (!elemenPilih) return;
   const idKelompok = elemenPilih.value;
-  const konteks = `${document.getElementById('wa-input-device')?.value || ''} ${document.getElementById('wa-input-description')?.value || ''}`;
+  const konteks = document.getElementById('wa-input-description')?.value || '';
   const kategoriRinci = idKelompok ? tentukanKategoriRinci(idKelompok, konteks) : null;
   kelompokKategoriTerpilih = idKelompok || null;
   kategoriTerpilih = kategoriRinci ? [kategoriRinci] : [];
@@ -2545,6 +2598,7 @@ function bukaModalWhatsApp(tautan, teksMentah) {
   const peranEl = document.getElementById('tech-assigned-role');
   const modal = document.getElementById('whatsapp-modal');
   const daftarKontak = daftarKontakHsse();
+  siapkanInputTanggalKejadian();
 
   if (!petugasTerpilihSaatIni || !daftarKontak.some(p => (p.nomor || p.number) === (petugasTerpilihSaatIni.nomor || petugasTerpilihSaatIni.number))) {
     petugasTerpilihSaatIni = daftarKontak[0] || null;
@@ -2569,11 +2623,11 @@ function bukaModalWhatsApp(tautan, teksMentah) {
     document.getElementById('wa-input-name').value = ['pelapor anonim', 'anonim'].includes(namaDraf.toLowerCase()) ? '' : namaDraf;
     if (muatanKonsultasiTertunda.divisi || muatanKonsultasiTertunda.division) document.getElementById('wa-input-division').value = muatanKonsultasiTertunda.divisi || muatanKonsultasiTertunda.division;
     if (muatanKonsultasiTertunda.lokasi || muatanKonsultasiTertunda.location) document.getElementById('wa-input-location').value = muatanKonsultasiTertunda.lokasi || muatanKonsultasiTertunda.location;
+    if (muatanKonsultasiTertunda.tanggal_kejadian || muatanKonsultasiTertunda.occurrence_date) document.getElementById('wa-input-occurrence-date').value = muatanKonsultasiTertunda.tanggal_kejadian || muatanKonsultasiTertunda.occurrence_date;
     const idKelompokDraf = muatanKonsultasiTertunda.category_group
       || muatanKonsultasiTertunda.kelompok_kategori
       || idKelompokDariPilihan(muatanKonsultasiTertunda.kategori || muatanKonsultasiTertunda.category);
     if (idKelompokDraf) document.getElementById('wa-input-category').value = idKelompokDraf;
-    if (muatanKonsultasiTertunda.detail_temuan || muatanKonsultasiTertunda.device) document.getElementById('wa-input-device').value = muatanKonsultasiTertunda.detail_temuan || muatanKonsultasiTertunda.device;
     if (muatanKonsultasiTertunda.deskripsi || muatanKonsultasiTertunda.description) document.getElementById('wa-input-description').value = muatanKonsultasiTertunda.deskripsi || muatanKonsultasiTertunda.description;
     if ((muatanKonsultasiTertunda.urgensi || muatanKonsultasiTertunda.urgency) && document.getElementById('wa-input-urgency')) document.getElementById('wa-input-urgency').value = muatanKonsultasiTertunda.urgensi || muatanKonsultasiTertunda.urgency;
   } else {
@@ -2633,7 +2687,7 @@ function bukaWhatsAppLangsung(namaPetugas = null) {
   if (namaPetugas) petugasTerpilihSaatIni = petugasBerdasarkanNama(namaPetugas) || petugasTerpilihSaatIni;
   if (!petugasTerpilihSaatIni) {
     const pilihanKategori = kelompokKategoriTerpilih || document.getElementById('wa-input-category')?.value;
-    const konteks = `${document.getElementById('wa-input-device')?.value || ''} ${document.getElementById('wa-input-description')?.value || ''}`;
+    const konteks = document.getElementById('wa-input-description')?.value || '';
     const kategoriAktif = kategoriUtamaTerpilih() || tentukanKategoriRinci(pilihanKategori, konteks);
     petugasTerpilihSaatIni = petugasBerdasarkanKategori(kategoriAktif);
   }
@@ -2649,9 +2703,7 @@ function bukaLaporanDariKnowledgeBase(judul, kategori) {
   bukaModalWhatsApp(null, null);
   const kategoriInput = document.getElementById('wa-input-category');
   const deskripsiInput = document.getElementById('wa-input-description');
-  const detailInput = document.getElementById('wa-input-device');
   if (kategoriInput) kategoriInput.value = kelompok?.id || '';
-  if (detailInput) detailInput.value = judul;
   if (deskripsiInput) deskripsiInput.value = `Temuan terkait: ${judul}`;
   perbaruiPesanWhatsAppLangsung();
 }

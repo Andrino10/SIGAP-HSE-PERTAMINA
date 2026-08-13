@@ -1,3 +1,6 @@
+import datetime
+import re
+
 from repositories.knowledge_repository import knowledge_repo
 
 
@@ -55,6 +58,67 @@ def _text_value(
             }
         )
     return text
+
+
+def _validate_occurrence_date(data, errors, *, required, aliases=("tanggal_kejadian",)):
+    value = _text_value(
+        data,
+        "occurrence_date",
+        errors,
+        "Tanggal kejadian",
+        aliases=aliases,
+        required=required,
+        max_length=10,
+    )
+    if not value:
+        return ""
+    if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", value):
+        errors.append(
+            {
+                "field": "occurrence_date",
+                "message": "Tanggal kejadian harus menggunakan format YYYY-MM-DD yang valid.",
+            }
+        )
+        return ""
+    try:
+        parsed = datetime.date.fromisoformat(value)
+    except ValueError:
+        errors.append(
+            {
+                "field": "occurrence_date",
+                "message": "Tanggal kejadian harus menggunakan format YYYY-MM-DD yang valid.",
+            }
+        )
+        return ""
+    if parsed > datetime.date.today():
+        errors.append(
+            {
+                "field": "occurrence_date",
+                "message": "Tanggal kejadian tidak boleh melebihi hari ini.",
+            }
+        )
+    return value
+
+
+def _validate_reporter_name(data, errors, *, required):
+    value = _text_value(
+        data,
+        "reporter_name",
+        errors,
+        "Nama pelapor",
+        aliases=("nama_pelapor",),
+        required=required,
+        min_length=2,
+        max_length=150,
+    )
+    if value.lower() in {"anonim", "pelapor anonim"}:
+        errors.append(
+            {
+                "field": "reporter_name",
+                "message": "Nama pelapor harus menggunakan identitas yang jelas.",
+            }
+        )
+    return value
 
 
 def _valid_categories():
@@ -225,14 +289,7 @@ def validate_complaint_request(data):
         return ["Request payload harus berupa JSON object."]
 
     errors = []
-    _text_value(
-        data,
-        "reporter_name",
-        errors,
-        "Nama pelapor",
-        required=True,
-        max_length=150,
-    )
+    _validate_reporter_name(data, errors, required=True)
     _text_value(
         data,
         "division",
@@ -249,6 +306,7 @@ def validate_complaint_request(data):
         required=True,
         max_length=250,
     )
+    _validate_occurrence_date(data, errors, required=True)
     _validate_categories(data, errors, required=True)
     _text_value(
         data,
@@ -278,12 +336,12 @@ def validate_complaint_request(data):
 
 
 def validate_consultation_request(data):
-    """Validate an anonymous condition report from the consultation form."""
+    """Validate a condition report from the consultation form."""
     if not isinstance(data, dict):
         return ["Request payload harus berupa JSON object."]
 
     errors = []
-    _text_value(data, "reporter_name", errors, "Nama pelapor", max_length=150)
+    _validate_reporter_name(data, errors, required=True)
     _text_value(
         data,
         "division",
@@ -300,6 +358,7 @@ def validate_consultation_request(data):
         required=True,
         max_length=250,
     )
+    _validate_occurrence_date(data, errors, required=True)
     _text_value(
         data,
         "description",
@@ -355,11 +414,10 @@ def validate_resolution_request(data):
         aliases=("nomor_petugas_pilihan",),
         max_length=30,
     )
+    _validate_reporter_name(data, errors, required=False)
     for field, aliases, label, maximum in (
-        ("reporter_name", ("nama_pelapor",), "Nama pelapor", 150),
         ("division", ("divisi",), "Fungsi/Divisi", 150),
         ("location", ("lokasi",), "Lokasi", 250),
-        ("device", (), "Perangkat/aset", 150),
         ("description", ("deskripsi",), "Deskripsi", 3000),
         ("ticket_number", (), "Nomor tiket", 100),
     ):
@@ -371,6 +429,8 @@ def validate_resolution_request(data):
             aliases=aliases,
             max_length=maximum,
         )
+
+    _validate_occurrence_date(data, errors, required=False)
 
     _validate_categories(data, errors, required=False, aliases=("kategori",))
     urgency = _text_value(

@@ -296,7 +296,7 @@ class PengontrolChatbot:
         sesi = conversation_repo.get_session(id_sesi) if id_sesi else {}
         konteks = sesi.get("context", {})
 
-        for f in ["reporter_name", "division", "location", "device", "description", "urgency", "ticket_number", "nama_pelapor", "divisi", "lokasi", "deskripsi", "urgensi"]:
+        for f in ["reporter_name", "division", "location", "occurrence_date", "description", "urgency", "ticket_number", "nama_pelapor", "divisi", "lokasi", "tanggal_kejadian", "deskripsi", "urgensi"]:
             if data.get(f):
                 konteks[f] = data.get(f)
 

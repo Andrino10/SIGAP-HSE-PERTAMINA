@@ -43,12 +43,12 @@ class ComplaintRepository:
 
             record = {
                 "ticket_number": ticket_no,
-                "reporter_name": complaint_data.get("reporter_name", "Anonim"),
+                "reporter_name": complaint_data.get("reporter_name", ""),
                 "division": complaint_data.get("division", "Umum"),
                 "location": complaint_data.get("location", "Kantor Utama"),
+                "occurrence_date": complaint_data.get("occurrence_date") or complaint_data.get("tanggal_kejadian"),
                 "category": categories[0],
                 "categories": categories,
-                "device": complaint_data.get("device", "-"),
                 "description": complaint_data.get("description", ""),
                 "urgency": complaint_data.get("urgency", "Sedang"),
                 "status": "Submitted",

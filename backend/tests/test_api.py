@@ -446,23 +446,55 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
                 "reporter_name": "Pelapor Uji",
                 "division": "Operasi",
                 "location": "Area Uji",
+                "occurrence_date": "2025-08-12",
                 "category": "Kelelahan & Jam Kerja",
                 "description": "Pekerja terlihat kelelahan setelah shift panjang.",
             }
         )
         self.assertEqual(errors, [])
 
-        anonymous_errors = validate_consultation_request(
+        missing_reporter_errors = validate_consultation_request(
             {
                 "reporter_name": "",
                 "division": "Operasi",
                 "location": "Area Uji",
+                "occurrence_date": "2025-08-12",
                 "category": "Kelelahan & Jam Kerja",
                 "description": "Pekerja terlihat kelelahan setelah shift panjang.",
                 "urgency": "Sedang",
             }
         )
-        self.assertEqual(anonymous_errors, [])
+        self.assertTrue(
+            any(item.get("field") == "reporter_name" for item in missing_reporter_errors)
+        )
+
+        invalid_identity_errors = validate_consultation_request(
+            {
+                "reporter_name": "Pelapor Anonim",
+                "division": "Operasi",
+                "location": "Area Uji",
+                "occurrence_date": "2025-08-12",
+                "category": "Kelelahan & Jam Kerja",
+                "description": "Pekerja terlihat kelelahan setelah shift panjang.",
+            }
+        )
+        self.assertTrue(
+            any("identitas yang jelas" in item.get("message", "") for item in invalid_identity_errors)
+        )
+
+        invalid_date_errors = validate_consultation_request(
+            {
+                "reporter_name": "Pelapor Uji",
+                "division": "Operasi",
+                "location": "Area Uji",
+                "occurrence_date": "2999-12-31",
+                "category": "Kelelahan & Jam Kerja",
+                "description": "Pekerja terlihat kelelahan setelah shift panjang.",
+            }
+        )
+        self.assertTrue(
+            any(item.get("field") == "occurrence_date" for item in invalid_date_errors)
+        )
 
     def test_incomplete_consultation_returns_clear_validation_errors(self):
         response = self.client.post(
@@ -484,9 +516,10 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
                 "/api/consultations",
                 data=json.dumps(
                     {
-                        "reporter_name": "",
+                        "reporter_name": "Pelapor Uji",
                         "division": "Operasi",
                         "location": "Area Uji",
+                        "occurrence_date": "2025-08-12",
                         "category": "Bahan Kimia & B3",
                         "description": "Terdapat tumpahan bahan kimia di lantai.",
                         "urgency": "Berat",
@@ -495,7 +528,10 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
                 content_type="application/json",
             )
         self.assertEqual(response.status_code, 201)
-        self.assertEqual(response.get_json()["data"]["ticket_number"], "TKT-TEST-0001")
+        response_data = response.get_json()["data"]
+        self.assertEqual(response_data["ticket_number"], "TKT-TEST-0001")
+        self.assertEqual(response_data["consultation"]["reporter_name"], "Pelapor Uji")
+        self.assertEqual(response_data["consultation"]["occurrence_date"], "2025-08-12")
 
     def test_direct_escalation_preserves_report_without_ticket_in_whatsapp(self):
         session_id = "SESSION-TEST-DIRECT-WA"
@@ -509,6 +545,7 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
                     "reporter_name": "Pelapor Uji",
                     "division": "Operasi",
                     "location": "Gudang B3",
+                    "occurrence_date": "2025-08-12",
                     "category": "Bahan Kimia & B3",
                     "description": "Terdapat tumpahan bahan kimia di lantai gudang.",
                     "urgency": "Berat",
@@ -522,6 +559,8 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         self.assertEqual(data["assigned_technician"]["nama"], "Ronny Pribadi")
         self.assertNotIn("TKT-TEST-0002", data["whatsapp_message"])
         self.assertNotIn("Nomor Tiket", data["whatsapp_message"])
+        self.assertNotIn("Detail Temuan", data["whatsapp_message"])
+        self.assertIn("12 Agustus 2025", data["whatsapp_message"])
         self.assertIn("tumpahan bahan kimia", data["whatsapp_message"].lower())
 
     def test_resolution_requires_boolean_status(self):

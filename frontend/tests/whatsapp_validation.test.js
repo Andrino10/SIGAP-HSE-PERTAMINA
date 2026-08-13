@@ -48,8 +48,8 @@ const elements = {
   'wa-input-name': new FakeElement(),
   'wa-input-division': new FakeElement(),
   'wa-input-location': new FakeElement(),
+  'wa-input-occurrence-date': new FakeElement(),
   'wa-input-category': new FakeElement(),
-  'wa-input-device': new FakeElement(),
   'wa-input-urgency': new FakeElement(),
   'wa-input-description': new FakeElement(),
   'wa-form-status': new FakeElement(),
@@ -195,8 +195,8 @@ function setCompleteReport() {
   elements['wa-input-name'].value = 'Budi Santoso';
   elements['wa-input-division'].value = 'Operations';
   elements['wa-input-location'].value = 'Workshop Welding';
+  elements['wa-input-occurrence-date'].value = '2020-08-12';
   elements['wa-input-category'].value = 'aktivitas-berisiko';
-  elements['wa-input-device'].value = 'Percikan las dekat bahan mudah terbakar';
   elements['wa-input-urgency'].value = 'Berat';
   elements['wa-input-description'].value = 'Percikan las mengenai area penyimpanan bahan mudah terbakar.';
 }
@@ -219,28 +219,35 @@ for (const expected of [
   'Budi Santoso',
   'Operations',
   'Workshop Welding',
+  '12 Agustus 2020',
   'Pekerjaan Berisiko',
-  'Percikan las dekat bahan mudah terbakar',
+  'Percikan las mengenai area penyimpanan bahan mudah terbakar.',
   'Berat',
 ]) {
   assert.ok(message.includes(expected), `Pesan WhatsApp harus memuat: ${expected}`);
 }
 assert.ok(!message.includes('[Belum diisi]'));
 assert.ok(!message.includes('Pelapor Anonim'));
+assert.ok(!message.includes('Detail Temuan'), 'Pesan WhatsApp tidak boleh mengulang deskripsi sebagai Detail Temuan.');
+assert.match(message, /Tanggal Kejadian:\s*\n12 Agustus 2020/, 'Tanggal WhatsApp harus memuat tanggal, nama bulan, dan tahun.');
 
 const requiredIds = [
   'wa-tech-select',
   'wa-input-name',
   'wa-input-division',
   'wa-input-location',
+  'wa-input-occurrence-date',
   'wa-input-category',
-  'wa-input-device',
   'wa-input-urgency',
   'wa-input-description',
 ];
 
 const indexHtml = fs.readFileSync(path.join(__dirname, '..', 'index.html'), 'utf8');
 const styleSource = fs.readFileSync(path.join(__dirname, '..', 'style.css'), 'utf8');
+assert.match(indexHtml, /<input\b(?=[^>]*\bid="cons-name")(?=[^>]*\brequired\b)[^>]*>/i, 'Nama pelapor pada formulir awal harus wajib.');
+assert.match(indexHtml, /<input\b(?=[^>]*\bid="cons-occurrence-date")(?=[^>]*\btype="date")(?=[^>]*\brequired\b)[^>]*>/i, 'Formulir awal harus meminta tanggal kejadian.');
+assert.doesNotMatch(indexHtml, /id="(?:cons|wa-input)-device"/i, 'Kolom Detail Temuan harus dihapus dari seluruh formulir laporan.');
+assert.doesNotMatch(indexHtml, />\s*Detail [Tt]emuan\s*</i, 'Label Detail Temuan tidak boleh muncul lagi.');
 for (const selectId of ['cons-category', 'wa-input-category']) {
   const selectHtml = indexHtml.match(new RegExp(`<select\\b(?=[^>]*\\bid="${selectId}")[^>]*>[\\s\\S]*?<\\/select>`, 'i'))?.[0] || '';
   assert.equal((selectHtml.match(/<option\b/g) || []).length, 7, `${selectId} hanya boleh memuat 6 kategori utama dan placeholder.`);

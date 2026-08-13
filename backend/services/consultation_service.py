@@ -4,7 +4,7 @@ from repositories.complaint_repository import complaint_repo
 
 class ConsultationService:
     def start_consultation(self, data):
-        """Register anonymous consultation session data without requiring an account."""
+        """Register a validated condition report without requiring an account."""
         clean_data = {
             key: value.strip() if isinstance(value, str) else value
             for key, value in data.items()
@@ -18,12 +18,12 @@ class ConsultationService:
         consultation_record = {
             "session_id": session_id,
             "asset": "Area Kerja",
-            "reporter_name": clean_data.get("reporter_name") or "Pelapor Anonim",
+            "reporter_name": clean_data.get("reporter_name") or clean_data.get("nama_pelapor") or "",
             "division": clean_data.get("division") or "Umum",
             "location": clean_data.get("location") or "Area Kerja",
+            "occurrence_date": clean_data.get("occurrence_date") or clean_data.get("tanggal_kejadian"),
             "category": categories[0],
             "categories": categories,
-            "device": clean_data.get("device") or "-",
             "description": clean_data.get("description", ""),
             "urgency": clean_data.get("urgency") or "Sedang",
             "created_at": datetime.datetime.now().isoformat(),
