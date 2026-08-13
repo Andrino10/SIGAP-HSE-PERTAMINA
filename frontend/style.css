@@ -5203,6 +5203,31 @@ textarea:focus-visible,
   line-height: 1.45;
 }
 
+/* Chat lebih lapang di desktop, tetapi panjang baris jawaban tetap nyaman dibaca. */
+@media (min-width: 821px) {
+  #view-chatbot {
+    width: min(calc(100% - clamp(1.5rem, 3vw, 3rem)), 1320px);
+    max-width: 1320px;
+  }
+
+  #view-chatbot .guided-cat-section,
+  #view-chatbot .chat-container {
+    width: 100%;
+  }
+
+  #view-chatbot .chat-messages-stream {
+    padding-inline: clamp(1.5rem, 2.4vw, 2.25rem);
+  }
+
+  #view-chatbot .chat-bubble {
+    max-width: min(86%, 900px);
+  }
+
+  #view-chatbot .chat-bubble.system-bubble {
+    max-width: min(90%, 960px);
+  }
+}
+
 /* Wider and more readable chatbot on phones and tablets */
 @media (max-width: 820px) {
   #view-chatbot {
