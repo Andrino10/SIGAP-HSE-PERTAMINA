@@ -144,6 +144,38 @@ const KELOMPOK_KATEGORI_UI = [
     ]
   }
 ];
+const SARAN_PERMASALAHAN_KATEGORI = Object.freeze({
+  'aktivitas-berisiko': [
+    { judul: 'Bekerja di ketinggian', teks: 'Pekerja berada di ketinggian tanpa safety harness dan lifeline yang terpasang.' },
+    { judul: 'Pekerjaan panas tanpa pengamanan', teks: 'Pekerjaan pengelasan dilakukan tanpa izin kerja dan tanpa Fire Watcher di area kerja.' },
+    { judul: 'Bahaya kelistrikan', teks: 'Ditemukan kabel listrik terbuka di jalur pekerja dan area belum diberi pembatas.' }
+  ],
+  'peralatan-kendaraan': [
+    { judul: 'Kendaraan tanpa pengarah', teks: 'Forklift bergerak dekat pekerja tanpa spotter dan tanpa pembatas jalur yang aman.' },
+    { judul: 'Pelindung mesin dilepas', teks: 'Pelindung mesin dilepas saat peralatan masih digunakan oleh pekerja.' },
+    { judul: 'Alat pelindung tidak lengkap', teks: 'Pekerja menggunakan alat kerja tanpa alat pelindung yang sesuai dengan bahayanya.' }
+  ],
+  'kesehatan-lingkungan': [
+    { judul: 'Tumpahan bahan kimia', teks: 'Terdapat tumpahan bahan kimia yang belum diisolasi dan belum dibersihkan.' },
+    { judul: 'Area kerja tidak aman', teks: 'Lantai licin dan pencahayaan kurang pada jalur yang sering dilalui pekerja.' },
+    { judul: 'Pekerja mengalami kelelahan', teks: 'Pekerja terlihat mengantuk setelah lembur tetapi masih mengoperasikan peralatan.' }
+  ],
+  'sistem-risiko': [
+    { judul: 'Pekerjaan tanpa izin', teks: 'Pekerjaan dimulai tanpa pemeriksaan JSA, SOP, dan izin kerja yang berlaku.' },
+    { judul: 'Tidak ada pengawasan', teks: 'Pekerjaan berisiko berlangsung tanpa briefing dan tanpa verifikasi supervisor.' },
+    { judul: 'Temuan belum ditindaklanjuti', teks: 'Temuan inspeksi sebelumnya belum diperbaiki dan kondisi berbahaya masih ditemukan.' }
+  ],
+  'budaya-kompetensi': [
+    { judul: 'Pekerja belum terlatih', teks: 'Pekerja yang belum mendapatkan pelatihan ditugaskan mengoperasikan peralatan.' },
+    { judul: 'Mengabaikan instruksi aman', teks: 'Pekerja mengabaikan instruksi keselamatan dan tetap melanjutkan aktivitas berisiko.' },
+    { judul: 'Temuan tidak dilaporkan', teks: 'Kondisi tidak aman diketahui oleh pekerja tetapi belum dilaporkan kepada supervisor.' }
+  ],
+  'insiden-koordinasi': [
+    { judul: 'Jalur evakuasi terhalang', teks: 'Jalur evakuasi terhalang material dan peralatan darurat sulit dijangkau.' },
+    { judul: 'Kejadian hampir celaka', teks: 'Terjadi kejadian hampir celaka yang belum diamankan dan belum diinvestigasi.' },
+    { judul: 'Pekerjaan bersamaan', teks: 'Dua tim bekerja bersamaan di area yang sama tanpa koordinasi bahaya dan pembagian zona.' }
+  ]
+});
 const KATEGORI_DEFAULT_KELOMPOK = Object.freeze({
   'aktivitas-berisiko': 'Pekerjaan di Ketinggian',
   'peralatan-kendaraan': 'Peralatan Kerja',
@@ -1198,11 +1230,56 @@ function tampilkanKelompokKategoriBeranda() {
 }
 
 function bukaChatDenganKelompok(idKelompok) {
-  pilihKelompokKategori(idKelompok, { tutupPanelMobile: false });
+  pilihKelompokKategori(idKelompok, { tutupPanelMobile: false, tampilkanSaran: false });
   alihkanTampilan('chatbot');
-  window.setTimeout(() => document.getElementById('chat-input')?.focus(), 120);
+  window.setTimeout(() => tampilkanPopupSaranKelompok(idKelompok), 120);
 }
 function openChatWithGroup(groupId) { bukaChatDenganKelompok(groupId); }
+
+function tampilkanPopupSaranKelompok(idKelompok) {
+  const kelompok = dapatkanKelompokKategori(idKelompok);
+  const modal = document.getElementById('group-suggestion-modal');
+  const daftar = document.getElementById('group-suggestion-list');
+  const judul = document.getElementById('group-suggestion-title');
+  const suggestions = SARAN_PERMASALAHAN_KATEGORI[idKelompok] || [];
+  if (!kelompok || !modal || !daftar || suggestions.length === 0) return;
+
+  modal.dataset.groupId = idKelompok;
+  if (judul) judul.textContent = `Saran permasalahan: ${kelompok.nama}`;
+  daftar.innerHTML = suggestions.map((item, index) => `
+    <button class="group-suggestion-item" type="button" data-suggestion-index="${index}">
+      <span class="group-suggestion-number" aria-hidden="true">${index + 1}</span>
+      <span class="group-suggestion-copy">
+        <strong>${sanitasiHtml(item.judul)}</strong>
+        <span>${sanitasiHtml(item.teks)}</span>
+      </span>
+      <span class="group-suggestion-action">Gunakan contoh</span>
+    </button>
+  `).join('');
+  daftar.querySelectorAll('[data-suggestion-index]').forEach(button => {
+    button.addEventListener('click', () => gunakanSaranPermasalahan(Number(button.dataset.suggestionIndex)));
+  });
+  modal.classList.add('active');
+}
+
+function tutupPopupSaranKelompok() {
+  document.getElementById('group-suggestion-modal')?.classList.remove('active');
+}
+function closeGroupSuggestionModal() { tutupPopupSaranKelompok(); }
+
+function gunakanSaranPermasalahan(indexSaran) {
+  const modal = document.getElementById('group-suggestion-modal');
+  const suggestion = (SARAN_PERMASALAHAN_KATEGORI[modal?.dataset.groupId] || [])[indexSaran];
+  const input = document.getElementById('chat-input');
+  if (!suggestion || !input) return;
+
+  input.value = suggestion.teks;
+  input.dispatchEvent(new Event('input', { bubbles: true }));
+  tutupPopupSaranKelompok();
+  input.focus();
+  tampilkanNotifikasi('Contoh permasalahan sudah dimasukkan. Silakan sesuaikan dengan kondisi sebenarnya.', 'success');
+}
+function useProblemSuggestion(suggestionIndex) { gunakanSaranPermasalahan(suggestionIndex); }
 
 function pilihKelompokKategori(idKelompok, opsi = {}) {
   const kelompok = dapatkanKelompokKategori(idKelompok);
@@ -1217,8 +1294,12 @@ function pilihKelompokKategori(idKelompok, opsi = {}) {
   perbaruiKategoriPadaSesiChat();
   tampilkanKelompokKategoriBeranda();
   tampilkanNotifikasi(`${kelompok.nama} dipilih. Silakan tulis kondisi yang ditemukan.`, 'info');
-  if (opsi.tutupPanelMobile !== false && apakahChatMobile()) {
+  const modeMobile = apakahChatMobile();
+  if (opsi.tutupPanelMobile !== false && modeMobile) {
     tutupPemilihKategoriMobile(true);
+  }
+  if (opsi.tampilkanSaran !== false) {
+    window.setTimeout(() => tampilkanPopupSaranKelompok(idKelompok), modeMobile ? 240 : 0);
   }
 }
 function selectCategoryGroup(groupId) { pilihKelompokKategori(groupId); }
