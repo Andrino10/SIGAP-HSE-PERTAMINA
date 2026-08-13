@@ -32,8 +32,6 @@ let kelompokKategoriTerpilih = null;
 const MAKSIMAL_KATEGORI_TERPILIH = 5;
 const KUNCI_RIWAYAT_CHAT = 'sigap_hsse_chat_sessions_v1';
 const KUNCI_SESI_CHAT_AKTIF = 'sigap_hsse_active_chat_v1';
-const KUNCI_RIWAYAT_CHAT_LEGACY = 'sigap_hse_chat_sessions_v1';
-const KUNCI_SESI_CHAT_AKTIF_LEGACY = 'sigap_hse_active_chat_v1';
 const ATURAN_DETEKSI_KATEGORI = [
   ['Kelistrikan', ['listrik', 'kabel', 'tegangan', 'panel', 'stop kontak', 'korsleting', 'setrum']],
   ['Alat Pelindung Diri (APD)', ['apd', 'helm', 'safety shoes', 'sarung tangan', 'goggles', 'masker', 'rompi']],
@@ -873,9 +871,7 @@ function inisialisasiModeChatSeluler() {
 
 function bacaRiwayatChatLokal() {
   try {
-    const dataTersimpan = window.localStorage.getItem(KUNCI_RIWAYAT_CHAT)
-      || window.localStorage.getItem(KUNCI_RIWAYAT_CHAT_LEGACY)
-      || '[]';
+    const dataTersimpan = window.localStorage.getItem(KUNCI_RIWAYAT_CHAT) || '[]';
     const data = JSON.parse(dataTersimpan);
     if (!Array.isArray(data)) return [];
     return data
@@ -1070,8 +1066,7 @@ function inisialisasiRiwayatSesiChat() {
   daftarSesiChatLokal = bacaRiwayatChatLokal();
   let idTersimpan = null;
   try {
-    idTersimpan = window.localStorage.getItem(KUNCI_SESI_CHAT_AKTIF)
-      || window.localStorage.getItem(KUNCI_SESI_CHAT_AKTIF_LEGACY);
+    idTersimpan = window.localStorage.getItem(KUNCI_SESI_CHAT_AKTIF);
   } catch (error) {}
   const session = daftarSesiChatLokal.find(item => item.id === idTersimpan)
     || daftarSesiChatLokal[0]
@@ -2245,7 +2240,7 @@ function formatHtmlResponsTerstruktur(teksMentah) {
   // 7. Status Penanganan
   if (bagian.status) {
     const statusKecil = bagian.status.toLowerCase();
-    const butuhHsse = statusKecil.includes('segera') || statusKecil.includes('tim hsse') || statusKecil.includes('tim hse');
+    const butuhHsse = statusKecil.includes('segera') || statusKecil.includes('tim hsse');
     html += `
       <div>
         <span class="res-status-badge ${butuhHsse ? 'status-need-tech' : 'status-user-try'}">

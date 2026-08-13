@@ -162,12 +162,6 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         self.assertEqual(entry["judul"], "Kabel listrik terbuka")
         self.assertEqual(entry["kategori"], "Kelistrikan")
 
-    def test_legacy_hse_entry_id_still_resolves_after_hsse_migration(self):
-        response = self.client.get("/api/knowledge/HSE-LISTRIK-001")
-        self.assertEqual(response.status_code, 200)
-        entry = response.get_json()["data"]["knowledge"]
-        self.assertEqual(entry["id"], "HSSE-LISTRIK-001")
-
     def test_unknown_entry_id_returns_404(self):
         response = self.client.get("/api/knowledge/HSSE-TIDAK-ADA")
         self.assertEqual(response.status_code, 404)
@@ -275,7 +269,7 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         self.assertIn("HSSE-KETINGGIAN-001", reference_ids)
         self.assertIn("Kondisi #2", data["response"])
 
-    def test_user_can_select_multiple_categories_in_hse_assistant(self):
+    def test_user_can_select_multiple_categories_in_hsse_assistant(self):
         selected_categories = [
             "Alat Pelindung Diri (APD)",
             "Pekerjaan di Ketinggian",

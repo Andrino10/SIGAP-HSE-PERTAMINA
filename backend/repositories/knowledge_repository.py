@@ -308,8 +308,6 @@ class KnowledgeRepository:
     def get_by_id(self, kb_id):
         self.ensure_fresh()
         normalized_id = str(kb_id or "").strip().lower()
-        if normalized_id.startswith("hse-"):
-            normalized_id = "hsse-" + normalized_id[4:]
         for entry in self.entries:
             if entry["id"].lower() == normalized_id:
                 return entry

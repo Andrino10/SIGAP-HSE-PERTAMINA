@@ -49,7 +49,7 @@ class LayananEskalasi:
         # 5. Permintaan langsung dari pengguna
         permintaan_eksplisit = any(
             f" {normalisasi_teks(frasa)} " in pertanyaan_berbatas
-            for frasa in ["eskalasi", "hubungi safety", "butuh hsse", "butuh hse", "safety officer", "darurat"]
+            for frasa in ["eskalasi", "hubungi safety", "butuh hsse", "safety officer", "darurat"]
         )
         if permintaan_langsung or permintaan_eksplisit:
             perlu_eskalasi = True

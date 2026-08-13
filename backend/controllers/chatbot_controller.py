@@ -201,7 +201,7 @@ class PengontrolChatbot:
         )
         permintaan_langsung = any(
             f" {normalisasi_teks(frasa)} " in pesan_berbatas
-            for frasa in ["eskalasi", "hubungi safety", "butuh hsse", "butuh hse", "safety officer", "darurat"]
+            for frasa in ["eskalasi", "hubungi safety", "butuh hsse", "safety officer", "darurat"]
         )
         hasil_eskalasi = layanan_eskalasi.periksa_eskalasi(
             pesan_pengguna, konteks, entri_kb=entri_teratas, tingkat_relevansi=tingkat_relevansi, langkah_gagal=langkah_gagal, permintaan_langsung=permintaan_langsung
@@ -335,7 +335,6 @@ class PengontrolChatbot:
                     "session_id": id_sesi,
                     "status": "perlu_bantuan_hsse",
                     "can_contact_hsse": True,
-                    "can_contact_hse": True,
                     "assigned_technician": petugas_ditunjuk,
                     "technician_roster": list(DAFTAR_PETUGAS_HSSE.values()),
                     "whatsapp_url": tautan_wa,

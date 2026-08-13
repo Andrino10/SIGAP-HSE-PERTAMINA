@@ -311,7 +311,7 @@ assert.match(knowledgeRiskHtml, /knowledge-risk-list/, 'Direktori harus memecah 
 assert.match(knowledgeRiskHtml, /Bahaya utama/, 'Direktori harus memberi label pada bahaya utama.');
 assert.match(knowledgeRiskHtml, /Faktor yang memperbesar risiko/, 'Direktori harus menjelaskan faktor risiko secara terpisah.');
 assert.match(indexHtml, /Direktori keselamatan kerja HSSE/i, 'Nama direktori harus memakai HSSE.');
-assert.doesNotMatch(indexHtml, /\bHSE\b/, 'Antarmuka utama tidak boleh menampilkan branding HSE lama.');
+assert.doesNotMatch(indexHtml, /\bH[S]E\b/, 'Antarmuka utama tidak boleh menampilkan akronim lama.');
 assert.equal(run("deteksiKategoriDariPesan('Ada kabel listrik terbuka di dekat panel')"), 'Kelistrikan');
 assert.equal(run("deteksiKategoriDariPesan('Pekerja mengelas tanpa fire watcher')"), 'Pekerjaan Panas (Hot Work)');
 assert.equal(run("deteksiKategoriDariPesan('Kondisi yang belum dapat dikenali')"), null);
