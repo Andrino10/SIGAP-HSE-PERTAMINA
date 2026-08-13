@@ -150,8 +150,8 @@
           <div class="guide-step-card">
             <div class="guide-step-num">1</div>
             <div class="guide-step-icon" aria-hidden="true"></div>
-            <h4>Pilih kategori dan tulis temuan</h4>
-            <p>Pilih satu atau beberapa Kategori Bahaya, lalu tuliskan kondisi tidak aman yang Anda jumpai di area operasional kerja.</p>
+            <h4>Tulis temuan atau pilih kategori</h4>
+            <p>Tuliskan kondisi yang Anda temukan. Jika perlu, pilih satu kategori utama yang paling mendekati.</p>
           </div>
           <div class="guide-step-card">
             <div class="guide-step-num">2</div>
@@ -178,134 +178,14 @@
       <section class="home-section" id="section-services">
         <div class="section-header">
           <span class="section-kicker">CAKUPAN KESELAMATAN</span>
-          <h2>Pilih kategori kondisi bahaya</h2>
-          <p>Setiap kategori terhubung dengan panduan teknis dan penanggung jawab HSSE yang sesuai.</p>
+          <h2>Pilih kategori utama</h2>
+          <p>Pilih yang paling sesuai dengan kondisi di lapangan. Jika ragu, langsung tulis laporan dan sistem akan membantu.</p>
         </div>
         <div class="category-grid">
-
-          <div class="cat-card" onclick="openChatWithCategory('Alat Pelindung Diri (APD)')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-apd"></span>
-              <span class="cat-badge">Juni Trihardiyanto</span>
-            </div>
-            <h3>Alat Pelindung Diri (APD)</h3>
-            <p>Helm, sepatu safety, sarung tangan, masker, rompi reflektif, kacamata safety, pelindung telinga.</p>
-            <div class="cat-vendor-tag">Safety Lead — APD, SIKA & JSA (Tim: Defrizon, Ibnu Z., Iman K.)</div>
-          </div>
-
-          <div class="cat-card" onclick="openChatWithCategory('Pekerjaan di Ketinggian')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-ketinggian"></span>
-              <span class="cat-badge">Juni Trihardiyanto</span>
-            </div>
-            <h3>Pekerjaan di Ketinggian</h3>
-            <p>Harness, lifeline, guardrail, scaffolding, atap, fall protection, anchor point.</p>
-            <div class="cat-vendor-tag">Safety Lead — Work at Height & Scaffolding</div>
-          </div>
-
-          <div class="cat-card" onclick="openChatWithCategory('Kelistrikan')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-kelistrikan"></span>
-              <span class="cat-badge">Juni Trihardiyanto</span>
-            </div>
-            <h3>Kelistrikan</h3>
-            <p>Kabel terbuka, LOTO, grounding, panel listrik, sengatan listrik, korsleting.</p>
-            <div class="cat-vendor-tag">Safety Lead — Kelistrikan & LOTO Safety</div>
-          </div>
-
-          <div class="cat-card" onclick="openChatWithCategory('Alat Berat & Kendaraan')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-alatberat"></span>
-              <span class="cat-badge">Juni Trihardiyanto</span>
-            </div>
-            <h3>Alat Berat & Kendaraan</h3>
-            <p>Operator tanpa sertifikat, forklift, crane, jarak aman, inspeksi alat berat.</p>
-            <div class="cat-vendor-tag">Safety Lead — Operasional Alat Berat</div>
-          </div>
-
-          <div class="cat-card" onclick="openChatWithCategory('Bahan Kimia & B3')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-kimia"></span>
-              <span class="cat-badge">Ronny Pribadi</span>
-            </div>
-            <h3>Bahan Kimia & B3</h3>
-            <p>MSDS, penyimpanan B3, tumpahan kimia, bahan mudah terbakar, APD kimia.</p>
-            <div class="cat-vendor-tag">Enviro Lead — Bahan Kimia & Compliance B3</div>
-          </div>
-
-          <div class="cat-card" onclick="openChatWithCategory('Tanggap Darurat')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-darurat"></span>
-              <span class="cat-badge">Dr. Irsyad Yoga</span>
-            </div>
-            <h3>Tanggap Darurat</h3>
-            <p>APAR, jalur evakuasi, P3K, assembly point, prosedur darurat, kebakaran.</p>
-            <div class="cat-vendor-tag">Health Lead — Kedaruratan Medis & Wellness</div>
-          </div>
-
-          <div class="cat-card category-extra" hidden onclick="openChatWithCategory('Pengangkatan & Rigging')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-rigging"></span>
-              <span class="cat-badge">Juni Trihardiyanto</span>
-            </div>
-            <h3>Pengangkatan & Rigging</h3>
-            <p>Crane, sling, SWL, beban, signalman, rigger, zona bahaya lifting.</p>
-            <div class="cat-vendor-tag">Safety Lead — Lifting & Rigging Safety</div>
-          </div>
-
-          <div class="cat-card category-extra" hidden onclick="openChatWithCategory('Ruang Terbatas (Confined Space)')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-confined"></span>
-              <span class="cat-badge">Juni Trihardiyanto</span>
-            </div>
-            <h3>Ruang Terbatas (Confined Space)</h3>
-            <p>Manhole, tangki, bejana tekan, gas detector (H2S/CO/O2), blower ventilasi, Standby Man.</p>
-            <div class="cat-vendor-tag">Safety Lead — Confined Space Safety</div>
-          </div>
-
-          <div class="cat-card category-extra" hidden onclick="openChatWithCategory('Pekerjaan Panas (Hot Work)')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-hotwork"></span>
-              <span class="cat-badge">Juni Trihardiyanto</span>
-            </div>
-            <h3>Pekerjaan Panas (Hot Work)</h3>
-            <p>Pengelasan, penggerindaan, Hot Work Permit, Fire Watcher, Fire Blanket, tabung gas.</p>
-            <div class="cat-vendor-tag">Safety Lead — Hot Work & Fire Watcher</div>
-          </div>
-
-          <div class="cat-card category-extra" hidden onclick="openChatWithCategory('Lingkungan Kerja')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-lingkungan"></span>
-              <span class="cat-badge">Ronny Pribadi</span>
-            </div>
-            <h3>Lingkungan Kerja</h3>
-            <p>Area licin, pencahayaan, ventilasi, housekeeping, suhu ekstrem, kebisingan.</p>
-            <div class="cat-vendor-tag">Enviro Lead — Lingkungan & Compliance (Tim: Tsabitha N.)</div>
-          </div>
-
-          <div class="cat-card category-extra" hidden onclick="openChatWithCategory('Pengawasan & Prosedur')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-prosedur"></span>
-              <span class="cat-badge">M. Solihin</span>
-            </div>
-            <h3>Pengawasan & Prosedur</h3>
-            <p>SOP, toolbox meeting, inspeksi rutin, supervisor, dokumentasi K3.</p>
-            <div class="cat-vendor-tag">Superintendent HSSE — SOP & Audit Compliance</div>
-          </div>
-
-          <div class="cat-card category-extra" hidden onclick="openChatWithCategory('Umum')">
-            <div class="cat-card-header">
-              <span class="cat-icon icon-umum"></span>
-              <span class="cat-badge">M. Solihin</span>
-            </div>
-            <h3>Umum & SIMOPS</h3>
-            <p>Laporan bahaya campuran, konsultasi regulasi umum K3, SIMOPS, kelelahan kerja, dan insiden.</p>
-            <div class="cat-vendor-tag">Superintendent HSSE — Koordinasi lintas fungsi & SIMOPS</div>
-          </div>
-
+          <!-- Diisi oleh app.js dengan enam kategori utama yang ringkas. -->
         </div>
         <div class="category-toolbar">
-          <span>Seluruh 27 kategori tersedia melalui 6 kelompok yang lebih ringkas.</span>
+          <span>Pilih kategori yang paling sesuai, atau langsung tulis laporan jika belum yakin.</span>
           <button class="btn btn-secondary" id="toggle-category-list" type="button" data-ui-icon="book" onclick="switchView('services-panel')">
             Buka Knowledge Base
           </button>
@@ -601,19 +481,19 @@
       <button class="mobile-category-backdrop" id="mobile-category-backdrop" type="button" aria-label="Tutup pilihan kategori" onclick="closeMobileCategoryPanel()" hidden></button>
       <div class="guided-cat-section" id="category-selector-bar" aria-labelledby="guided-category-title">
         <div class="guided-cat-header">
-          <span class="guided-step-badge" id="guided-step-1">KELOMPOK OPSIONAL</span>
-          <span class="guided-cat-title" id="guided-category-title">Pilih kelompok utama</span>
+          <span class="guided-step-badge" id="guided-step-1">KATEGORI OPSIONAL</span>
+          <span class="guided-cat-title" id="guided-category-title">Pilih kategori utama</span>
           <button class="btn-clear-cat btn btn-sm btn-secondary" id="btn-clear-cat" onclick="clearSelectedCategory()" hidden>Hapus Pilihan</button>
           <button class="mobile-category-close" type="button" aria-label="Tutup pilihan kategori" onclick="closeMobileCategoryPanel()">×</button>
         </div>
-        <p class="guided-cat-help">Pilih konteks umum. Kategori rinci akan ditentukan otomatis dari isi laporan.</p>
+        <p class="guided-cat-help">Pilih yang paling sesuai. Jika ragu, langsung tulis laporan.</p>
 
         <div class="guided-cat-grid">
           <button class="guided-cat-group-card" type="button" data-category-group="aktivitas-berisiko" aria-pressed="false" onclick="selectCategoryGroup('aktivitas-berisiko')">
             <span class="gcat-icon"></span>
             <div class="gcat-info">
-              <span class="gcat-name">Aktivitas Berisiko</span>
-              <span class="gcat-tech">6 jenis otomatis</span>
+              <span class="gcat-name">Pekerjaan Berisiko</span>
+              <span class="gcat-tech">Kegiatan kerja dengan bahaya tinggi</span>
             </div>
           </button>
 
@@ -621,7 +501,7 @@
             <span class="gcat-icon"></span>
             <div class="gcat-info">
               <span class="gcat-name">Peralatan &amp; Kendaraan</span>
-              <span class="gcat-tech">3 jenis otomatis</span>
+              <span class="gcat-tech">Alat pelindung, alat kerja, dan kendaraan</span>
             </div>
           </button>
 
@@ -629,31 +509,31 @@
             <span class="gcat-icon"></span>
             <div class="gcat-info">
               <span class="gcat-name">Kesehatan &amp; Lingkungan</span>
-              <span class="gcat-tech">6 jenis otomatis</span>
+              <span class="gcat-tech">Kondisi pekerja dan area kerja</span>
             </div>
           </button>
 
           <button class="guided-cat-group-card" type="button" data-category-group="sistem-risiko" aria-pressed="false" onclick="selectCategoryGroup('sistem-risiko')">
             <span class="gcat-icon"></span>
             <div class="gcat-info">
-              <span class="gcat-name">Sistem, Risiko &amp; Umum</span>
-              <span class="gcat-tech">5 jenis otomatis</span>
+              <span class="gcat-name">Aturan &amp; Pengawasan</span>
+              <span class="gcat-tech">Prosedur, izin kerja, dan pengawasan</span>
             </div>
           </button>
 
           <button class="guided-cat-group-card" type="button" data-category-group="budaya-kompetensi" aria-pressed="false" onclick="selectCategoryGroup('budaya-kompetensi')">
             <span class="gcat-icon"></span>
             <div class="gcat-info">
-              <span class="gcat-name">Budaya &amp; Kompetensi</span>
-              <span class="gcat-tech">4 jenis otomatis</span>
+              <span class="gcat-name">Perilaku &amp; Pelatihan</span>
+              <span class="gcat-tech">Perilaku aman dan kemampuan pekerja</span>
             </div>
           </button>
 
           <button class="guided-cat-group-card" type="button" data-category-group="insiden-koordinasi" aria-pressed="false" onclick="selectCategoryGroup('insiden-koordinasi')">
             <span class="gcat-icon"></span>
             <div class="gcat-info">
-              <span class="gcat-name">Insiden &amp; Koordinasi</span>
-              <span class="gcat-tech">3 jenis otomatis</span>
+              <span class="gcat-name">Insiden &amp; Darurat</span>
+              <span class="gcat-tech">Kecelakaan, hampir celaka, atau darurat</span>
             </div>
           </button>
 
@@ -688,7 +568,7 @@
           <div class="cat-req-banner optional" id="cat-req-banner">
             <span></span>
             <div id="cat-req-text">
-              <strong>Kategori bersifat fleksibel:</strong> Anda dapat memilih kategori atau langsung menulis laporan agar sistem menentukannya.
+              <strong>Kategori tidak wajib dipilih.</strong> Langsung tulis kondisi yang ditemukan jika Anda belum yakin.
             </div>
           </div>
         </div>
@@ -726,19 +606,19 @@
 
         <div class="chat-mobile-category-bar">
           <div class="chat-mobile-category-copy">
-            <span>Kelompok laporan</span>
-            <strong id="mobile-category-summary">Akan dideteksi dari pesan</strong>
+            <span>Kategori laporan</span>
+            <strong id="mobile-category-summary">Otomatis dari laporan</strong>
           </div>
           <button class="btn btn-sm btn-secondary" id="mobile-category-trigger" type="button" aria-controls="mobile-inline-category-picker" aria-expanded="false" onclick="openMobileCategoryPanel()">
-            Pilih kelompok
+            Pilih kategori
           </button>
         </div>
 
         <section class="mobile-inline-category-picker" id="mobile-inline-category-picker" aria-labelledby="mobile-inline-category-title" aria-hidden="true">
           <div class="mobile-inline-category-header">
             <div>
-              <strong id="mobile-inline-category-title">Pilih kelompok utama</strong>
-              <span>Opsional—jenis bahaya rinci akan ditentukan otomatis dari pesan.</span>
+              <strong id="mobile-inline-category-title">Pilih kategori utama</strong>
+              <span>Pilih yang paling sesuai dengan kondisi di lapangan.</span>
             </div>
             <button class="mobile-inline-category-close" type="button" aria-label="Tutup daftar kategori" onclick="closeMobileCategoryPanel()">×</button>
           </div>
@@ -806,27 +686,6 @@
 
     <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
 
-    <!-- Saran pesan setelah pengguna memilih satu dari 6 kelompok utama -->
-    <div class="modal-overlay group-suggestion-modal" id="group-suggestion-modal" aria-hidden="true">
-      <div class="modal-card group-suggestion-card" aria-labelledby="group-suggestion-title" aria-describedby="group-suggestion-description">
-        <button class="modal-close-btn" type="button" onclick="closeGroupSuggestionModal()"></button>
-        <div class="group-suggestion-header">
-          <span class="group-suggestion-eyebrow">SARAN PESAN</span>
-          <h3 id="group-suggestion-title">Contoh pesan keselamatan</h3>
-          <p class="modal-sub" id="group-suggestion-description">
-            Pilih contoh untuk dijadikan draf. Pesan tidak akan dikirim otomatis.
-          </p>
-        </div>
-        <div class="group-suggestion-list" id="group-suggestion-list"></div>
-        <div class="group-suggestion-note">
-          Contoh hanya panduan. Tambahkan lokasi, aktivitas, orang yang terlibat, dan kondisi aktual agar analisis lebih tepat.
-        </div>
-        <div class="modal-actions">
-          <button class="btn btn-secondary" type="button" onclick="closeGroupSuggestionModal()">Tulis sendiri</button>
-        </div>
-      </div>
-    </div>
-
     <!-- ==========================================
          CONSULTATION FORM MODAL (ANONYMOUS DATA)
     ========================================== -->
@@ -855,21 +714,15 @@
           </div>
 
           <div class="form-group">
-            <label for="cons-category">Kategori Bahaya <span class="field-required">*</span></label>
+            <label for="cons-category">Kategori Utama <span class="field-required">*</span></label>
             <select id="cons-category" class="form-input" required>
-              <option value="">-- Pilih Kategori Bahaya --</option>
-              <option value="Alat Pelindung Diri (APD)">Alat Pelindung Diri (APD)</option>
-              <option value="Pekerjaan di Ketinggian">Pekerjaan di Ketinggian</option>
-              <option value="Kelistrikan">Kelistrikan</option>
-              <option value="Alat Berat & Kendaraan">Alat Berat & Kendaraan</option>
-              <option value="Bahan Kimia & B3">Bahan Kimia & B3</option>
-              <option value="Pengangkatan & Rigging">Pengangkatan & Rigging</option>
-              <option value="Ruang Terbatas (Confined Space)">Ruang Terbatas (Confined Space)</option>
-              <option value="Pekerjaan Panas (Hot Work)">Pekerjaan Panas (Hot Work)</option>
-              <option value="Tanggap Darurat">Tanggap Darurat</option>
-              <option value="Lingkungan Kerja">Lingkungan Kerja</option>
-              <option value="Pengawasan & Prosedur">Pengawasan & Prosedur</option>
-              <option value="Umum">Umum & Campuran</option>
+              <option value="">-- Pilih kategori utama --</option>
+              <option value="aktivitas-berisiko">Pekerjaan Berisiko</option>
+              <option value="peralatan-kendaraan">Peralatan &amp; Kendaraan</option>
+              <option value="kesehatan-lingkungan">Kesehatan &amp; Lingkungan</option>
+              <option value="sistem-risiko">Aturan &amp; Pengawasan</option>
+              <option value="budaya-kompetensi">Perilaku &amp; Pelatihan</option>
+              <option value="insiden-koordinasi">Insiden &amp; Darurat</option>
             </select>
           </div>
 
@@ -987,21 +840,15 @@
             </div>
 
             <div class="form-group">
-              <label for="wa-input-category">Kategori bahaya <span class="field-required">*</span></label>
+              <label for="wa-input-category">Kategori utama <span class="field-required">*</span></label>
               <select id="wa-input-category" class="form-input" onchange="onCategorySelectInWaModal()" required aria-describedby="wa-form-status">
-                <option value="">-- Pilih Kategori Bahaya --</option>
-                <option value="Alat Pelindung Diri (APD)">APD</option>
-                <option value="Pekerjaan di Ketinggian">Ketinggian</option>
-                <option value="Kelistrikan">Kelistrikan</option>
-                <option value="Alat Berat & Kendaraan">Alat Berat</option>
-                <option value="Bahan Kimia & B3">Kimia & B3</option>
-                <option value="Pengangkatan & Rigging">Pengangkatan & Rigging</option>
-                <option value="Ruang Terbatas (Confined Space)">Ruang Terbatas</option>
-                <option value="Pekerjaan Panas (Hot Work)">Pekerjaan Panas</option>
-                <option value="Tanggap Darurat">Darurat</option>
-                <option value="Lingkungan Kerja">Lingkungan</option>
-                <option value="Pengawasan & Prosedur">Prosedur</option>
-                <option value="Umum">Umum & Campuran</option>
+                <option value="">-- Pilih kategori utama --</option>
+                <option value="aktivitas-berisiko">Pekerjaan Berisiko</option>
+                <option value="peralatan-kendaraan">Peralatan &amp; Kendaraan</option>
+                <option value="kesehatan-lingkungan">Kesehatan &amp; Lingkungan</option>
+                <option value="sistem-risiko">Aturan &amp; Pengawasan</option>
+                <option value="budaya-kompetensi">Perilaku &amp; Pelatihan</option>
+                <option value="insiden-koordinasi">Insiden &amp; Darurat</option>
               </select>
             </div>
           </div>

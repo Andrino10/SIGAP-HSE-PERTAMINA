@@ -70,8 +70,8 @@ let pemulihPanelKategoriTimeout = null;
 const KELOMPOK_KATEGORI_UI = [
   {
     id: 'aktivitas-berisiko',
-    nama: 'Aktivitas Berisiko',
-    deskripsi: 'Izin kerja dan pekerjaan berisiko tinggi',
+    nama: 'Pekerjaan Berisiko',
+    deskripsi: 'Kegiatan kerja yang memiliki bahaya tinggi',
     ikon: 'alert',
     kategori: [
       'Pekerjaan di Ketinggian',
@@ -85,7 +85,7 @@ const KELOMPOK_KATEGORI_UI = [
   {
     id: 'peralatan-kendaraan',
     nama: 'Peralatan & Kendaraan',
-    deskripsi: 'APD, alat kerja, kendaraan dan alat berat',
+    deskripsi: 'Alat pelindung, alat kerja, kendaraan, atau alat berat',
     ikon: 'truck',
     kategori: [
       'Alat Berat & Kendaraan',
@@ -96,7 +96,7 @@ const KELOMPOK_KATEGORI_UI = [
   {
     id: 'kesehatan-lingkungan',
     nama: 'Kesehatan & Lingkungan',
-    deskripsi: 'Paparan, ergonomi dan kondisi area kerja',
+    deskripsi: 'Kondisi kesehatan pekerja dan lingkungan kerja',
     ikon: 'leaf',
     kategori: [
       'Bahan Kimia & B3',
@@ -109,8 +109,8 @@ const KELOMPOK_KATEGORI_UI = [
   },
   {
     id: 'sistem-risiko',
-    nama: 'Sistem, Risiko & Umum',
-    deskripsi: 'SOP, audit, regulasi dan laporan campuran',
+    nama: 'Aturan & Pengawasan',
+    deskripsi: 'Prosedur kerja, izin, audit, atau pengawasan',
     ikon: 'clipboard',
     kategori: [
       'Audit & Sistem Manajemen K3',
@@ -122,8 +122,8 @@ const KELOMPOK_KATEGORI_UI = [
   },
   {
     id: 'budaya-kompetensi',
-    nama: 'Budaya & Kompetensi',
-    deskripsi: 'Perilaku, pelatihan dan komunikasi keselamatan',
+    nama: 'Perilaku & Pelatihan',
+    deskripsi: 'Perilaku aman, komunikasi, dan kemampuan pekerja',
     ikon: 'users',
     kategori: [
       'Budaya Keselamatan',
@@ -134,8 +134,8 @@ const KELOMPOK_KATEGORI_UI = [
   },
   {
     id: 'insiden-koordinasi',
-    nama: 'Insiden & Koordinasi',
-    deskripsi: 'Darurat, investigasi dan pekerjaan simultan',
+    nama: 'Insiden & Darurat',
+    deskripsi: 'Kecelakaan, hampir celaka, atau keadaan darurat',
     ikon: 'siren',
     kategori: [
       'Investigasi & Insiden',
@@ -144,38 +144,14 @@ const KELOMPOK_KATEGORI_UI = [
     ]
   }
 ];
-const SARAN_PESAN_KELOMPOK = {
-  'aktivitas-berisiko': [
-    { judul: 'Pekerjaan panas', teks: 'Pekerja mengelas tanpa Hot Work Permit dan Fire Watcher di area kerja.' },
-    { judul: 'Kelistrikan', teks: 'Ditemukan kabel listrik terbuka di jalur pekerja dan belum diberi pembatas.' },
-    { judul: 'Ketinggian', teks: 'Pekerja melakukan pekerjaan di ketinggian tanpa safety harness dan lifeline.' }
-  ],
-  'peralatan-kendaraan': [
-    { judul: 'Alat berat', teks: 'Forklift membawa beban berlebih dan melintas dekat pekerja tanpa spotter.' },
-    { judul: 'Peralatan kerja', teks: 'Pelindung mesin dilepas saat peralatan masih digunakan oleh pekerja.' },
-    { judul: 'APD', teks: 'Pekerja menggunakan alat kerja tanpa sarung tangan dan kacamata keselamatan yang sesuai.' }
-  ],
-  'kesehatan-lingkungan': [
-    { judul: 'Bahan kimia', teks: 'Terdapat tumpahan bahan kimia di lantai yang belum diisolasi dan dibersihkan.' },
-    { judul: 'Kondisi area', teks: 'Lantai area kerja licin, pencahayaan kurang, dan jalur berjalan belum diamankan.' },
-    { judul: 'Kelelahan', teks: 'Pekerja terlihat mengantuk setelah lembur dan masih mengoperasikan peralatan.' }
-  ],
-  'sistem-risiko': [
-    { judul: 'SOP dan JSA', teks: 'Pekerjaan dimulai tanpa pemeriksaan JSA, SOP, dan izin kerja yang berlaku.' },
-    { judul: 'Pengawasan', teks: 'Pekerjaan berisiko berlangsung tanpa briefing dan verifikasi supervisor.' },
-    { judul: 'Temuan umum', teks: 'Saya menemukan beberapa kondisi tidak aman dan membutuhkan bantuan menentukan prioritas penanganannya.' }
-  ],
-  'budaya-kompetensi': [
-    { judul: 'Kompetensi', teks: 'Pekerja yang belum mendapatkan pelatihan ditugaskan mengoperasikan peralatan.' },
-    { judul: 'Perilaku tidak aman', teks: 'Pekerja mengabaikan instruksi keselamatan dan tetap melanjutkan aktivitas berisiko.' },
-    { judul: 'Pelaporan', teks: 'Kejadian hampir celaka belum dilaporkan dan belum dibahas dalam Toolbox Meeting.' }
-  ],
-  'insiden-koordinasi': [
-    { judul: 'Tanggap darurat', teks: 'Jalur evakuasi terhalang material dan APAR sulit dijangkau saat kondisi darurat.' },
-    { judul: 'Near miss', teks: 'Terjadi kejadian hampir celaka yang belum diamankan dan belum diinvestigasi.' },
-    { judul: 'SIMOPS', teks: 'Dua tim bekerja bersamaan di area yang sama tanpa koordinasi bahaya dan pembagian zona.' }
-  ]
-};
+const KATEGORI_DEFAULT_KELOMPOK = Object.freeze({
+  'aktivitas-berisiko': 'Pekerjaan di Ketinggian',
+  'peralatan-kendaraan': 'Peralatan Kerja',
+  'kesehatan-lingkungan': 'Lingkungan Kerja',
+  'sistem-risiko': 'Umum',
+  'budaya-kompetensi': 'Budaya Keselamatan',
+  'insiden-koordinasi': 'Tanggap Darurat'
+});
 let pemicuModalTerakhir = null;
 let pemuatanFaqBerlangsung = false;
 let metadataKnowledge = null;
@@ -187,7 +163,7 @@ const KONFIGURASI_KOLOM_WHATSAPP = [
   { id: 'wa-input-name', label: 'Nama pelapor', min: 2, larangan: ['pelapor anonim', 'anonim'] },
   { id: 'wa-input-division', label: 'Fungsi / Divisi', min: 2 },
   { id: 'wa-input-location', label: 'Lokasi temuan', min: 3 },
-  { id: 'wa-input-category', label: 'Kategori bahaya' },
+  { id: 'wa-input-category', label: 'Kategori utama' },
   { id: 'wa-input-device', label: 'Detail temuan', min: 3 },
   { id: 'wa-input-urgency', label: 'Tingkat urgensi' },
   { id: 'wa-input-description', label: 'Deskripsi kondisi bahaya', min: 10 }
@@ -241,13 +217,29 @@ function deteksiKategoriDariPesan(teks, idKelompok = kelompokKategoriTerpilih) {
   return (hasilDalamKelompok || hasilSkor[0]).kategori;
 }
 
+function idKelompokDariPilihan(nilai) {
+  if (dapatkanKelompokKategori(nilai)) return nilai;
+  return dapatkanKelompokDariKategori(nilai)?.id || '';
+}
+
+function namaKelompokKategori(nilai) {
+  const idKelompok = idKelompokDariPilihan(nilai);
+  return dapatkanKelompokKategori(idKelompok)?.nama || '';
+}
+
+function tentukanKategoriRinci(idKelompok, teks = '') {
+  const idValid = idKelompokDariPilihan(idKelompok);
+  return deteksiKategoriDariPesan(teks, idValid)
+    || KATEGORI_DEFAULT_KELOMPOK[idValid]
+    || 'Umum';
+}
+
 function teksRingkasanKategori() {
   const kelompok = dapatkanKelompokKategori(kelompokKategoriTerpilih);
-  const kategori = kategoriSaranSaatIni || kategoriUtamaTerpilih();
-  if (kelompok && kategori) return `${kelompok.nama} · ${kategori}`;
-  if (kelompok) return `${kelompok.nama} · kategori otomatis`;
-  if (kategori) return `Terdeteksi: ${kategori}`;
-  return 'Akan dideteksi dari pesan';
+  if (kelompok) return kelompok.nama;
+  const kelompokKategori = dapatkanKelompokDariKategori(kategoriUtamaTerpilih());
+  if (kelompokKategori) return kelompokKategori.nama;
+  return 'Otomatis dari laporan';
 }
 
 function perbaruiSaranKategoriDariInput() {
@@ -268,7 +260,7 @@ function perbaruiSaranKategoriDariInput() {
   }
   if (summary) {
     summary.textContent = teksRingkasanKategori();
-    summary.title = kategoriSaranSaatIni || '';
+    summary.title = dapatkanKelompokKategori(kelompokKategoriTerpilih)?.nama || '';
   }
   bar?.classList.toggle('has-suggestion', Boolean(kategoriSaranSaatIni));
 }
@@ -314,6 +306,15 @@ function buatOpsiKategoriTerkelompok(categories, nilaiAwal, labelAwal, tampilkan
     options.push('</optgroup>');
   });
   return options.join('');
+}
+
+function buatOpsiKelompokKategori(nilaiAwal = '', labelAwal = '-- Pilih kategori utama --') {
+  return [
+    `<option value="${sanitasiHtml(nilaiAwal)}">${sanitasiHtml(labelAwal)}</option>`,
+    ...KELOMPOK_KATEGORI_UI.map(group => (
+      `<option value="${sanitasiHtml(group.id)}">${sanitasiHtml(group.nama)}</option>`
+    ))
+  ].join('');
 }
 
 const DAFTAR_PETUGAS_HSSE_FALLBACK = [
@@ -675,8 +676,8 @@ function pulihkanPosisiPanelKategori() {
   if (!apakahChatMobile()) {
     const title = panel.querySelector('.guided-cat-title');
     const help = panel.querySelector('.guided-cat-help');
-    if (title) title.textContent = 'Pilih kelompok utama';
-    if (help) help.textContent = 'Kategori rinci akan ditentukan otomatis dari isi laporan.';
+    if (title) title.textContent = 'Pilih kategori utama';
+    if (help) help.textContent = 'Pilih yang paling sesuai. Jika ragu, langsung tulis laporan.';
   }
 }
 
@@ -684,14 +685,14 @@ function siapkanPanelKategoriMobile(panel) {
   if (!panel || !apakahChatMobile()) return;
   const title = panel.querySelector('.guided-cat-title');
   const help = panel.querySelector('.guided-cat-help');
-  if (title) title.textContent = 'Pilih satu kelompok utama';
-  if (help) help.textContent = 'Pilihan tersimpan di tempat ini; kategori rinci menyesuaikan otomatis saat Anda menulis.';
+  if (title) title.textContent = 'Pilih kategori utama';
+  if (help) help.textContent = 'Pilih yang paling sesuai dengan kondisi yang Anda temukan.';
 }
 
-function tampilkanKategoriInlineMobile(categories = detailKategoriKnowledge) {
+function tampilkanKategoriInlineMobile() {
   const container = document.getElementById('mobile-inline-category-options');
-  if (!container || !Array.isArray(categories) || categories.length === 0) return;
-  const groups = kelompokkanDetailKategori(categories);
+  if (!container) return;
+  const groups = KELOMPOK_KATEGORI_UI;
   const buatTombol = group => {
     const active = kelompokKategoriTerpilih === group.id;
     return `
@@ -702,26 +703,21 @@ function tampilkanKategoriInlineMobile(categories = detailKategoriKnowledge) {
           <strong>${sanitasiHtml(group.nama)}</strong>
           <small>${sanitasiHtml(group.deskripsi)}</small>
         </span>
-        <span class="mobile-category-group-count">${group.items.length} jenis</span>
         <span class="mobile-category-group-state">${active ? 'Dipilih' : 'Pilih'}</span>
       </button>
     `;
   };
 
   container.innerHTML = `
-    <section class="mobile-category-quick" aria-label="Enam kelompok kategori utama">
+    <section class="mobile-category-quick" aria-label="Kategori utama laporan">
       <div class="mobile-category-section-label">
-        <strong>6 kelompok utama</strong>
-        <span>Pilih konteks umum; jenis rinci akan menyesuaikan otomatis</span>
+        <strong>Pilih satu kategori</strong>
+        <span>Gunakan pilihan yang paling mendekati kondisi di lapangan</span>
       </div>
       <div class="mobile-inline-group-grid">
         ${groups.map(buatTombol).join('')}
       </div>
     </section>
-    <div class="mobile-category-auto-note">
-      <strong>27 kategori rinci tetap aktif.</strong>
-      <span>Sistem menentukannya dari aktivitas, kondisi, lokasi, alat, dan APD yang Anda tulis.</span>
-    </div>
   `;
 
   container.querySelectorAll('[data-category-group]').forEach(button => {
@@ -1185,81 +1181,33 @@ function tampilkanKelompokKategoriBeranda() {
       onclick="openChatWithGroup('${group.id}')">
       <div class="cat-card-header">
         <span class="cat-icon" aria-hidden="true">${buatIkonAntarmuka(group.ikon)}</span>
-        <span class="cat-badge">${group.kategori.length} jenis otomatis</span>
       </div>
       <h3>${sanitasiHtml(group.nama)}</h3>
       <p>${sanitasiHtml(group.deskripsi)}.</p>
-      <div class="cat-vendor-tag">Pilih sebagai konteks laporan</div>
+      <div class="cat-vendor-tag">Pilih kategori ini</div>
     </button>
   `).join('');
 
   const toolbar = document.querySelector('#section-services .category-toolbar');
   if (toolbar) {
     toolbar.innerHTML = `
-      <span><strong>Pilih satu dari 6 kelompok utama.</strong> Jenis bahaya rinci akan menyesuaikan otomatis dari pesan.</span>
+      <span><strong>Pilih kategori yang paling sesuai.</strong> Jika ragu, langsung tulis laporan dan sistem akan membantu.</span>
       <button class="btn btn-secondary" type="button" data-ui-icon="book" onclick="switchView('services-panel')">Buka Knowledge Base</button>
     `;
   }
 }
 
 function bukaChatDenganKelompok(idKelompok) {
-  pilihKelompokKategori(idKelompok);
+  pilihKelompokKategori(idKelompok, { tutupPanelMobile: false });
+  alihkanTampilan('chatbot');
+  window.setTimeout(() => document.getElementById('chat-input')?.focus(), 120);
 }
 function openChatWithGroup(groupId) { bukaChatDenganKelompok(groupId); }
 
-function tampilkanPopupSaranKelompok(idKelompok) {
-  const kelompok = dapatkanKelompokKategori(idKelompok);
-  const modal = document.getElementById('group-suggestion-modal');
-  const daftar = document.getElementById('group-suggestion-list');
-  const judul = document.getElementById('group-suggestion-title');
-  const keterangan = document.getElementById('group-suggestion-description');
-  const suggestions = SARAN_PESAN_KELOMPOK[idKelompok] || [];
-  if (!kelompok || !modal || !daftar || suggestions.length === 0) return;
-
-  modal.dataset.groupId = idKelompok;
-  if (judul) judul.textContent = `Contoh pesan · ${kelompok.nama}`;
-  if (keterangan) {
-    keterangan.textContent = 'Pilih salah satu contoh untuk dijadikan draf, atau tutup dan tulis laporan dengan bahasa Anda sendiri.';
-  }
-  daftar.innerHTML = suggestions.map((item, index) => `
-    <button class="group-suggestion-item" type="button" data-suggestion-index="${index}">
-      <span class="group-suggestion-number" aria-hidden="true">${index + 1}</span>
-      <span class="group-suggestion-copy">
-        <strong>${sanitasiHtml(item.judul)}</strong>
-        <span>${sanitasiHtml(item.teks)}</span>
-      </span>
-      <span class="group-suggestion-action">Gunakan draf</span>
-    </button>
-  `).join('');
-  daftar.querySelectorAll('[data-suggestion-index]').forEach(button => {
-    button.addEventListener('click', () => gunakanSaranPesanKelompok(Number(button.dataset.suggestionIndex)));
-  });
-  modal.classList.add('active');
-}
-
-function tutupPopupSaranKelompok() {
-  document.getElementById('group-suggestion-modal')?.classList.remove('active');
-}
-function closeGroupSuggestionModal() { tutupPopupSaranKelompok(); }
-
-function gunakanSaranPesanKelompok(indexSaran) {
-  const modal = document.getElementById('group-suggestion-modal');
-  const idKelompok = modal?.dataset.groupId;
-  const suggestion = (SARAN_PESAN_KELOMPOK[idKelompok] || [])[indexSaran];
-  const input = document.getElementById('chat-input');
-  if (!suggestion || !input) return;
-  input.value = suggestion.teks;
-  input.dispatchEvent(new Event('input', { bubbles: true }));
-  tutupPopupSaranKelompok();
-  tampilkanNotifikasi('Contoh sudah disiapkan sebagai draf. Anda masih dapat mengubahnya sebelum dikirim.', 'success');
-}
-function useGroupSuggestion(suggestionIndex) { gunakanSaranPesanKelompok(suggestionIndex); }
-
-function pilihKelompokKategori(idKelompok) {
+function pilihKelompokKategori(idKelompok, opsi = {}) {
   const kelompok = dapatkanKelompokKategori(idKelompok);
   if (!kelompok) return;
-  const menonaktifkan = kelompokKategoriTerpilih === idKelompok;
-  kelompokKategoriTerpilih = menonaktifkan ? null : idKelompok;
+  kelompokKategoriTerpilih = idKelompok;
   kategoriTerpilih = [];
   kategoriSaranSaatIni = deteksiKategoriDariPesan(
     document.getElementById('chat-input')?.value || '',
@@ -1268,14 +1216,9 @@ function pilihKelompokKategori(idKelompok) {
   perbaruiTampilanKategoriTerpilih();
   perbaruiKategoriPadaSesiChat();
   tampilkanKelompokKategoriBeranda();
-  if (!menonaktifkan) {
-    tampilkanNotifikasi(
-      `${kelompok.nama} dipilih. Jenis bahaya rinci akan ditentukan otomatis dari pesan.`,
-      'info'
-    );
-    tampilkanPopupSaranKelompok(idKelompok);
-  } else {
-    tutupPopupSaranKelompok();
+  tampilkanNotifikasi(`${kelompok.nama} dipilih. Silakan tulis kondisi yang ditemukan.`, 'info');
+  if (opsi.tutupPanelMobile !== false && apakahChatMobile()) {
+    tutupPemilihKategoriMobile(true);
   }
 }
 function selectCategoryGroup(groupId) { pilihKelompokKategori(groupId); }
@@ -1300,26 +1243,16 @@ function sinkronkanKategoriFormulir(details) {
 
   const consultationSelect = document.getElementById('cons-category');
   if (consultationSelect) {
-    const previousValue = consultationSelect.value;
-    consultationSelect.innerHTML = buatOpsiKategoriTerkelompok(
-      categories,
-      '',
-      '-- Pilih Kelompok dan Kategori Bahaya --'
-    );
-    consultationSelect.value = categories.some(item => item.nama === previousValue) ? previousValue : '';
+    const previousValue = idKelompokDariPilihan(consultationSelect.value);
+    consultationSelect.innerHTML = buatOpsiKelompokKategori('', '-- Pilih kategori utama --');
+    consultationSelect.value = dapatkanKelompokKategori(previousValue) ? previousValue : '';
   }
 
   const whatsappSelect = document.getElementById('wa-input-category');
   if (whatsappSelect) {
-    const previousValue = whatsappSelect.value;
-    whatsappSelect.innerHTML = buatOpsiKategoriTerkelompok(
-      categories,
-      '',
-      '-- Pilih Kelompok dan Kategori Bahaya --'
-    );
-    whatsappSelect.value = categories.some(item => item.nama === previousValue)
-      ? previousValue
-      : '';
+    const previousValue = idKelompokDariPilihan(whatsappSelect.value);
+    whatsappSelect.innerHTML = buatOpsiKelompokKategori('', '-- Pilih kategori utama --');
+    whatsappSelect.value = dapatkanKelompokKategori(previousValue) ? previousValue : '';
     perbaruiPesanWhatsAppLangsung();
   }
 
@@ -1328,16 +1261,15 @@ function sinkronkanKategoriFormulir(details) {
 
 function tampilkanSeluruhKategoriChat(categories = detailKategoriKnowledge) {
   const container = document.querySelector('.guided-cat-grid');
-  if (!container || !Array.isArray(categories) || categories.length === 0) return;
-  const groups = kelompokkanDetailKategori(categories);
+  if (!container) return;
+  const groups = KELOMPOK_KATEGORI_UI;
   const title = document.querySelector('.guided-cat-title');
-  if (title) title.textContent = 'Pilih kelompok utama';
+  if (title) title.textContent = 'Pilih kategori utama';
   const help = document.querySelector('.guided-cat-help');
-  if (help) help.textContent = `${groups.length} kelompok utama tersedia. Kategori rinci dari ${categories.length} kategori Knowledge Base akan dipilih otomatis berdasarkan isi pesan.`;
+  if (help) help.textContent = 'Pilih yang paling sesuai. Jika ragu, langsung tulis laporan.';
 
   container.innerHTML = groups.map(group => {
     const active = kelompokKategoriTerpilih === group.id;
-    const articleCount = group.items.reduce((total, item) => total + (Number(item.jumlah) || 0), 0);
     return `
       <button class="guided-cat-group-card ${active ? 'active' : ''}" type="button"
         data-category-group="${sanitasiHtml(group.id)}" aria-pressed="${active}">
@@ -1345,10 +1277,6 @@ function tampilkanSeluruhKategoriChat(categories = detailKategoriKnowledge) {
         <span class="guided-group-copy">
           <strong>${sanitasiHtml(group.nama)}</strong>
           <small>${sanitasiHtml(group.deskripsi)}</small>
-        </span>
-        <span class="guided-group-meta">
-          <strong>${group.items.length} jenis</strong>
-          <small>${articleCount > 0 ? `${articleCount} artikel` : 'Otomatis'}</small>
         </span>
         <span class="guided-group-state">${active ? 'Dipilih' : 'Pilih'}</span>
       </button>
@@ -1358,7 +1286,7 @@ function tampilkanSeluruhKategoriChat(categories = detailKategoriKnowledge) {
   container.querySelectorAll('[data-category-group]').forEach(card => {
     card.addEventListener('click', () => pilihKelompokKategori(card.dataset.categoryGroup));
   });
-  tampilkanKategoriInlineMobile(categories);
+  tampilkanKategoriInlineMobile();
 }
 
 async function periksaKesehatanBackend() {
@@ -1422,6 +1350,10 @@ async function kirimFormulirKonsultasi() {
   const elemenUrgensi = document.getElementById('cons-urgency');
   const tombolKirim = document.getElementById('btn-submit-consultation');
   const namaPelapor = document.getElementById('cons-name').value.trim() || 'Pelapor Anonim';
+  const idKelompok = document.getElementById('cons-category').value;
+  const detailTemuan = document.getElementById('cons-device').value.trim();
+  const deskripsi = document.getElementById('cons-description').value.trim();
+  const kategoriRinci = tentukanKategoriRinci(idKelompok, `${detailTemuan} ${deskripsi}`);
   if (tombolKirim?.disabled) return;
   if (tombolKirim) {
     tombolKirim.disabled = true;
@@ -1437,12 +1369,15 @@ async function kirimFormulirKonsultasi() {
     divisi: document.getElementById('cons-division').value.trim(),
     location: document.getElementById('cons-location').value.trim(),
     lokasi: document.getElementById('cons-location').value.trim(),
-    category: document.getElementById('cons-category').value,
-    kategori: document.getElementById('cons-category').value,
-    device: document.getElementById('cons-device').value.trim(),
-    detail_temuan: document.getElementById('cons-device').value.trim(),
-    description: document.getElementById('cons-description').value.trim(),
-    deskripsi: document.getElementById('cons-description').value.trim(),
+    category_group: idKelompok,
+    kelompok_kategori: idKelompok,
+    category_group_label: namaKelompokKategori(idKelompok),
+    category: kategoriRinci,
+    kategori: kategoriRinci,
+    device: detailTemuan,
+    detail_temuan: detailTemuan,
+    description: deskripsi,
+    deskripsi,
     urgency: elemenUrgensi ? elemenUrgensi.value : 'Sedang',
     urgensi: elemenUrgensi ? elemenUrgensi.value : 'Sedang'
   };
@@ -1496,6 +1431,9 @@ function lanjutkanKeKonsultasiChatbot() {
       kategoriTerpilih = Array.isArray(muatanKonsultasiTertunda.categories)
         ? [...muatanKonsultasiTertunda.categories]
         : [muatanKonsultasiTertunda.kategori || muatanKonsultasiTertunda.category];
+      kelompokKategoriTerpilih = muatanKonsultasiTertunda.category_group
+        || muatanKonsultasiTertunda.kelompok_kategori
+        || idKelompokDariPilihan(kategoriTerpilih[0]);
       perbaruiTampilanKategoriTerpilih();
     }
     const elemenInput = document.getElementById('chat-input');
@@ -1513,6 +1451,9 @@ async function lanjutkanKeWhatsAppLangsung() {
     kategoriTerpilih = Array.isArray(muatanKonsultasiTertunda.categories)
       ? [...muatanKonsultasiTertunda.categories]
       : [muatanKonsultasiTertunda.category || muatanKonsultasiTertunda.kategori];
+    kelompokKategoriTerpilih = muatanKonsultasiTertunda.category_group
+      || muatanKonsultasiTertunda.kelompok_kategori
+      || idKelompokDariPilihan(kategoriTerpilih[0]);
   }
 
   try {
@@ -1719,9 +1660,9 @@ function perbaruiTampilanKategoriTerpilih() {
   const barKategoriMobile = document.querySelector('.chat-mobile-category-bar');
   if (ringkasanKategoriMobile) {
     ringkasanKategoriMobile.textContent = teksRingkasanKategori();
-    ringkasanKategoriMobile.title = categories[0] || kelompokAktif?.nama || '';
+    ringkasanKategoriMobile.title = kelompokAktif?.nama || '';
   }
-  if (pemicuKategoriMobile) pemicuKategoriMobile.textContent = kelompokAktif ? 'Ubah kelompok' : 'Pilih kelompok';
+  if (pemicuKategoriMobile) pemicuKategoriMobile.textContent = kelompokAktif ? 'Ubah kategori' : 'Pilih kategori';
   barKategoriMobile?.classList.toggle('has-selection', Boolean(kelompokAktif));
   barKategoriMobile?.classList.toggle('has-suggestion', Boolean(kategoriSaranSaatIni));
 
@@ -1734,14 +1675,12 @@ function perbaruiTampilanKategoriTerpilih() {
   if (lencanaLangkah) {
     lencanaLangkah.classList.toggle('step-active', Boolean(kelompokAktif));
     lencanaLangkah.textContent = kelompokAktif
-      ? `KELOMPOK AKTIF · ${kelompokAktif.nama.toUpperCase()}`
-      : 'KELOMPOK OPSIONAL';
+      ? `KATEGORI DIPILIH · ${kelompokAktif.nama.toUpperCase()}`
+      : 'KATEGORI OPSIONAL';
   }
 
   const kategoriUtama = categories[0];
   const cocok = petugasBerdasarkanKategori(kategoriUtama || 'Umum');
-  const namaPetugas = cocok.nama || cocok.name || 'Tim HSSE';
-  const peranPetugas = cocok.peran || cocok.role || 'Safety Officer / Supervisor';
   petugasTerpilihSaatIni = categories.length > 0 ? cocok : null;
 
   const elemenBanner = document.getElementById('cat-req-banner');
@@ -1751,15 +1690,15 @@ function perbaruiTampilanKategoriTerpilih() {
   }
   if (teksBanner) {
     teksBanner.innerHTML = kelompokAktif
-      ? `<div><strong>Kelompok aktif: ${sanitasiHtml(kelompokAktif.nama)}</strong><small>${kategoriUtama ? `Kategori rinci terdeteksi: <strong>${sanitasiHtml(kategoriUtama)}</strong>. Pendamping: <strong>${sanitasiHtml(namaPetugas)}</strong> (${sanitasiHtml(peranPetugas)}).` : 'Tuliskan kondisi bahaya; kategori rinci dan pendamping HSSE akan menyesuaikan otomatis.'}</small></div>`
-      : '<strong>Kelompok bersifat opsional:</strong> Pilih salah satu dari 6 kelompok utama atau langsung tulis laporan agar sistem menentukan kelompok dan kategori rincinya.';
+      ? `<div><strong>Kategori dipilih: ${sanitasiHtml(kelompokAktif.nama)}</strong><small>Sekarang ceritakan kondisi, lokasi, dan aktivitas yang sedang berlangsung.</small></div>`
+      : '<strong>Kategori tidak wajib dipilih.</strong> Langsung tulis kondisi yang ditemukan jika Anda belum yakin.';
   }
 
   const elemenInput = document.getElementById('chat-input');
   const tombolKirim = document.getElementById('btn-send-chat');
   if (elemenInput) {
     elemenInput.placeholder = kelompokAktif
-      ? `Ceritakan kondisi dalam kelompok ${kelompokAktif.nama}; jenis rinci akan dideteksi otomatis...`
+      ? `Ceritakan kondisi ${kelompokAktif.nama.toLowerCase()}, lokasi, dan aktivitasnya...`
       : 'Ceritakan kondisi bahaya, lokasi, dan aktivitas yang sedang berlangsung...';
   }
   if (tombolKirim) tombolKirim.disabled = false;
@@ -2346,13 +2285,7 @@ function perbaruiPesanWhatsAppLangsung(opsiValidasi = {}) {
   const namaPetugas = petugasTerpilihSaatIni ? (petugasTerpilihSaatIni.nama || petugasTerpilihSaatIni.name) : 'M. Solihin';
   const peranPetugas = petugasTerpilihSaatIni ? (petugasTerpilihSaatIni.peran || petugasTerpilihSaatIni.role) : 'Superintendent HSSE PT Pertamina EP Lirik Field';
   const nomorPetugas = petugasTerpilihSaatIni ? (petugasTerpilihSaatIni.nomor || petugasTerpilihSaatIni.number) : '6281234567890';
-  const daftarKategoriAktif = daftarKategoriTerpilih();
-  const kategoriPesan = daftarKategoriAktif.length > 1 && daftarKategoriAktif.includes(catVal)
-    ? daftarKategoriAktif
-    : [catVal];
-  const teksKategori = kategoriPesan.length === 1
-    ? (kategoriPesan[0] || '[Belum diisi]')
-    : kategoriPesan.map((category, index) => `${index + 1}. ${category}`).join('\n');
+  const teksKategori = namaKelompokKategori(catVal) || '[Belum diisi]';
   const tampilkanNilai = nilai => nilai || '[Belum diisi]';
 
   const barisPesan = [
@@ -2432,9 +2365,12 @@ function sendWhatsAppReport() { kirimLaporanWhatsApp(); }
 function saatKategoriDipilihDiModalWa() {
   const elemenPilih = document.getElementById('wa-input-category');
   if (!elemenPilih) return;
-  const kategoriDipilih = elemenPilih.value;
-  kategoriTerpilih = kategoriDipilih ? [kategoriDipilih] : [];
-  const cocok = petugasBerdasarkanKategori(kategoriDipilih);
+  const idKelompok = elemenPilih.value;
+  const konteks = `${document.getElementById('wa-input-device')?.value || ''} ${document.getElementById('wa-input-description')?.value || ''}`;
+  const kategoriRinci = idKelompok ? tentukanKategoriRinci(idKelompok, konteks) : null;
+  kelompokKategoriTerpilih = idKelompok || null;
+  kategoriTerpilih = kategoriRinci ? [kategoriRinci] : [];
+  const cocok = petugasBerdasarkanKategori(kategoriRinci || 'Umum');
   petugasTerpilihSaatIni = cocok;
   currentAssignedTech = petugasTerpilihSaatIni;
   const namaEl = document.getElementById('tech-assigned-name');
@@ -2478,13 +2414,17 @@ function bukaModalWhatsApp(tautan, teksMentah) {
     document.getElementById('wa-input-name').value = ['pelapor anonim', 'anonim'].includes(namaDraf.toLowerCase()) ? '' : namaDraf;
     if (muatanKonsultasiTertunda.divisi || muatanKonsultasiTertunda.division) document.getElementById('wa-input-division').value = muatanKonsultasiTertunda.divisi || muatanKonsultasiTertunda.division;
     if (muatanKonsultasiTertunda.lokasi || muatanKonsultasiTertunda.location) document.getElementById('wa-input-location').value = muatanKonsultasiTertunda.lokasi || muatanKonsultasiTertunda.location;
-    if (muatanKonsultasiTertunda.kategori || muatanKonsultasiTertunda.category) document.getElementById('wa-input-category').value = muatanKonsultasiTertunda.kategori || muatanKonsultasiTertunda.category;
+    const idKelompokDraf = muatanKonsultasiTertunda.category_group
+      || muatanKonsultasiTertunda.kelompok_kategori
+      || idKelompokDariPilihan(muatanKonsultasiTertunda.kategori || muatanKonsultasiTertunda.category);
+    if (idKelompokDraf) document.getElementById('wa-input-category').value = idKelompokDraf;
     if (muatanKonsultasiTertunda.detail_temuan || muatanKonsultasiTertunda.device) document.getElementById('wa-input-device').value = muatanKonsultasiTertunda.detail_temuan || muatanKonsultasiTertunda.device;
     if (muatanKonsultasiTertunda.deskripsi || muatanKonsultasiTertunda.description) document.getElementById('wa-input-description').value = muatanKonsultasiTertunda.deskripsi || muatanKonsultasiTertunda.description;
     if ((muatanKonsultasiTertunda.urgensi || muatanKonsultasiTertunda.urgency) && document.getElementById('wa-input-urgency')) document.getElementById('wa-input-urgency').value = muatanKonsultasiTertunda.urgensi || muatanKonsultasiTertunda.urgency;
   } else {
-    if (adaKategoriTerpilih() && document.getElementById('wa-input-category')) {
-      document.getElementById('wa-input-category').value = kategoriUtamaTerpilih();
+    if ((kelompokKategoriTerpilih || adaKategoriTerpilih()) && document.getElementById('wa-input-category')) {
+      document.getElementById('wa-input-category').value = kelompokKategoriTerpilih
+        || idKelompokDariPilihan(kategoriUtamaTerpilih());
     }
   }
 
@@ -2537,7 +2477,9 @@ function closeWhatsAppModal() { tutupModalWhatsApp(); }
 function bukaWhatsAppLangsung(namaPetugas = null) {
   if (namaPetugas) petugasTerpilihSaatIni = petugasBerdasarkanNama(namaPetugas) || petugasTerpilihSaatIni;
   if (!petugasTerpilihSaatIni) {
-    const kategoriAktif = kategoriUtamaTerpilih() || document.getElementById('wa-input-category')?.value || 'Umum';
+    const pilihanKategori = kelompokKategoriTerpilih || document.getElementById('wa-input-category')?.value;
+    const konteks = `${document.getElementById('wa-input-device')?.value || ''} ${document.getElementById('wa-input-description')?.value || ''}`;
+    const kategoriAktif = kategoriUtamaTerpilih() || tentukanKategoriRinci(pilihanKategori, konteks);
     petugasTerpilihSaatIni = petugasBerdasarkanKategori(kategoriAktif);
   }
   bukaModalWhatsApp(tautanWhatsAppTerakhir, pesanWhatsAppTerakhir || 'Halo Tim HSSE, saya ingin melaporkan temuan kondisi bahaya di area kerja.');
@@ -2545,16 +2487,18 @@ function bukaWhatsAppLangsung(namaPetugas = null) {
 function openDirectWhatsApp(officerName = null) { bukaWhatsAppLangsung(officerName); }
 
 function bukaLaporanDariKnowledgeBase(judul, kategori) {
+  const kelompok = dapatkanKelompokDariKategori(kategori);
   kategoriTerpilih = [kategori];
+  kelompokKategoriTerpilih = kelompok?.id || null;
   petugasTerpilihSaatIni = petugasBerdasarkanKategori(kategori);
   bukaModalWhatsApp(null, null);
   const kategoriInput = document.getElementById('wa-input-category');
   const deskripsiInput = document.getElementById('wa-input-description');
   const detailInput = document.getElementById('wa-input-device');
-  if (kategoriInput) kategoriInput.value = kategori;
+  if (kategoriInput) kategoriInput.value = kelompok?.id || '';
   if (detailInput) detailInput.value = judul;
   if (deskripsiInput) deskripsiInput.value = `Temuan terkait: ${judul}`;
-  saatKategoriDipilihDiModalWa();
+  perbaruiPesanWhatsAppLangsung();
 }
 function openWhatsAppReport(title, category) { bukaLaporanDariKnowledgeBase(title, category); }
 
