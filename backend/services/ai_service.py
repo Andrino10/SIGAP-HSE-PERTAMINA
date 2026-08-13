@@ -1,4 +1,4 @@
-"""Penyusun jawaban deterministik berbasis Knowledge Base HSE.
+"""Penyusun jawaban deterministik berbasis Knowledge Base HSSE.
 
 Modul ini tidak mengarang prosedur. Kondisi, risiko, dan solusi utama diambil
 langsung dari artikel ``knowledge.json`` yang lolos ambang relevansi.
@@ -96,8 +96,8 @@ class LayananAI:
         officer = dapatkan_petugas_per_kategori(category)
         lines.append("REKOMENDASI K3")
         lines.append(
-            f"1. Penanggung jawab rujukan: {officer.get('nama', 'Tim HSE')} "
-            f"({officer.get('peran', 'HSE Officer')})."
+            f"1. Penanggung jawab rujukan: {officer.get('nama', 'Tim HSSE')} "
+            f"({officer.get('peran', 'HSSE Officer')})."
         )
         lines.append(
             "2. APD harus dipilih dari bahaya yang benar-benar ada, bukan dari istilah "
@@ -145,7 +145,7 @@ class LayananAI:
         if tingkat == "tinggi":
             lines.append(
                 "Hentikan pekerjaan dan koordinasikan segera dengan Supervisor, personel IT, "
-                "serta Tim HSE sebelum menyentuh peralatan."
+                "serta Tim HSSE sebelum menyentuh peralatan."
             )
         else:
             lines.append(
@@ -217,7 +217,7 @@ class LayananAI:
         if highest_risk == "tinggi":
             lines.append(
                 "RISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau "
-                "bahaya segera, amankan area, dan minta verifikasi Tim HSE."
+                "bahaya segera, amankan area, dan minta verifikasi Tim HSSE."
             )
         elif highest_risk == "sedang":
             lines.append(
@@ -274,15 +274,15 @@ class LayananAI:
                 "temuan jika aman dilakukan."
             )
             lines.append(
-                "3. Minta Supervisor atau Tim HSE melakukan identifikasi bahaya dan menentukan "
+                "3. Minta Supervisor atau Tim HSSE melakukan identifikasi bahaya dan menentukan "
                 "pengendalian yang sesuai sebelum pekerjaan dilanjutkan."
             )
         lines.append("")
 
         lines.append("REKOMENDASI K3")
         lines.append(
-            f"1. Penanggung jawab rujukan: {officer.get('nama', 'Tim HSE')} "
-            f"({officer.get('peran', 'HSE Officer')})."
+            f"1. Penanggung jawab rujukan: {officer.get('nama', 'Tim HSSE')} "
+            f"({officer.get('peran', 'HSSE Officer')})."
         )
         lines.append(
             "2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas "
@@ -334,9 +334,9 @@ class LayananAI:
             hasil_eskalasi and hasil_eskalasi.get("needs_escalation")
         )
         if not kb_matched:
-            lines.append("Perlu verifikasi langsung oleh Supervisor atau Tim HSE.")
+            lines.append("Perlu verifikasi langsung oleh Supervisor atau Tim HSSE.")
         elif needs_escalation or highest_risk == "tinggi":
-            lines.append("Perlu tindakan lapangan segera dan koordinasi dengan Tim HSE.")
+            lines.append("Perlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.")
         else:
             lines.append(
                 "Dapat ditindaklanjuti oleh Supervisor dengan pengawasan K3 dan verifikasi "

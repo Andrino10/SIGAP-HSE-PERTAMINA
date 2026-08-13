@@ -36,7 +36,7 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         health = self.client.get("/api/health")
 
         self.assertEqual(homepage.status_code, 200)
-        self.assertIn(b"SIGAP-AI HSE", homepage.data)
+        self.assertIn(b"SIGAP-AI HSSE", homepage.data)
         self.assertEqual(stylesheet.status_code, 200)
         self.assertIn("text/css", stylesheet.content_type)
         self.assertEqual(script.status_code, 200)
@@ -140,7 +140,7 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         data = response.get_json()["data"]
-        self.assertEqual(data["kb_reference"]["id"], "HSE-ALAT-008")
+        self.assertEqual(data["kb_reference"]["id"], "HSSE-ALAT-008")
         self.assertEqual(data["category"], "Peralatan Kerja")
         self.assertEqual(data["context"]["category_group"], "peralatan-kendaraan")
 
@@ -155,14 +155,21 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         self.assertTrue(all(1 <= len(items) <= 3 for items in data["by_category"].values()))
 
     def test_get_entry_by_id(self):
-        response = self.client.get("/api/knowledge/HSE-LISTRIK-001")
+        response = self.client.get("/api/knowledge/HSSE-LISTRIK-001")
         self.assertEqual(response.status_code, 200)
         entry = response.get_json()["data"]["knowledge"]
+        self.assertEqual(entry["id"], "HSSE-LISTRIK-001")
         self.assertEqual(entry["judul"], "Kabel listrik terbuka")
         self.assertEqual(entry["kategori"], "Kelistrikan")
 
+    def test_legacy_hse_entry_id_still_resolves_after_hsse_migration(self):
+        response = self.client.get("/api/knowledge/HSE-LISTRIK-001")
+        self.assertEqual(response.status_code, 200)
+        entry = response.get_json()["data"]["knowledge"]
+        self.assertEqual(entry["id"], "HSSE-LISTRIK-001")
+
     def test_unknown_entry_id_returns_404(self):
-        response = self.client.get("/api/knowledge/HSE-TIDAK-ADA")
+        response = self.client.get("/api/knowledge/HSSE-TIDAK-ADA")
         self.assertEqual(response.status_code, 404)
         self.assertFalse(response.get_json()["success"])
 
@@ -174,11 +181,11 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         data = response.get_json()["data"]
-        self.assertEqual(data["kb_reference"]["id"], "HSE-APD-001")
+        self.assertEqual(data["kb_reference"]["id"], "HSSE-APD-001")
         self.assertEqual(data["knowledge_source"], "knowledge.json")
         self.assertTrue(data["knowledge_valid"])
         self.assertIn("REFERENSI KNOWLEDGE BASE", data["response"])
-        self.assertIn("HSE-APD-001", data["response"])
+        self.assertIn("HSSE-APD-001", data["response"])
         self.assertIn("Regulasi resmi", data["response"])
         self.assertGreaterEqual(len(data["kb_reference"]["referensi"]), 2)
         self.assertGreaterEqual(data["confidence"], 0.55)
@@ -200,7 +207,7 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
             "Kelistrikan",
         )
         data = response.get_json()["data"]
-        self.assertEqual(data["kb_reference"]["id"], "HSE-LISTRIK-001")
+        self.assertEqual(data["kb_reference"]["id"], "HSSE-LISTRIK-001")
         self.assertEqual(len(data["kb_references"]), 1)
         self.assertNotIn("Kondisi #2", data["response"])
 
@@ -217,7 +224,7 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         data = response.get_json()["data"]
         answer = data["response"]
 
-        self.assertEqual(data["kb_reference"]["id"], "HSE-APD-004")
+        self.assertEqual(data["kb_reference"]["id"], "HSSE-APD-004")
         self.assertEqual(data["context"]["assigned_category"], "Alat Pelindung Diri (APD)")
         self.assertIn("Anda dan Habib", answer)
         self.assertIn("APD Habib dilaporkan belum lengkap", answer)
@@ -264,8 +271,8 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         data = response.get_json()["data"]
         reference_ids = {item["id"] for item in data["kb_references"]}
-        self.assertIn("HSE-APD-001", reference_ids)
-        self.assertIn("HSE-KETINGGIAN-001", reference_ids)
+        self.assertIn("HSSE-APD-001", reference_ids)
+        self.assertIn("HSSE-KETINGGIAN-001", reference_ids)
         self.assertIn("Kondisi #2", data["response"])
 
     def test_user_can_select_multiple_categories_in_hse_assistant(self):
@@ -344,7 +351,7 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         )
         self.assertEqual(response.status_code, 200)
         data = response.get_json()["data"]
-        self.assertEqual(data["kb_reference"]["id"], "HSE-BUDAYA-005")
+        self.assertEqual(data["kb_reference"]["id"], "HSSE-BUDAYA-005")
         self.assertEqual(data["category"], "Budaya Keselamatan")
 
     def test_rigging_terms_are_not_forced_into_heavy_equipment(self):
@@ -355,11 +362,11 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         data = response.get_json()["data"]
         self.assertEqual(data["category"], "Pengangkatan & Rigging")
-        self.assertTrue(data["kb_reference"]["id"].startswith("HSE-LIFTING-"))
+        self.assertTrue(data["kb_reference"]["id"].startswith("HSSE-LIFTING-"))
 
     def test_schema_validation_rejects_duplicate_id(self):
         duplicate = {
-            "id": "HSE-TEST-001",
+            "id": "HSSE-TEST-001",
             "kategori": "Umum",
             "judul": "Contoh",
             "kata_kunci": ["contoh", "uji", "validasi"],
@@ -380,7 +387,7 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
 
     def test_schema_validation_rejects_generic_immediate_action(self):
         generic_entry = {
-            "id": "HSE-TEST-002",
+            "id": "HSSE-TEST-002",
             "kategori": "Umum",
             "judul": "Contoh tindakan segera generik",
             "kata_kunci": ["contoh", "tindakan segera", "validasi"],

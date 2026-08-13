@@ -1,4 +1,4 @@
-"""Analisis konteks laporan agar jawaban HSE tidak hanya mengikuti kata kunci.
+"""Analisis konteks laporan agar jawaban HSSE tidak hanya mengikuti kata kunci.
 
 Layanan ini tidak menggantikan penilaian risiko lapangan. Tujuannya adalah
 memisahkan fakta yang benar-benar ditulis pengguna, asumsi yang belum boleh
@@ -153,7 +153,7 @@ class LayananAnalisisSkenario:
             "3. APD sesuai bahaya: Lengkapi APD yang diwajibkan JSA/SOP. Gunakan sarung tangan kerja yang sesuai bila ada risiko sayatan atau abrasi; jangan otomatis menggantinya dengan sarung tangan isolasi listrik tanpa penilaian tegangan dan kompetensi kerja listrik.",
             "4. Perlindungan perangkat: Terapkan pengendalian ESD yang disetujui prosedur/vendor dan pastikan pengendalian tersebut tidak menambah risiko ketika terdapat bagian listrik berenergi.",
             "5. Perbaikan dan pengujian: Pasang kembali atau ganti kabel/konektor yang rusak, rapikan jalur serta strain relief, lalu uji koneksi dan layanan tanpa meninggalkan kabel longgar.",
-            "6. Verifikasi akhir: Supervisor atau personel IT/HSE berwenang memeriksa APD, kondisi rack, jalur kabel, dan hasil pengujian sebelum pekerjaan dinyatakan selesai.",
+            "6. Verifikasi akhir: Supervisor atau personel IT/HSSE berwenang memeriksa APD, kondisi rack, jalur kabel, dan hasil pengujian sebelum pekerjaan dinyatakan selesai.",
         ]
         hasil["catatan_kb"] = (
             "Artikel APD/kelistrikan digunakan sebagai rujukan pengendalian. Artikel tersebut "

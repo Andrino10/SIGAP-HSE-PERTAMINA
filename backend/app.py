@@ -52,8 +52,8 @@ def frontend_asset(asset_path):
 @app.route("/api/health", methods=["GET"])
 def health_check():
     return success_response(
-        data={"service": "sigap-ai-hse", "status": "ready"},
-        message="Layanan SIGAP-AI HSE siap digunakan.",
+        data={"service": "sigap-ai-hsse", "status": "ready"},
+        message="Layanan SIGAP-AI HSSE siap digunakan.",
     )
 
 # Legacy compatibility route (/api/analyze)

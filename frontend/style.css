@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SIGAP HSE - UI DESIGN SYSTEM
+   SIGAP HSSE - UI DESIGN SYSTEM
    PT Pertamina EP Lirik Field
    ========================================================================== */
 
@@ -1908,7 +1908,7 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 0.3rem;
 }
 
-/* 4. Roster Tim HSE Grid */
+/* 4. Roster Tim HSSE Grid */
 .roster-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -2156,7 +2156,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ==========================================================================
-   2026 UI REFINEMENT — OPERATIONAL HSE INTERFACE
+   2026 UI REFINEMENT — OPERATIONAL HSSE INTERFACE
    ========================================================================== */
 
 :root {
@@ -3751,6 +3751,26 @@ textarea:focus-visible,
   text-transform: uppercase;
 }
 
+.knowledge-detail-heading {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.65rem;
+}
+
+.knowledge-detail-heading .knowledge-detail-label {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.knowledge-detail-heading > span {
+  color: #7a654b;
+  font-size: 0.7rem;
+  line-height: 1.4;
+  text-align: right;
+}
+
 .knowledge-detail-block p,
 .knowledge-solution-list {
   margin: 0;
@@ -3765,6 +3785,77 @@ textarea:focus-visible,
 }
 
 .risk-detail .knowledge-detail-label { color: #8b510d; }
+
+.knowledge-risk-summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.65rem;
+  align-items: start;
+  padding: 0.72rem 0.78rem;
+  border: 1px solid #e5c995;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.knowledge-risk-summary > span {
+  padding: 0.2rem 0.45rem;
+  color: #7b470a;
+  border-radius: 5px;
+  background: #f9e8c8;
+  font-size: 0.64rem;
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+.knowledge-risk-summary p,
+.knowledge-risk-list p {
+  margin: 0;
+  color: #344b62;
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+
+.knowledge-risk-list {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.5rem;
+  margin: 0.55rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.knowledge-risk-list li {
+  display: grid;
+  grid-template-columns: 10px minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: start;
+  min-width: 0;
+  padding: 0.7rem;
+  border: 1px solid #eadabd;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.knowledge-risk-marker {
+  width: 8px;
+  height: 8px;
+  margin-top: 0.3rem;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: #c77716;
+  box-shadow: 0 0 0 2px rgba(199, 119, 22, 0.24);
+}
+
+.knowledge-risk-list strong {
+  display: block;
+  margin-bottom: 0.22rem;
+  color: #82500f;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
 
 .solution-detail {
   border-color: #bcded4;
@@ -4174,6 +4265,10 @@ textarea:focus-visible,
   .faq-category-count { margin-left: 3.25rem; }
   .faq-item-actions { width: 100%; }
   .faq-item-actions .btn { flex: 1; }
+  .knowledge-detail-heading { align-items: flex-start; flex-direction: column; }
+  .knowledge-detail-heading > span { text-align: left; }
+  .knowledge-risk-summary { grid-template-columns: 1fr; }
+  .knowledge-risk-list { grid-template-columns: 1fr; }
   .footer-content { align-items: flex-start; gap: 0.6rem; flex-direction: column; }
 }
 
@@ -4188,7 +4283,7 @@ textarea:focus-visible,
   }
 }
 
-/* Multi-category selection in HSE Assistant */
+/* Multi-category selection in HSSE Assistant */
 .guided-cat-help {
   margin: -0.35rem 0 0.9rem;
   color: var(--text-muted);

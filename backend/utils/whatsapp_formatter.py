@@ -1,8 +1,8 @@
 import urllib.parse
-from config.settings import NAMA_SISTEM, dapatkan_petugas_per_kategori, DAFTAR_PETUGAS_HSE
+from config.settings import NAMA_SISTEM, dapatkan_petugas_per_kategori, DAFTAR_PETUGAS_HSSE
 
 def susun_pesan_whatsapp(konteks, umpan_balik=None, nomor_petugas_pilihan=None):
-    """Menyusun teks pesan otomatis WhatsApp untuk dilaporkan ke Petugas HSE."""
+    """Menyusun teks pesan otomatis WhatsApp untuk dilaporkan ke Petugas HSSE."""
     if not isinstance(konteks, dict):
         konteks = {}
 
@@ -41,7 +41,7 @@ def susun_pesan_whatsapp(konteks, umpan_balik=None, nomor_petugas_pilihan=None):
     peran_tujuan = petugas_ditunjuk.get("peran") or petugas_ditunjuk.get("role")
 
     if nomor_petugas_pilihan:
-        for petugas in DAFTAR_PETUGAS_HSE.values():
+        for petugas in DAFTAR_PETUGAS_HSSE.values():
             no = petugas.get("nomor") or petugas.get("number")
             if no == nomor_petugas_pilihan:
                 nama_tujuan = petugas.get("nama") or petugas.get("name")
@@ -101,12 +101,12 @@ def susun_pesan_whatsapp(konteks, umpan_balik=None, nomor_petugas_pilihan=None):
         for idx, langkah in enumerate(daftar_langkah[:3], 1):
             baris_pesan.append(f"{idx}. {str(langkah)}")
     else:
-        baris_pesan.append("1. Konsultasi awal dan analisis mandiri SIGAP-AI HSE")
+        baris_pesan.append("1. Konsultasi awal dan analisis mandiri SIGAP-AI HSSE")
 
     baris_pesan.extend([
         "",
         "Hasil:",
-        str(umpan_balik or "Kondisi bahaya memerlukan penanganan langsung oleh Tim HSE"),
+        str(umpan_balik or "Kondisi bahaya memerlukan penanganan langsung oleh Tim HSSE"),
         "",
         "Tingkat Urgensi:",
         urgensi,

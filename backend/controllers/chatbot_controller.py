@@ -2,7 +2,7 @@ import uuid
 from validators.request_validator import validate_chat_request, validate_resolution_request
 from utils.response_formatter import success_response, error_response
 from utils.whatsapp_formatter import susun_pesan_whatsapp
-from config.settings import DAFTAR_PETUGAS_HSE, dapatkan_petugas_per_kategori
+from config.settings import DAFTAR_PETUGAS_HSSE, dapatkan_petugas_per_kategori
 from services.cache_service import cache_service
 from services.context_service import layanan_konteks
 from services.retrieval_service import retrieval_service
@@ -126,7 +126,7 @@ class PengontrolChatbot:
         if muatan_tercache and not hasil_konteks["needs_clarification"]:
             muatan_tercache["session_id"] = id_sesi
             conversation_repo.add_message(id_sesi, "assistant", muatan_tercache["response"], meta={"cached": True})
-            return success_response(data=muatan_tercache, message="Analisis HSE berhasil (Cache HIT).")
+            return success_response(data=muatan_tercache, message="Analisis HSSE berhasil (Cache HIT).")
 
         # Cek Klarifikasi
         if hasil_konteks["needs_clarification"]:
@@ -201,13 +201,13 @@ class PengontrolChatbot:
         )
         permintaan_langsung = any(
             f" {normalisasi_teks(frasa)} " in pesan_berbatas
-            for frasa in ["eskalasi", "hubungi safety", "butuh hse", "safety officer", "darurat"]
+            for frasa in ["eskalasi", "hubungi safety", "butuh hsse", "butuh hse", "safety officer", "darurat"]
         )
         hasil_eskalasi = layanan_eskalasi.periksa_eskalasi(
             pesan_pengguna, konteks, entri_kb=entri_teratas, tingkat_relevansi=tingkat_relevansi, langkah_gagal=langkah_gagal, permintaan_langsung=permintaan_langsung
         )
 
-        # 4. Hasilkan Jawaban Analisis HSE
+        # 4. Hasilkan Jawaban Analisis HSSE
         jawaban_ai = layanan_ai.buat_jawaban(
             pesan_pengguna,
             entri_teratas,
@@ -265,7 +265,7 @@ class PengontrolChatbot:
             "needs_escalation": hasil_eskalasi["needs_escalation"],
             "escalation_data": hasil_eskalasi["escalation_data"],
             "assigned_technician": petugas_ditunjuk,
-            "technician_roster": list(DAFTAR_PETUGAS_HSE.values()),
+            "technician_roster": list(DAFTAR_PETUGAS_HSSE.values()),
             "whatsapp_url": tautan_wa,
             "whatsapp_message": teks_wa_mentah,
             "context": konteks
@@ -278,7 +278,7 @@ class PengontrolChatbot:
             version=knowledge_version,
         )
 
-        return success_response(data=muatan_data, message="Analisis HSE berhasil.")
+        return success_response(data=muatan_data, message="Analisis HSSE berhasil.")
 
     def selesaikan_masalah(self, data):
         kesalahan = validate_resolution_request(data)
@@ -319,10 +319,10 @@ class PengontrolChatbot:
 
             return success_response(
                 data={"session_id": id_sesi, "status": "selesai"},
-                message="Kondisi bahaya telah ditangani. Terima kasih telah menggunakan SIGAP-AI HSE Companion."
+                message="Kondisi bahaya telah ditangani. Terima kasih telah menggunakan SIGAP-AI HSSE Companion."
             )
         else:
-            konteks["status"] = "perlu_bantuan_hse"
+            konteks["status"] = "perlu_bantuan_hsse"
             if id_sesi:
                 conversation_repo.update_context(id_sesi, konteks)
 
@@ -333,15 +333,16 @@ class PengontrolChatbot:
             return success_response(
                 data={
                     "session_id": id_sesi,
-                    "status": "perlu_bantuan_hse",
+                    "status": "perlu_bantuan_hsse",
+                    "can_contact_hsse": True,
                     "can_contact_hse": True,
                     "assigned_technician": petugas_ditunjuk,
-                    "technician_roster": list(DAFTAR_PETUGAS_HSE.values()),
+                    "technician_roster": list(DAFTAR_PETUGAS_HSSE.values()),
                     "whatsapp_url": tautan_wa,
                     "whatsapp_message": teks_wa_mentah,
                     "context": konteks
                 },
-                message="Kondisi memerlukan penanganan langsung oleh Tim HSE."
+                message="Kondisi memerlukan penanganan langsung oleh Tim HSSE."
             )
 
     def reset_percakapan(self, data):

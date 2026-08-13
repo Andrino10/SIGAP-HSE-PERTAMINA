@@ -1,5 +1,5 @@
 from repositories.knowledge_repository import knowledge_repo
-from config.settings import DAFTAR_PETUGAS_HSE
+from config.settings import DAFTAR_PETUGAS_HSSE
 from utils.response_formatter import error_response, success_response
 
 class PengontrolKnowledge:
@@ -12,7 +12,7 @@ class PengontrolKnowledge:
                 "total": len(entri),
                 "metadata": metadata,
             },
-            message="Knowledge Base HSE berhasil diambil dari knowledge.json.",
+            message="Knowledge Base HSSE berhasil diambil dari knowledge.json.",
             meta={
                 "knowledge_source": metadata["source"],
                 "knowledge_valid": metadata["valid"],
@@ -29,7 +29,7 @@ class PengontrolKnowledge:
                 "details": category_details,
                 "total": len(category_names),
             },
-            message="Daftar kategori HSE berhasil dibentuk dari knowledge.json.",
+            message="Daftar kategori HSSE berhasil dibentuk dari knowledge.json.",
         )
 
     def ambil_metadata(self):
@@ -51,7 +51,7 @@ class PengontrolKnowledge:
         )
 
     def ambil_petugas(self):
-        return success_response(data={"technicians": list(DAFTAR_PETUGAS_HSE.values()), "petugas": list(DAFTAR_PETUGAS_HSE.values())}, message="Daftar roster Tim HSE berhasil diambil.")
+        return success_response(data={"technicians": list(DAFTAR_PETUGAS_HSSE.values()), "petugas": list(DAFTAR_PETUGAS_HSSE.values())}, message="Daftar roster Tim HSSE berhasil diambil.")
 
     def get_all(self):
         return self.ambil_semua()

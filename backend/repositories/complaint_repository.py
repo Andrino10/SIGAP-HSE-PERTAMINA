@@ -52,7 +52,7 @@ class ComplaintRepository:
                 "description": complaint_data.get("description", ""),
                 "urgency": complaint_data.get("urgency", "Sedang"),
                 "status": "Submitted",
-                "assigned_engineer": "Tim HSE / Safety Officer",
+                "assigned_engineer": "Tim HSSE / Safety Officer",
                 "created_at": now_iso,
                 "attachment": complaint_data.get("attachment", None)
             }

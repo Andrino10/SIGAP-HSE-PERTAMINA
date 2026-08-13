@@ -85,9 +85,9 @@ const productionContext = vm.createContext({
   document: documentStub,
   window: {
     location: {
-      hostname: 'sigap-hse.vercel.app',
+      hostname: 'sigap-hsse.vercel.app',
       protocol: 'https:',
-      origin: 'https://sigap-hse.vercel.app',
+      origin: 'https://sigap-hsse.vercel.app',
       port: '',
     },
   },
@@ -100,7 +100,7 @@ const productionContext = vm.createContext({
 vm.runInContext(appSource, productionContext, { filename: appPath });
 assert.equal(
   vm.runInContext('URL_DASAR_API', productionContext),
-  'https://sigap-hse.vercel.app/api',
+  'https://sigap-hsse.vercel.app/api',
   'Deployment Vercel harus memakai API pada origin HTTPS yang sama.',
 );
 
@@ -299,9 +299,19 @@ const structuredRiskHtml = run(`formatStructuredResponseHTML(
 )`);
 assert.match(structuredRiskHtml, /res-analysis-summary/, 'Analisis risiko harus memiliki ringkasan temuan.');
 assert.match(structuredRiskHtml, /res-analysis-points/, 'Analisis risiko panjang harus dipecah menjadi poin yang mudah dibaca.');
-assert.match(structuredRiskHtml, /Mengapa berbahaya/, 'Mekanisme bahaya harus diberi label yang jelas.');
-assert.match(structuredRiskHtml, /Dampak potensial/, 'Dampak risiko harus diberi label yang jelas.');
-assert.match(structuredRiskHtml, /Verifikasi lapangan/, 'Kebutuhan verifikasi harus diberi label yang jelas.');
+assert.match(structuredRiskHtml, /Mengapa kondisi ini berbahaya/, 'Mekanisme bahaya harus diberi label yang jelas.');
+assert.match(structuredRiskHtml, /Dampak yang dapat terjadi/, 'Dampak risiko harus diberi label yang jelas.');
+assert.match(structuredRiskHtml, /Verifikasi sebelum bekerja/, 'Kebutuhan verifikasi harus diberi label yang jelas.');
+
+const knowledgeRiskHtml = run(`buatHtmlAnalisisRisikoKnowledge(
+  'Kabel terbuka berada di jalur pekerja. Tanpa pengendalian, pekerja dapat menyentuh konduktor. Mekanisme bahayanya adalah kontak dengan bagian bertegangan. Konsekuensi yang perlu dicegah adalah sengatan dan kebakaran. Faktor penentu meliputi tegangan dan jumlah pekerja terpapar. Temuan harus diverifikasi terhadap kondisi aktual dan SOP.'
+)`);
+assert.match(knowledgeRiskHtml, /knowledge-risk-summary/, 'Direktori harus menampilkan ringkasan analisis risiko.');
+assert.match(knowledgeRiskHtml, /knowledge-risk-list/, 'Direktori harus memecah uraian panjang menjadi daftar poin.');
+assert.match(knowledgeRiskHtml, /Bahaya utama/, 'Direktori harus memberi label pada bahaya utama.');
+assert.match(knowledgeRiskHtml, /Faktor yang memperbesar risiko/, 'Direktori harus menjelaskan faktor risiko secara terpisah.');
+assert.match(indexHtml, /Direktori keselamatan kerja HSSE/i, 'Nama direktori harus memakai HSSE.');
+assert.doesNotMatch(indexHtml, /\bHSE\b/, 'Antarmuka utama tidak boleh menampilkan branding HSE lama.');
 assert.equal(run("deteksiKategoriDariPesan('Ada kabel listrik terbuka di dekat panel')"), 'Kelistrikan');
 assert.equal(run("deteksiKategoriDariPesan('Pekerja mengelas tanpa fire watcher')"), 'Pekerjaan Panas (Hot Work)');
 assert.equal(run("deteksiKategoriDariPesan('Kondisi yang belum dapat dikenali')"), null);

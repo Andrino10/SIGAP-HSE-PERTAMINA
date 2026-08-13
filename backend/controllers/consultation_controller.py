@@ -19,7 +19,7 @@ class PengontrolKonsultasi:
                 "session_id": catatan.get("session_id"),
                 "ticket_number": catatan.get("ticket_number"),
             },
-            message="Sesi konsultasi HSE berhasil didaftarkan.",
+            message="Sesi konsultasi HSSE berhasil didaftarkan.",
             code=201
         )
 

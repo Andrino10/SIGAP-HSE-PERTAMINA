@@ -1,6 +1,6 @@
 /**
- * SIGAP-AI HSE Companion — Application Script
- * Sistem Pendamping Keselamatan Kerja berbasis AI (Tanpa Login + Dedicated HSE Officers + Rich Response)
+ * SIGAP-AI HSSE Companion — Application Script
+ * Sistem Pendamping Keselamatan Kerja berbasis AI (Tanpa Login + Dedicated HSSE Officers + Rich Response)
  * Variabel & Fungsi dalam Bahasa Indonesia
  */
 
@@ -21,7 +21,7 @@ let idSesiSaatIni = buatIdSesiChat();
 let currentSessionId = idSesiSaatIni;
 
 let daftarEntriFaq = [];
-let daftarPetugasHse = [];
+let daftarPetugasHsse = [];
 let petugasTerpilihSaatIni = null;
 let tautanWhatsAppTerakhir = null;
 let pesanWhatsAppTerakhir = null;
@@ -30,8 +30,10 @@ let pembuatPemberhentiDebounce = null;
 let kategoriTerpilih = [];
 let kelompokKategoriTerpilih = null;
 const MAKSIMAL_KATEGORI_TERPILIH = 5;
-const KUNCI_RIWAYAT_CHAT = 'sigap_hse_chat_sessions_v1';
-const KUNCI_SESI_CHAT_AKTIF = 'sigap_hse_active_chat_v1';
+const KUNCI_RIWAYAT_CHAT = 'sigap_hsse_chat_sessions_v1';
+const KUNCI_SESI_CHAT_AKTIF = 'sigap_hsse_active_chat_v1';
+const KUNCI_RIWAYAT_CHAT_LEGACY = 'sigap_hse_chat_sessions_v1';
+const KUNCI_SESI_CHAT_AKTIF_LEGACY = 'sigap_hse_active_chat_v1';
 const ATURAN_DETEKSI_KATEGORI = [
   ['Kelistrikan', ['listrik', 'kabel', 'tegangan', 'panel', 'stop kontak', 'korsleting', 'setrum']],
   ['Alat Pelindung Diri (APD)', ['apd', 'helm', 'safety shoes', 'sarung tangan', 'goggles', 'masker', 'rompi']],
@@ -183,7 +185,7 @@ let detailKategoriKnowledge = [];
 let percobaanKesehatanBackend = 0;
 
 const KONFIGURASI_KOLOM_WHATSAPP = [
-  { id: 'wa-tech-select', label: 'HSE Officer tujuan', jenis: 'petugas' },
+  { id: 'wa-tech-select', label: 'HSSE Officer tujuan', jenis: 'petugas' },
   { id: 'wa-input-name', label: 'Nama pelapor', min: 2, larangan: ['pelapor anonim', 'anonim'] },
   { id: 'wa-input-division', label: 'Fungsi / Divisi', min: 2 },
   { id: 'wa-input-location', label: 'Lokasi temuan', min: 3 },
@@ -194,7 +196,7 @@ const KONFIGURASI_KOLOM_WHATSAPP = [
 ];
 
 let faqGlobalEntries = daftarEntriFaq;
-let technicianRoster = daftarPetugasHse;
+let technicianRoster = daftarPetugasHsse;
 let currentAssignedTech = petugasTerpilihSaatIni;
 let lastWhatsAppUrl = tautanWhatsAppTerakhir;
 let lastWhatsAppMessage = pesanWhatsAppTerakhir;
@@ -316,7 +318,7 @@ function buatOpsiKategoriTerkelompok(categories, nilaiAwal, labelAwal, tampilkan
   return options.join('');
 }
 
-const DAFTAR_PETUGAS_HSE_FALLBACK = [
+const DAFTAR_PETUGAS_HSSE_FALLBACK = [
   { nama: 'M. Solihin', peran: 'Superintendent HSSE PT Pertamina EP Lirik Field', nomor: '6281234567890' },
   { nama: 'Juni Trihardiyanto', peran: 'Senior Safety Lead (SIKA, JSA & APD)', nomor: '6281234567891' },
   { nama: 'Dr. Irsyad Yoga', peran: 'Chief Medical Officer & Health Lead', nomor: '6281234567892' },
@@ -564,18 +566,18 @@ function tampilkanNotifikasi(pesan, jenis = 'info') {
 function petugasBerdasarkanNama(nama) {
   if (!nama) return null;
   const target = nama.toLowerCase();
-  return daftarPetugasHse.find(p => String(p.nama || p.name || '').toLowerCase() === target)
-    || DAFTAR_PETUGAS_HSE_FALLBACK.find(p => p.nama.toLowerCase() === target)
+  return daftarPetugasHsse.find(p => String(p.nama || p.name || '').toLowerCase() === target)
+    || DAFTAR_PETUGAS_HSSE_FALLBACK.find(p => p.nama.toLowerCase() === target)
     || null;
 }
 
 function petugasBerdasarkanKategori(kategori) {
-  const dariApi = daftarPetugasHse.find(p => String(p.kategori || p.category || '').toLowerCase() === String(kategori || '').toLowerCase());
-  return dariApi || petugasBerdasarkanNama(PETA_PETUGAS_KATEGORI[kategori]) || DAFTAR_PETUGAS_HSE_FALLBACK[0];
+  const dariApi = daftarPetugasHsse.find(p => String(p.kategori || p.category || '').toLowerCase() === String(kategori || '').toLowerCase());
+  return dariApi || petugasBerdasarkanNama(PETA_PETUGAS_KATEGORI[kategori]) || DAFTAR_PETUGAS_HSSE_FALLBACK[0];
 }
 
-function daftarKontakHse() {
-  return DAFTAR_PETUGAS_HSE_FALLBACK.map(petugas => {
+function daftarKontakHsse() {
+  return DAFTAR_PETUGAS_HSSE_FALLBACK.map(petugas => {
     const versiApi = petugasBerdasarkanNama(petugas.nama);
     return versiApi ? { ...petugas, ...versiApi } : petugas;
   });
@@ -871,7 +873,10 @@ function inisialisasiModeChatSeluler() {
 
 function bacaRiwayatChatLokal() {
   try {
-    const data = JSON.parse(window.localStorage.getItem(KUNCI_RIWAYAT_CHAT) || '[]');
+    const dataTersimpan = window.localStorage.getItem(KUNCI_RIWAYAT_CHAT)
+      || window.localStorage.getItem(KUNCI_RIWAYAT_CHAT_LEGACY)
+      || '[]';
+    const data = JSON.parse(dataTersimpan);
     if (!Array.isArray(data)) return [];
     return data
       .filter(item => item && typeof item.id === 'string')
@@ -887,7 +892,7 @@ function bacaRiwayatChatLokal() {
         pesan: Array.isArray(item.pesan)
           ? item.pesan.filter(message => message && typeof message.teks === 'string').map(message => ({
               peran: message.peran === 'user' ? 'user' : 'system',
-              pengirim: String(message.pengirim || (message.peran === 'user' ? 'Pelapor' : 'SIGAP-AI HSE Companion')),
+              pengirim: String(message.pengirim || (message.peran === 'user' ? 'Pelapor' : 'SIGAP-AI HSSE Companion')),
               teks: message.teks,
               terstruktur: Boolean(message.terstruktur),
               waktu: message.waktu || item.diperbarui || new Date().toISOString()
@@ -1020,7 +1025,7 @@ function aturStatusPengirimanChat(aktif) {
 function htmlPembukaChat() {
   return `
     <div class="chat-bubble system-bubble">
-      <div class="bubble-sender">SIGAP-AI HSE Companion</div>
+      <div class="bubble-sender">SIGAP-AI HSSE Companion</div>
       <div class="bubble-text">Selamat datang di Sistem Pendamping Keselamatan Kerja! Langsung tuliskan kondisi bahaya yang Anda temui. Sistem akan membantu menentukan kategorinya secara otomatis.</div>
     </div>
   `;
@@ -1065,7 +1070,8 @@ function inisialisasiRiwayatSesiChat() {
   daftarSesiChatLokal = bacaRiwayatChatLokal();
   let idTersimpan = null;
   try {
-    idTersimpan = window.localStorage.getItem(KUNCI_SESI_CHAT_AKTIF);
+    idTersimpan = window.localStorage.getItem(KUNCI_SESI_CHAT_AKTIF)
+      || window.localStorage.getItem(KUNCI_SESI_CHAT_AKTIF_LEGACY);
   } catch (error) {}
   const session = daftarSesiChatLokal.find(item => item.id === idTersimpan)
     || daftarSesiChatLokal[0]
@@ -1100,7 +1106,7 @@ function perbaruiKategoriPadaSesiChat() {
 
 function pilihSesiChat(sessionId) {
   if (pengirimanChatBerlangsung) {
-    tampilkanNotifikasi('Tunggu analisis HSE selesai sebelum berpindah sesi.', 'warning');
+    tampilkanNotifikasi('Tunggu analisis HSSE selesai sebelum berpindah sesi.', 'warning');
     return;
   }
   const session = daftarSesiChatLokal.find(item => item.id === sessionId);
@@ -1144,7 +1150,7 @@ function closeChatDrawer() { tutupDrawerChat(true); }
 
 function mulaiPercakapanChatBaru() {
   if (pengirimanChatBerlangsung) {
-    tampilkanNotifikasi('Tunggu analisis HSE selesai sebelum membuat percakapan baru.', 'warning');
+    tampilkanNotifikasi('Tunggu analisis HSSE selesai sebelum membuat percakapan baru.', 'warning');
     return;
   }
   const sessionAktif = dapatkanSesiChatAktif();
@@ -1169,11 +1175,11 @@ function bukaKnowledgeDariDrawerChat() {
 }
 function openKnowledgeFromChatDrawer() { bukaKnowledgeDariDrawerChat(); }
 
-function bukaKontakHseDariDrawerChat() {
+function bukaKontakHsseDariDrawerChat() {
   tutupDrawerChat(false);
   bukaWhatsAppLangsung();
 }
-function openHseContactFromChatDrawer() { bukaKontakHseDariDrawerChat(); }
+function openHsseContactFromChatDrawer() { bukaKontakHsseDariDrawerChat(); }
 
 function tampilkanKelompokKategoriBeranda() {
   const container = document.querySelector('#section-services .category-grid');
@@ -1371,7 +1377,7 @@ async function periksaKesehatanBackend() {
       if (indikator) {
         indikator.className = 'status-indicator online';
         indikator.querySelector('.status-label').textContent = 'SISTEM SIAP';
-        indikator.title = 'Layanan HSE terhubung';
+        indikator.title = 'Layanan HSSE terhubung';
       }
     } else {
       throw new Error();
@@ -1380,7 +1386,7 @@ async function periksaKesehatanBackend() {
     if (indikator) {
       indikator.className = 'status-indicator offline';
       indikator.querySelector('.status-label').textContent = 'MODE OFFLINE';
-      indikator.title = 'Layanan HSE belum terhubung';
+      indikator.title = 'Layanan HSSE belum terhubung';
     }
     if (percobaanKesehatanBackend < 3) {
       percobaanKesehatanBackend += 1;
@@ -1393,11 +1399,11 @@ function checkBackendHealth() { periksaKesehatanBackend(); }
 async function muatRosterPetugas() {
   try {
     const res = await fetchDenganBatasWaktu(`${URL_DASAR_API}/knowledge/technicians`, {}, 8000);
-    if (!res.ok) throw new Error('Gagal memuat roster HSE');
+    if (!res.ok) throw new Error('Gagal memuat roster HSSE');
     const data = await res.json();
     if (data.success && data.data) {
-      daftarPetugasHse = data.data.petugas || data.data.technicians || [];
-      technicianRoster = daftarPetugasHse;
+      daftarPetugasHsse = data.data.petugas || data.data.technicians || [];
+      technicianRoster = daftarPetugasHsse;
       tampilkanSeluruhKategoriChat();
     }
   } catch (err) {}
@@ -1462,7 +1468,7 @@ async function kirimFormulirKonsultasi() {
     }
     berhasilTersimpan = true;
   } catch (err) {
-    tampilkanNotifikasi('Draf tersimpan di sesi ini, tetapi belum tercatat di server. Anda tetap dapat melanjutkan ke Asisten HSE atau WhatsApp.', 'warning');
+    tampilkanNotifikasi('Draf tersimpan di sesi ini, tetapi belum tercatat di server. Anda tetap dapat melanjutkan ke Asisten HSSE atau WhatsApp.', 'warning');
   } finally {
     if (tombolKirim) {
       tombolKirim.disabled = false;
@@ -1472,7 +1478,7 @@ async function kirimFormulirKonsultasi() {
     const pesanPilihan = document.getElementById('consultation-choice-message');
     if (pesanPilihan) {
       pesanPilihan.textContent = berhasilTersimpan
-        ? `Laporan telah tersimpan${muatanKonsultasiTertunda?.ticket_number ? ` dengan tiket ${muatanKonsultasiTertunda.ticket_number}` : ''}. Pilih analisis otomatis atau hubungi Tim HSE secara langsung.`
+        ? `Laporan telah tersimpan${muatanKonsultasiTertunda?.ticket_number ? ` dengan tiket ${muatanKonsultasiTertunda.ticket_number}` : ''}. Pilih analisis otomatis atau hubungi Tim HSSE secara langsung.`
         : 'Draf laporan tersedia di sesi ini. Pilih metode penanganan untuk melanjutkan.';
     }
     tutupModalKonsultasi();
@@ -1522,7 +1528,7 @@ async function lanjutkanKeWhatsAppLangsung() {
         session_id: idSesiSaatIni,
         id_sesi: idSesiSaatIni,
         resolved: false,
-        feedback: 'Laporan langsung ke Tim HSE via WhatsApp',
+        feedback: 'Laporan langsung ke Tim HSSE via WhatsApp',
         ...(muatanKonsultasiTertunda || {})
       })
     }, 12000);
@@ -1543,7 +1549,7 @@ async function lanjutkanKeWhatsAppLangsung() {
 function proceedToDirectWhatsAppConsultation() { lanjutkanKeWhatsAppLangsung(); }
 
 // ==========================================================================
-// 4. Engine Chatbot HSE & Rendering Respons Terstruktur
+// 4. Engine Chatbot HSSE & Rendering Respons Terstruktur
 // ==========================================================================
 const CONTOH_KATEGORI = {
   "Alat Pelindung Diri (APD)": [
@@ -1603,7 +1609,7 @@ const CONTOH_KATEGORI = {
   "Pengawasan & Prosedur": [
     { judul: "Pekerjaan Tanpa SOP", teks: "Pekerjaan berisiko tinggi dilakukan tanpa mengikuti SOP" },
     { judul: "Tanpa Briefing TBM", teks: "Pekerjaan dimulai tanpa pelaksanaan Toolbox Meeting (TBM)" },
-    { judul: "Pengawasan Tidak Ada", teks: "Pekerjaan lapangan berlangsung tanpa pengawasan supervisor HSE" }
+    { judul: "Pengawasan Tidak Ada", teks: "Pekerjaan lapangan berlangsung tanpa pengawasan supervisor HSSE" }
   ],
   "Umum": [
     { judul: "Bahaya Campuran APD & Area Kerja", teks: "Laporan kombinasi pelanggaran APD dan kondisi area kerja tidak aman" },
@@ -1739,7 +1745,7 @@ function perbaruiTampilanKategoriTerpilih() {
 
   const kategoriUtama = categories[0];
   const cocok = petugasBerdasarkanKategori(kategoriUtama || 'Umum');
-  const namaPetugas = cocok.nama || cocok.name || 'Tim HSE';
+  const namaPetugas = cocok.nama || cocok.name || 'Tim HSSE';
   const peranPetugas = cocok.peran || cocok.role || 'Safety Officer / Supervisor';
   petugasTerpilihSaatIni = categories.length > 0 ? cocok : null;
 
@@ -1750,7 +1756,7 @@ function perbaruiTampilanKategoriTerpilih() {
   }
   if (teksBanner) {
     teksBanner.innerHTML = kelompokAktif
-      ? `<div><strong>Kelompok aktif: ${sanitasiHtml(kelompokAktif.nama)}</strong><small>${kategoriUtama ? `Kategori rinci terdeteksi: <strong>${sanitasiHtml(kategoriUtama)}</strong>. Pendamping: <strong>${sanitasiHtml(namaPetugas)}</strong> (${sanitasiHtml(peranPetugas)}).` : 'Tuliskan kondisi bahaya; kategori rinci dan pendamping HSE akan menyesuaikan otomatis.'}</small></div>`
+      ? `<div><strong>Kelompok aktif: ${sanitasiHtml(kelompokAktif.nama)}</strong><small>${kategoriUtama ? `Kategori rinci terdeteksi: <strong>${sanitasiHtml(kategoriUtama)}</strong>. Pendamping: <strong>${sanitasiHtml(namaPetugas)}</strong> (${sanitasiHtml(peranPetugas)}).` : 'Tuliskan kondisi bahaya; kategori rinci dan pendamping HSSE akan menyesuaikan otomatis.'}</small></div>`
       : '<strong>Kelompok bersifat opsional:</strong> Pilih salah satu dari 6 kelompok utama atau langsung tulis laporan agar sistem menentukan kelompok dan kategori rincinya.';
   }
 
@@ -1902,7 +1908,7 @@ async function kirimPesanChat() {
     hapusIndikatorPengetikan(idPengetikan);
 
     if (res.ok && data.success) {
-      tambahkanGelembungChatTerstruktur('system', 'SIGAP-AI HSE Companion', data.data.response || data.data.jawaban);
+      tambahkanGelembungChatTerstruktur('system', 'SIGAP-AI HSSE Companion', data.data.response || data.data.jawaban);
 
       const kategoriRespons = Array.isArray(data.data.categories)
         ? data.data.categories.filter(Boolean)
@@ -1921,7 +1927,7 @@ async function kirimPesanChat() {
       tautanWhatsAppTerakhir = data.data.whatsapp_url;
       pesanWhatsAppTerakhir = data.data.whatsapp_message;
       if (data.data.technician_roster || data.data.petugas) {
-        daftarPetugasHse = data.data.technician_roster || data.data.petugas;
+        daftarPetugasHsse = data.data.technician_roster || data.data.petugas;
       }
 
       tampilkanBilahPenyelesaian();
@@ -1930,11 +1936,11 @@ async function kirimPesanChat() {
         tambahkanPetunjukEskalasi(data.data.whatsapp_url);
       }
     } else {
-      tambahkanGelembungChat('system', 'SIGAP-AI HSE Companion', 'Sistem belum dapat menganalisis laporan karena layanan mengalami gangguan. Silakan coba kembali.');
+      tambahkanGelembungChat('system', 'SIGAP-AI HSSE Companion', 'Sistem belum dapat menganalisis laporan karena layanan mengalami gangguan. Silakan coba kembali.');
     }
   } catch (err) {
     hapusIndikatorPengetikan(idPengetikan);
-    tambahkanGelembungChat('system', 'SIGAP-AI HSE Companion', 'Layanan analisis belum dapat dihubungi. Coba kembali atau eskalasikan langsung ke Tim HSE.');
+    tambahkanGelembungChat('system', 'SIGAP-AI HSSE Companion', 'Layanan analisis belum dapat dihubungi. Coba kembali atau eskalasikan langsung ke Tim HSSE.');
     tampilkanNotifikasi('Layanan analisis belum terhubung.', 'error');
   } finally {
     aturStatusPengirimanChat(false);
@@ -1973,7 +1979,7 @@ async function tanganiMasalahSelesai(apakahSelesai) {
     const data = await res.json();
 
     if (apakahSelesai) {
-      tambahkanGelembungChat('system', 'SIGAP-AI HSE Companion', 'Laporan telah dicatat dan kondisi bahaya ditangani. Terima kasih telah mengutamakan keselamatan kerja!');
+      tambahkanGelembungChat('system', 'SIGAP-AI HSSE Companion', 'Laporan telah dicatat dan kondisi bahaya ditangani. Terima kasih telah mengutamakan keselamatan kerja!');
     } else {
       petugasTerpilihSaatIni = data.data.assigned_technician || data.data.petugas_ditunjuk || petugasTerpilihSaatIni;
       tautanWhatsAppTerakhir = data.data.whatsapp_url;
@@ -2001,27 +2007,35 @@ function pecahKalimatAnalisisRisiko(teks) {
 
 function labelPoinAnalisisRisiko(kalimat, indeks) {
   const nilai = String(kalimat || '').toLocaleLowerCase('id-ID');
-  if (/mekanisme|berkaitan|sumber bahaya/.test(nilai)) return 'Mengapa berbahaya';
-  if (/konsekuensi|dampak|bila|berisiko|meningkatkan risiko/.test(nilai)) return 'Dampak potensial';
-  if (/faktor|tingkat risiko|paparan/.test(nilai)) return 'Faktor penentu';
-  if (/verifik|dicocokkan|jsa|sop|izin kerja/.test(nilai)) return 'Verifikasi lapangan';
-  return `Analisis ${indeks + 1}`;
+  if (/verifik|dicocokkan|jsa|sop|izin kerja|sebelum pekerjaan/.test(nilai)) return 'Verifikasi sebelum bekerja';
+  if (/faktor|tingkat risiko|durasi|intensitas|jumlah orang|efektivitas barrier/.test(nilai)) return 'Faktor yang memperbesar risiko';
+  if (/konsekuensi|dampak|dapat mengalami|cedera|kerusakan|pencemaran/.test(nilai)) return 'Dampak yang dapat terjadi';
+  if (/mekanisme|berkaitan|sumber bahaya|kegagalan/.test(nilai)) return 'Mengapa kondisi ini berbahaya';
+  if (/tanpa|tidak adanya|meningkatkan kemungkinan|meningkatkan risiko|berisiko/.test(nilai)) return 'Bahaya utama';
+  return indeks === 0 ? 'Bahaya utama' : 'Poin penting';
+}
+
+function buatDataAnalisisRisiko(teks) {
+  const { judul, kalimat } = pecahKalimatAnalisisRisiko(teks);
+  if (kalimat.length === 0) return { judul, ringkasan: '', poin: [] };
+
+  return {
+    judul,
+    ringkasan: kalimat[0],
+    poin: kalimat.slice(1).map((isi, indeks) => ({
+      label: labelPoinAnalisisRisiko(isi, indeks),
+      isi
+    }))
+  };
 }
 
 function buatHtmlAnalisisRisiko(teks, indeksKelompok) {
-  const { judul, kalimat } = pecahKalimatAnalisisRisiko(teks);
-  if (kalimat.length === 0) return '';
-  const ringkasan = sanitasiHtml(kalimat[0]);
-  const kelompokPoin = new Map();
-  kalimat.slice(1).forEach((item, indeks) => {
-    const label = labelPoinAnalisisRisiko(item, indeks);
-    if (!kelompokPoin.has(label)) kelompokPoin.set(label, []);
-    kelompokPoin.get(label).push(item);
-  });
-  const poin = [...kelompokPoin.entries()].map(([label, items]) => `
+  const { judul, ringkasan, poin } = buatDataAnalisisRisiko(teks);
+  if (!ringkasan) return '';
+  const poinHtml = poin.map(item => `
       <div class="res-analysis-point">
-        <span>${sanitasiHtml(label)}</span>
-        <p>${sanitasiHtml(items.join(' '))}</p>
+        <span>${sanitasiHtml(item.label)}</span>
+        <p>${sanitasiHtml(item.isi)}</p>
       </div>
     `).join('');
   return `
@@ -2029,14 +2043,39 @@ function buatHtmlAnalisisRisiko(teks, indeksKelompok) {
       ${judul ? `<div class="res-analysis-heading">${sanitasiHtml(judul)}</div>` : (indeksKelompok > 0 ? `<div class="res-analysis-heading">Analisis tambahan</div>` : '')}
       <div class="res-analysis-summary">
         <span aria-hidden="true"></span>
-        <p>${ringkasan}</p>
+        <p>${sanitasiHtml(ringkasan)}</p>
       </div>
-      ${poin ? `<div class="res-analysis-points">${poin}</div>` : ''}
+      ${poinHtml ? `<div class="res-analysis-points">${poinHtml}</div>` : ''}
     </section>
   `;
 }
 
-// Format Respons 6-Bagian Analisis HSE ke HTML Terstruktur (Bebas Tag <br> Mentah & Sangat Rapi)
+function buatHtmlAnalisisRisikoKnowledge(teks) {
+  const { ringkasan, poin } = buatDataAnalisisRisiko(teks);
+  if (!ringkasan) return '';
+
+  return `
+    <div class="knowledge-risk-summary">
+      <span>Ringkasan</span>
+      <p>${sanitasiHtml(ringkasan)}</p>
+    </div>
+    ${poin.length > 0 ? `
+      <ul class="knowledge-risk-list">
+        ${poin.map(item => `
+          <li>
+            <span class="knowledge-risk-marker" aria-hidden="true"></span>
+            <div>
+              <strong>${sanitasiHtml(item.label)}</strong>
+              <p>${sanitasiHtml(item.isi)}</p>
+            </div>
+          </li>
+        `).join('')}
+      </ul>
+    ` : ''}
+  `;
+}
+
+// Format Respons 6-Bagian Analisis HSSE ke HTML Terstruktur (Bebas Tag <br> Mentah & Sangat Rapi)
 function formatHtmlResponsTerstruktur(teksMentah) {
   if (!teksMentah) return '';
 
@@ -2139,7 +2178,7 @@ function formatHtmlResponsTerstruktur(teksMentah) {
             <span class="res-section-icon">${buatIkonAntarmuka('alert')}</span>
             <div>
               <div class="res-section-title">Penjelasan risiko</div>
-              <small>Ringkasan analisis bahaya berdasarkan Knowledge Base HSE</small>
+              <small>Ringkasan analisis bahaya berdasarkan Knowledge Base HSSE</small>
             </div>
           </div>
           ${paragrafPenjelasan}
@@ -2205,10 +2244,11 @@ function formatHtmlResponsTerstruktur(teksMentah) {
 
   // 7. Status Penanganan
   if (bagian.status) {
-    const butuhHse = bagian.status.toLowerCase().includes('segera') || bagian.status.toLowerCase().includes('tim hse');
+    const statusKecil = bagian.status.toLowerCase();
+    const butuhHsse = statusKecil.includes('segera') || statusKecil.includes('tim hsse') || statusKecil.includes('tim hse');
     html += `
       <div>
-        <span class="res-status-badge ${butuhHse ? 'status-need-tech' : 'status-user-try'}">
+        <span class="res-status-badge ${butuhHsse ? 'status-need-tech' : 'status-user-try'}">
           Status penanganan: ${sanitasiHtml(bagian.status)}
         </span>
       </div>
@@ -2251,7 +2291,7 @@ function pesanKesalahanKolomWhatsApp(konfigurasi, nilai) {
     return `${konfigurasi.label} minimal ${konfigurasi.min} karakter.`;
   }
   if (konfigurasi.jenis === 'petugas' && String(nilai).replace(/\D/g, '').length < 8) {
-    return 'Nomor HSE Officer tujuan tidak valid.';
+    return 'Nomor HSSE Officer tujuan tidak valid.';
   }
   return '';
 }
@@ -2281,7 +2321,7 @@ function evaluasiFormWhatsApp({ tampilkanKesalahan = false } = {}) {
     status.classList.toggle('is-complete', lengkap);
     status.classList.toggle('has-errors', !lengkap);
     status.textContent = lengkap
-      ? 'Data lengkap. Pesan siap dikirim ke HSE Officer melalui WhatsApp.'
+      ? 'Data lengkap. Pesan siap dikirim ke HSSE Officer melalui WhatsApp.'
       : `Belum lengkap (${kesalahan.length}): ${kesalahan.map(item => item.label).join(', ')}.`;
   }
 
@@ -2323,7 +2363,7 @@ function perbaruiPesanWhatsAppLangsung(opsiValidasi = {}) {
   const barisPesan = [
     `Halo ${namaPetugas} (${peranPetugas}),`,
     ``,
-    `Saya melaporkan kondisi bahaya/temuan keselamatan melalui SIGAP-AI HSE Companion.`,
+    `Saya melaporkan kondisi bahaya/temuan keselamatan melalui SIGAP-AI HSSE Companion.`,
     ``,
     `Nama Pelapor:`,
     `${tampilkanNilai(namaVal)}`,
@@ -2380,7 +2420,7 @@ function kirimLaporanWhatsApp() {
   const hasilValidasi = perbaruiPesanWhatsAppLangsung({ tampilkanKesalahan: true });
   if (!hasilValidasi.valid || !tautanWhatsAppTerakhir) {
     hasilValidasi.kesalahan[0]?.elemen?.focus();
-    tampilkanNotifikasi('Lengkapi seluruh data wajib sebelum mengirim laporan ke Tim HSE.', 'error');
+    tampilkanNotifikasi('Lengkapi seluruh data wajib sebelum mengirim laporan ke Tim HSSE.', 'error');
     return;
   }
 
@@ -2418,7 +2458,7 @@ function bukaModalWhatsApp(tautan, teksMentah) {
   const namaEl = document.getElementById('tech-assigned-name');
   const peranEl = document.getElementById('tech-assigned-role');
   const modal = document.getElementById('whatsapp-modal');
-  const daftarKontak = daftarKontakHse();
+  const daftarKontak = daftarKontakHsse();
 
   if (!petugasTerpilihSaatIni || !daftarKontak.some(p => (p.nomor || p.number) === (petugasTerpilihSaatIni.nomor || petugasTerpilihSaatIni.number))) {
     petugasTerpilihSaatIni = daftarKontak[0] || null;
@@ -2481,7 +2521,7 @@ async function saatPetugasDipilih() {
   if (!elemenPilih) return;
 
   const nomorDipilih = elemenPilih.value;
-  const cocok = daftarKontakHse().find(p => (p.nomor || p.number) === nomorDipilih);
+  const cocok = daftarKontakHsse().find(p => (p.nomor || p.number) === nomorDipilih);
 
   if (cocok) {
     petugasTerpilihSaatIni = cocok;
@@ -2505,7 +2545,7 @@ function bukaWhatsAppLangsung(namaPetugas = null) {
     const kategoriAktif = kategoriUtamaTerpilih() || document.getElementById('wa-input-category')?.value || 'Umum';
     petugasTerpilihSaatIni = petugasBerdasarkanKategori(kategoriAktif);
   }
-  bukaModalWhatsApp(tautanWhatsAppTerakhir, pesanWhatsAppTerakhir || 'Halo Tim HSE, saya ingin melaporkan temuan kondisi bahaya di area kerja.');
+  bukaModalWhatsApp(tautanWhatsAppTerakhir, pesanWhatsAppTerakhir || 'Halo Tim HSSE, saya ingin melaporkan temuan kondisi bahaya di area kerja.');
 }
 function openDirectWhatsApp(officerName = null) { bukaWhatsAppLangsung(officerName); }
 
@@ -2548,8 +2588,8 @@ function tambahkanIndikatorPengetikanKerangka() {
   gelembung.className = 'chat-bubble system-bubble skeleton-bubble';
   gelembung.id = id;
   gelembung.innerHTML = `
-    <div class="bubble-sender">SIGAP-AI HSE Companion</div>
-    <div class="bubble-text">Menganalisis kondisi bahaya & mencocokkan Knowledge Base HSE... </div>
+    <div class="bubble-sender">SIGAP-AI HSSE Companion</div>
+    <div class="bubble-text">Menganalisis kondisi bahaya & mencocokkan Knowledge Base HSSE... </div>
   `;
   aliran.appendChild(gelembung);
   aliran.scrollTop = aliran.scrollHeight;
@@ -2568,10 +2608,10 @@ function tambahkanPetunjukEskalasi() {
   gelembung.className = 'chat-bubble system-bubble escalation-bubble';
 
   const namaPetugas = petugasTerpilihSaatIni ? (petugasTerpilihSaatIni.nama || petugasTerpilihSaatIni.name) : 'Safety Officer';
-  const peranPetugas = petugasTerpilihSaatIni ? (petugasTerpilihSaatIni.peran || petugasTerpilihSaatIni.role) : 'Tim HSE';
+  const peranPetugas = petugasTerpilihSaatIni ? (petugasTerpilihSaatIni.peran || petugasTerpilihSaatIni.role) : 'Tim HSSE';
 
   gelembung.innerHTML = `
-    <div class="bubble-sender escalation-sender">REKOMENDASI PENANGANAN DENGAN TIM HSE</div>
+    <div class="bubble-sender escalation-sender">REKOMENDASI PENANGANAN DENGAN TIM HSSE</div>
     <div class="bubble-text">
       Kondisi ini tergolong berisiko tinggi / memerlukan penanganan langsung oleh <strong>${sanitasiHtml(namaPetugas)}</strong> (${sanitasiHtml(peranPetugas)}).
     </div>
@@ -2861,7 +2901,7 @@ function tampilkanEntriFaq(daftar) {
     `;
 
     daftarArtikel.forEach(item => {
-      const id = item.id || `HSE-${nomorGlobal}`;
+      const id = item.id || `HSSE-${nomorGlobal}`;
       const judul = item.judul || item.title || '-';
       const kategori = item.kategori || item.category || 'Umum';
       const tingkatRisiko = (item.tingkat_risiko || item.risk_level || 'sedang').toUpperCase();
@@ -2905,8 +2945,11 @@ function tampilkanEntriFaq(daftar) {
 
           ${penjelasanRisiko && penjelasanRisiko.trim() !== '-' ? `
             <div class="knowledge-detail-block risk-detail">
-              <div class="knowledge-detail-label">Analisis risiko K3</div>
-              <p>${sanitasiHtml(penjelasanRisiko)}</p>
+              <div class="knowledge-detail-heading">
+                <div class="knowledge-detail-label">Analisis risiko K3</div>
+                <span>Ringkasan dan poin penting untuk memudahkan pemahaman</span>
+              </div>
+              ${buatHtmlAnalisisRisikoKnowledge(penjelasanRisiko)}
             </div>
           ` : ''}
 
@@ -2952,7 +2995,7 @@ function tampilkanEntriFaq(daftar) {
                 ${buatIkonAntarmuka('bot')} Konsultasi AI
               </button>
               <button class="btn btn-sm btn-primary faq-report-action" data-title="${sanitasiHtml(judul)}" data-category="${sanitasiHtml(kategori)}">
-                ${buatIkonAntarmuka('message')} Laporkan ke HSE
+                ${buatIkonAntarmuka('message')} Laporkan ke HSSE
               </button>
             </div>
           </div>
@@ -2978,33 +3021,33 @@ function tampilkanEntriFaq(daftar) {
 }
 
 const PETA_PREFIX_ID_KATEGORI = {
-  "alat pelindung diri (apd)": ["hse-apd", "apd"],
-  "pekerjaan di ketinggian": ["hse-ketinggian", "ketinggian"],
-  "kelistrikan": ["hse-listrik", "listrik", "kelistrikan"],
-  "alat berat & kendaraan": ["hse-alatberat", "alatberat", "alat berat"],
-  "bahan kimia & b3": ["hse-kimia", "kimia", "b3"],
-  "ruang terbatas (confined space)": ["hse-confined", "confined"],
-  "pekerjaan panas (hot work)": ["hse-hotwork", "hotwork", "panas"],
-  "pengangkatan & rigging": ["hse-lifting", "lifting", "rigging"],
-  "tanggap darurat": ["hse-darurat", "darurat"],
-  "lingkungan kerja": ["hse-lingkungan", "lingkungan"],
-  "pengawasan & prosedur": ["hse-pengawasan", "pengawasan", "prosedur"],
-  "penggunaan tangga": ["hse-tangga", "tangga"],
-  "ergonomi": ["hse-ergonomi", "ergonomi"],
-  "pelatihan & kompetensi": ["hse-pelatihan", "pelatihan"],
-  "komunikasi & pelaporan": ["hse-komunikasi", "komunikasi"],
-  "investigasi & insiden": ["hse-insiden", "insiden"],
-  "manajemen risiko": ["hse-risiko", "risiko"],
-  "audit & sistem manajemen k3": ["hse-audit", "audit"],
-  "budaya keselamatan": ["hse-budaya", "budaya"],
-  "koordinasi & simops": ["hse-koordinasi", "koordinasi", "simops"],
-  "perilaku & disiplin kerja": ["hse-perilaku", "perilaku"],
-  "higienitas & konsumsi": ["hse-makanan", "makanan", "higienitas"],
-  "kondisi khusus": ["hse-khusus", "khusus"],
-  "peralatan kerja": ["hse-alat", "peralatan"],
-  "standar & regulasi": ["hse-standar", "standar", "regulasi"],
-  "kelelahan & jam kerja": ["hse-kelelahan", "kelelahan"],
-  "umum": ["hse-umum", "umum"]
+  "alat pelindung diri (apd)": ["hsse-apd", "apd"],
+  "pekerjaan di ketinggian": ["hsse-ketinggian", "ketinggian"],
+  "kelistrikan": ["hsse-listrik", "listrik", "kelistrikan"],
+  "alat berat & kendaraan": ["hsse-alatberat", "alatberat", "alat berat"],
+  "bahan kimia & b3": ["hsse-kimia", "kimia", "b3"],
+  "ruang terbatas (confined space)": ["hsse-confined", "confined"],
+  "pekerjaan panas (hot work)": ["hsse-hotwork", "hotwork", "panas"],
+  "pengangkatan & rigging": ["hsse-lifting", "lifting", "rigging"],
+  "tanggap darurat": ["hsse-darurat", "darurat"],
+  "lingkungan kerja": ["hsse-lingkungan", "lingkungan"],
+  "pengawasan & prosedur": ["hsse-pengawasan", "pengawasan", "prosedur"],
+  "penggunaan tangga": ["hsse-tangga", "tangga"],
+  "ergonomi": ["hsse-ergonomi", "ergonomi"],
+  "pelatihan & kompetensi": ["hsse-pelatihan", "pelatihan"],
+  "komunikasi & pelaporan": ["hsse-komunikasi", "komunikasi"],
+  "investigasi & insiden": ["hsse-insiden", "insiden"],
+  "manajemen risiko": ["hsse-risiko", "risiko"],
+  "audit & sistem manajemen k3": ["hsse-audit", "audit"],
+  "budaya keselamatan": ["hsse-budaya", "budaya"],
+  "koordinasi & simops": ["hsse-koordinasi", "koordinasi", "simops"],
+  "perilaku & disiplin kerja": ["hsse-perilaku", "perilaku"],
+  "higienitas & konsumsi": ["hsse-makanan", "makanan", "higienitas"],
+  "kondisi khusus": ["hsse-khusus", "khusus"],
+  "peralatan kerja": ["hsse-alat", "peralatan"],
+  "standar & regulasi": ["hsse-standar", "standar", "regulasi"],
+  "kelelahan & jam kerja": ["hsse-kelelahan", "kelelahan"],
+  "umum": ["hsse-umum", "umum"]
 };
 
 function apakahCocokKategoriItem(item, targetKategori) {

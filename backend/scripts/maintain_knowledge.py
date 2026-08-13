@@ -6,7 +6,7 @@ Contoh:
 
 Perintah ``--fix`` hanya membersihkan boilerplate yang sudah dikenal, spasi,
 duplikasi kata kunci/tag, dan format JSON. Konten teknis baru tetap harus ditinjau
-oleh personel HSE yang berwenang.
+oleh personel HSSE yang berwenang.
 """
 
 from __future__ import annotations
@@ -34,7 +34,7 @@ REQUIRED_FIELDS = (
     "tag",
 )
 VALID_RISKS = {"rendah", "sedang", "tinggi"}
-ID_PATTERN = re.compile(r"^HSE-[A-Z0-9]+-\d{3}$")
+ID_PATTERN = re.compile(r"^HSSE-[A-Z0-9]+-\d{3}$")
 GENERIC_IMPACT_SUFFIX = (
     ", yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan "
     "fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek."
@@ -52,7 +52,7 @@ OLD_GENERIC_VERIFICATION = (
 )
 NEW_GENERIC_VERIFICATION = (
     "3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau "
-    "Tim HSE memverifikasi pengendalian sebelum aktivitas dilanjutkan."
+    "Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan."
 )
 GENERIC_SYSTEMIC_SUFFIX = (
     " yang berpotensi memicu insiden keselamatan kerja, cedera fisik, "
@@ -67,23 +67,23 @@ ACRONYMS = {
     "sio": "SIO", "sni": "SNI", "sop": "SOP", "tbm": "TBM",
 }
 RISK_SENTENCE_CORRECTIONS = {
-    "HSE-APD-001": "tidak adanya perlindungan kepala meningkatkan kemungkinan cedera serius akibat benda jatuh atau benturan keras.",
-    "HSE-APD-012": "APD yang tidak nyaman dapat mendorong pekerja melepas atau tidak menggunakannya sehingga tubuh terpapar bahaya pekerjaan.",
-    "HSE-PENGAWASAN-009": "kurangnya pengawasan pada malam hari dapat membuat penyimpangan prosedur terlambat diketahui dan respons darurat melambat.",
-    "HSE-RISIKO-010": "interaksi antarbahaya dapat tidak dikenali sehingga pengendalian satu pekerjaan bertentangan atau tidak memadai untuk pekerjaan lainnya.",
-    "HSE-BUDAYA-003": "tekanan target dapat mendorong pekerja melewati SOP, mempercepat pekerjaan secara tidak aman, atau mengabaikan hak menghentikan pekerjaan.",
-    "HSE-PERILAKU-001": "pengendalian yang telah ditetapkan tidak diterapkan sehingga tindakan tidak aman dapat berulang dan memicu insiden.",
-    "HSE-PERILAKU-004": "distraksi menurunkan perhatian terhadap perubahan kondisi, pergerakan alat, dan peringatan bahaya di sekitar pekerja.",
-    "HSE-PERILAKU-005": "pekerja dapat melewati pemeriksaan, SOP, atau batas aman demi mengejar target waktu.",
-    "HSE-PERILAKU-006": "pekerja yang mengalami insiden dapat terlambat memperoleh bantuan karena tidak ada rekan atau petugas siaga di dekatnya.",
-    "HSE-PERILAKU-007": "alat improvisasi dapat gagal saat digunakan karena kapasitas, material, atau pengamannya tidak terverifikasi.",
-    "HSE-INSIDEN-002": "akar penyebab kecelakaan tidak diketahui sehingga tindakan korektif tidak tepat dan kejadian serupa dapat berulang.",
-    "HSE-INSIDEN-003": "pola dan akar penyebab insiden tidak teridentifikasi sehingga peluang pencegahan kejadian berulang terlewat.",
-    "HSE-AUDIT-007": "evaluasi kepatuhan, penelusuran keputusan, dan verifikasi pengendalian menjadi sulit dilakukan karena bukti tidak lengkap.",
-    "HSE-BUDAYA-005": "tekanan target dapat menurunkan fokus dan mendorong pekerja mengabaikan prosedur keselamatan.",
-    "HSE-BUDAYA-008": "keputusan organisasi dapat mengutamakan produksi daripada pengendalian sehingga bahaya sistemik tidak segera diperbaiki.",
-    "HSE-STANDAR-001": "persyaratan minimum, tanggung jawab, dan kriteria penerimaan pekerjaan menjadi tidak jelas sehingga pengendalian diterapkan tidak konsisten.",
-    "HSE-STANDAR-003": "pekerja dapat menggunakan persyaratan yang sudah tidak sesuai dengan kondisi, peralatan, atau perubahan regulasi terbaru.",
+    "HSSE-APD-001": "tidak adanya perlindungan kepala meningkatkan kemungkinan cedera serius akibat benda jatuh atau benturan keras.",
+    "HSSE-APD-012": "APD yang tidak nyaman dapat mendorong pekerja melepas atau tidak menggunakannya sehingga tubuh terpapar bahaya pekerjaan.",
+    "HSSE-PENGAWASAN-009": "kurangnya pengawasan pada malam hari dapat membuat penyimpangan prosedur terlambat diketahui dan respons darurat melambat.",
+    "HSSE-RISIKO-010": "interaksi antarbahaya dapat tidak dikenali sehingga pengendalian satu pekerjaan bertentangan atau tidak memadai untuk pekerjaan lainnya.",
+    "HSSE-BUDAYA-003": "tekanan target dapat mendorong pekerja melewati SOP, mempercepat pekerjaan secara tidak aman, atau mengabaikan hak menghentikan pekerjaan.",
+    "HSSE-PERILAKU-001": "pengendalian yang telah ditetapkan tidak diterapkan sehingga tindakan tidak aman dapat berulang dan memicu insiden.",
+    "HSSE-PERILAKU-004": "distraksi menurunkan perhatian terhadap perubahan kondisi, pergerakan alat, dan peringatan bahaya di sekitar pekerja.",
+    "HSSE-PERILAKU-005": "pekerja dapat melewati pemeriksaan, SOP, atau batas aman demi mengejar target waktu.",
+    "HSSE-PERILAKU-006": "pekerja yang mengalami insiden dapat terlambat memperoleh bantuan karena tidak ada rekan atau petugas siaga di dekatnya.",
+    "HSSE-PERILAKU-007": "alat improvisasi dapat gagal saat digunakan karena kapasitas, material, atau pengamannya tidak terverifikasi.",
+    "HSSE-INSIDEN-002": "akar penyebab kecelakaan tidak diketahui sehingga tindakan korektif tidak tepat dan kejadian serupa dapat berulang.",
+    "HSSE-INSIDEN-003": "pola dan akar penyebab insiden tidak teridentifikasi sehingga peluang pencegahan kejadian berulang terlewat.",
+    "HSSE-AUDIT-007": "evaluasi kepatuhan, penelusuran keputusan, dan verifikasi pengendalian menjadi sulit dilakukan karena bukti tidak lengkap.",
+    "HSSE-BUDAYA-005": "tekanan target dapat menurunkan fokus dan mendorong pekerja mengabaikan prosedur keselamatan.",
+    "HSSE-BUDAYA-008": "keputusan organisasi dapat mengutamakan produksi daripada pengendalian sehingga bahaya sistemik tidak segera diperbaiki.",
+    "HSSE-STANDAR-001": "persyaratan minimum, tanggung jawab, dan kriteria penerimaan pekerjaan menjadi tidak jelas sehingga pengendalian diterapkan tidak konsisten.",
+    "HSSE-STANDAR-003": "pekerja dapat menggunakan persyaratan yang sudah tidak sesuai dengan kondisi, peralatan, atau perubahan regulasi terbaru.",
 }
 
 
@@ -118,7 +118,7 @@ def validate(entries: list[dict]) -> list[str]:
         seen_ids.add(kb_id)
 
         if not ID_PATTERN.fullmatch(kb_id):
-            errors.append(f"{kb_id}: format ID wajib HSE-KATEGORI-001.")
+            errors.append(f"{kb_id}: format ID wajib HSSE-KATEGORI-001.")
 
         risk = str(entry.get("tingkat_risiko", "")).strip().lower()
         if risk not in VALID_RISKS:
@@ -244,8 +244,8 @@ def clean_entries(entries: list[dict]) -> list[dict]:
 
     # Dua klasifikasi lama tidak konsisten dengan dampak yang tertulis.
     risk_corrections = {
-        "HSE-APD-007": "tinggi",       # potensi tertabrak secara fatal
-        "HSE-LINGKUNGAN-010": "sedang",  # potensi hipotermia
+        "HSSE-APD-007": "tinggi",       # potensi tertabrak secara fatal
+        "HSSE-LINGKUNGAN-010": "sedang",  # potensi hipotermia
     }
     for entry in cleaned:
         if entry["id"] in risk_corrections:

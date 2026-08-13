@@ -1,6 +1,6 @@
-# SIGAP-AI HSE Companion
+# SIGAP-AI HSSE Companion
 
-Aplikasi Flask dan frontend statis untuk konsultasi, pelaporan kondisi bahaya, serta eskalasi WhatsApp ke Tim HSE.
+Aplikasi Flask dan frontend statis untuk konsultasi, pelaporan kondisi bahaya, serta eskalasi WhatsApp ke Tim HSSE.
 
 ## Menjalankan secara lokal
 

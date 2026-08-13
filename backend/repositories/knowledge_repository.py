@@ -43,7 +43,7 @@ FIELD_WAJIB = (
     "tag",
 )
 TINGKAT_RISIKO_VALID = {"rendah", "sedang", "tinggi"}
-POLA_ID = re.compile(r"^HSE-[A-Z0-9]+-\d{3}$")
+POLA_ID = re.compile(r"^HSSE-[A-Z0-9]+-\d{3}$")
 FRAGMEN_TINDAKAN_SEGERA_GENERIK = (
     "hentikan pekerjaan sementara jika berisiko tinggi",
     "kendalikan paparan yang sedang berlangsung",
@@ -65,7 +65,7 @@ def tindakan_segera_spesifik(solution):
 
 
 class KnowledgeRepository:
-    """Sumber tunggal data HSE yang selalu dibaca dari ``knowledge.json``.
+    """Sumber tunggal data HSSE yang selalu dibaca dari ``knowledge.json``.
 
     Versi terakhir yang valid tetap digunakan jika file sedang diedit tetapi belum
     valid. Setelah file disimpan dengan struktur yang benar, indeks akan dimuat
@@ -127,7 +127,7 @@ class KnowledgeRepository:
 
             if not POLA_ID.fullmatch(kb_id):
                 errors.append(
-                    f"Artikel {kb_id} memiliki format ID tidak valid; gunakan HSE-KATEGORI-001."
+                    f"Artikel {kb_id} memiliki format ID tidak valid; gunakan HSSE-KATEGORI-001."
                 )
                 continue
 
@@ -293,7 +293,7 @@ class KnowledgeRepository:
             self._loaded_at = datetime.now(timezone.utc).isoformat()
             self._validation_error = None
             print(
-                f"[KnowledgeRepository] {len(entries)} artikel HSE valid dimuat "
+                f"[KnowledgeRepository] {len(entries)} artikel HSSE valid dimuat "
                 "dari knowledge.json."
             )
             return True
@@ -308,6 +308,8 @@ class KnowledgeRepository:
     def get_by_id(self, kb_id):
         self.ensure_fresh()
         normalized_id = str(kb_id or "").strip().lower()
+        if normalized_id.startswith("hse-"):
+            normalized_id = "hsse-" + normalized_id[4:]
         for entry in self.entries:
             if entry["id"].lower() == normalized_id:
                 return entry
@@ -374,7 +376,7 @@ class KnowledgeRepository:
             },
             "review_notice": (
                 "Validasi sistem memeriksa struktur dan konsistensi data. "
-                "Perubahan substansi teknis tetap memerlukan tinjauan personel HSE berwenang."
+                "Perubahan substansi teknis tetap memerlukan tinjauan personel HSSE berwenang."
             ),
         }
 
