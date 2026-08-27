@@ -17,6 +17,7 @@ from routes.chatbot_routes import chatbot_bp
 from routes.complaint_routes import complaint_bp
 from routes.consultation_routes import consultation_bp
 from routes.knowledge_routes import knowledge_bp
+from routes.admin_routes import admin_bp
 from utils.response_formatter import error_response, success_response
 from utils.logger import logger
 from services.retrieval_service import retrieval_service
@@ -26,11 +27,12 @@ from services.escalation_service import escalation_service
 app = Flask(__name__)
 CORS(app)
 
-# Register Blueprints (Purged all Auth & Login System)
+# Register Blueprints
 app.register_blueprint(chatbot_bp)
 app.register_blueprint(complaint_bp)
 app.register_blueprint(consultation_bp)
 app.register_blueprint(knowledge_bp)
+app.register_blueprint(admin_bp)
 
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 
@@ -39,6 +41,14 @@ FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 def frontend_index():
     """Menyajikan SPA dari origin yang sama di lokal dan Vercel."""
     return send_from_directory(FRONTEND_DIR, "index.html")
+
+
+@app.route("/admin", methods=["GET"])
+@app.route("/admin/", methods=["GET"])
+@app.route("/admin/<path:subpath>", methods=["GET"])
+def frontend_admin(subpath=""):
+    """Menyajikan SPA Admin Portal dari origin yang sama."""
+    return send_from_directory(FRONTEND_DIR, "admin.html")
 
 
 @app.route("/<path:asset_path>", methods=["GET"])

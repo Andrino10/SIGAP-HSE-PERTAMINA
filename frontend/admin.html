@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIGAP HSE Admin — Portal Monitoring &amp; Rekapitulasi Laporan</title>
+  <meta name="description" content="Portal Admin SIGAP HSE PT Pertamina EP untuk monitoring, investigasi, mitigasi, dan rekapitulasi laporan keselamatan kerja." />
+
+  <!-- Typography: Outfit & Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="/style.css" />
+  <link rel="stylesheet" href="/admin.css" />
+</head>
+<body class="admin-body">
+
+  <!-- Toast Notification Container -->
+  <div class="toast-region" id="admin-toast-region" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- =========================================================================
+       VIEW 1: LOGIN ADMIN
+  ========================================================================= -->
+  <section class="admin-login-wrapper" id="view-admin-login">
+    <div class="admin-login-card">
+      <div class="admin-login-header">
+        <div class="admin-brand-logos">
+          <img src="/pertamina-ep-logo-transparent.png" alt="Pertamina EP" class="admin-logo-pep" />
+          <div class="admin-logo-divider"></div>
+          <img src="/satu-it-sigap-logo-transparent.png" alt="SIGAP-AI HSSE" class="admin-logo-sigap" />
+        </div>
+        <div class="admin-badge-portal">PORTAL PENGELOLAAN HSSE</div>
+        <h1 class="admin-login-title">SIGAP HSE ADMIN</h1>
+        <p class="admin-login-subtitle">
+          Monitoring, Verifikasi Temuan, Tindak Lanjut Mitigasi &amp; Rekapitulasi Laporan K3
+        </p>
+      </div>
+
+      <form id="admin-login-form" onsubmit="event.preventDefault(); handleAdminLogin();">
+        <div class="form-group">
+          <label for="admin-user-input">Username Admin <span class="field-required">*</span></label>
+          <input type="text" id="admin-user-input" class="form-input" placeholder="Masukkan username" autocomplete="username" required autofocus />
+        </div>
+
+        <div class="form-group">
+          <label for="admin-pass-input">Password <span class="field-required">*</span></label>
+          <input type="password" id="admin-pass-input" class="form-input" placeholder="Masukkan password" autocomplete="current-password" required />
+        </div>
+
+        <div class="admin-login-actions">
+          <button type="submit" class="btn btn-primary btn-block" id="btn-admin-login">
+            Masuk ke Portal Admin
+          </button>
+        </div>
+
+        <div class="admin-login-footer">
+          <a href="/" class="admin-back-link">← Kembali ke Portal Pengguna SIGAP HSE</a>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- =========================================================================
+       MAIN ADMIN APP CONTAINER (Authenticated)
+  ========================================================================= -->
+  <div class="admin-app-container" id="admin-app-container" style="display: none;">
+
+    <!-- TOP NAVBAR -->
+    <header class="admin-navbar">
+      <div class="admin-nav-left">
+        <div class="admin-brand-compact">
+          <img src="/pertamina-ep-logo-transparent.png" alt="Pertamina EP" class="admin-nav-logo" />
+          <div class="admin-nav-divider"></div>
+          <span class="admin-nav-title">SIGAP HSE <span>ADMIN</span></span>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="admin-nav-menu" aria-label="Menu Admin">
+          <button class="admin-nav-link active" data-target="dashboard" onclick="navigateAdmin('dashboard')">
+            <span class="admin-icon-dashboard"></span> Dashboard
+          </button>
+          <button class="admin-nav-link" data-target="reports" onclick="navigateAdmin('reports')">
+            <span class="admin-icon-reports"></span> Daftar Laporan
+          </button>
+          <button class="admin-nav-link" data-target="recap" onclick="navigateAdmin('recap')">
+            <span class="admin-icon-recap"></span> Rekapitulasi
+          </button>
+        </nav>
+      </div>
+
+      <div class="admin-nav-right">
+        <div class="admin-user-profile">
+          <div class="admin-user-avatar">AD</div>
+          <div class="admin-user-info">
+            <strong id="admin-profile-name">Admin HSSE</strong>
+            <span id="admin-profile-role">Superintendent HSSE</span>
+          </div>
+        </div>
+        <a href="/" target="_blank" class="btn btn-sm btn-secondary admin-btn-public" title="Buka Portal Pengguna">
+          Portal Pekerja ↗
+        </a>
+        <button class="btn btn-sm btn-outline-danger" onclick="handleAdminLogout()" title="Keluar dari sesi Admin">
+          Logout
+        </button>
+      </div>
+    </header>
+
+    <!-- =========================================================================
+         VIEW 2: ADMIN DASHBOARD
+    ========================================================================= -->
+    <main class="admin-view active" id="view-admin-dashboard">
+      <div class="admin-view-header">
+        <div>
+          <span class="section-kicker">MONITORING OPERASIONAL HSSE</span>
+          <h2>Dashboard Monitoring Laporan</h2>
+          <p>Pemantauan real-time kondisi bahaya (Unsafe Act &amp; Unsafe Condition), tingkat keparahan, dan progres mitigasi.</p>
+        </div>
+        <div class="admin-header-actions">
+          <button class="btn btn-sm btn-secondary" onclick="refreshAdminDashboard()">
+            Perbarui Data
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI METRIC CARDS -->
+      <section class="admin-kpi-grid" aria-label="Statistik Laporan">
+        <div class="admin-kpi-card card-total">
+          <div class="kpi-icon-wrap kpi-icon-total">📋</div>
+          <div class="kpi-content">
+            <span class="kpi-label">TOTAL LAPORAN</span>
+            <strong class="kpi-value" id="stat-total">0</strong>
+            <span class="kpi-sub">Seluruh laporan tercatat</span>
+          </div>
+        </div>
+
+        <div class="admin-kpi-card card-open">
+          <div class="kpi-icon-wrap kpi-icon-open">⚡</div>
+          <div class="kpi-content">
+            <span class="kpi-label">LAPORAN BARU</span>
+            <strong class="kpi-value" id="stat-open">0</strong>
+            <span class="kpi-sub">Status: Open (Menunggu review)</span>
+          </div>
+        </div>
+
+        <div class="admin-kpi-card card-progress">
+          <div class="kpi-icon-wrap kpi-icon-progress">🔄</div>
+          <div class="kpi-content">
+            <span class="kpi-label">SEDANG DIPROSES</span>
+            <strong class="kpi-value" id="stat-progress">0</strong>
+            <span class="kpi-sub">Status: In Progress (Investigasi)</span>
+          </div>
+        </div>
+
+        <div class="admin-kpi-card card-closed">
+          <div class="kpi-icon-wrap kpi-icon-closed">✅</div>
+          <div class="kpi-content">
+            <span class="kpi-label">SELESAI (RESOLVED)</span>
+            <strong class="kpi-value" id="stat-closed">0</strong>
+            <span class="kpi-sub">Status: Closed / Resolved</span>
+          </div>
+        </div>
+
+        <div class="admin-kpi-card card-critical">
+          <div class="kpi-icon-wrap kpi-icon-critical">🚨</div>
+          <div class="kpi-content">
+            <span class="kpi-label">LAPORAN KRITIS</span>
+            <strong class="kpi-value" id="stat-critical">0</strong>
+            <span class="kpi-sub">Risiko Tinggi / Urgent</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- DASHBOARD CHARTS & BREAKDOWNS -->
+      <section class="admin-dashboard-grids">
+        <!-- Distribution by Category -->
+        <div class="admin-panel-card">
+          <div class="panel-card-header">
+            <h3>Distribusi Kategori Bahaya K3</h3>
+            <span class="panel-tag">Knowledge &amp; Laporan</span>
+          </div>
+          <div class="category-dist-list" id="category-dist-list">
+            <div class="empty-placeholder">Memuat data kategori...</div>
+          </div>
+        </div>
+
+        <!-- Distribution by Finding Type & Risk -->
+        <div class="admin-panel-card">
+          <div class="panel-card-header">
+            <h3>Klasifikasi Temuan &amp; Tingkat Risiko</h3>
+            <span class="panel-tag">Analisis Matriks</span>
+          </div>
+          <div class="matrix-dist-box">
+            <div class="matrix-group">
+              <div class="matrix-group-title">Jenis Temuan Keselamatan</div>
+              <div class="matrix-pills" id="matrix-finding-types">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+            <div class="matrix-group">
+              <div class="matrix-group-title">Tingkat Keparahan / Risiko</div>
+              <div class="matrix-pills" id="matrix-risk-levels">
+                <!-- Injected via JS -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- RECENT REPORTS SECTION -->
+      <section class="admin-panel-card mt-4">
+        <div class="panel-card-header">
+          <div>
+            <h3>Laporan Terbaru &amp; Perlu Tindak Lanjut</h3>
+            <span class="panel-sub">Laporan yang masuk terkini dan membutuhkan atensi tim keselamatan</span>
+          </div>
+          <button class="btn btn-sm btn-primary" onclick="navigateAdmin('reports')">Lihat Semua Laporan →</button>
+        </div>
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>No Tiket</th>
+                <th>Tanggal</th>
+                <th>Lokasi</th>
+                <th>Kategori Bahaya</th>
+                <th>Jenis Temuan</th>
+                <th>Keparahan</th>
+                <th>Status</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="recent-reports-tbody">
+              <tr><td colspan="8" class="text-center py-4">Memuat laporan terbaru...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- =========================================================================
+         VIEW 3: REPORTS MANAGEMENT
+    ========================================================================= -->
+    <main class="admin-view" id="view-admin-reports">
+      <div class="admin-view-header">
+        <div>
+          <span class="section-kicker">DATABASE &amp; WORKFLOW</span>
+          <h2>Daftar Seluruh Laporan HSE</h2>
+          <p>Cari, filter, buka detail, perbarui status penanganan, dan catat riwayat mitigasi lapangan.</p>
+        </div>
+      </div>
+
+      <!-- FILTER CONTROLS BAR -->
+      <div class="admin-filter-bar">
+        <div class="filter-row">
+          <div class="filter-col flex-2">
+            <label for="filter-search">Pencarian Cepat</label>
+            <input type="text" id="filter-search" class="form-input" placeholder="Cari nomor tiket, pelapor, lokasi, atau kata kunci..." oninput="debouncedSearchReports()" />
+          </div>
+
+          <div class="filter-col">
+            <label for="filter-status">Status Laporan</label>
+            <select id="filter-status" class="form-input" onchange="loadAdminReports(1)">
+              <option value="Semua">Semua Status</option>
+              <option value="Open">Open</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Closed / Resolved">Closed / Resolved</option>
+            </select>
+          </div>
+
+          <div class="filter-col">
+            <label for="filter-category">Kategori Bahaya</label>
+            <select id="filter-category" class="form-input" onchange="loadAdminReports(1)">
+              <option value="Semua">Semua Kategori</option>
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <div class="filter-col">
+            <label for="filter-urgency">Tingkat Keparahan</label>
+            <select id="filter-urgency" class="form-input" onchange="loadAdminReports(1)">
+              <option value="Semua">Semua Tingkat</option>
+              <option value="Tinggi">Tinggi</option>
+              <option value="Sedang">Sedang</option>
+              <option value="Ringan">Ringan</option>
+            </select>
+          </div>
+
+          <div class="filter-col filter-actions-col">
+            <label>&nbsp;</label>
+            <button class="btn btn-secondary btn-block" onclick="resetReportFilters()">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- DATA TABLE -->
+      <div class="admin-panel-card">
+        <div class="table-meta-bar">
+          <span id="reports-counter-badge">Menampilkan 0 laporan</span>
+        </div>
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width: 50px;">No</th>
+                <th>Nomor Tiket</th>
+                <th>Tanggal</th>
+                <th>Kategori Bahaya</th>
+                <th>Jenis Temuan</th>
+                <th>Lokasi</th>
+                <th>Pelapor</th>
+                <th>Keparahan</th>
+                <th>Status</th>
+                <th style="text-align: center;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="reports-table-tbody">
+              <tr><td colspan="10" class="text-center py-4">Memuat data laporan...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- PAGINATION BAR -->
+        <div class="pagination-bar" id="reports-pagination-bar">
+          <button class="btn btn-sm btn-secondary" id="btn-prev-page" onclick="changeReportsPage(-1)">← Sebelumnya</button>
+          <span class="pagination-info" id="pagination-info">Halaman 1 dari 1</span>
+          <button class="btn btn-sm btn-secondary" id="btn-next-page" onclick="changeReportsPage(1)">Berikutnya →</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- =========================================================================
+         VIEW 4: REKAPITULASI LAPORAN
+    ========================================================================= -->
+    <main class="admin-view" id="view-admin-recap">
+      <div class="admin-view-header">
+        <div>
+          <span class="section-kicker">LAPORAN &amp; AUDIT K3</span>
+          <h2>Rekapitulasi Laporan HSE</h2>
+          <p>Rekap data laporan berdasarkan status, kategori, tingkat keparahan, dan periode tanggal tertentu.</p>
+        </div>
+        <div class="admin-header-actions no-print">
+          <button class="btn btn-primary" onclick="window.print()">
+            Cetak / Ekspor Rekap
+          </button>
+        </div>
+      </div>
+
+      <!-- RECAP PERIOD FILTER BAR -->
+      <div class="admin-filter-bar no-print">
+        <div class="filter-row">
+          <div class="filter-col">
+            <label for="recap-start-date">Periode Dari</label>
+            <input type="date" id="recap-start-date" class="form-input" />
+          </div>
+          <div class="filter-col">
+            <label for="recap-end-date">Sampai Tanggal</label>
+            <input type="date" id="recap-end-date" class="form-input" />
+          </div>
+          <div class="filter-col">
+            <label for="recap-category-filter">Kategori</label>
+            <select id="recap-category-filter" class="form-input">
+              <option value="Semua">Semua Kategori</option>
+            </select>
+          </div>
+          <div class="filter-col">
+            <label for="recap-status-filter">Status</label>
+            <select id="recap-status-filter" class="form-input">
+              <option value="Semua">Semua Status</option>
+              <option value="Open">Open</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Closed / Resolved">Closed / Resolved</option>
+            </select>
+          </div>
+          <div class="filter-col filter-actions-col">
+            <label>&nbsp;</label>
+            <button class="btn btn-primary btn-block" onclick="loadRecapData()">Tampilkan Rekap</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- RECAP PRINTABLE REPORT DOCUMENT -->
+      <div class="recap-document" id="recap-document">
+        <div class="recap-doc-header">
+          <div class="recap-doc-brand">
+            <img src="/pertamina-ep-logo-transparent.png" alt="Pertamina EP" class="recap-doc-logo" />
+            <div>
+              <h3>PT PERTAMINA EP — ASSET 2 LIRIK FIELD</h3>
+              <h4>LAPORAN REKAPITULASI TEMUAN KESELAMATAN KERJA (HSSE)</h4>
+              <span class="recap-doc-period" id="recap-doc-period-text">Periode: Semua Data</span>
+            </div>
+          </div>
+          <div class="recap-doc-stamp">
+            <span>SISTEM SIGAP HSE</span>
+            <small id="recap-generated-at">Dicetak pada: -</small>
+          </div>
+        </div>
+
+        <!-- RECAP SUMMARY METRICS -->
+        <div class="recap-summary-grid">
+          <div class="recap-metric-box">
+            <span>TOTAL LAPORAN</span>
+            <strong id="recap-sum-total">0</strong>
+          </div>
+          <div class="recap-metric-box metric-open">
+            <span>OPEN (BARU)</span>
+            <strong id="recap-sum-open">0</strong>
+          </div>
+          <div class="recap-metric-box metric-progress">
+            <span>IN PROGRESS</span>
+            <strong id="recap-sum-progress">0</strong>
+          </div>
+          <div class="recap-metric-box metric-closed">
+            <span>CLOSED / RESOLVED</span>
+            <strong id="recap-sum-closed">0</strong>
+          </div>
+          <div class="recap-metric-box metric-critical">
+            <span>KRITIS / TINGGI</span>
+            <strong id="recap-sum-critical">0</strong>
+          </div>
+        </div>
+
+        <!-- RECAP BREAKDOWNS -->
+        <div class="recap-breakdown-row">
+          <div class="recap-breakdown-card">
+            <h4>1. Rekapitulasi Berdasarkan Status Penanganan</h4>
+            <table class="recap-mini-table">
+              <thead><tr><th>Status</th><th class="text-right">Jumlah</th><th class="text-right">Persentase</th></tr></thead>
+              <tbody id="recap-status-breakdown-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="recap-breakdown-card">
+            <h4>2. Rekapitulasi Berdasarkan Tingkat Keparahan</h4>
+            <table class="recap-mini-table">
+              <thead><tr><th>Tingkat Keparahan</th><th class="text-right">Jumlah</th><th class="text-right">Persentase</th></tr></thead>
+              <tbody id="recap-risk-breakdown-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="recap-breakdown-row mt-4">
+          <div class="recap-breakdown-card">
+            <h4>3. Rekapitulasi Berdasarkan Jenis Temuan</h4>
+            <table class="recap-mini-table">
+              <thead><tr><th>Jenis Temuan</th><th class="text-right">Jumlah</th><th class="text-right">Persentase</th></tr></thead>
+              <tbody id="recap-finding-breakdown-tbody"></tbody>
+            </table>
+          </div>
+
+          <div class="recap-breakdown-card">
+            <h4>4. Rekapitulasi Berdasarkan Kategori Bahaya K3</h4>
+            <table class="recap-mini-table">
+              <thead><tr><th>Kategori Bahaya</th><th class="text-right">Jumlah</th><th class="text-right">Persentase</th></tr></thead>
+              <tbody id="recap-category-breakdown-tbody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- RECAP DETAILED LIST TABLE -->
+        <div class="recap-details-section mt-4">
+          <h4>5. Rincian Laporan dalam Periode Ini</h4>
+          <table class="admin-table recap-table">
+            <thead>
+              <tr>
+                <th>No</th>
+                <th>Nomor Tiket</th>
+                <th>Tanggal</th>
+                <th>Pelapor / Divisi</th>
+                <th>Lokasi</th>
+                <th>Kategori Bahaya</th>
+                <th>Keparahan</th>
+                <th>Status</th>
+                <th>Catatan Tindak Lanjut</th>
+              </tr>
+            </thead>
+            <tbody id="recap-details-tbody">
+              <tr><td colspan="9" class="text-center py-3">Tidak ada laporan pada periode ini.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <!-- =========================================================================
+       MODAL: DETAIL & UPDATE LAPORAN
+  ========================================================================= -->
+  <div class="modal-overlay" id="report-detail-modal">
+    <div class="modal-card modal-detail-card">
+      <button class="modal-close-btn" onclick="closeReportDetailModal()"></button>
+
+      <div class="detail-header-bar">
+        <div>
+          <span class="detail-ticket-code" id="modal-ticket-no">HSE-20260827-0001</span>
+          <h3 id="modal-finding-title">Detail Laporan Keselamatan Kerja</h3>
+        </div>
+        <div class="detail-header-badges">
+          <span class="status-badge" id="modal-status-badge">Open</span>
+          <span class="urgency-badge" id="modal-urgency-badge">Sedang</span>
+        </div>
+      </div>
+
+      <div class="detail-grid">
+        <!-- LEFT COLUMN: Report Info -->
+        <div class="detail-info-col">
+          <div class="detail-info-group">
+            <span class="detail-label">Tanggal Kejadian</span>
+            <strong id="modal-occurrence-date">-</strong>
+          </div>
+
+          <div class="detail-info-group">
+            <span class="detail-label">Lokasi Temuan</span>
+            <strong id="modal-location">-</strong>
+          </div>
+
+          <div class="detail-info-group">
+            <span class="detail-label">Pelapor &amp; Fungsi</span>
+            <strong id="modal-reporter">-</strong>
+          </div>
+
+          <div class="detail-info-group">
+            <span class="detail-label">Kategori Bahaya</span>
+            <strong id="modal-category">-</strong>
+          </div>
+
+          <div class="detail-info-group">
+            <span class="detail-label">Jenis Temuan</span>
+            <strong id="modal-finding-type">Unsafe Condition</strong>
+          </div>
+
+          <div class="detail-info-group">
+            <span class="detail-label">Petugas Ditugaskan</span>
+            <strong id="modal-assigned-engineer">Tim HSSE Lapangan</strong>
+          </div>
+
+          <div class="detail-desc-box">
+            <span class="detail-label">Deskripsi Kondisi Bahaya</span>
+            <p id="modal-description">-</p>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN: Update Action & Audit Trail -->
+        <div class="detail-action-col">
+          <div class="admin-action-box">
+            <div class="action-box-title">Pembaruan Status &amp; Tindak Lanjut</div>
+            
+            <form id="form-update-report" onsubmit="event.preventDefault(); submitReportUpdate();">
+              <div class="form-group">
+                <label for="update-status-select">Status Laporan <span class="field-required">*</span></label>
+                <select id="update-status-select" class="form-input" required>
+                  <option value="Open">Open (Masuk antrean)</option>
+                  <option value="In Progress">In Progress (Sedang ditindaklanjuti)</option>
+                  <option value="Closed / Resolved">Closed / Resolved (Investigasi &amp; Mitigasi Selesai)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="update-assigned-officer">Petugas / Tim Penanggung Jawab</label>
+                <input type="text" id="update-assigned-officer" class="form-input" placeholder="Contoh: Juni Trihardiyanto (Safety Lead)" />
+              </div>
+
+              <div class="form-group">
+                <label for="update-follow-up-notes">Catatan Tindak Lanjut / Mitigasi</label>
+                <textarea id="update-follow-up-notes" class="form-input" rows="3" placeholder="Tuliskan tindakan perbaikan, hasil investigasi, atau catatan penyelesaian..."></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block" id="btn-save-report-update">
+                Simpan Pembaruan Laporan
+              </button>
+            </form>
+          </div>
+
+          <!-- AUDIT TRAIL TIMELINE -->
+          <div class="audit-trail-box">
+            <div class="audit-trail-title">Riwayat Perubahan (Audit Trail)</div>
+            <div class="audit-timeline" id="modal-audit-timeline">
+              <!-- Injected via JS -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions mt-3">
+        <button class="btn btn-secondary" onclick="closeReportDetailModal()">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/admin.js"></script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 import json
 import os
 import tempfile
+import time
 
 
 def load_json_file(path, default):
@@ -22,8 +23,20 @@ def atomic_json_write(path, data):
         with os.fdopen(descriptor, "w", encoding="utf-8", newline="\n") as file:
             json.dump(data, file, ensure_ascii=False, indent=2)
             file.write("\n")
-        os.replace(temp_path, path)
+        
+        # Retry loop for Windows file system locks (e.g. OneDrive)
+        for attempt in range(5):
+            try:
+                os.replace(temp_path, path)
+                break
+            except PermissionError:
+                if attempt == 4:
+                    raise
+                time.sleep(0.05)
     except Exception:
         if os.path.exists(temp_path):
-            os.unlink(temp_path)
+            try:
+                os.unlink(temp_path)
+            except OSError:
+                pass
         raise

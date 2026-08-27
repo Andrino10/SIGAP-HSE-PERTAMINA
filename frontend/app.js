@@ -1552,19 +1552,36 @@ async function kirimFormulirKonsultasi() {
     }
     berhasilTersimpan = true;
   } catch (err) {
-    tampilkanNotifikasi('Draf tersimpan di sesi ini, tetapi belum tercatat di server. Anda tetap dapat melanjutkan ke Asisten HSSE atau WhatsApp.', 'warning');
+    tampilkanNotifikasi('Laporan gagal disampaikan ke database server. Silakan coba kembali.', 'error');
   } finally {
     if (tombolKirim) {
       tombolKirim.disabled = false;
       tombolKirim.removeAttribute('aria-busy');
       tombolKirim.textContent = 'Lanjutkan analisis';
     }
+
+    const successBlock = document.getElementById('confirmation-success-block');
+    const errorBlock = document.getElementById('confirmation-error-block');
+    const ticketNoEl = document.getElementById('confirmation-ticket-number');
+    const statusEl = document.getElementById('confirmation-ticket-status');
     const pesanPilihan = document.getElementById('consultation-choice-message');
-    if (pesanPilihan) {
-      pesanPilihan.textContent = berhasilTersimpan
-        ? `Laporan telah tersimpan${muatanKonsultasiTertunda?.ticket_number ? ` dengan tiket ${muatanKonsultasiTertunda.ticket_number}` : ''}. Pilih analisis otomatis atau hubungi Tim HSSE secara langsung.`
-        : 'Draf laporan tersedia di sesi ini. Pilih metode penanganan untuk melanjutkan.';
+
+    if (berhasilTersimpan) {
+      if (successBlock) successBlock.style.display = 'block';
+      if (errorBlock) errorBlock.style.display = 'none';
+      if (ticketNoEl) ticketNoEl.textContent = muatanKonsultasiTertunda?.ticket_number || 'HSE-TERCATAT';
+      if (statusEl) statusEl.textContent = 'Open';
+      if (pesanPilihan) {
+        pesanPilihan.textContent = 'Laporan Anda telah berhasil diterima oleh sistem SIGAP HSE. Simpan nomor tiket untuk keperluan identifikasi laporan.';
+      }
+    } else {
+      if (successBlock) successBlock.style.display = 'none';
+      if (errorBlock) errorBlock.style.display = 'block';
+      if (pesanPilihan) {
+        pesanPilihan.textContent = 'Laporan gagal disampaikan ke server. Silakan coba kembali atau lanjutkan ke WhatsApp / Asisten HSSE untuk konsultasi.';
+      }
     }
+
     tutupModalKonsultasi();
     document.getElementById('consultation-choice-modal').classList.add('active');
   }
