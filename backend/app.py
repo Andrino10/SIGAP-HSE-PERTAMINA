@@ -37,6 +37,15 @@ app.register_blueprint(admin_bp)
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 
 
+@app.after_request
+def add_cache_headers(response):
+    """Mencegah browser menyimpan cache file frontend selama sesi pengembangan/live."""
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
+
+
 @app.route("/", methods=["GET"])
 def frontend_index():
     """Menyajikan SPA dari origin yang sama di lokal dan Vercel."""

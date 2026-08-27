@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" style="background-color: #f1f5f9 !important; background: #f1f5f9 !important;">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,42 +11,44 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="/style.css?v=20260827_4" />
-  <link rel="stylesheet" href="/admin.css?v=20260827_4" />
+  <link rel="stylesheet" href="/style.css?v=20260827_5" />
+  <link rel="stylesheet" href="/admin.css?v=20260827_5" />
 
   <style>
     /* Clean White & Slate Gray Enterprise Login Theme */
-    body.admin-body {
-      margin: 0;
-      padding: 0;
+    html, body, body.admin-body {
+      margin: 0 !important;
+      padding: 0 !important;
+      background: #f1f5f9 !important;
       background-color: #f1f5f9 !important;
       color: #0f172a !important;
-      font-family: 'Inter', system-ui, -apple-system, sans-serif;
-      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+      min-height: 100vh !important;
     }
 
     #view-admin-login.admin-login-wrapper {
+      background: #f1f5f9 !important;
       background-color: #f1f5f9 !important;
-      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%) !important;
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
+      min-height: 100vh !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 24px !important;
     }
 
     #view-admin-login .admin-login-card {
       background: #ffffff !important;
+      background-color: #ffffff !important;
       border: 1px solid #e2e8f0 !important;
       border-radius: 20px !important;
       padding: 42px 36px !important;
       box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.04) !important;
-      width: 100%;
-      max-width: 450px;
+      width: 100% !important;
+      max-width: 450px !important;
     }
   </style>
 </head>
-<body class="admin-body">
+<body class="admin-body" style="background-color: #f1f5f9 !important; background: #f1f5f9 !important;">
 
   <!-- Toast Notification Container -->
   <div class="toast-region" id="admin-toast-region" aria-live="polite" aria-atomic="true"></div>
@@ -54,8 +56,8 @@
   <!-- =========================================================================
        VIEW 1: LOGIN ADMIN (Clean White & Slate Gray Enterprise)
   ========================================================================= -->
-  <section class="admin-login-wrapper" id="view-admin-login">
-    <div class="admin-login-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.12);">
+  <section class="admin-login-wrapper" id="view-admin-login" style="background-color: #f1f5f9 !important; background: #f1f5f9 !important;">
+    <div class="admin-login-card" style="background-color: #ffffff !important; background: #ffffff !important; border: 1px solid #e2e8f0 !important; border-radius: 20px !important; box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.12) !important;">
       <div class="admin-login-header">
         <div class="admin-brand-logos" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px 20px; display: inline-flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 18px;">
           <img src="/pertamina-ep-logo-transparent.png" alt="Pertamina EP" class="admin-logo-pep" style="height: 42px; width: auto; object-fit: contain;" />
