@@ -54,46 +54,51 @@ body.admin-body {
 
 .admin-login-card {
   width: 100%;
-  max-width: 440px;
+  max-width: 450px;
   background: var(--admin-bg-card);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid var(--admin-border);
-  border-radius: 16px;
-  padding: 36px 32px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5),
-              0 0 0 1px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 18px;
+  padding: 40px 34px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.6),
+              0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .admin-login-header {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
 }
 
 .admin-brand-logos {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 12px;
-  margin-bottom: 16px;
+  gap: 16px;
+  margin-bottom: 20px;
+  background: #ffffff;
+  padding: 10px 22px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.35),
+              0 0 0 1px rgba(255, 255, 255, 0.15);
 }
 
 .admin-logo-pep {
-  height: 38px;
+  height: 40px;
   width: auto;
   object-fit: contain;
 }
 
 .admin-logo-sigap {
-  height: 38px;
+  height: 40px;
   width: auto;
   object-fit: contain;
 }
 
 .admin-logo-divider {
   width: 1px;
-  height: 24px;
-  background: rgba(255, 255, 255, 0.2);
+  height: 28px;
+  background: #cbd5e1;
 }
 
 .admin-badge-portal {
@@ -101,47 +106,53 @@ body.admin-body {
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.2px;
-  color: #38bdf8;
-  background: rgba(56, 189, 248, 0.12);
-  padding: 4px 10px;
+  color: #f8fafc;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 5px 14px;
   border-radius: 20px;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .admin-login-title {
   font-family: 'Outfit', sans-serif;
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 800;
   letter-spacing: 0.5px;
-  color: #fff;
-  margin: 0 0 6px 0;
+  color: #ffffff;
+  margin: 0 0 8px 0;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
 .admin-login-subtitle {
-  font-size: 13px;
-  color: var(--admin-text-secondary);
-  line-height: 1.5;
+  font-size: 13.5px;
+  color: #cbd5e1;
+  line-height: 1.6;
   margin: 0;
+  max-width: 360px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .admin-login-actions {
-  margin-top: 24px;
+  margin-top: 26px;
 }
 
 .admin-login-footer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 22px;
   font-size: 13px;
 }
 
 .admin-back-link {
-  color: var(--admin-text-secondary);
+  color: #94a3b8;
   text-decoration: none;
+  font-weight: 500;
   transition: color 0.2s;
 }
 
 .admin-back-link:hover {
-  color: #38bdf8;
+  color: #ffffff;
 }
 
 /* ==========================================================================
@@ -179,14 +190,19 @@ body.admin-body {
 }
 
 .admin-nav-logo {
-  height: 32px;
+  height: 30px;
   width: auto;
+  background: #ffffff;
+  padding: 3px 8px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  object-fit: contain;
 }
 
 .admin-nav-divider {
   width: 1px;
   height: 20px;
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .admin-nav-title {
