@@ -11,8 +11,40 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="/style.css" />
-  <link rel="stylesheet" href="/admin.css" />
+  <link rel="stylesheet" href="/style.css?v=20260827_4" />
+  <link rel="stylesheet" href="/admin.css?v=20260827_4" />
+
+  <style>
+    /* Clean White & Slate Gray Enterprise Login Theme */
+    body.admin-body {
+      margin: 0;
+      padding: 0;
+      background-color: #f1f5f9 !important;
+      color: #0f172a !important;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+    }
+
+    #view-admin-login.admin-login-wrapper {
+      background-color: #f1f5f9 !important;
+      background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%) !important;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    #view-admin-login .admin-login-card {
+      background: #ffffff !important;
+      border: 1px solid #e2e8f0 !important;
+      border-radius: 20px !important;
+      padding: 42px 36px !important;
+      box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(15, 23, 42, 0.04) !important;
+      width: 100%;
+      max-width: 450px;
+    }
+  </style>
 </head>
 <body class="admin-body">
 
@@ -20,42 +52,44 @@
   <div class="toast-region" id="admin-toast-region" aria-live="polite" aria-atomic="true"></div>
 
   <!-- =========================================================================
-       VIEW 1: LOGIN ADMIN
+       VIEW 1: LOGIN ADMIN (Clean White & Slate Gray Enterprise)
   ========================================================================= -->
   <section class="admin-login-wrapper" id="view-admin-login">
-    <div class="admin-login-card">
+    <div class="admin-login-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.12);">
       <div class="admin-login-header">
-        <div class="admin-brand-logos">
-          <img src="/pertamina-ep-logo-transparent.png" alt="Pertamina EP" class="admin-logo-pep" />
-          <div class="admin-logo-divider"></div>
-          <img src="/satu-it-sigap-logo-transparent.png" alt="SIGAP-AI HSSE" class="admin-logo-sigap" />
+        <div class="admin-brand-logos" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 10px 20px; display: inline-flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 18px;">
+          <img src="/pertamina-ep-logo-transparent.png" alt="Pertamina EP" class="admin-logo-pep" style="height: 42px; width: auto; object-fit: contain;" />
+          <div class="admin-logo-divider" style="width: 1px; height: 28px; background: #cbd5e1;"></div>
+          <img src="/satu-it-sigap-logo-transparent.png" alt="SIGAP-AI HSSE" class="admin-logo-sigap" style="height: 42px; width: auto; object-fit: contain;" />
         </div>
-        <div class="admin-badge-portal">PORTAL PENGELOLAAN HSSE</div>
-        <h1 class="admin-login-title">SIGAP HSE ADMIN</h1>
-        <p class="admin-login-subtitle">
+        <div>
+          <span class="admin-badge-portal" style="display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 1px; color: #1e40af; background: #eff6ff; border: 1px solid #bfdbfe; padding: 4px 14px; border-radius: 20px; margin-bottom: 12px;">PORTAL PENGELOLAAN HSSE</span>
+        </div>
+        <h1 class="admin-login-title" style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 800; color: #0f172a; margin: 0 0 8px 0;">SIGAP HSE ADMIN</h1>
+        <p class="admin-login-subtitle" style="font-size: 13.5px; color: #64748b; line-height: 1.6; margin: 0; max-width: 360px; margin-left: auto; margin-right: auto;">
           Monitoring, Verifikasi Temuan, Tindak Lanjut Mitigasi &amp; Rekapitulasi Laporan K3
         </p>
       </div>
 
       <form id="admin-login-form" onsubmit="event.preventDefault(); handleAdminLogin();">
-        <div class="form-group">
-          <label for="admin-user-input">Username Admin <span class="field-required">*</span></label>
-          <input type="text" id="admin-user-input" class="form-input" placeholder="Masukkan username" autocomplete="username" required autofocus />
+        <div class="form-group" style="margin-bottom: 18px; text-align: left;">
+          <label for="admin-user-input" style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px;">Username Admin <span class="field-required" style="color: #ef4444;">*</span></label>
+          <input type="text" id="admin-user-input" class="form-input" placeholder="Masukkan username" autocomplete="username" style="width: 100%; background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; border-radius: 10px; padding: 12px 14px; font-size: 14px; box-sizing: border-box;" required autofocus />
         </div>
 
-        <div class="form-group">
-          <label for="admin-pass-input">Password <span class="field-required">*</span></label>
-          <input type="password" id="admin-pass-input" class="form-input" placeholder="Masukkan password" autocomplete="current-password" required />
+        <div class="form-group" style="margin-bottom: 18px; text-align: left;">
+          <label for="admin-pass-input" style="display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 6px;">Password <span class="field-required" style="color: #ef4444;">*</span></label>
+          <input type="password" id="admin-pass-input" class="form-input" placeholder="Masukkan password" autocomplete="current-password" style="width: 100%; background: #f8fafc; border: 1px solid #cbd5e1; color: #0f172a; border-radius: 10px; padding: 12px 14px; font-size: 14px; box-sizing: border-box;" required />
         </div>
 
-        <div class="admin-login-actions">
-          <button type="submit" class="btn btn-primary btn-block" id="btn-admin-login">
+        <div class="admin-login-actions" style="margin-top: 24px;">
+          <button type="submit" class="btn btn-primary btn-block" id="btn-admin-login" style="width: 100%; background: linear-gradient(135deg, #1e40af 0%, #0072ce 100%); color: #ffffff; border: none; border-radius: 10px; padding: 13px; font-size: 14px; font-weight: 700; cursor: pointer;">
             Masuk ke Portal Admin
           </button>
         </div>
 
-        <div class="admin-login-footer">
-          <a href="/" class="admin-back-link">← Kembali ke Portal Pengguna SIGAP HSE</a>
+        <div class="admin-login-footer" style="text-align: center; margin-top: 20px; font-size: 13px;">
+          <a href="/" class="admin-back-link" style="color: #64748b; text-decoration: none; font-weight: 500;">← Kembali ke Portal Pengguna SIGAP HSE</a>
         </div>
       </form>
     </div>

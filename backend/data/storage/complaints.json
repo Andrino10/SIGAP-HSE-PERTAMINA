@@ -1,5 +1,99 @@
 [
   {
+    "id": "HSE-20260827-0022",
+    "ticket_number": "HSE-20260827-0022",
+    "reporter_name": "Ahmad Fauzi",
+    "division": "Konstruksi & Fasilitas",
+    "location": "Scaffolding Tangki 04",
+    "occurrence_date": "2026-08-27",
+    "category": "Pekerjaan di Ketinggian",
+    "categories": [
+      "Pekerjaan di Ketinggian"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan pipa perancah goyang dan clamp pengunci kendor di ketinggian 6 meter.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_engineer": "Juni Trihardiyanto (Safety Lead)",
+    "follow_up_notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang.",
+    "history": [
+      {
+        "timestamp": "2026-08-27T11:55:54.374828",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Ahmad Fauzi",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-08-27T11:55:54.381275",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tim HSSE menuju lokasi untuk inspeksi ulang perancah dan memasang safety tag merah."
+      },
+      {
+        "timestamp": "2026-08-27T11:55:54.383962",
+        "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'",
+        "previous_status": "In Progress",
+        "status": "Closed / Resolved",
+        "actor": "Administrator HSSE",
+        "notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang."
+      }
+    ],
+    "created_at": "2026-08-27T11:55:54.374828",
+    "updated_at": "2026-08-27T11:55:54.383962",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260827-0021",
+    "ticket_number": "HSE-20260827-0021",
+    "reporter_name": "Ahmad Fauzi",
+    "division": "Konstruksi & Fasilitas",
+    "location": "Scaffolding Tangki 04",
+    "occurrence_date": "2026-08-27",
+    "category": "Pekerjaan di Ketinggian",
+    "categories": [
+      "Pekerjaan di Ketinggian"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan pipa perancah goyang dan clamp pengunci kendor di ketinggian 6 meter.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_engineer": "Juni Trihardiyanto (Safety Lead)",
+    "follow_up_notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang.",
+    "history": [
+      {
+        "timestamp": "2026-08-27T11:54:01.234638",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Ahmad Fauzi",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-08-27T11:54:01.240860",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tim HSSE menuju lokasi untuk inspeksi ulang perancah dan memasang safety tag merah."
+      },
+      {
+        "timestamp": "2026-08-27T11:54:01.244076",
+        "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'",
+        "previous_status": "In Progress",
+        "status": "Closed / Resolved",
+        "actor": "Administrator HSSE",
+        "notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang."
+      }
+    ],
+    "created_at": "2026-08-27T11:54:01.234638",
+    "updated_at": "2026-08-27T11:54:01.244076",
+    "attachment": null
+  },
+  {
     "id": "HSE-20260827-0020",
     "ticket_number": "HSE-20260827-0020",
     "reporter_name": "Ahmad Fauzi",
