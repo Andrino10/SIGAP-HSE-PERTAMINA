@@ -285,6 +285,11 @@ body {
   background-attachment: fixed;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-heading);
   color: var(--text-main);
@@ -2312,63 +2317,62 @@ textarea:focus-visible,
   border-radius: 0;
 }
 
-.nav-link {
+.nav-link, a.nav-link {
   position: relative;
-  min-height: 42px;
-  padding: 0.55rem 0.85rem;
-  border-radius: var(--radius-sm);
-  color: #53667c;
-  font-size: 0.84rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 8px;
+  color: #475569;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-size: 0.88rem;
+  font-weight: 500;
   letter-spacing: -0.01em;
+  text-decoration: none !important;
+  transition: all 0.2s ease;
 }
 
 .nav-link::after {
-  content: '';
-  position: absolute;
-  right: 0.85rem;
-  bottom: 3px;
-  left: 0.85rem;
-  height: 2px;
-  background: var(--primary);
-  transform: scaleX(0);
-  transition: transform 0.2s ease;
+  display: none !important;
 }
 
-.nav-link:hover {
-  color: var(--primary-dark);
-  background: #f5f8fb;
+.nav-link:hover, a.nav-link:hover {
+  color: #0284c7;
+  background: rgba(2, 132, 199, 0.08);
+  text-decoration: none !important;
 }
 
-.nav-link.active {
-  color: var(--primary-dark);
-  background: transparent;
-  box-shadow: none;
+.nav-link.active, a.nav-link.active {
+  color: #0284c7;
+  font-weight: 600;
+  background: rgba(2, 132, 199, 0.12);
+  text-decoration: none !important;
 }
 
-.nav-link.active::after {
-  transform: scaleX(1);
-}
-
-.nav-link-contact {
+.nav-link-ticket, a.nav-link-ticket {
   margin-left: 0.35rem;
-  color: #fff;
-  background: #0369a1;
-  border: 1px solid transparent;
+  color: #0284c7;
+  font-weight: 600;
+  background: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.25);
+  border-radius: 8px;
+  text-decoration: none !important;
 }
 
-.nav-link-contact:hover {
-  color: #fff;
+.nav-link-ticket:hover, a.nav-link-ticket:hover {
+  color: #0284c7;
+  background: rgba(2, 132, 199, 0.16);
+  border-color: #0284c7;
+  text-decoration: none !important;
+}
+
+.nav-link-ticket.active, a.nav-link-ticket.active {
   background: #0284c7;
-}
-
-.nav-link-contact.active {
-  background: #0ea5e9;
-  color: #fff;
-  box-shadow: 0 0 0 3px rgba(14,165,233,0.25);
-}
-
-.nav-link-contact::after {
-  display: none;
+  color: #ffffff !important;
+  border-color: #0284c7;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.25);
+  text-decoration: none !important;
 }
 
 .nav-actions {

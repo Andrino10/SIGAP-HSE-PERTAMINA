@@ -11,13 +11,16 @@
     <!-- Main Navigation Menu -->
     <nav class="nav-menu" :class="{ active: isMobileMenuOpen }" id="nav-menu" aria-label="Navigasi utama">
       <router-link to="/" class="nav-link" active-class="active" @click="closeMobileMenu">
-        <span class="nav-icon" aria-hidden="true"></span> Beranda
+        Beranda
       </router-link>
       <router-link to="/chatbot" class="nav-link" active-class="active" @click="closeMobileMenu">
-        <span class="nav-icon" aria-hidden="true"></span> Asisten HSSE
+        Asisten HSSE
       </router-link>
-      <router-link to="/ticket" class="nav-link nav-link-contact" active-class="active" @click="closeMobileMenu">
-        <span class="nav-icon" aria-hidden="true"></span> Cek Status Tiket
+      <router-link to="/knowledge" class="nav-link" active-class="active" @click="closeMobileMenu">
+        Knowledge Base
+      </router-link>
+      <router-link to="/ticket" class="nav-link nav-link-ticket" active-class="active" @click="closeMobileMenu">
+        🔍 Cek Status Tiket
       </router-link>
     </nav>
 
