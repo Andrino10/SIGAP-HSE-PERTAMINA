@@ -35,8 +35,8 @@ class ConversationRepository:
                         "kategori_list": [],
                         "category_source": None,
                         "assigned_category": None,
-                        "device": None,
                         "location": None,
+                        "occurrence_date": None,
                         "initial_description": None,
                         "last_user_message": None,
                         "symptoms": [],
@@ -77,7 +77,7 @@ class ConversationRepository:
             if session_id in self.sessions:
                 del self.sessions[session_id]
                 self._save()
-            return self.get_session(session_id)
+            return {"session_id": session_id, "cleared": True}
 
     def get_all_sessions(self):
         with self._lock:

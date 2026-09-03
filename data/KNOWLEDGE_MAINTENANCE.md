@@ -1,4 +1,4 @@
-# Maintenance Knowledge Base HSE
+# Maintenance Knowledge Base HSSE
 
 `knowledge.json` adalah sumber tunggal artikel untuk pencarian chatbot dan
 Direktori Knowledge Base. Backend memeriksa waktu perubahan file pada setiap
@@ -9,7 +9,7 @@ file disimpan dalam keadaan valid.
 
 Setiap artikel harus berisi:
 
-- `id`: ID unik dan stabil, misalnya `HSE-LISTRIK-015`.
+- `id`: ID unik dan stabil, misalnya `HSSE-LISTRIK-015`.
 - `kategori`: nama kategori lengkap dan konsisten.
 - `judul`: kondisi bahaya yang spesifik.
 - `kata_kunci`: array frasa yang mungkin digunakan pelapor.
@@ -22,7 +22,7 @@ Setiap artikel harus berisi:
   sumber resmi yang relevan dan masih berlaku.
 - `tag`: array label ringkas untuk pencarian direktori.
 
-Validator juga mensyaratkan format ID `HSE-KATEGORI-001`, sedikitnya tiga kata
+Validator juga mensyaratkan format ID `HSSE-KATEGORI-001`, sedikitnya tiga kata
 kunci, sedikitnya dua tag, penjelasan risiko minimal 500 karakter, serta minimal
 tiga langkah solusi yang bernomor urut. Langkah pertama wajib diawali
 `1. Tindakan Segera:` dan akan ditolak bila masih memakai boilerplate generik.
@@ -45,7 +45,7 @@ peralatan berenergi.
 
 1. Tambahkan object baru ke `knowledge.json` dan gunakan ID yang belum pernah
    dipakai.
-2. Pastikan isi teknis dan tingkat risiko telah ditinjau personel HSE berwenang.
+2. Pastikan isi teknis dan tingkat risiko telah ditinjau personel HSSE berwenang.
 3. Jalankan validasi dari direktori proyek:
 
    ```powershell
@@ -56,11 +56,11 @@ peralatan berenergi.
    akan memakai versi baru tanpa restart.
 
 Perapihan mekanis dapat dijalankan dengan `--fix`. Perintah tersebut tidak
-menulis pengetahuan teknis baru dan bukan pengganti tinjauan HSE.
+menulis pengetahuan teknis baru dan bukan pengganti tinjauan HSSE.
 
-## Kontrak kategori Asisten HSE
+## Kontrak kategori Asisten HSSE
 
-Asisten HSE menerima `categories` sebagai array berisi satu sampai lima nama
+Asisten HSSE menerima `categories` sebagai array berisi satu sampai lima nama
 kategori yang tersedia di `knowledge.json`. Elemen pertama menjadi kategori
 utama untuk penugasan awal petugas, sedangkan pencarian artikel dibatasi ke
 seluruh kategori dalam array. Kategori `Umum` harus dipilih sendiri dan tidak
@@ -83,4 +83,4 @@ menampilkan kesalahan validasi melalui endpoint metadata.
 
 Status `valid` menunjukkan kelengkapan struktur dan konsistensi mekanis. Status
 tersebut bukan pengesahan teknis; perubahan dampak, tingkat risiko, standar, atau
-langkah pengendalian tetap harus ditinjau dan disetujui personel HSE berwenang.
+langkah pengendalian tetap harus ditinjau dan disetujui personel HSSE berwenang.

@@ -386,7 +386,7 @@
       "error_message": null,
       "steps_tried": [],
       "last_result": null,
-      "status": "perlu_bantuan_hse",
+      "status": "perlu_bantuan_hsse",
       "kb_id": null,
       "resolution_time_minutes": null,
       "priority": "low",
@@ -2561,27 +2561,27 @@
       ],
       "error_message": null,
       "steps_tried": [
-        "Pada pukul 09.20 WIB di area Well Pad A, seorang pekerja ditemukan melakukan inspeksi pada fasilitas perpipaan tanpa menggunakan helm keselamatan (safety helmet) dan kacamata pelindung (safety glasses). Selain itu, pekerja memasuki area operasi tanpa membawa izin kerja (Permit to Work/PTW) yang masih berlaku. Saat dilakukan observasi, pekerja juga terlihat menggunakan telepon genggam di dalam area yang memiliki potensi atmosfer mudah terbakar (hazardous area). Tindakan tersebut berpotensi meningkatkan risiko cedera akibat benda jatuh, paparan bahaya proses, serta memicu sumber penyalaan (ignition source) yang dapat menyebabkan kebakaran atau ledakan. Pekerja telah dihentikan sementara dari aktivitas, diberikan pengarahan (toolbox talk), dan diminta melengkapi seluruh persyaratan HSE sebelum pekerjaan dapat dilanjutkan."
+        "Pada pukul 09.20 WIB di area Well Pad A, seorang pekerja ditemukan melakukan inspeksi pada fasilitas perpipaan tanpa menggunakan helm keselamatan (safety helmet) dan kacamata pelindung (safety glasses). Selain itu, pekerja memasuki area operasi tanpa membawa izin kerja (Permit to Work/PTW) yang masih berlaku. Saat dilakukan observasi, pekerja juga terlihat menggunakan telepon genggam di dalam area yang memiliki potensi atmosfer mudah terbakar (hazardous area). Tindakan tersebut berpotensi meningkatkan risiko cedera akibat benda jatuh, paparan bahaya proses, serta memicu sumber penyalaan (ignition source) yang dapat menyebabkan kebakaran atau ledakan. Pekerja telah dihentikan sementara dari aktivitas, diberikan pengarahan (toolbox talk), dan diminta melengkapi seluruh persyaratan HSSE sebelum pekerjaan dapat dilanjutkan."
       ],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-APD-005",
+      "kb_id": "HSSE-APD-005",
       "kategori": "Alat Pelindung Diri (APD)"
     },
     "messages": [
       {
         "role": "user",
-        "content": "Pada pukul 09.20 WIB di area Well Pad A, seorang pekerja ditemukan melakukan inspeksi pada fasilitas perpipaan tanpa menggunakan helm keselamatan (safety helmet) dan kacamata pelindung (safety glasses). Selain itu, pekerja memasuki area operasi tanpa membawa izin kerja (Permit to Work/PTW) yang masih berlaku. Saat dilakukan observasi, pekerja juga terlihat menggunakan telepon genggam di dalam area yang memiliki potensi atmosfer mudah terbakar (hazardous area). Tindakan tersebut berpotensi meningkatkan risiko cedera akibat benda jatuh, paparan bahaya proses, serta memicu sumber penyalaan (ignition source) yang dapat menyebabkan kebakaran atau ledakan. Pekerja telah dihentikan sementara dari aktivitas, diberikan pengarahan (toolbox talk), dan diminta melengkapi seluruh persyaratan HSE sebelum pekerjaan dapat dilanjutkan.",
+        "content": "Pada pukul 09.20 WIB di area Well Pad A, seorang pekerja ditemukan melakukan inspeksi pada fasilitas perpipaan tanpa menggunakan helm keselamatan (safety helmet) dan kacamata pelindung (safety glasses). Selain itu, pekerja memasuki area operasi tanpa membawa izin kerja (Permit to Work/PTW) yang masih berlaku. Saat dilakukan observasi, pekerja juga terlihat menggunakan telepon genggam di dalam area yang memiliki potensi atmosfer mudah terbakar (hazardous area). Tindakan tersebut berpotensi meningkatkan risiko cedera akibat benda jatuh, paparan bahaya proses, serta memicu sumber penyalaan (ignition source) yang dapat menyebabkan kebakaran atau ledakan. Pekerja telah dihentikan sementara dari aktivitas, diberikan pengarahan (toolbox talk), dan diminta melengkapi seluruh persyaratan HSSE sebelum pekerjaan dapat dilanjutkan.",
         "timestamp": "2026-08-03T14:54:43.486859",
         "meta": {}
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nKondisi bahaya terdeteksi pada kategori Alat Pelindung Diri (APD): Tidak menggunakan pelindung mata saat bekerja.\n\nTINGKAT RISIKO\n⚡ RISIKO SEDANG — Perlu perhatian dan tindakan korektif dalam waktu dekat.\n\nPENJELASAN RISIKO\nKondisi 'Tidak menggunakan pelindung mata saat bekerja' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko iritasi parah, luka kornea, hingga kebutaan akibat percikan geram, debu konstruksi, atau paparan cairan kimia ke area mata., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n2. Pengendalian Teknis & APD: Gunakan kacamata keselamatan (safety goggles) tertutup rapat atau pelindung wajah (face shield) yang teruji menahan percikan geram dan cairan kimia, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n\nREKOMENDASI K3\nBerdasarkan standar K3, lakukan tindakan korektif segera dan pastikan pengawasan ditingkatkan di area terkait.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSE / Safety Officer.",
+        "content": "KONDISI TERIDENTIFIKASI\nKondisi bahaya terdeteksi pada kategori Alat Pelindung Diri (APD): Tidak menggunakan pelindung mata saat bekerja.\n\nTINGKAT RISIKO\n⚡ RISIKO SEDANG — Perlu perhatian dan tindakan korektif dalam waktu dekat.\n\nPENJELASAN RISIKO\nKondisi 'Tidak menggunakan pelindung mata saat bekerja' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko iritasi parah, luka kornea, hingga kebutaan akibat percikan geram, debu konstruksi, atau paparan cairan kimia ke area mata., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n2. Pengendalian Teknis & APD: Gunakan kacamata keselamatan (safety goggles) tertutup rapat atau pelindung wajah (face shield) yang teruji menahan percikan geram dan cairan kimia, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n\nREKOMENDASI K3\nBerdasarkan standar K3, lakukan tindakan korektif segera dan pastikan pengawasan ditingkatkan di area terkait.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSSE / Safety Officer.",
         "timestamp": "2026-08-03T14:54:43.679577",
         "meta": {
           "confidence": 0.7096,
-          "kb_id": "HSE-APD-005"
+          "kb_id": "HSSE-APD-005"
         }
       }
     ]
@@ -2601,7 +2601,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-APD-002",
+      "kb_id": "HSSE-APD-002",
       "kategori": "Alat Pelindung Diri (APD)"
     },
     "messages": [
@@ -2613,11 +2613,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi kondisi bahaya K3 [KODE KB: HSE-APD-002]: 'Pekerja menggunakan helm tetapi tidak terpasang dengan benar' pada kategori Alat Pelindung Diri (APD).\nKata Kunci & Tag Terkait: helm longgar, helm tidak terkunci, tali dagu, helm lepas, pemasangan helm.\n\nTINGKAT RISIKO\n⚡ RISIKO SEDANG — Potensi Bahaya Signifikan. Memerlukan perhatian khusus dan tindakan perbaikan dalam waktu cepat.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja menggunakan helm tetapi tidak terpasang dengan benar' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan helm dapat lepas saat benturan sehingga tidak melindungi kepala, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Tambahan: Tanpa tindakan korektif yang tepat, kondisi ini dapat memicu kecelakaan kerja (LTI/Fatality), kerusakan aset operasional, serta gangguan pada kelancaran proyek Pertamina EP.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n2. Pengendalian Teknis & APD: Pastikan helm dikunci dengan benar, lakukan pengecekan oleh supervisor sebelum kerja dimulai, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n4. Kepatuhan APD Mandatory: Wajibkan seluruh pekerja menggunakan APD sesuai standar SNI/ANSI sebelum memasuki area kerja.\n5. Inspeksi Supervisor: Pastikan Supervisor Lapangan melakukan verifikasi kelayakan sebelum pekerjaan dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Pelindung Diri (APD): Bambang Wijaya, S.T. (Senior HSE Officer - APD & Inspeksi) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n4. Referensi Bahaya Terkait Lainnya: 'Pekerja tidak menggunakan helm di area konstruksi' [ID: HSE-APD-001].\n\nSTATUS PENANGANAN\nDapat Ditindaklanjuti oleh Supervisor Lapangan dengan Pengawasan K3.",
+        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi kondisi bahaya K3 [KODE KB: HSSE-APD-002]: 'Pekerja menggunakan helm tetapi tidak terpasang dengan benar' pada kategori Alat Pelindung Diri (APD).\nKata Kunci & Tag Terkait: helm longgar, helm tidak terkunci, tali dagu, helm lepas, pemasangan helm.\n\nTINGKAT RISIKO\n⚡ RISIKO SEDANG — Potensi Bahaya Signifikan. Memerlukan perhatian khusus dan tindakan perbaikan dalam waktu cepat.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja menggunakan helm tetapi tidak terpasang dengan benar' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan helm dapat lepas saat benturan sehingga tidak melindungi kepala, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Tambahan: Tanpa tindakan korektif yang tepat, kondisi ini dapat memicu kecelakaan kerja (LTI/Fatality), kerusakan aset operasional, serta gangguan pada kelancaran proyek Pertamina EP.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n2. Pengendalian Teknis & APD: Pastikan helm dikunci dengan benar, lakukan pengecekan oleh supervisor sebelum kerja dimulai, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n4. Kepatuhan APD Mandatory: Wajibkan seluruh pekerja menggunakan APD sesuai standar SNI/ANSI sebelum memasuki area kerja.\n5. Inspeksi Supervisor: Pastikan Supervisor Lapangan melakukan verifikasi kelayakan sebelum pekerjaan dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Pelindung Diri (APD): Bambang Wijaya, S.T. (Senior HSSE Officer - APD & Inspeksi) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n4. Referensi Bahaya Terkait Lainnya: 'Pekerja tidak menggunakan helm di area konstruksi' [ID: HSSE-APD-001].\n\nSTATUS PENANGANAN\nDapat Ditindaklanjuti oleh Supervisor Lapangan dengan Pengawasan K3.",
         "timestamp": "2026-08-04T07:42:54.670756",
         "meta": {
           "confidence": 1.0,
-          "kb_id": "HSE-APD-002"
+          "kb_id": "HSSE-APD-002"
         }
       }
     ]
@@ -2637,7 +2637,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-KETINGGIAN-001",
+      "kb_id": "HSSE-KETINGGIAN-001",
       "kategori": "Pekerjaan di Ketinggian"
     },
     "messages": [
@@ -2649,11 +2649,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi kondisi bahaya K3 [KODE KB: HSE-KETINGGIAN-001]: 'Pekerja bekerja di ketinggian tanpa safety harness' pada kategori Pekerjaan di Ketinggian.\nKata Kunci & Tag Terkait: ketinggian, sabuk pengaman badan, jatuh, tali keselamatan, tanpa pengaman.\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja bekerja di ketinggian tanpa safety harness' pada kategori Pekerjaan di Ketinggian menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko jatuh fatal dari ketinggian yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Tambahan: Tanpa tindakan korektif yang tepat, kondisi ini dapat memicu kecelakaan kerja (LTI/Fatality), kerusakan aset operasional, serta gangguan pada kelancaran proyek Pertamina EP.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n2. Pengendalian Teknis & APD: Hentikan pekerjaan, gunakan full body harness + lifeline, dan pastikan anchor point sesuai standar, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n4. Kepatuhan APD Mandatory: Wajibkan seluruh pekerja menggunakan APD sesuai standar SNI/ANSI sebelum memasuki area kerja.\n5. Inspeksi Supervisor: Pastikan Supervisor Lapangan melakukan verifikasi kelayakan sebelum pekerjaan dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Pekerjaan di Ketinggian: Dedi Kurniawan, A.Md. (HSE Supervisor - Pekerjaan di Ketinggian) — Hotline: 6281234567892.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n4. Referensi Bahaya Terkait Lainnya: 'Pekerja tidak mengamankan alat setelah digunakan di ketinggian' [ID: HSE-KETINGGIAN-013].\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSE / Safety Officer Pertamina EP.",
+        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi kondisi bahaya K3 [KODE KB: HSSE-KETINGGIAN-001]: 'Pekerja bekerja di ketinggian tanpa safety harness' pada kategori Pekerjaan di Ketinggian.\nKata Kunci & Tag Terkait: ketinggian, sabuk pengaman badan, jatuh, tali keselamatan, tanpa pengaman.\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja bekerja di ketinggian tanpa safety harness' pada kategori Pekerjaan di Ketinggian menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko jatuh fatal dari ketinggian yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Tambahan: Tanpa tindakan korektif yang tepat, kondisi ini dapat memicu kecelakaan kerja (LTI/Fatality), kerusakan aset operasional, serta gangguan pada kelancaran proyek Pertamina EP.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n2. Pengendalian Teknis & APD: Hentikan pekerjaan, gunakan full body harness + lifeline, dan pastikan anchor point sesuai standar, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n4. Kepatuhan APD Mandatory: Wajibkan seluruh pekerja menggunakan APD sesuai standar SNI/ANSI sebelum memasuki area kerja.\n5. Inspeksi Supervisor: Pastikan Supervisor Lapangan melakukan verifikasi kelayakan sebelum pekerjaan dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Pekerjaan di Ketinggian: Dedi Kurniawan, A.Md. (HSSE Supervisor - Pekerjaan di Ketinggian) — Hotline: 6281234567892.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n4. Referensi Bahaya Terkait Lainnya: 'Pekerja tidak mengamankan alat setelah digunakan di ketinggian' [ID: HSSE-KETINGGIAN-013].\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSSE / Safety Officer Pertamina EP.",
         "timestamp": "2026-08-04T07:43:07.436295",
         "meta": {
           "confidence": 0.9558,
-          "kb_id": "HSE-KETINGGIAN-001"
+          "kb_id": "HSSE-KETINGGIAN-001"
         }
       }
     ]
@@ -2671,7 +2671,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "selesai",
-      "kb_id": "HSE-APD-001",
+      "kb_id": "HSSE-APD-001",
       "kategori": "Alat Pelindung Diri (APD)"
     },
     "messages": [
@@ -2683,11 +2683,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi kondisi bahaya K3 [KODE KB: HSE-APD-001]: 'Pekerja tidak menggunakan helm di area konstruksi' pada kategori Alat Pelindung Diri (APD).\nKata Kunci & Tag Terkait: helm, kepala, konstruksi, benda jatuh, benturan, tanpa helm.\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja tidak menggunakan helm di area konstruksi' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan tidak adanya perlindungan kepala meningkatkan risiko cedera serius akibat benda jatuh atau benturan keras, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Tambahan: Tanpa tindakan korektif yang tepat, kondisi ini dapat memicu kecelakaan kerja (LTI/Fatality), kerusakan aset operasional, serta gangguan pada kelancaran proyek Pertamina EP.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n2. Pengendalian Teknis & APD: Hentikan pekerjaan sementara, wajibkan penggunaan helm standar SNI/ANSI, dan lakukan inspeksi APD sebelum masuk area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n4. Kepatuhan APD Mandatory: Wajibkan seluruh pekerja menggunakan APD sesuai standar SNI/ANSI sebelum memasuki area kerja.\n5. Inspeksi Supervisor: Pastikan Supervisor Lapangan melakukan verifikasi kelayakan sebelum pekerjaan dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Pelindung Diri (APD): Bambang Wijaya, S.T. (Senior HSE Officer - APD & Inspeksi) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n4. Referensi Bahaya Terkait Lainnya: 'Pekerja menggunakan helm tetapi tidak terpasang dengan benar' [ID: HSE-APD-002].\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSE / Safety Officer Pertamina EP.",
+        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi kondisi bahaya K3 [KODE KB: HSSE-APD-001]: 'Pekerja tidak menggunakan helm di area konstruksi' pada kategori Alat Pelindung Diri (APD).\nKata Kunci & Tag Terkait: helm, kepala, konstruksi, benda jatuh, benturan, tanpa helm.\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja tidak menggunakan helm di area konstruksi' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan tidak adanya perlindungan kepala meningkatkan risiko cedera serius akibat benda jatuh atau benturan keras, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Tambahan: Tanpa tindakan korektif yang tepat, kondisi ini dapat memicu kecelakaan kerja (LTI/Fatality), kerusakan aset operasional, serta gangguan pada kelancaran proyek Pertamina EP.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n2. Pengendalian Teknis & APD: Hentikan pekerjaan sementara, wajibkan penggunaan helm standar SNI/ANSI, dan lakukan inspeksi APD sebelum masuk area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n4. Kepatuhan APD Mandatory: Wajibkan seluruh pekerja menggunakan APD sesuai standar SNI/ANSI sebelum memasuki area kerja.\n5. Inspeksi Supervisor: Pastikan Supervisor Lapangan melakukan verifikasi kelayakan sebelum pekerjaan dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Pelindung Diri (APD): Bambang Wijaya, S.T. (Senior HSSE Officer - APD & Inspeksi) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n4. Referensi Bahaya Terkait Lainnya: 'Pekerja menggunakan helm tetapi tidak terpasang dengan benar' [ID: HSSE-APD-002].\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSSE / Safety Officer Pertamina EP.",
         "timestamp": "2026-08-04T08:01:50.848788",
         "meta": {
           "confidence": 1.0,
-          "kb_id": "HSE-APD-001"
+          "kb_id": "HSSE-APD-001"
         }
       }
     ]
@@ -2705,7 +2705,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-HOTWORK-008",
+      "kb_id": "HSSE-HOTWORK-008",
       "kategori": "Pekerjaan Panas (Hot Work)"
     },
     "messages": [
@@ -2717,11 +2717,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi kondisi bahaya K3 [KODE KB: HSE-HOTWORK-008]: 'Percikan api las mengenai material flammable tanpa penutup terpal tahan api (Fire Blanket)' pada kategori Pekerjaan Panas (Hot Work).\nKata Kunci & Tag Terkait: fire blanket, terpal tahan api, percikan las, flammable, kebakaran, bunga api.\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPercikan geram dan bunga api pengelasan yang menyebar tanpa pelindung terpal tahan api (fire blanket) dapat membakar bahan-bahan mudah terbakar (kayu, kardus, majun, minyak) di sekitarnya.\nDampak Tambahan: Tanpa tindakan korektif yang tepat, kondisi ini dapat memicu kecelakaan kerja (LTI/Fatality), kerusakan aset operasional, serta gangguan pada kelancaran proyek Pertamina EP.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Padamkan percikan api dan bersihkan bahan mudah terbakar dari radius 10 meter.\n2. Pengendalian Teknis & APD: Pasang fire blanket/habitat las tahan panas yang menutupi seluruh arah percikan api dan bersihkan lokasi kerja.\n3. Inspeksi & Pengawasan: Verifikasi kebersihan area oleh Fire Watcher dan Safety Officer sebelum pekerjaan las dimulai.\n4. Kepatuhan APD Mandatory: Wajibkan seluruh pekerja menggunakan APD sesuai standar SNI/ANSI sebelum memasuki area kerja.\n5. Inspeksi Supervisor: Pastikan Supervisor Lapangan melakukan verifikasi kelayakan sebelum pekerjaan dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Pekerjaan Panas (Hot Work): Hendra Pratama (ERT & Fire Safety Specialist) — Hotline: 6281234567897.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n4. Referensi Bahaya Terkait Lainnya: 'Pengelasan pipa minyak/gas tanpa Hot Work Permit dan penjaga api (Fire Watcher)' [ID: HSE-HOTWORK-007].\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSE / Safety Officer Pertamina EP.",
+        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi kondisi bahaya K3 [KODE KB: HSSE-HOTWORK-008]: 'Percikan api las mengenai material flammable tanpa penutup terpal tahan api (Fire Blanket)' pada kategori Pekerjaan Panas (Hot Work).\nKata Kunci & Tag Terkait: fire blanket, terpal tahan api, percikan las, flammable, kebakaran, bunga api.\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPercikan geram dan bunga api pengelasan yang menyebar tanpa pelindung terpal tahan api (fire blanket) dapat membakar bahan-bahan mudah terbakar (kayu, kardus, majun, minyak) di sekitarnya.\nDampak Tambahan: Tanpa tindakan korektif yang tepat, kondisi ini dapat memicu kecelakaan kerja (LTI/Fatality), kerusakan aset operasional, serta gangguan pada kelancaran proyek Pertamina EP.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Padamkan percikan api dan bersihkan bahan mudah terbakar dari radius 10 meter.\n2. Pengendalian Teknis & APD: Pasang fire blanket/habitat las tahan panas yang menutupi seluruh arah percikan api dan bersihkan lokasi kerja.\n3. Inspeksi & Pengawasan: Verifikasi kebersihan area oleh Fire Watcher dan Safety Officer sebelum pekerjaan las dimulai.\n4. Kepatuhan APD Mandatory: Wajibkan seluruh pekerja menggunakan APD sesuai standar SNI/ANSI sebelum memasuki area kerja.\n5. Inspeksi Supervisor: Pastikan Supervisor Lapangan melakukan verifikasi kelayakan sebelum pekerjaan dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Pekerjaan Panas (Hot Work): Hendra Pratama (ERT & Fire Safety Specialist) — Hotline: 6281234567897.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n4. Referensi Bahaya Terkait Lainnya: 'Pengelasan pipa minyak/gas tanpa Hot Work Permit dan penjaga api (Fire Watcher)' [ID: HSSE-HOTWORK-007].\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSSE / Safety Officer Pertamina EP.",
         "timestamp": "2026-08-04T08:53:53.911313",
         "meta": {
           "confidence": 0.5682,
-          "kb_id": "HSE-HOTWORK-008"
+          "kb_id": "HSSE-HOTWORK-008"
         }
       }
     ]
@@ -2741,7 +2741,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-APD-002",
+      "kb_id": "HSSE-APD-002",
       "kategori": "Alat Pelindung Diri (APD)"
     },
     "messages": [
@@ -2753,11 +2753,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Pekerja menggunakan helm tetapi tidak terpasang dengan benar [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSE-APD-002]\n• Pelanggaran #2: Pekerja tidak menggunakan helm di area konstruksi [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSE-APD-001]\n• Pelanggaran #3: Tidak menggunakan sepatu safety [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSE-APD-003]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Pekerja menggunakan helm tetapi tidak terpasang dengan benar): Kondisi 'Pekerja menggunakan helm tetapi tidak terpasang dengan benar' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan helm dapat lepas saat benturan sehingga tidak melindungi kepala, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Pekerja tidak menggunakan helm di area konstruksi): Kondisi 'Pekerja tidak menggunakan helm di area konstruksi' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan tidak adanya perlindungan kepala meningkatkan risiko cedera serius akibat benda jatuh atau benturan keras, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Tidak menggunakan sepatu safety): Kondisi 'Tidak menggunakan sepatu safety' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko tertimpa material berat, tertusuk benda tajam, atau tergelincir yang dapat menyebabkan cedera parah pada area kaki dan fraktur tulang., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Pekerja menggunakan helm tetapi tidak terpasang dengan benar) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Pastikan helm dikunci dengan benar, lakukan pengecekan oleh supervisor sebelum kerja dimulai, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Pekerja tidak menggunakan helm di area konstruksi) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Hentikan pekerjaan sementara, wajibkan penggunaan helm standar SNI/ANSI, dan lakukan inspeksi APD sebelum masuk area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Tidak menggunakan sepatu safety) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Wajibkan penggunaan sepatu safety dan lakukan pemeriksaan APD di pintu masuk area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Pelindung Diri (APD): Bambang Wijaya, S.T. (Senior HSE Officer - APD & Inspeksi) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Tindakan Segera Lapangan & Laporan Resmi ke HSE Officer.",
+        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Pekerja menggunakan helm tetapi tidak terpasang dengan benar [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSSE-APD-002]\n• Pelanggaran #2: Pekerja tidak menggunakan helm di area konstruksi [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSSE-APD-001]\n• Pelanggaran #3: Tidak menggunakan sepatu safety [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSSE-APD-003]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Pekerja menggunakan helm tetapi tidak terpasang dengan benar): Kondisi 'Pekerja menggunakan helm tetapi tidak terpasang dengan benar' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan helm dapat lepas saat benturan sehingga tidak melindungi kepala, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Pekerja tidak menggunakan helm di area konstruksi): Kondisi 'Pekerja tidak menggunakan helm di area konstruksi' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan tidak adanya perlindungan kepala meningkatkan risiko cedera serius akibat benda jatuh atau benturan keras, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Tidak menggunakan sepatu safety): Kondisi 'Tidak menggunakan sepatu safety' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko tertimpa material berat, tertusuk benda tajam, atau tergelincir yang dapat menyebabkan cedera parah pada area kaki dan fraktur tulang., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Pekerja menggunakan helm tetapi tidak terpasang dengan benar) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Pastikan helm dikunci dengan benar, lakukan pengecekan oleh supervisor sebelum kerja dimulai, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Pekerja tidak menggunakan helm di area konstruksi) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Hentikan pekerjaan sementara, wajibkan penggunaan helm standar SNI/ANSI, dan lakukan inspeksi APD sebelum masuk area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Tidak menggunakan sepatu safety) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Wajibkan penggunaan sepatu safety dan lakukan pemeriksaan APD di pintu masuk area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Pelindung Diri (APD): Bambang Wijaya, S.T. (Senior HSSE Officer - APD & Inspeksi) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Tindakan Segera Lapangan & Laporan Resmi ke HSSE Officer.",
         "timestamp": "2026-08-04T08:56:33.930905",
         "meta": {
           "confidence": 0.9913,
-          "kb_id": "HSE-APD-002"
+          "kb_id": "HSSE-APD-002"
         }
       }
     ]
@@ -2777,7 +2777,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-APD-002",
+      "kb_id": "HSSE-APD-002",
       "kategori": "Alat Pelindung Diri (APD)"
     },
     "messages": [
@@ -2789,11 +2789,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Pekerja menggunakan helm tetapi tidak terpasang dengan benar [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSE-APD-002]\n• Pelanggaran #2: Pekerja tidak menggunakan helm di area konstruksi [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSE-APD-001]\n• Pelanggaran #3: Tidak menggunakan sepatu safety [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSE-APD-003]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Pekerja menggunakan helm tetapi tidak terpasang dengan benar): Kondisi 'Pekerja menggunakan helm tetapi tidak terpasang dengan benar' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan helm dapat lepas saat benturan sehingga tidak melindungi kepala, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Pekerja tidak menggunakan helm di area konstruksi): Kondisi 'Pekerja tidak menggunakan helm di area konstruksi' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan tidak adanya perlindungan kepala meningkatkan risiko cedera serius akibat benda jatuh atau benturan keras, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Tidak menggunakan sepatu safety): Kondisi 'Tidak menggunakan sepatu safety' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko tertimpa material berat, tertusuk benda tajam, atau tergelincir yang dapat menyebabkan cedera parah pada area kaki dan fraktur tulang., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Pekerja menggunakan helm tetapi tidak terpasang dengan benar) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Pastikan helm dikunci dengan benar, lakukan pengecekan oleh supervisor sebelum kerja dimulai, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Pekerja tidak menggunakan helm di area konstruksi) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Hentikan pekerjaan sementara, wajibkan penggunaan helm standar SNI/ANSI, dan lakukan inspeksi APD sebelum masuk area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Tidak menggunakan sepatu safety) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Wajibkan penggunaan sepatu safety dan lakukan pemeriksaan APD di pintu masuk area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Pelindung Diri (APD): Bambang Wijaya, S.T. (Senior HSE Officer - APD & Inspeksi) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Tindakan Segera Lapangan & Laporan Resmi ke HSE Officer.",
+        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Pekerja menggunakan helm tetapi tidak terpasang dengan benar [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSSE-APD-002]\n• Pelanggaran #2: Pekerja tidak menggunakan helm di area konstruksi [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSSE-APD-001]\n• Pelanggaran #3: Tidak menggunakan sepatu safety [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSSE-APD-003]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Pekerja menggunakan helm tetapi tidak terpasang dengan benar): Kondisi 'Pekerja menggunakan helm tetapi tidak terpasang dengan benar' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan helm dapat lepas saat benturan sehingga tidak melindungi kepala, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Pekerja tidak menggunakan helm di area konstruksi): Kondisi 'Pekerja tidak menggunakan helm di area konstruksi' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan tidak adanya perlindungan kepala meningkatkan risiko cedera serius akibat benda jatuh atau benturan keras, yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Tidak menggunakan sepatu safety): Kondisi 'Tidak menggunakan sepatu safety' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko tertimpa material berat, tertusuk benda tajam, atau tergelincir yang dapat menyebabkan cedera parah pada area kaki dan fraktur tulang., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Pekerja menggunakan helm tetapi tidak terpasang dengan benar) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Pastikan helm dikunci dengan benar, lakukan pengecekan oleh supervisor sebelum kerja dimulai, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Pekerja tidak menggunakan helm di area konstruksi) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Hentikan pekerjaan sementara, wajibkan penggunaan helm standar SNI/ANSI, dan lakukan inspeksi APD sebelum masuk area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Tidak menggunakan sepatu safety) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Wajibkan penggunaan sepatu safety dan lakukan pemeriksaan APD di pintu masuk area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Pelindung Diri (APD): Bambang Wijaya, S.T. (Senior HSSE Officer - APD & Inspeksi) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Tindakan Segera Lapangan & Laporan Resmi ke HSSE Officer.",
         "timestamp": "2026-08-04T08:57:10.546119",
         "meta": {
           "confidence": 0.9913,
-          "kb_id": "HSE-APD-002"
+          "kb_id": "HSSE-APD-002"
         }
       }
     ]
@@ -2811,7 +2811,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-ALATBERAT-010",
+      "kb_id": "HSSE-ALATBERAT-010",
       "kategori": "Alat Berat & Kendaraan"
     },
     "messages": [
@@ -2823,11 +2823,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Operator alat berat mengalami distraksi suara dan visual [Kategori: Alat Berat & Kendaraan] [Kode KB: HSE-ALATBERAT-010]\n• Pelanggaran #2: Papan informasi keselamatan (HSE Board) dan nomor kontak darurat tidak diperbarui [Kategori: Umum] [Kode KB: HSE-UMUM-008]\n• Pelanggaran #3: Pengelasan pipa minyak/gas tanpa Hot Work Permit dan penjaga api (Fire Watcher) [Kategori: Pekerjaan Panas (Hot Work)] [Kode KB: HSE-HOTWORK-007]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Operator alat berat mengalami distraksi suara dan visual): Kondisi 'Operator alat berat mengalami distraksi suara dan visual' pada kategori Alat Berat & Kendaraan menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan bising berlebih atau distraksi di kabin memecah konsentrasi operator dalam mengendalikan tuas kontrol alat berat., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Papan informasi keselamatan (HSE Board) dan nomor kontak darurat tidak diperbarui): Papan informasi K3 yang usang tanpa nomor telepon darurat HSE ter-update menyulitkan pekerja menghubungi bantuan cepat saat terjadi kecelakaan kerja di lokasi proyek.\nPelanggaran #3 (Pengelasan pipa minyak/gas tanpa Hot Work Permit dan penjaga api (Fire Watcher)): Pengelasan atau pemotongan di area kilang/pipa bertekanan tanpa Izin Kerja Panas (Hot Work Permit) dan penjaga api (Fire Watcher) berisiko tinggi menyulut sambaran gas/uap hidrokarbon yang memicu kebakaran hebat.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Operator alat berat mengalami distraksi suara dan visual) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Minimalkan gangguan dan gunakan kabin tertutup jika memungkinkan, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Papan informasi keselamatan (HSE Board) dan nomor kontak darurat tidak diperbarui) ---\n• 1. Tindakan Segera: Perbarui nomor kontak hotline HSE Officer dan ERT pada papan HSE Board utama.\n• 2. Pengendalian Teknis & APD: Pasang papan HSE Board tahan cuaca di area strategis memuat statistik jam kerja selamat, kontak darurat, dan poster K3.\n• 3. Inspeksi & Pengawasan: Audit kelengkapan informasi papan K3 secara bulanan oleh Tim Komunikasi HSE.\n--- Solusi Pelanggaran #3 (Pengelasan pipa minyak/gas tanpa Hot Work Permit dan penjaga api (Fire Watcher)) ---\n• 1. Tindakan Segera: Hentikan pengelasan seketika, matikan mesin las dan amankan area kerja.\n• 2. Pengendalian Teknis & APD: Terbitkan Hot Work Permit resmi, lakukan pengujian gas hidrokarbon, dan siapkan Fire Watcher berlisensi dengan APAR di dekat titik las.\n• 3. Inspeksi & Pengawasan: Pengawas api wajib memantau area hingga minimal 30 menit setelah pekerjaan panas selesai.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Berat & Kendaraan: Juni Trihardiyanto (Senior Safety Lead - Heavy Equipment Safety) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSE / Safety Officer Pertamina EP.",
+        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Operator alat berat mengalami distraksi suara dan visual [Kategori: Alat Berat & Kendaraan] [Kode KB: HSSE-ALATBERAT-010]\n• Pelanggaran #2: Papan informasi keselamatan (HSSE Board) dan nomor kontak darurat tidak diperbarui [Kategori: Umum] [Kode KB: HSSE-UMUM-008]\n• Pelanggaran #3: Pengelasan pipa minyak/gas tanpa Hot Work Permit dan penjaga api (Fire Watcher) [Kategori: Pekerjaan Panas (Hot Work)] [Kode KB: HSSE-HOTWORK-007]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Operator alat berat mengalami distraksi suara dan visual): Kondisi 'Operator alat berat mengalami distraksi suara dan visual' pada kategori Alat Berat & Kendaraan menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan bising berlebih atau distraksi di kabin memecah konsentrasi operator dalam mengendalikan tuas kontrol alat berat., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Papan informasi keselamatan (HSSE Board) dan nomor kontak darurat tidak diperbarui): Papan informasi K3 yang usang tanpa nomor telepon darurat HSSE ter-update menyulitkan pekerja menghubungi bantuan cepat saat terjadi kecelakaan kerja di lokasi proyek.\nPelanggaran #3 (Pengelasan pipa minyak/gas tanpa Hot Work Permit dan penjaga api (Fire Watcher)): Pengelasan atau pemotongan di area kilang/pipa bertekanan tanpa Izin Kerja Panas (Hot Work Permit) dan penjaga api (Fire Watcher) berisiko tinggi menyulut sambaran gas/uap hidrokarbon yang memicu kebakaran hebat.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Operator alat berat mengalami distraksi suara dan visual) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Minimalkan gangguan dan gunakan kabin tertutup jika memungkinkan, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Papan informasi keselamatan (HSSE Board) dan nomor kontak darurat tidak diperbarui) ---\n• 1. Tindakan Segera: Perbarui nomor kontak hotline HSSE Officer dan ERT pada papan HSSE Board utama.\n• 2. Pengendalian Teknis & APD: Pasang papan HSSE Board tahan cuaca di area strategis memuat statistik jam kerja selamat, kontak darurat, dan poster K3.\n• 3. Inspeksi & Pengawasan: Audit kelengkapan informasi papan K3 secara bulanan oleh Tim Komunikasi HSSE.\n--- Solusi Pelanggaran #3 (Pengelasan pipa minyak/gas tanpa Hot Work Permit dan penjaga api (Fire Watcher)) ---\n• 1. Tindakan Segera: Hentikan pengelasan seketika, matikan mesin las dan amankan area kerja.\n• 2. Pengendalian Teknis & APD: Terbitkan Hot Work Permit resmi, lakukan pengujian gas hidrokarbon, dan siapkan Fire Watcher berlisensi dengan APAR di dekat titik las.\n• 3. Inspeksi & Pengawasan: Pengawas api wajib memantau area hingga minimal 30 menit setelah pekerjaan panas selesai.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Berat & Kendaraan: Juni Trihardiyanto (Senior Safety Lead - Heavy Equipment Safety) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSSE / Safety Officer Pertamina EP.",
         "timestamp": "2026-08-04T10:04:15.841106",
         "meta": {
           "confidence": 0.1641,
-          "kb_id": "HSE-ALATBERAT-010"
+          "kb_id": "HSSE-ALATBERAT-010"
         }
       }
     ]
@@ -2845,7 +2845,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-TANGGA-003",
+      "kb_id": "HSSE-TANGGA-003",
       "kategori": "Penggunaan Tangga"
     },
     "messages": [
@@ -2857,11 +2857,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Tangga digunakan dengan sudut salah [Kategori: Penggunaan Tangga] [Kode KB: HSE-TANGGA-003]\n• Pelanggaran #2: Pintu darurat terkunci [Kategori: Tanggap Darurat] [Kode KB: HSE-DARURAT-006]\n• Pelanggaran #3: Nomor darurat tidak tersedia [Kategori: Tanggap Darurat] [Kode KB: HSE-DARURAT-010]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Tangga digunakan dengan sudut salah): Kondisi 'Tangga digunakan dengan sudut salah' pada kategori Penggunaan Tangga menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan struktur tanah yang tidak stabil atau tumpuan yang goyah dapat runtuh tiba-tiba, menyebabkan pekerja jatuh dari lokasi kerja., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Pintu darurat terkunci): Kondisi 'Pintu darurat terkunci' pada kategori Tanggap Darurat menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan pintu darurat yang terkunci dari luar saat kebakaran membuat pekerja terjebak di dalam ruangan yang penuh asap tebal., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Nomor darurat tidak tersedia): Kondisi 'Nomor darurat tidak tersedia' pada kategori Tanggap Darurat menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan penanganan lambat yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Tangga digunakan dengan sudut salah) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Gunakan sudut aman (1:4) saat pemasangan tangga, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Pintu darurat terkunci) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Gunakan mekanisme panic bar pada pintu darurat agar dapat didorong buka seketika dari dalam tanpa kunci, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Nomor darurat tidak tersedia) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Tempelkan papan informasi nomor telepon darurat (Pemadam Kebakaran, RS, K3/Safety) di tempat strategis seluruh area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Penggunaan Tangga: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field) — Hotline: 6281234567890.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSE / Safety Officer Pertamina EP.",
+        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Tangga digunakan dengan sudut salah [Kategori: Penggunaan Tangga] [Kode KB: HSSE-TANGGA-003]\n• Pelanggaran #2: Pintu darurat terkunci [Kategori: Tanggap Darurat] [Kode KB: HSSE-DARURAT-006]\n• Pelanggaran #3: Nomor darurat tidak tersedia [Kategori: Tanggap Darurat] [Kode KB: HSSE-DARURAT-010]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Tangga digunakan dengan sudut salah): Kondisi 'Tangga digunakan dengan sudut salah' pada kategori Penggunaan Tangga menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan struktur tanah yang tidak stabil atau tumpuan yang goyah dapat runtuh tiba-tiba, menyebabkan pekerja jatuh dari lokasi kerja., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Pintu darurat terkunci): Kondisi 'Pintu darurat terkunci' pada kategori Tanggap Darurat menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan pintu darurat yang terkunci dari luar saat kebakaran membuat pekerja terjebak di dalam ruangan yang penuh asap tebal., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Nomor darurat tidak tersedia): Kondisi 'Nomor darurat tidak tersedia' pada kategori Tanggap Darurat menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan penanganan lambat yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Tangga digunakan dengan sudut salah) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Gunakan sudut aman (1:4) saat pemasangan tangga, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Pintu darurat terkunci) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Gunakan mekanisme panic bar pada pintu darurat agar dapat didorong buka seketika dari dalam tanpa kunci, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Nomor darurat tidak tersedia) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Tempelkan papan informasi nomor telepon darurat (Pemadam Kebakaran, RS, K3/Safety) di tempat strategis seluruh area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Penggunaan Tangga: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field) — Hotline: 6281234567890.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSSE / Safety Officer Pertamina EP.",
         "timestamp": "2026-08-04T10:04:16.325606",
         "meta": {
           "confidence": 0.1415,
-          "kb_id": "HSE-TANGGA-003"
+          "kb_id": "HSSE-TANGGA-003"
         }
       }
     ]
@@ -2879,7 +2879,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-KETINGGIAN-003",
+      "kb_id": "HSSE-KETINGGIAN-003",
       "kategori": "Pekerjaan di Ketinggian"
     },
     "messages": [
@@ -2891,11 +2891,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Tidak ada pelindung jatuh di ketinggian [Kategori: Pekerjaan di Ketinggian] [Kode KB: HSE-KETINGGIAN-003]\n• Pelanggaran #2: Pekerja tidak memahami risiko kombinasi pekerjaan [Kategori: Manajemen Risiko] [Kode KB: HSE-RISIKO-010]\n• Pelanggaran #3: Pekerja sakit tetap bekerja [Kategori: Kelelahan & Jam Kerja] [Kode KB: HSE-KELELAHAN-004]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Tidak ada pelindung jatuh di ketinggian): Kondisi 'Tidak ada pelindung jatuh di ketinggian' pada kategori Pekerjaan di Ketinggian menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan bekerja tanpa sabuk/harness keselamatan di ketinggian berpotensi jatuh langsung ke lantai bawah yang dapat berakibat fatalitas., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Pekerja tidak memahami risiko kombinasi pekerjaan): Kondisi 'Pekerja tidak memahami risiko kombinasi pekerjaan' pada kategori Manajemen Risiko menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko meningkat yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Pekerja sakit tetap bekerja): Kondisi 'Pekerja sakit tetap bekerja' pada kategori Kelelahan & Jam Kerja menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan penurunan performa yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Tidak ada pelindung jatuh di ketinggian) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Pasang pagar pengaman (guardrail system) standar di sepanjang tepi ketinggian atau pasang sistem penahan jatuh otomatis, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Pekerja tidak memahami risiko kombinasi pekerjaan) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Lakukan SIMOPS assessment. Lakukan pengawasan langsung oleh supervisor K3 dan pastikan seluruh tindakan keselamatan diterapkan sesuai standar regulasi, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Pekerja sakit tetap bekerja) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Lakukan pemeriksaan kesehatan sebelum kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Pekerjaan di Ketinggian: Juni Trihardiyanto (Senior Safety Lead - Height & Scaffolding) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSE / Safety Officer Pertamina EP.",
+        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Tidak ada pelindung jatuh di ketinggian [Kategori: Pekerjaan di Ketinggian] [Kode KB: HSSE-KETINGGIAN-003]\n• Pelanggaran #2: Pekerja tidak memahami risiko kombinasi pekerjaan [Kategori: Manajemen Risiko] [Kode KB: HSSE-RISIKO-010]\n• Pelanggaran #3: Pekerja sakit tetap bekerja [Kategori: Kelelahan & Jam Kerja] [Kode KB: HSSE-KELELAHAN-004]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Tidak ada pelindung jatuh di ketinggian): Kondisi 'Tidak ada pelindung jatuh di ketinggian' pada kategori Pekerjaan di Ketinggian menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan bekerja tanpa sabuk/harness keselamatan di ketinggian berpotensi jatuh langsung ke lantai bawah yang dapat berakibat fatalitas., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Pekerja tidak memahami risiko kombinasi pekerjaan): Kondisi 'Pekerja tidak memahami risiko kombinasi pekerjaan' pada kategori Manajemen Risiko menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko meningkat yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Pekerja sakit tetap bekerja): Kondisi 'Pekerja sakit tetap bekerja' pada kategori Kelelahan & Jam Kerja menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan penurunan performa yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Tidak ada pelindung jatuh di ketinggian) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Pasang pagar pengaman (guardrail system) standar di sepanjang tepi ketinggian atau pasang sistem penahan jatuh otomatis, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Pekerja tidak memahami risiko kombinasi pekerjaan) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Lakukan SIMOPS assessment. Lakukan pengawasan langsung oleh supervisor K3 dan pastikan seluruh tindakan keselamatan diterapkan sesuai standar regulasi, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Pekerja sakit tetap bekerja) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Lakukan pemeriksaan kesehatan sebelum kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Pekerjaan di Ketinggian: Juni Trihardiyanto (Senior Safety Lead - Height & Scaffolding) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSSE / Safety Officer Pertamina EP.",
         "timestamp": "2026-08-04T10:04:16.805747",
         "meta": {
           "confidence": 0.2235,
-          "kb_id": "HSE-KETINGGIAN-003"
+          "kb_id": "HSSE-KETINGGIAN-003"
         }
       }
     ]
@@ -2913,7 +2913,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-APD-012",
+      "kb_id": "HSSE-APD-012",
       "kategori": "Alat Pelindung Diri (APD)"
     },
     "messages": [
@@ -2925,11 +2925,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Pekerja tidak menggunakan APD karena tidak nyaman [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSE-APD-012]\n• Pelanggaran #2: Area kerja tidak tertata [Kategori: Lingkungan Kerja] [Kode KB: HSE-LINGKUNGAN-007]\n• Pelanggaran #3: Nomor darurat tidak tersedia [Kategori: Tanggap Darurat] [Kode KB: HSE-DARURAT-010]\n\nTINGKAT RISIKO\n⚡ RISIKO SEDANG — Potensi Bahaya Signifikan. Memerlukan perhatian khusus dan tindakan perbaikan dalam waktu cepat.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Pekerja tidak menggunakan APD karena tidak nyaman): Kondisi 'Pekerja tidak menggunakan APD karena tidak nyaman' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko meningkat yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Area kerja tidak tertata): Kondisi 'Area kerja tidak tertata' pada kategori Lingkungan Kerja menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan penataan area kerja yang tidak teratur membuat kabel, alat, dan sisa material menutupi jalur pejalan kaki, memicu jatuh tersandung., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Nomor darurat tidak tersedia): Kondisi 'Nomor darurat tidak tersedia' pada kategori Tanggap Darurat menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan penanganan lambat yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Pekerja tidak menggunakan APD karena tidak nyaman) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Sediakan APD berstandar ergonomis yang pas dengan ukuran tubuh pekerja agar nyaman dipakai tanpa mengurangi fleksibilitas gerak, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Area kerja tidak tertata) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Terapkan sistem penataan alat dan material secara terstruktur, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Nomor darurat tidak tersedia) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Tempelkan papan informasi nomor telepon darurat (Pemadam Kebakaran, RS, K3/Safety) di tempat strategis seluruh area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Pelindung Diri (APD): Juni Trihardiyanto (Senior Safety Lead (APD & SIKA/JSA)) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSE / Safety Officer Pertamina EP.",
+        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Pekerja tidak menggunakan APD karena tidak nyaman [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSSE-APD-012]\n• Pelanggaran #2: Area kerja tidak tertata [Kategori: Lingkungan Kerja] [Kode KB: HSSE-LINGKUNGAN-007]\n• Pelanggaran #3: Nomor darurat tidak tersedia [Kategori: Tanggap Darurat] [Kode KB: HSSE-DARURAT-010]\n\nTINGKAT RISIKO\n⚡ RISIKO SEDANG — Potensi Bahaya Signifikan. Memerlukan perhatian khusus dan tindakan perbaikan dalam waktu cepat.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Pekerja tidak menggunakan APD karena tidak nyaman): Kondisi 'Pekerja tidak menggunakan APD karena tidak nyaman' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko meningkat yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (Area kerja tidak tertata): Kondisi 'Area kerja tidak tertata' pada kategori Lingkungan Kerja menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan penataan area kerja yang tidak teratur membuat kabel, alat, dan sisa material menutupi jalur pejalan kaki, memicu jatuh tersandung., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Nomor darurat tidak tersedia): Kondisi 'Nomor darurat tidak tersedia' pada kategori Tanggap Darurat menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan penanganan lambat yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Pekerja tidak menggunakan APD karena tidak nyaman) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Sediakan APD berstandar ergonomis yang pas dengan ukuran tubuh pekerja agar nyaman dipakai tanpa mengurangi fleksibilitas gerak, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (Area kerja tidak tertata) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Terapkan sistem penataan alat dan material secara terstruktur, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Nomor darurat tidak tersedia) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Tempelkan papan informasi nomor telepon darurat (Pemadam Kebakaran, RS, K3/Safety) di tempat strategis seluruh area kerja, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Alat Pelindung Diri (APD): Juni Trihardiyanto (Senior Safety Lead (APD & SIKA/JSA)) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSSE / Safety Officer Pertamina EP.",
         "timestamp": "2026-08-04T10:04:17.248869",
         "meta": {
           "confidence": 0.2532,
-          "kb_id": "HSE-APD-012"
+          "kb_id": "HSSE-APD-012"
         }
       }
     ]
@@ -2947,7 +2947,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-LISTRIK-013",
+      "kb_id": "HSSE-LISTRIK-013",
       "kategori": "Kelistrikan"
     },
     "messages": [
@@ -2959,11 +2959,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Pekerja tidak mematikan mesin saat perbaikan [Kategori: Kelistrikan] [Kode KB: HSE-LISTRIK-013]\n• Pelanggaran #2: KPI keselamatan tidak dipantau [Kategori: Audit & Sistem Manajemen K3] [Kode KB: HSE-AUDIT-004]\n• Pelanggaran #3: Dokumentasi K3 tidak lengkap [Kategori: Audit & Sistem Manajemen K3] [Kode KB: HSE-AUDIT-007]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Pekerja tidak mematikan mesin saat perbaikan): Kondisi 'Pekerja tidak mematikan mesin saat perbaikan' pada kategori Kelistrikan menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko kecelakaan yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (KPI keselamatan tidak dipantau): Kondisi 'KPI keselamatan tidak dipantau' pada kategori Audit & Sistem Manajemen K3 menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan kinerja tidak terkontrol yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Dokumentasi K3 tidak lengkap): Kondisi 'Dokumentasi K3 tidak lengkap' pada kategori Audit & Sistem Manajemen K3 menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan sulit evaluasi risiko yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Pekerja tidak mematikan mesin saat perbaikan) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Terapkan LOTO. Lakukan pengawasan langsung oleh supervisor K3 dan pastikan seluruh tindakan keselamatan diterapkan sesuai standar regulasi, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (KPI keselamatan tidak dipantau) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Pantau KPI K3 secara berkala dan laporkan ke manajemen, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Dokumentasi K3 tidak lengkap) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Lengkapi dan digitalisasi dokumen K3 untuk kemudahan akses dan audit, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Kelistrikan: Juni Trihardiyanto (Senior Safety Lead - Electrical & LOTO Safety) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSE / Safety Officer Pertamina EP.",
+        "content": "KONDISI TERIDENTIFIKASI\nTerdeteksi 3 poin potensi bahaya/pelanggaran K3 pada laporan Anda:\n• Pelanggaran #1: Pekerja tidak mematikan mesin saat perbaikan [Kategori: Kelistrikan] [Kode KB: HSSE-LISTRIK-013]\n• Pelanggaran #2: KPI keselamatan tidak dipantau [Kategori: Audit & Sistem Manajemen K3] [Kode KB: HSSE-AUDIT-004]\n• Pelanggaran #3: Dokumentasi K3 tidak lengkap [Kategori: Audit & Sistem Manajemen K3] [Kode KB: HSSE-AUDIT-007]\n\nTINGKAT RISIKO\n⚠️ RISIKO TINGGI — Bahaya Kritis K3. Memerlukan tindakan penanganan segera dan penghentian aktivitas pekerjaan jika diperlukan.\n\nPENJELASAN RISIKO\nPelanggaran #1 (Pekerja tidak mematikan mesin saat perbaikan): Kondisi 'Pekerja tidak mematikan mesin saat perbaikan' pada kategori Kelistrikan menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan risiko kecelakaan yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #2 (KPI keselamatan tidak dipantau): Kondisi 'KPI keselamatan tidak dipantau' pada kategori Audit & Sistem Manajemen K3 menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan kinerja tidak terkontrol yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nPelanggaran #3 (Dokumentasi K3 tidak lengkap): Kondisi 'Dokumentasi K3 tidak lengkap' pada kategori Audit & Sistem Manajemen K3 menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan sulit evaluasi risiko yang berpotensi memicu insiden keselamatan kerja, cedera fisik, dan ketidaksesuaian sop k3 di lokasi proyek., yang dapat mengakibatkan cedera fisik pada pekerja, kerusakan fasilitas/alat kerja, serta mengganggu kelancaran operasional proyek.\nDampak Kumulatif: Kombinasi dari pelanggaran di atas meningkatkan potensi bahaya ganda di area kerja dan wajib ditindaklanjuti secara bersamaan.\n\nSOLUSI & TINDAKAN\n--- Solusi Pelanggaran #1 (Pekerja tidak mematikan mesin saat perbaikan) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Terapkan LOTO. Lakukan pengawasan langsung oleh supervisor K3 dan pastikan seluruh tindakan keselamatan diterapkan sesuai standar regulasi, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #2 (KPI keselamatan tidak dipantau) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Pantau KPI K3 secara berkala dan laporkan ke manajemen, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n--- Solusi Pelanggaran #3 (Dokumentasi K3 tidak lengkap) ---\n• 1. Tindakan Segera: Hentikan pekerjaan sementara jika berisiko tinggi dan sterilkan lokasi temuan bahaya.\n• 2. Pengendalian Teknis & APD: Lengkapi dan digitalisasi dokumen K3 untuk kemudahan akses dan audit, serta wajibkan penggunaan alat pelindung yang sesuai standar SNI/ANSI.\n• 3. Inspeksi & Pengawasan: Lakukan verifikasi kelayakan oleh Supervisor K3 sebelum aktivitas kerja dilanjutkan secara aman.\n• Kepatuhan Mandatory: Wajibkan seluruh pekerja mematuhi seluruh SOP K3 sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung Jawab K3 Kategori Kelistrikan: Juni Trihardiyanto (Senior Safety Lead - Electrical & LOTO Safety) — Hotline: 6281234567891.\n2. Dokumen Keselamatan: Pastikan Izin Kerja Aman (Permit to Work) dan Analisis Keselamatan Kerja (JSA / Job Safety Analysis) telah diperiksa dan disetujui.\n3. Briefing Keselamatan: Lakukan Tool Box Meeting (TBM) dan pengarahan K3 kepada seluruh pekerja sebelum memulai aktivitas.\n\nSTATUS PENANGANAN\nMembutuhkan Evaluasi Langsung oleh Tim HSSE / Safety Officer Pertamina EP.",
         "timestamp": "2026-08-04T10:04:17.712606",
         "meta": {
           "confidence": 0.2652,
-          "kb_id": "HSE-LISTRIK-013"
+          "kb_id": "HSSE-LISTRIK-013"
         }
       }
     ]
@@ -2984,7 +2984,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-ALATBERAT-002",
+      "kb_id": "HSSE-ALATBERAT-002",
       "kategori": "Alat Berat & Kendaraan"
     },
     "messages": [
@@ -2996,11 +2996,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nAlat berat beroperasi tanpa tanda peringatan [Kategori: Alat Berat & Kendaraan] [Kode KB: HSE-ALATBERAT-002].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSE.\n\nPENJELASAN RISIKO\nKondisi 'Alat berat beroperasi tanpa tanda peringatan' pada kategori Alat Berat & Kendaraan menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan alat berat beroperasi tanpa sirine/alarm mundur tidak disadari pekerja di sekitarnya, berpotensi tertabrak saat bergerak mundur atau berputar.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan operasi dan parkirkan alat di posisi aman sampai alarm, lampu peringatan, rambu, atau pengendali lalu lintas tersedia.\n2. Pengendalian: Pasang alarm, sirine, dan rambu area alat berat.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead - Heavy Equipment Safety).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSE-ALATBERAT-002 — Alat berat beroperasi tanpa tanda peringatan (Alat Berat & Kendaraan); kecocokan 73%.\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSE.",
+        "content": "KONDISI TERIDENTIFIKASI\nAlat berat beroperasi tanpa tanda peringatan [Kategori: Alat Berat & Kendaraan] [Kode KB: HSSE-ALATBERAT-002].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Alat berat beroperasi tanpa tanda peringatan' pada kategori Alat Berat & Kendaraan menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan alat berat beroperasi tanpa sirine/alarm mundur tidak disadari pekerja di sekitarnya, berpotensi tertabrak saat bergerak mundur atau berputar.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan operasi dan parkirkan alat di posisi aman sampai alarm, lampu peringatan, rambu, atau pengendali lalu lintas tersedia.\n2. Pengendalian: Pasang alarm, sirine, dan rambu area alat berat.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead - Heavy Equipment Safety).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-ALATBERAT-002 — Alat berat beroperasi tanpa tanda peringatan (Alat Berat & Kendaraan); kecocokan 73%.\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
         "timestamp": "2026-08-05T11:48:57.760016",
         "meta": {
           "confidence": 0.7275,
-          "kb_id": "HSE-ALATBERAT-002"
+          "kb_id": "HSSE-ALATBERAT-002"
         }
       }
     ]
@@ -3027,8 +3027,8 @@
       "error_message": null,
       "steps_tried": [],
       "last_result": null,
-      "status": "perlu_bantuan_hse",
-      "kb_id": "HSE-ALAT-003",
+      "status": "perlu_bantuan_hsse",
+      "kb_id": "HSSE-ALAT-003",
       "kategori": "Peralatan Kerja"
     },
     "messages": [
@@ -3040,11 +3040,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nPekerja tidak menggunakan pelindung wajah saat penggerindaan [Kategori: Peralatan Kerja] [Kode KB: HSE-ALAT-003].\n\nTINGKAT RISIKO\nRISIKO SEDANG — lakukan tindakan korektif dan verifikasi pengawas sebelum aktivitas dilanjutkan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja tidak menggunakan pelindung wajah saat penggerindaan' pada kategori Peralatan Kerja menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini meningkatkan risiko cedera wajah. Mekanisme bahayanya berkaitan dengan guard, kapasitas, aksesori, pemicu, selang, kalibrasi, atau kondisi mekanis yang tidak sesuai dapat melepaskan energi dan material tanpa kendali. Konsekuensi yang perlu dicegah adalah pekerja dapat terpotong, terjepit, tertusuk, terkena serpihan, tekanan, getaran, atau kegagalan alat saat digunakan. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan penggerindaan, matikan dan tunggu putaran berhenti, lalu jauhkan pekerja dari serpihan sampai pelindung wajah tersedia.\n2. Pengendalian: Gunakan pelindung wajah. Lakukan pengawasan langsung oleh supervisor K3 dan pastikan seluruh tindakan keselamatan diterapkan sesuai standar regulasi.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSE-ALAT-003 — Pekerja tidak menggunakan pelindung wajah saat penggerindaan (Peralatan Kerja); kecocokan 100%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 38 Tahun 2016 tentang K3 Pesawat Tenaga dan Produksi: https://jdih.kemnaker.go.id/peraturan/detail/1430/peraturan-menteri-ketenagakerjaan-nomor-38-tahun-2016\n\nSTATUS PENANGANAN\nDapat ditindaklanjuti oleh Supervisor dengan pengawasan K3 dan verifikasi sebelum pekerjaan dilanjutkan.",
+        "content": "KONDISI TERIDENTIFIKASI\nPekerja tidak menggunakan pelindung wajah saat penggerindaan [Kategori: Peralatan Kerja] [Kode KB: HSSE-ALAT-003].\n\nTINGKAT RISIKO\nRISIKO SEDANG — lakukan tindakan korektif dan verifikasi pengawas sebelum aktivitas dilanjutkan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja tidak menggunakan pelindung wajah saat penggerindaan' pada kategori Peralatan Kerja menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini meningkatkan risiko cedera wajah. Mekanisme bahayanya berkaitan dengan guard, kapasitas, aksesori, pemicu, selang, kalibrasi, atau kondisi mekanis yang tidak sesuai dapat melepaskan energi dan material tanpa kendali. Konsekuensi yang perlu dicegah adalah pekerja dapat terpotong, terjepit, tertusuk, terkena serpihan, tekanan, getaran, atau kegagalan alat saat digunakan. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan penggerindaan, matikan dan tunggu putaran berhenti, lalu jauhkan pekerja dari serpihan sampai pelindung wajah tersedia.\n2. Pengendalian: Gunakan pelindung wajah. Lakukan pengawasan langsung oleh supervisor K3 dan pastikan seluruh tindakan keselamatan diterapkan sesuai standar regulasi.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-ALAT-003 — Pekerja tidak menggunakan pelindung wajah saat penggerindaan (Peralatan Kerja); kecocokan 100%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 38 Tahun 2016 tentang K3 Pesawat Tenaga dan Produksi: https://jdih.kemnaker.go.id/peraturan/detail/1430/peraturan-menteri-ketenagakerjaan-nomor-38-tahun-2016\n\nSTATUS PENANGANAN\nDapat ditindaklanjuti oleh Supervisor dengan pengawasan K3 dan verifikasi sebelum pekerjaan dilanjutkan.",
         "timestamp": "2026-08-05T15:10:51.273587",
         "meta": {
           "confidence": 1.0,
-          "kb_id": "HSE-ALAT-003"
+          "kb_id": "HSSE-ALAT-003"
         }
       }
     ]
@@ -3072,7 +3072,7 @@
       "steps_tried": [],
       "last_result": null,
       "status": "initial",
-      "kb_id": "HSE-KOORDINASI-002",
+      "kb_id": "HSSE-KOORDINASI-002",
       "kategori": "Koordinasi & SIMOPS"
     },
     "messages": [
@@ -3084,175 +3084,14 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nPekerjaan simultan tanpa pengaturan [Kategori: Koordinasi & SIMOPS] [Kode KB: HSE-KOORDINASI-002].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSE.\n\nPENJELASAN RISIKO\nKondisi 'Pekerjaan simultan tanpa pengaturan' pada kategori Koordinasi & SIMOPS menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini meningkatkan risiko tabrakan aktivitas. Mekanisme bahayanya berkaitan dengan pekerjaan lintas tim dapat berbagi ruang, energi, jalur, alarm, isolasi, dan sumber daya sehingga satu aktivitas mengubah risiko aktivitas lain. Konsekuensi yang perlu dicegah adalah benturan jadwal atau kendali dapat memicu kebakaran, paparan energi, tabrakan, kegagalan evakuasi, dan respons yang saling bertentangan. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan simultan yang memiliki bahaya tumpang tindih sampai urutan kerja, zona eksklusi, dan penanggung jawab disepakati.\n2. Pengendalian: Gunakan SIMOPS control dan izin kerja terpisah.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSE-KOORDINASI-002 — Pekerjaan simultan tanpa pengaturan (Koordinasi & SIMOPS); kecocokan 100%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Peraturan Pemerintah Nomor 50 Tahun 2012 tentang Penerapan SMK3: https://peraturan.bpk.go.id/Details/5263/pp-no-50-tahun2012\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSE.",
+        "content": "KONDISI TERIDENTIFIKASI\nPekerjaan simultan tanpa pengaturan [Kategori: Koordinasi & SIMOPS] [Kode KB: HSSE-KOORDINASI-002].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Pekerjaan simultan tanpa pengaturan' pada kategori Koordinasi & SIMOPS menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini meningkatkan risiko tabrakan aktivitas. Mekanisme bahayanya berkaitan dengan pekerjaan lintas tim dapat berbagi ruang, energi, jalur, alarm, isolasi, dan sumber daya sehingga satu aktivitas mengubah risiko aktivitas lain. Konsekuensi yang perlu dicegah adalah benturan jadwal atau kendali dapat memicu kebakaran, paparan energi, tabrakan, kegagalan evakuasi, dan respons yang saling bertentangan. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan simultan yang memiliki bahaya tumpang tindih sampai urutan kerja, zona eksklusi, dan penanggung jawab disepakati.\n2. Pengendalian: Gunakan SIMOPS control dan izin kerja terpisah.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-KOORDINASI-002 — Pekerjaan simultan tanpa pengaturan (Koordinasi & SIMOPS); kecocokan 100%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Peraturan Pemerintah Nomor 50 Tahun 2012 tentang Penerapan SMK3: https://peraturan.bpk.go.id/Details/5263/pp-no-50-tahun2012\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
         "timestamp": "2026-08-06T14:16:58.344058",
         "meta": {
           "confidence": 1.0,
-          "kb_id": "HSE-KOORDINASI-002"
+          "kb_id": "HSSE-KOORDINASI-002"
         }
       }
     ]
-  },
-  "SESSION-TEST-HELM": {
-    "session_id": "SESSION-TEST-HELM",
-    "created_at": "2026-08-06T14:49:02.969299",
-    "updated_at": "2026-08-06T14:49:02.969306",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "assigned_category": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-MIXED": {
-    "session_id": "SESSION-TEST-MIXED",
-    "created_at": "2026-08-06T14:49:03.092384",
-    "updated_at": "2026-08-06T14:49:03.092391",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "assigned_category": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-INFERENCE": {
-    "session_id": "SESSION-TEST-INFERENCE",
-    "created_at": "2026-08-06T14:49:03.188749",
-    "updated_at": "2026-08-06T14:49:03.188756",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "assigned_category": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-MULTI-ROUTING": {
-    "session_id": "SESSION-TEST-MULTI-ROUTING",
-    "created_at": "2026-08-06T14:49:03.275170",
-    "updated_at": "2026-08-06T14:49:03.275177",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "assigned_category": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-RIGGING-INFERENCE": {
-    "session_id": "SESSION-TEST-RIGGING-INFERENCE",
-    "created_at": "2026-08-06T14:49:03.356979",
-    "updated_at": "2026-08-06T14:49:03.356984",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "assigned_category": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-LISTRIK": {
-    "session_id": "SESSION-TEST-LISTRIK",
-    "created_at": "2026-08-06T14:49:03.439898",
-    "updated_at": "2026-08-06T14:49:03.439904",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "assigned_category": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
-  },
-  "SESSION-TEST-UNKNOWN": {
-    "session_id": "SESSION-TEST-UNKNOWN",
-    "created_at": "2026-08-06T14:49:03.524449",
-    "updated_at": "2026-08-06T14:49:03.524457",
-    "context": {
-      "category": null,
-      "categories": [],
-      "kategori_list": [],
-      "category_source": null,
-      "assigned_category": null,
-      "device": null,
-      "location": null,
-      "initial_description": null,
-      "last_user_message": null,
-      "symptoms": [],
-      "error_message": null,
-      "steps_tried": [],
-      "last_result": null,
-      "status": "initial",
-      "kb_id": null
-    },
-    "messages": []
   },
   "SESI-20260810-Y66U2": {
     "session_id": "SESI-20260810-Y66U2",
@@ -3278,8 +3117,8 @@
       "error_message": null,
       "steps_tried": [],
       "last_result": null,
-      "status": "perlu_bantuan_hse",
-      "kb_id": "HSE-DARURAT-004",
+      "status": "perlu_bantuan_hsse",
+      "kb_id": "HSSE-DARURAT-004",
       "kategori": "Tanggap Darurat"
     },
     "messages": [
@@ -3291,11 +3130,11 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nTidak tersedia alat pemadam api [Kategori: Tanggap Darurat] [Kode KB: HSE-DARURAT-004].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSE.\n\nPENJELASAN RISIKO\nKondisi 'Tidak tersedia alat pemadam api' pada kategori Tanggap Darurat menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan area kerja yang tidak dilengkapi APAR yang sesuai jenis risikonya gagal memadamkan api awal sehingga membesar menjadi kebakaran hebat. Mekanisme bahayanya berkaitan dengan kesiapan alarm, evakuasi, pemadaman, pertolongan, komunikasi, dan akuntabilitas personel yang lemah memperlambat respons pada menit kritis. Konsekuensi yang perlu dicegah adalah insiden awal dapat membesar, korban terlambat ditolong, orang masuk kembali ke zona bahaya, dan proses evakuasi menjadi tidak terkendali. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan dengan risiko kebakaran sampai APAR atau sarana pemadam yang sesuai tersedia dan mudah dijangkau.\n2. Pengendalian: Tempatkan APAR yang sesuai jenis bahaya (APAR Powder untuk umum, CO2 untuk listrik) di lokasi yang mudah dijangkau dan bertanda jelas.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Dr. Irsyad Yoga (Kedaruratan Medis & K3 Emergency Lead).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSE-DARURAT-004 — Tidak tersedia alat pemadam api (Tanggap Darurat); kecocokan 59%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenakertrans PER.15/MEN/VIII/2008 tentang P3K di Tempat Kerja: https://jdih.kemnaker.go.id/peraturan/detail/193/peraturan-menteri-nomor-15-tahun-2008\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSE.",
+        "content": "KONDISI TERIDENTIFIKASI\nTidak tersedia alat pemadam api [Kategori: Tanggap Darurat] [Kode KB: HSSE-DARURAT-004].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Tidak tersedia alat pemadam api' pada kategori Tanggap Darurat menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan area kerja yang tidak dilengkapi APAR yang sesuai jenis risikonya gagal memadamkan api awal sehingga membesar menjadi kebakaran hebat. Mekanisme bahayanya berkaitan dengan kesiapan alarm, evakuasi, pemadaman, pertolongan, komunikasi, dan akuntabilitas personel yang lemah memperlambat respons pada menit kritis. Konsekuensi yang perlu dicegah adalah insiden awal dapat membesar, korban terlambat ditolong, orang masuk kembali ke zona bahaya, dan proses evakuasi menjadi tidak terkendali. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan dengan risiko kebakaran sampai APAR atau sarana pemadam yang sesuai tersedia dan mudah dijangkau.\n2. Pengendalian: Tempatkan APAR yang sesuai jenis bahaya (APAR Powder untuk umum, CO2 untuk listrik) di lokasi yang mudah dijangkau dan bertanda jelas.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Dr. Irsyad Yoga (Kedaruratan Medis & K3 Emergency Lead).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-DARURAT-004 — Tidak tersedia alat pemadam api (Tanggap Darurat); kecocokan 59%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenakertrans PER.15/MEN/VIII/2008 tentang P3K di Tempat Kerja: https://jdih.kemnaker.go.id/peraturan/detail/193/peraturan-menteri-nomor-15-tahun-2008\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
         "timestamp": "2026-08-10T09:22:19.757561",
         "meta": {
           "confidence": 0.5859,
-          "kb_id": "HSE-DARURAT-004"
+          "kb_id": "HSSE-DARURAT-004"
         }
       }
     ]
@@ -3324,8 +3163,8 @@
         "Pekerja bekerja dengan alat manual yang sudah aus"
       ],
       "last_result": null,
-      "status": "perlu_bantuan_hse",
-      "kb_id": "HSE-ALAT-002",
+      "status": "perlu_bantuan_hsse",
+      "kb_id": "HSSE-ALAT-002",
       "kategori": "Peralatan Kerja"
     },
     "messages": [
@@ -3337,11 +3176,226 @@
       },
       {
         "role": "assistant",
-        "content": "KONDISI TERIDENTIFIKASI\nPekerja bekerja dengan alat manual yang sudah aus [Kategori: Peralatan Kerja] [Kode KB: HSE-ALAT-002].\n\nTINGKAT RISIKO\nRISIKO SEDANG — lakukan tindakan korektif dan verifikasi pengawas sebelum aktivitas dilanjutkan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja bekerja dengan alat manual yang sudah aus' pada kategori Peralatan Kerja menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan peralatan yang retak, aus, atau rusak tetap dipakai dapat patah tiba-tiba saat dioperasikan dan mencederai pekerja. Mekanisme bahayanya berkaitan dengan guard, kapasitas, aksesori, pemicu, selang, kalibrasi, atau kondisi mekanis yang tidak sesuai dapat melepaskan energi dan material tanpa kendali. Konsekuensi yang perlu dicegah adalah pekerja dapat terpotong, terjepit, tertusuk, terkena serpihan, tekanan, getaran, atau kegagalan alat saat digunakan. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan penggunaan alat aus, lepaskan dari sumber energi bila ada, dan tandai sebagai tidak layak sampai diganti.\n2. Pengendalian: Ganti alat secara berkala. Lakukan pengawasan langsung oleh supervisor K3 dan pastikan seluruh tindakan keselamatan diterapkan sesuai standar regulasi.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSE-ALAT-002 — Pekerja bekerja dengan alat manual yang sudah aus (Peralatan Kerja); kecocokan 100%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 38 Tahun 2016 tentang K3 Pesawat Tenaga dan Produksi: https://jdih.kemnaker.go.id/peraturan/detail/1430/peraturan-menteri-ketenagakerjaan-nomor-38-tahun-2016\n\nSTATUS PENANGANAN\nDapat ditindaklanjuti oleh Supervisor dengan pengawasan K3 dan verifikasi sebelum pekerjaan dilanjutkan.",
+        "content": "KONDISI TERIDENTIFIKASI\nPekerja bekerja dengan alat manual yang sudah aus [Kategori: Peralatan Kerja] [Kode KB: HSSE-ALAT-002].\n\nTINGKAT RISIKO\nRISIKO SEDANG — lakukan tindakan korektif dan verifikasi pengawas sebelum aktivitas dilanjutkan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja bekerja dengan alat manual yang sudah aus' pada kategori Peralatan Kerja menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan peralatan yang retak, aus, atau rusak tetap dipakai dapat patah tiba-tiba saat dioperasikan dan mencederai pekerja. Mekanisme bahayanya berkaitan dengan guard, kapasitas, aksesori, pemicu, selang, kalibrasi, atau kondisi mekanis yang tidak sesuai dapat melepaskan energi dan material tanpa kendali. Konsekuensi yang perlu dicegah adalah pekerja dapat terpotong, terjepit, tertusuk, terkena serpihan, tekanan, getaran, atau kegagalan alat saat digunakan. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan penggunaan alat aus, lepaskan dari sumber energi bila ada, dan tandai sebagai tidak layak sampai diganti.\n2. Pengendalian: Ganti alat secara berkala. Lakukan pengawasan langsung oleh supervisor K3 dan pastikan seluruh tindakan keselamatan diterapkan sesuai standar regulasi.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-ALAT-002 — Pekerja bekerja dengan alat manual yang sudah aus (Peralatan Kerja); kecocokan 100%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 38 Tahun 2016 tentang K3 Pesawat Tenaga dan Produksi: https://jdih.kemnaker.go.id/peraturan/detail/1430/peraturan-menteri-ketenagakerjaan-nomor-38-tahun-2016\n\nSTATUS PENANGANAN\nDapat ditindaklanjuti oleh Supervisor dengan pengawasan K3 dan verifikasi sebelum pekerjaan dilanjutkan.",
         "timestamp": "2026-08-10T09:43:18.640632",
         "meta": {
           "confidence": 1.0,
-          "kb_id": "HSE-ALAT-002"
+          "kb_id": "HSSE-ALAT-002"
+        }
+      }
+    ]
+  },
+  "SESI-20260903-UVLWC": {
+    "session_id": "SESI-20260903-UVLWC",
+    "created_at": "2026-09-03T16:22:29.301501",
+    "updated_at": "2026-09-03T16:22:29.517476",
+    "context": {
+      "category": "Pekerjaan di Ketinggian",
+      "categories": [
+        "Pekerjaan di Ketinggian"
+      ],
+      "kategori_list": [
+        "Pekerjaan di Ketinggian"
+      ],
+      "category_source": "explicit",
+      "assigned_category": "Pekerjaan di Ketinggian",
+      "location": null,
+      "occurrence_date": null,
+      "initial_description": "Pekerja berada di ketinggian tanpa safety harness dan lifeline yang terpasang.",
+      "last_user_message": "Pekerja berada di ketinggian tanpa safety harness dan lifeline yang terpasang.",
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": "HSSE-KETINGGIAN-001",
+      "kategori": "Pekerjaan di Ketinggian",
+      "category_group": "aktivitas-berisiko",
+      "kelompok_kategori": "aktivitas-berisiko"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "Pekerja berada di ketinggian tanpa safety harness dan lifeline yang terpasang.",
+        "timestamp": "2026-09-03T16:22:29.301517",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPekerja berada di ketinggian tanpa safety harness dan lifeline yang terpasang.\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Pekerja bekerja di ketinggian tanpa safety harness'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan di ketinggian, instruksikan pekerja turun melalui akses aman, lalu kosongkan dan batasi area bawah sampai sistem penahan jatuh tersedia.\n\nKONDISI TERIDENTIFIKASI\nPekerja bekerja di ketinggian tanpa safety harness [Kategori: Pekerjaan di Ketinggian] [Kode KB: HSSE-KETINGGIAN-001].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja bekerja di ketinggian tanpa safety harness' pada kategori Pekerjaan di Ketinggian menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini meningkatkan risiko jatuh fatal dari ketinggian. Mekanisme bahayanya berkaitan dengan ketiadaan sistem pencegah atau penahan jatuh dapat membuat pekerja, alat, dan material jatuh dari elevasi tanpa perlindungan yang memadai. Konsekuensi yang perlu dicegah adalah kejadian dapat menyebabkan cedera berat atau fatal pada pekerja di atas maupun orang yang berada di area jatuhan. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan di ketinggian, instruksikan pekerja turun melalui akses aman, lalu kosongkan dan batasi area bawah sampai sistem penahan jatuh tersedia.\n2. Pengendalian: Hentikan pekerjaan, gunakan full body harness + lifeline, dan pastikan anchor point sesuai standar.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead - Height & Scaffolding).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-KETINGGIAN-001 — Pekerja bekerja di ketinggian tanpa safety harness (Pekerjaan di Ketinggian); kecocokan 80%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 9 Tahun 2016 tentang K3 dalam Pekerjaan Ketinggian: https://jdih.kemnaker.go.id/peraturan/detail/1210/peraturan-menteri-nomor-9-tahun-2016\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:22:29.517467",
+        "meta": {
+          "confidence": 0.7961,
+          "kb_id": "HSSE-KETINGGIAN-001"
+        }
+      }
+    ]
+  },
+  "SESI-20260903-NLIS9": {
+    "session_id": "SESI-20260903-NLIS9",
+    "created_at": "2026-09-03T16:24:30.480457",
+    "updated_at": "2026-09-03T16:24:30.687953",
+    "context": {
+      "category": "Alat Pelindung Diri (APD)",
+      "categories": [
+        "Alat Pelindung Diri (APD)"
+      ],
+      "kategori_list": [
+        "Alat Pelindung Diri (APD)"
+      ],
+      "category_source": "explicit",
+      "assigned_category": "Alat Pelindung Diri (APD)",
+      "location": null,
+      "occurrence_date": null,
+      "initial_description": "Pekerja tidak menggunakan APD lengkap dilokasi kerja",
+      "last_user_message": "Pekerja tidak menggunakan APD lengkap dilokasi kerja",
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": "HSSE-APD-012",
+      "kategori": "Alat Pelindung Diri (APD)",
+      "category_group": "peralatan-kendaraan",
+      "kelompok_kategori": "peralatan-kendaraan"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "Pekerja tidak menggunakan APD lengkap dilokasi kerja",
+        "timestamp": "2026-09-03T16:24:30.480467",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPekerja tidak menggunakan APD lengkap dilokasi kerja\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Pekerja tidak menggunakan APD karena tidak nyaman'. Tindakan pertama yang perlu dilakukan: Hentikan paparan pekerja yang melepas APD karena tidak nyaman dan pindahkan ke area aman sampai tersedia APD dengan ukuran dan jenis yang sesuai.\n\nKONDISI TERIDENTIFIKASI\nPekerja tidak menggunakan APD karena tidak nyaman [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSSE-APD-012].\n\nTINGKAT RISIKO\nRISIKO SEDANG — lakukan tindakan korektif dan verifikasi pengawas sebelum aktivitas dilanjutkan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja tidak menggunakan APD karena tidak nyaman' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, APD yang tidak nyaman dapat mendorong pekerja melepas atau tidak menggunakannya sehingga tubuh terpapar bahaya pekerjaan. Mekanisme bahayanya berkaitan dengan kegagalan memilih, memasang, menggunakan, atau merawat APD membuat penghalang terakhir terhadap bahaya tidak bekerja sebagaimana direncanakan. Konsekuensi yang perlu dicegah adalah pekerja dapat mengalami benturan, paparan kimia, gangguan pernapasan, gangguan pendengaran, atau cedera serius sesuai sumber bahayanya. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan paparan pekerja yang melepas APD karena tidak nyaman dan pindahkan ke area aman sampai tersedia APD dengan ukuran dan jenis yang sesuai.\n2. Pengendalian: Sediakan APD berstandar ergonomis yang pas dengan ukuran tubuh pekerja agar nyaman dipakai tanpa mengurangi fleksibilitas gerak.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead (APD & SIKA/JSA)).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-APD-012 — Pekerja tidak menggunakan APD karena tidak nyaman (Alat Pelindung Diri (APD)); kecocokan 66%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenakertrans PER.08/MEN/VII/2010 tentang Alat Pelindung Diri: https://jdih.kemnaker.go.id/peraturan/detail/158/peraturan-menteri-nomor-8-tahun-2010\n\nSTATUS PENANGANAN\nDapat ditindaklanjuti oleh Supervisor dengan pengawasan K3 dan verifikasi sebelum pekerjaan dilanjutkan.",
+        "timestamp": "2026-09-03T16:24:30.687946",
+        "meta": {
+          "confidence": 0.6598,
+          "kb_id": "HSSE-APD-012"
+        }
+      }
+    ]
+  },
+  "SESI-20260903-3O6WM": {
+    "session_id": "SESI-20260903-3O6WM",
+    "created_at": "2026-09-03T16:26:57.747648",
+    "updated_at": "2026-09-03T16:44:18.826641",
+    "context": {
+      "category": "Pengawasan & Prosedur",
+      "categories": [
+        "Pengawasan & Prosedur"
+      ],
+      "kategori_list": [
+        "Pengawasan & Prosedur"
+      ],
+      "category_source": "inferred",
+      "assigned_category": null,
+      "location": null,
+      "occurrence_date": null,
+      "initial_description": "Pekerjaan pengelasan dilakukan tanpa izin kerja dan tanpa Fire Watcher di area kerja.",
+      "last_user_message": "Pekerjaan berisiko berlangsung tanpa briefing dan tanpa verifikasi supervisor.",
+      "symptoms": [
+        "bekerja tanpa izin kerja",
+        "tumpahan bahan berbahaya"
+      ],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": null,
+      "kategori": "Pengawasan & Prosedur",
+      "category_group": "sistem-risiko",
+      "kelompok_kategori": "sistem-risiko"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "Pekerjaan pengelasan dilakukan tanpa izin kerja dan tanpa Fire Watcher di area kerja.",
+        "timestamp": "2026-09-03T16:26:57.747659",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPekerjaan pengelasan dilakukan tanpa izin kerja dan tanpa Fire Watcher di area kerja.\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Fire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan panas pada temuan 'Fire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung', matikan sumber panas, isolasi area, dan pantau bara tanpa memasuki zona atmosfer yang belum diuji.\n\nKONDISI TERIDENTIFIKASI\nFire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung [Kategori: Pekerjaan Panas (Hot Work)] [Kode KB: HSSE-HOTWORK-016].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Fire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung' merupakan ketidaksesuaian penting pada kategori Pekerjaan Panas (Hot Work). Mekanisme bahayanya berkaitan dengan api terbuka, busur, permukaan panas, dan percikan dapat menyulut uap, gas, debu, residu proses, atau material mudah terbakar. Bila tidak segera dikendalikan, penyalaan dapat berkembang menjadi kebakaran, ledakan, luka bakar, paparan asap, serta kerusakan fasilitas proses. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus diverifikasi terhadap kondisi aktual, JSA, SOP, izin kerja, dan ketentuan pada referensi artikel; penilaian sistem tidak menggantikan keputusan personel HSSE yang berwenang.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan panas pada temuan 'Fire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung', matikan sumber panas, isolasi area, dan pantau bara tanpa memasuki zona atmosfer yang belum diuji.\n2. Pengendalian: Gunakan hot work permit, gas test, isolasi proses, pembersihan bahan mudah terbakar, fire blanket atau screen, peralatan laik, ventilasi, dan fire watch dengan pemadam sesuai.\n3. Inspeksi & Pengawasan: Fire Watcher dan Supervisor memverifikasi permit, gas test, area percikan, tabung dan selang, grounding, pemadam, serta pemantauan setelah pekerjaan selesai.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead - Hot Work Permit & Fire Safety).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-HOTWORK-016 — Fire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung (Pekerjaan Panas (Hot Work)); kecocokan 62%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 37 Tahun 2016 tentang K3 Bejana Tekanan dan Tangki Timbun: https://jdih.kemnaker.go.id/peraturan/detail/1429/peraturan-menteri-nomor-37-tahun-2016\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:26:57.843140",
+        "meta": {
+          "confidence": 0.615,
+          "kb_id": "HSSE-HOTWORK-016"
+        }
+      },
+      {
+        "role": "user",
+        "content": "Percikan api dari pengelasan tidak dikendalikan",
+        "timestamp": "2026-09-03T16:31:00.442961",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPercikan api dari pengelasan tidak dikendalikan\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Percikan api dari pengelasan tidak dikendalikan'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan panas, matikan sumber api, dan padamkan percikan atau bara kecil dengan sarana yang sesuai bila aman dilakukan.\n\nKONDISI TERIDENTIFIKASI\nPercikan api dari pengelasan tidak dikendalikan [Kategori: Pekerjaan Panas (Hot Work)] [Kode KB: HSSE-HOTWORK-002].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Percikan api dari pengelasan tidak dikendalikan' pada kategori Pekerjaan Panas (Hot Work) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan bahan B3 yang mudah terbakar diposisikan dekat percikan pengelasan atau sumber panas dapat menyambar dan membakar area kerja. Mekanisme bahayanya berkaitan dengan api terbuka, busur, permukaan panas, dan percikan dapat menyulut uap, gas, debu, residu proses, atau material mudah terbakar. Konsekuensi yang perlu dicegah adalah penyalaan dapat berkembang menjadi kebakaran, ledakan, luka bakar, paparan asap, serta kerusakan fasilitas proses. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan panas, matikan sumber api, dan padamkan percikan atau bara kecil dengan sarana yang sesuai bila aman dilakukan.\n2. Pengendalian: Pasang tirai pemadam percikan (fire blanket) di sekeliling area las dan tunjuk petugas pengawas api (fire watch) dengan APAR.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead - Hot Work Permit & Fire Safety).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-HOTWORK-002 — Percikan api dari pengelasan tidak dikendalikan (Pekerjaan Panas (Hot Work)); kecocokan 100%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 37 Tahun 2016 tentang K3 Bejana Tekanan dan Tangki Timbun: https://jdih.kemnaker.go.id/peraturan/detail/1429/peraturan-menteri-nomor-37-tahun-2016\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:31:00.534106",
+        "meta": {
+          "confidence": 1.0,
+          "kb_id": "HSSE-HOTWORK-002"
+        }
+      },
+      {
+        "role": "user",
+        "content": "Percikan api dari pengelasan tidak dikendalikan",
+        "timestamp": "2026-09-03T16:39:40.799685",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPercikan api dari pengelasan tidak dikendalikan\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Percikan api dari pengelasan tidak dikendalikan'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan panas, matikan sumber api, dan padamkan percikan atau bara kecil dengan sarana yang sesuai bila aman dilakukan.\n\nKONDISI TERIDENTIFIKASI\nPercikan api dari pengelasan tidak dikendalikan [Kategori: Pekerjaan Panas (Hot Work)] [Kode KB: HSSE-HOTWORK-002].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Percikan api dari pengelasan tidak dikendalikan' pada kategori Pekerjaan Panas (Hot Work) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan bahan B3 yang mudah terbakar diposisikan dekat percikan pengelasan atau sumber panas dapat menyambar dan membakar area kerja. Mekanisme bahayanya berkaitan dengan api terbuka, busur, permukaan panas, dan percikan dapat menyulut uap, gas, debu, residu proses, atau material mudah terbakar. Konsekuensi yang perlu dicegah adalah penyalaan dapat berkembang menjadi kebakaran, ledakan, luka bakar, paparan asap, serta kerusakan fasilitas proses. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan panas, matikan sumber api, dan padamkan percikan atau bara kecil dengan sarana yang sesuai bila aman dilakukan.\n2. Pengendalian: Pasang tirai pemadam percikan (fire blanket) di sekeliling area las dan tunjuk petugas pengawas api (fire watch) dengan APAR.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead - Hot Work Permit & Fire Safety).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-HOTWORK-002 — Percikan api dari pengelasan tidak dikendalikan (Pekerjaan Panas (Hot Work)); kecocokan 100%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 37 Tahun 2016 tentang K3 Bejana Tekanan dan Tangki Timbun: https://jdih.kemnaker.go.id/peraturan/detail/1429/peraturan-menteri-nomor-37-tahun-2016\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:39:40.885859",
+        "meta": {
+          "confidence": 1.0,
+          "kb_id": "HSSE-HOTWORK-002"
+        }
+      },
+      {
+        "role": "user",
+        "content": "Terdapat tumpahan bahan kimia yang belum diisolasi dan belum dibersihkan.",
+        "timestamp": "2026-09-03T16:42:28.085913",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nTerdapat tumpahan bahan kimia yang belum diisolasi dan belum dibersihkan.\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Tumpahan bahan kimia tidak dibersihkan'. Tindakan pertama yang perlu dilakukan: Hentikan aktivitas di sekitar tumpahan, isolasi area, jauhi uap atau kontak langsung, dan aktifkan prosedur tanggap tumpahan sesuai SDS.\n\nKONDISI TERIDENTIFIKASI\nTumpahan bahan kimia tidak dibersihkan [Kategori: Bahan Kimia & B3] [Kode KB: HSSE-KIMIA-004].\n\nTINGKAT RISIKO\nRISIKO SEDANG — lakukan tindakan korektif dan verifikasi pengawas sebelum aktivitas dilanjutkan.\n\nPENJELASAN RISIKO\nKondisi 'Tumpahan bahan kimia tidak dibersihkan' pada kategori Bahan Kimia & B3 menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini meningkatkan risiko terpeleset/paparan. Mekanisme bahayanya berkaitan dengan bahan beracun, korosif, reaktif, mudah terbakar, atau bertekanan dapat masuk melalui inhalasi, kontak kulit, tertelan, atau pelepasan energi. Konsekuensi yang perlu dicegah adalah kejadian dapat menimbulkan keracunan, luka bakar kimia, kebakaran, ledakan, pencemaran, dan dampak kesehatan jangka panjang. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan aktivitas di sekitar tumpahan, isolasi area, jauhi uap atau kontak langsung, dan aktifkan prosedur tanggap tumpahan sesuai SDS.\n2. Pengendalian: Tebarkan bahan penyerap (spill kit/pasir), netralkan tumpahan kimia, bersihkan dengan alat non-sparking, dan buang ke limbah B3.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Ronny Pribadi (Senior Environmental & Compliance Specialist).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-KIMIA-004 — Tumpahan bahan kimia tidak dibersihkan (Bahan Kimia & B3); kecocokan 85%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Kepmenaker KEP.187/MEN/1999 tentang Pengendalian Bahan Kimia Berbahaya: https://jdih.kemnaker.go.id/peraturan/detail/2608/keputusan-menteri-nomor-187-tahun-1999\n\nSTATUS PENANGANAN\nDapat ditindaklanjuti oleh Supervisor dengan pengawasan K3 dan verifikasi sebelum pekerjaan dilanjutkan.",
+        "timestamp": "2026-09-03T16:42:28.177406",
+        "meta": {
+          "confidence": 0.8512,
+          "kb_id": "HSSE-KIMIA-004"
+        }
+      },
+      {
+        "role": "user",
+        "content": "Pekerjaan berisiko berlangsung tanpa briefing dan tanpa verifikasi supervisor.",
+        "timestamp": "2026-09-03T16:43:13.316327",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPekerjaan berisiko berlangsung tanpa briefing dan tanpa verifikasi supervisor.\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan berisiko tinggi yang belum memiliki izin dan amankan area sampai seluruh prasyarat izin dipenuhi.\n\nKONDISI TERIDENTIFIKASI\nTidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi [Kategori: Manajemen Risiko] [Kode KB: HSSE-RISIKO-003].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi' pada kategori Manajemen Risiko menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan melakukan pekerjaan panas atau ketinggian tanpa izin kerja resmi (PTW) menghilangkan verifikasi bahaya oleh safety officer. Mekanisme bahayanya berkaitan dengan bahaya, perubahan, interaksi, atau kegagalan barrier yang tidak dinilai membuat tingkat risiko dan kecukupan pengendalian disalahpahami. Konsekuensi yang perlu dicegah adalah pekerjaan dapat disetujui dengan residual risk yang tidak dapat diterima dan tanpa pemilik pengendalian yang jelas. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan berisiko tinggi yang belum memiliki izin dan amankan area sampai seluruh prasyarat izin dipenuhi.\n2. Pengendalian: Wajibkan pengurusan dokumen Izin Kerja Resmi (Permit to Work) untuk pekerjaan panas, ketinggian, ruang terbatas, dan kelistrikan sebelum aktivitas dimulai.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-RISIKO-003 — Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi (Manajemen Risiko); kecocokan 58%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Peraturan Pemerintah Nomor 50 Tahun 2012 tentang Penerapan SMK3: https://peraturan.bpk.go.id/Details/5263/pp-no-50-tahun2012\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:43:13.414244",
+        "meta": {
+          "confidence": 0.592,
+          "kb_id": "HSSE-RISIKO-011"
+        }
+      },
+      {
+        "role": "user",
+        "content": "Pekerjaan berisiko berlangsung tanpa briefing dan tanpa verifikasi supervisor.",
+        "timestamp": "2026-09-03T16:44:18.804519",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPekerjaan berisiko berlangsung tanpa briefing dan tanpa verifikasi supervisor.\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan berisiko tinggi yang belum memiliki izin dan amankan area sampai seluruh prasyarat izin dipenuhi.\n\nKONDISI TERIDENTIFIKASI\nTidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi [Kategori: Manajemen Risiko] [Kode KB: HSSE-RISIKO-003].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi' pada kategori Manajemen Risiko menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan melakukan pekerjaan panas atau ketinggian tanpa izin kerja resmi (PTW) menghilangkan verifikasi bahaya oleh safety officer. Mekanisme bahayanya berkaitan dengan bahaya, perubahan, interaksi, atau kegagalan barrier yang tidak dinilai membuat tingkat risiko dan kecukupan pengendalian disalahpahami. Konsekuensi yang perlu dicegah adalah pekerjaan dapat disetujui dengan residual risk yang tidak dapat diterima dan tanpa pemilik pengendalian yang jelas. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan berisiko tinggi yang belum memiliki izin dan amankan area sampai seluruh prasyarat izin dipenuhi.\n2. Pengendalian: Wajibkan pengurusan dokumen Izin Kerja Resmi (Permit to Work) untuk pekerjaan panas, ketinggian, ruang terbatas, dan kelistrikan sebelum aktivitas dimulai.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-RISIKO-003 — Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi (Manajemen Risiko); kecocokan 58%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Peraturan Pemerintah Nomor 50 Tahun 2012 tentang Penerapan SMK3: https://peraturan.bpk.go.id/Details/5263/pp-no-50-tahun2012\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:44:18.826634",
+        "meta": {
+          "cached": true
         }
       }
     ]

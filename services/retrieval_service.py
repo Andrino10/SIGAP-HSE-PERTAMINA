@@ -104,7 +104,7 @@ class LayananPencarian:
         enforce_category = any(
             item and item not in general_hints for item in normalized_category_hints
         )
-        for entry, semantic_score in vector_results:
+        for idx, (entry, semantic_score) in enumerate(vector_results):
             title_score, keyword_score, matched_terms = self._skor_leksikal(
                 query_text, entry
             )
@@ -169,6 +169,26 @@ class LayananPencarian:
                 scored_results = category_results
 
         scored_results.sort(key=lambda result: result["hybrid_score"], reverse=True)
+
+        print("\n=== Pengujian Retrieval (FAISS Embedding) ===")
+        for res, score in vector_results[:3]:
+            judul = res.get("judul", "Tanpa Judul")
+            print(f"[AI TRACE] FAISS Retrieval: '{judul}'")
+            print(f"  -> Semantic (FAISS) Score : {float(score):.4f}")
+
+        print("\n=== Pengujian Hybrid Ranking ===")
+        for res in scored_results[:3]:
+            judul = res["entry"].get("judul", "Tanpa Judul")
+            semantic = res["similarity_score"]
+            title_score = res["title_score"]
+            keyword_score = res["keyword_score"]
+            hybrid = res["hybrid_score"]
+            print(f"\n[AI TRACE] Sedang mengevaluasi artikel: '{judul}'")
+            print(f"  -> Semantic Similarity (45%) : {semantic:.4f}")
+            print(f"  -> Title Match Score   (30%) : {title_score:.4f}")
+            print(f"  -> Keyword Match Score (25%) : {keyword_score:.4f}")
+            print(f"  -> Final Hybrid Score        : {hybrid:.4f}")
+        print()
 
         if not scored_results:
             return {

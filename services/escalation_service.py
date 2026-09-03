@@ -39,7 +39,7 @@ class LayananEskalasi:
         # 3. Entri KB tidak ditemukan atau relevansi rendah
         if not entri_kb or tingkat_relevansi in ["rendah", "tidak_ditemukan"]:
             perlu_eskalasi = True
-            alasan.append("Kondisi bahaya tidak ditemukan dalam Knowledge Base HSE (Pengalihan Otomatis ke Tim HSE)")
+            alasan.append("Kondisi bahaya tidak ditemukan dalam Knowledge Base HSSE (Pengalihan Otomatis ke Tim HSSE)")
 
         # 4. Langkah awal gagal
         if langkah_gagal:
@@ -49,11 +49,11 @@ class LayananEskalasi:
         # 5. Permintaan langsung dari pengguna
         permintaan_eksplisit = any(
             f" {normalisasi_teks(frasa)} " in pertanyaan_berbatas
-            for frasa in ["eskalasi", "hubungi safety", "butuh hse", "safety officer", "darurat"]
+            for frasa in ["eskalasi", "hubungi safety", "butuh hsse", "safety officer", "darurat"]
         )
         if permintaan_langsung or permintaan_eksplisit:
             perlu_eskalasi = True
-            alasan.append("Pelapor meminta eskalasi langsung ke Tim HSE")
+            alasan.append("Pelapor meminta eskalasi langsung ke Tim HSSE")
 
         if not perlu_eskalasi:
             return {
@@ -77,7 +77,7 @@ class LayananEskalasi:
             "steps_tried": konteks.get("steps_tried") or [],
             "urgency": "Tinggi" if any("kritis" in r.lower() or "tinggi" in r.lower() for r in alasan) else "Sedang",
             "timestamp": datetime.datetime.now().isoformat(),
-            "target_unit": "Tim HSE / Safety Officer"
+            "target_unit": "Tim HSSE / Safety Officer"
         }
 
         return {

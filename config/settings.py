@@ -1,7 +1,8 @@
 import os
+import tempfile
 
 # Identitas Sistem
-NAMA_SISTEM = "SIGAP-AI HSE COMPANION"
+NAMA_SISTEM = "SIGAP-AI HSSE COMPANION"
 NAMA_AREA = "Area Kerja Konstruksi"
 
 # Identitas Legacy Compatibility
@@ -12,7 +13,12 @@ ASSET_NAME = NAMA_AREA
 DIREKTORI_UTAMA = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIREKTORI_DATA = os.path.join(DIREKTORI_UTAMA, "data")
 JALUR_KNOWLEDGE_JSON = os.path.join(DIREKTORI_DATA, "knowledge.json")
-DIREKTORI_PENYIMPANAN = os.path.join(DIREKTORI_DATA, "storage")
+BERJALAN_DI_VERCEL = bool(os.getenv("VERCEL"))
+DIREKTORI_PENYIMPANAN = os.getenv("SIGAP_STORAGE_DIR") or (
+    os.path.join(tempfile.gettempdir(), "sigap-ai-hsse", "storage")
+    if BERJALAN_DI_VERCEL
+    else os.path.join(DIREKTORI_DATA, "storage")
+)
 
 # Path Legacy Compatibility
 BASE_DIR = DIREKTORI_UTAMA
@@ -24,12 +30,12 @@ STORAGE_DIR = DIREKTORI_PENYIMPANAN
 os.makedirs(DIREKTORI_DATA, exist_ok=True)
 os.makedirs(DIREKTORI_PENYIMPANAN, exist_ok=True)
 
-# Nomor Hotline Utama HSE WhatsApp
-NOMOR_WHATSAPP_HSE = os.getenv("WHATSAPP_HSE_NUMBER", "6281234567890")
-WHATSAPP_HSE_NUMBER = NOMOR_WHATSAPP_HSE
+# Nomor Hotline Utama HSSE WhatsApp
+NOMOR_WHATSAPP_HSSE = os.getenv("WHATSAPP_HSSE_NUMBER", "6281234567890")
+WHATSAPP_HSSE_NUMBER = NOMOR_WHATSAPP_HSSE
 
 # Daftar Official Tim HSSE PT Pertamina EP Lirik Field 2026
-DAFTAR_PETUGAS_HSE = {
+DAFTAR_PETUGAS_HSSE = {
     "Superintendent HSSE": {
         "kategori": "Superintendent HSSE",
         "nama": "M. Solihin",
@@ -43,7 +49,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Senior Safety Lead (SIKA, JSA & APD)",
         "divisi": "Safety",
         "tim": ["Defrizon", "Ibnu Zalda", "Iman Khairuddin"],
-        "nomor": os.getenv("WA_HSE_SAFETY", "6281234567891")
+        "nomor": os.getenv("WA_HSSE_SAFETY", "6281234567891")
     },
     "Alat Pelindung Diri (APD)": {
         "kategori": "Alat Pelindung Diri (APD)",
@@ -51,7 +57,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Senior Safety Lead (APD & SIKA/JSA)",
         "divisi": "Safety",
         "tim": ["Defrizon", "Ibnu Zalda", "Iman Khairuddin"],
-        "nomor": os.getenv("WA_HSE_APD", "6281234567891")
+        "nomor": os.getenv("WA_HSSE_APD", "6281234567891")
     },
     "Pekerjaan di Ketinggian": {
         "kategori": "Pekerjaan di Ketinggian",
@@ -59,7 +65,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Senior Safety Lead - Height & Scaffolding",
         "divisi": "Safety",
         "tim": ["Defrizon", "Ibnu Zalda"],
-        "nomor": os.getenv("WA_HSE_HEIGHT", "6281234567891")
+        "nomor": os.getenv("WA_HSSE_HEIGHT", "6281234567891")
     },
     "Kelistrikan": {
         "kategori": "Kelistrikan",
@@ -67,7 +73,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Senior Safety Lead - Electrical & LOTO Safety",
         "divisi": "Safety",
         "tim": ["Iman Khairuddin", "Ibnu Zalda"],
-        "nomor": os.getenv("WA_HSE_ELECTRICAL", "6281234567891")
+        "nomor": os.getenv("WA_HSSE_ELECTRICAL", "6281234567891")
     },
     "Alat Berat & Kendaraan": {
         "kategori": "Alat Berat & Kendaraan",
@@ -75,7 +81,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Senior Safety Lead - Heavy Equipment Safety",
         "divisi": "Safety",
         "tim": ["Defrizon", "Iman Khairuddin"],
-        "nomor": os.getenv("WA_HSE_HEAVY", "6281234567891")
+        "nomor": os.getenv("WA_HSSE_HEAVY", "6281234567891")
     },
     "Health / Kesehatan": {
         "kategori": "Health / Kesehatan",
@@ -83,7 +89,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Chief Medical Officer & Health Lead (MCU & Wellness)",
         "divisi": "Health",
         "tim": ["Dr. Fauzan", "Amri", "Yossy", "Diana", "Kiki"],
-        "nomor": os.getenv("WA_HSE_HEALTH", "6281234567892")
+        "nomor": os.getenv("WA_HSSE_HEALTH", "6281234567892")
     },
     "Security / Keamanan": {
         "kategori": "Security / Keamanan",
@@ -91,7 +97,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Chief Security Officer (SIML & Keamanan Field)",
         "divisi": "Security",
         "tim": ["Budi Santoso", "Iwan", "Dudung Triwinarso", "Heris"],
-        "nomor": os.getenv("WA_HSE_SECURITY", "6281234567893")
+        "nomor": os.getenv("WA_HSSE_SECURITY", "6281234567893")
     },
     "Bahan Kimia & B3": {
         "kategori": "Bahan Kimia & B3",
@@ -99,7 +105,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Senior Environmental & Compliance Specialist",
         "divisi": "Enviro",
         "tim": ["Tsabitha Nabilla"],
-        "nomor": os.getenv("WA_HSE_ENVIRO", "6281234567894")
+        "nomor": os.getenv("WA_HSSE_ENVIRO", "6281234567894")
     },
     "Lingkungan Kerja": {
         "kategori": "Lingkungan Kerja",
@@ -107,7 +113,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Senior Environmental & Compliance Specialist",
         "divisi": "Enviro",
         "tim": ["Tsabitha Nabilla"],
-        "nomor": os.getenv("WA_HSE_ENVIRO", "6281234567894")
+        "nomor": os.getenv("WA_HSSE_ENVIRO", "6281234567894")
     },
     "Ruang Terbatas (Confined Space)": {
         "kategori": "Ruang Terbatas (Confined Space)",
@@ -115,7 +121,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Senior Safety Lead - Confined Space Safety",
         "divisi": "Safety",
         "tim": ["Defrizon", "Ibnu Zalda"],
-        "nomor": os.getenv("WA_HSE_SAFETY", "6281234567891")
+        "nomor": os.getenv("WA_HSSE_SAFETY", "6281234567891")
     },
     "Pekerjaan Panas (Hot Work)": {
         "kategori": "Pekerjaan Panas (Hot Work)",
@@ -123,7 +129,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Senior Safety Lead - Hot Work Permit & Fire Safety",
         "divisi": "Safety",
         "tim": ["Defrizon", "Iman Khairuddin"],
-        "nomor": os.getenv("WA_HSE_SAFETY", "6281234567891")
+        "nomor": os.getenv("WA_HSSE_SAFETY", "6281234567891")
     },
     "Tanggap Darurat": {
         "kategori": "Tanggap Darurat",
@@ -131,7 +137,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Kedaruratan Medis & K3 Emergency Lead",
         "divisi": "Health & Safety",
         "tim": ["Dr. Fauzan", "Juni Trihardiyanto", "Defrizon"],
-        "nomor": os.getenv("WA_HSE_EMERGENCY", "6281234567892")
+        "nomor": os.getenv("WA_HSSE_EMERGENCY", "6281234567892")
     },
     "Pengangkatan & Rigging": {
         "kategori": "Pengangkatan & Rigging",
@@ -139,7 +145,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "Senior Safety Lead - Lifting & Rigging",
         "divisi": "Safety",
         "tim": ["Defrizon", "Ibnu Zalda"],
-        "nomor": os.getenv("WA_HSE_SAFETY", "6281234567891")
+        "nomor": os.getenv("WA_HSSE_SAFETY", "6281234567891")
     },
     "Pengawasan & Prosedur": {
         "kategori": "Pengawasan & Prosedur",
@@ -154,7 +160,7 @@ DAFTAR_PETUGAS_HSE = {
         "peran": "HSSE Finance & Administrasi Pekerja",
         "divisi": "Admin HSSE",
         "tim": ["Andre (Finance)", "Della (Administrasi Pekerja)"],
-        "nomor": os.getenv("WA_HSE_ADMIN", "6281234567895")
+        "nomor": os.getenv("WA_HSSE_ADMIN", "6281234567895")
     },
     "Umum": {
         "kategori": "Umum",
@@ -172,18 +178,18 @@ DAFTAR_PETUGAS_HSE = {
     }
 }
 
-TECHNICIAN_ROSTER = DAFTAR_PETUGAS_HSE
+TECHNICIAN_ROSTER = DAFTAR_PETUGAS_HSSE
 
 def dapatkan_petugas_per_kategori(kategori):
-    """Mengambil informasi petugas HSE yang bertanggung jawab untuk kategori tertentu."""
+    """Mengambil informasi petugas HSSE yang bertanggung jawab untuk kategori tertentu."""
     if not kategori:
-        return DAFTAR_PETUGAS_HSE["Umum"]
+        return DAFTAR_PETUGAS_HSSE["Umum"]
     
-    for kunci_cat, info_petugas in DAFTAR_PETUGAS_HSE.items():
+    for kunci_cat, info_petugas in DAFTAR_PETUGAS_HSSE.items():
         if kunci_cat.lower() in kategori.lower():
             return info_petugas
             
-    return DAFTAR_PETUGAS_HSE["Umum"]
+    return DAFTAR_PETUGAS_HSSE["Umum"]
 
 def get_technician_for_category(category):
     return dapatkan_petugas_per_kategori(category)
@@ -206,7 +212,7 @@ BATAS_UKURAN_FILE_MB = 10
 ALLOWED_EXTENSIONS = EKSTENSI_DIIZINKAN
 MAX_FILE_SIZE_MB = BATAS_UKURAN_FILE_MB
 
-# Daftar kategori operasional dibentuk langsung dari knowledge.json. Roster HSE
+# Daftar kategori operasional dibentuk langsung dari knowledge.json. Roster HSSE
 # tetap terpisah karena satu petugas dapat menangani beberapa kategori artikel.
 def muat_kategori_knowledge():
     try:

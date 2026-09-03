@@ -1,10 +1,15 @@
 import sys
 import os
+from pathlib import Path
 
 # Reconfigure stdout for Windows unicode support
-sys.stdout.reconfigure(encoding='utf-8')
+if hasattr(sys.stdout, "reconfigure"):
+    try:
+        sys.stdout.reconfigure(encoding="utf-8")
+    except (AttributeError, OSError):
+        pass
 
-from flask import Flask, request, jsonify
+from flask import Flask, abort, jsonify, request, send_from_directory
 from flask_cors import CORS
 
 from config.settings import SYSTEM_NAME, CATEGORIES
@@ -12,6 +17,7 @@ from routes.chatbot_routes import chatbot_bp
 from routes.complaint_routes import complaint_bp
 from routes.consultation_routes import consultation_bp
 from routes.knowledge_routes import knowledge_bp
+from routes.admin_routes import admin_bp
 from utils.response_formatter import error_response, success_response
 from utils.logger import logger
 from services.retrieval_service import retrieval_service
@@ -21,11 +27,53 @@ from services.escalation_service import escalation_service
 app = Flask(__name__)
 CORS(app)
 
-# Register Blueprints (Purged all Auth & Login System)
+# Register Blueprints
 app.register_blueprint(chatbot_bp)
 app.register_blueprint(complaint_bp)
 app.register_blueprint(consultation_bp)
 app.register_blueprint(knowledge_bp)
+app.register_blueprint(admin_bp)
+
+FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
+
+
+@app.after_request
+def add_cache_headers(response):
+    """Mencegah browser menyimpan cache file frontend selama sesi pengembangan/live."""
+    response.headers["Cache-Control"] = "no-cache, no-store, must-revalidate"
+    response.headers["Pragma"] = "no-cache"
+    response.headers["Expires"] = "0"
+    return response
+
+
+@app.route("/", methods=["GET"])
+def frontend_index():
+    """Menyajikan SPA dari origin yang sama di lokal dan Vercel."""
+    return send_from_directory(FRONTEND_DIR, "index.html")
+
+
+@app.route("/admin", methods=["GET"])
+@app.route("/admin/", methods=["GET"])
+@app.route("/admin/<path:subpath>", methods=["GET"])
+def frontend_admin(subpath=""):
+    """Menyajikan SPA Admin Portal dari origin yang sama."""
+    return send_from_directory(FRONTEND_DIR, "admin.html")
+
+
+@app.route("/<path:asset_path>", methods=["GET"])
+def frontend_asset(asset_path):
+    """Fallback aset frontend; rute /api yang spesifik tetap diprioritaskan Flask."""
+    if asset_path.startswith("api/"):
+        abort(404)
+    return send_from_directory(FRONTEND_DIR, asset_path)
+
+
+@app.route("/api/health", methods=["GET"])
+def health_check():
+    return success_response(
+        data={"service": "sigap-ai-hsse", "status": "ready"},
+        message="Layanan SIGAP-AI HSSE siap digunakan.",
+    )
 
 # Legacy compatibility route (/api/analyze)
 @app.route("/api/analyze", methods=["POST"])
