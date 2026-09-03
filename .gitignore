@@ -8,3 +8,7 @@
 backend/data/storage/*.json
 
 .vercel
+
+node_modules/
+dist/
+*.local

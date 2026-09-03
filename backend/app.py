@@ -35,6 +35,11 @@ app.register_blueprint(knowledge_bp)
 app.register_blueprint(admin_bp)
 
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
+DIST_DIR = FRONTEND_DIR / "dist"
+
+
+def get_static_dir():
+    return DIST_DIR if (DIST_DIR / "index.html").exists() else FRONTEND_DIR
 
 
 @app.after_request
@@ -49,7 +54,8 @@ def add_cache_headers(response):
 @app.route("/", methods=["GET"])
 def frontend_index():
     """Menyajikan SPA dari origin yang sama di lokal dan Vercel."""
-    return send_from_directory(FRONTEND_DIR, "index.html")
+    target_dir = get_static_dir()
+    return send_from_directory(target_dir, "index.html")
 
 
 @app.route("/admin", methods=["GET"])
@@ -57,6 +63,9 @@ def frontend_index():
 @app.route("/admin/<path:subpath>", methods=["GET"])
 def frontend_admin(subpath=""):
     """Menyajikan SPA Admin Portal dari origin yang sama."""
+    target_dir = get_static_dir()
+    if (target_dir / "index.html").exists():
+        return send_from_directory(target_dir, "index.html")
     return send_from_directory(FRONTEND_DIR, "admin.html")
 
 
@@ -65,7 +74,12 @@ def frontend_asset(asset_path):
     """Fallback aset frontend; rute /api yang spesifik tetap diprioritaskan Flask."""
     if asset_path.startswith("api/"):
         abort(404)
-    return send_from_directory(FRONTEND_DIR, asset_path)
+    target_dir = get_static_dir()
+    if (target_dir / asset_path).exists():
+        return send_from_directory(target_dir, asset_path)
+    if (FRONTEND_DIR / asset_path).exists():
+        return send_from_directory(FRONTEND_DIR, asset_path)
+    return send_from_directory(target_dir, "index.html")
 
 
 @app.route("/api/health", methods=["GET"])
