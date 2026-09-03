@@ -6902,3 +6902,49 @@ textarea:focus-visible,
     display: none;
   }
 }
+
+/* ==========================================================================
+   CEK STATUS TIKET MODAL
+   ========================================================================== */
+.tc-section-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  letter-spacing: 0.02em;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 8px;
+  margin-bottom: 14px;
+}
+
+.tc-section-block {
+  border-top: 1px solid #e2e8f0;
+  padding-top: 20px;
+}
+
+.tc-info-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  transition: border-color 0.2s;
+}
+
+.tc-info-card:hover {
+  border-color: #93c5fd;
+}
+
+.tc-info-label {
+  font-size: 11px;
+  font-weight: 700;
+  color: #64748b;
+  letter-spacing: 0.04em;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+}
+
+.tc-info-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  line-height: 1.4;
+}

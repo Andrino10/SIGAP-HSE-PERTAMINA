@@ -90,6 +90,8 @@
             </button>
           </div>
           <div class="hero-quick-links" aria-label="Akses cepat">
+            <button type="button" onclick="openTicketCheckModal()" style="color: #0284c7; font-weight: 600;">🔍 Cek Status Tiket</button>
+            <span aria-hidden="true"></span>
             <button type="button" onclick="switchView('services')">Buka Knowledge Base</button>
             <span aria-hidden="true"></span>
             <button type="button" onclick="openDirectWhatsApp()">Hubungi Tim HSSE</button>
@@ -1053,6 +1055,57 @@
           <button type="button" class="btn btn-success" id="wa-action-link" onclick="sendWhatsAppReport()" disabled aria-disabled="true">
              Kirim WhatsApp ke Tim HSSE
           </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL: CEK STATUS TIKET
+    ========================================== -->
+    <div class="modal-overlay" id="ticket-check-modal" aria-labelledby="ticket-check-title" role="dialog" aria-modal="true">
+      <div class="modal-container" style="max-width: 640px; max-height: 90vh; overflow-y: auto;">
+        <div class="modal-header">
+          <h2 class="modal-title" id="ticket-check-title">🔍 Cek Status Tiket</h2>
+          <button class="modal-close" onclick="closeTicketCheckModal()" aria-label="Tutup modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-sub">Masukkan Nomor Tiket Anda untuk melihat status dan perkembangan penanganan laporan bahaya secara real-time.</p>
+
+          <!-- Input Pencarian -->
+          <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+            <input type="text" id="check-ticket-id" class="form-input" placeholder="Contoh: HSE-20260903-0001" style="flex: 1; font-family: monospace;" onkeydown="if(event.key==='Enter') checkTicketStatus()" />
+            <button class="btn btn-primary" onclick="checkTicketStatus()" id="btn-cari-tiket">Cari Tiket</button>
+          </div>
+          <div style="font-size: 12px; color: #64748b; margin-bottom: 16px;">
+            💡 <em>Nomor tiket terdapat pada email/notifikasi konfirmasi saat laporan dikirimkan, atau tanyakan ke Tim HSSE.</em>
+          </div>
+
+          <!-- Error Box -->
+          <div id="ticket-check-error" style="display: none; color: #b91c1c; background: #fef2f2; border: 1px solid #fca5a5; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; font-size: 14px;"></div>
+
+          <!-- RESULT AREA (injected by JS) -->
+          <div id="ticket-check-result" style="display: none; margin-top: 4px;">
+
+            <!-- ===== SECTION 1: DASHBOARD ===== -->
+            <div id="tc-section-dashboard">
+              <!-- Injected by JS -->
+            </div>
+
+            <!-- ===== SECTION 2: DAFTAR LAPORAN / TIMELINE ===== -->
+            <div class="tc-section-block" style="margin-top: 24px;">
+              <div class="tc-section-title">📋 Daftar Riwayat Laporan</div>
+              <div style="font-size: 13px; color: #64748b; margin-bottom: 14px;">Kronologis setiap pembaruan status yang dilakukan oleh Tim HSSE.</div>
+              <div id="tc-ticket-timeline">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+
+            <!-- ===== SECTION 3: REKAPITULASI ===== -->
+            <div class="tc-section-block" style="margin-top: 24px;" id="tc-section-rekap">
+              <!-- Injected by JS -->
+            </div>
+
+          </div>
         </div>
       </div>
     </div>

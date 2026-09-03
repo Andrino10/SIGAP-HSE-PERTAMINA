@@ -131,6 +131,7 @@ class ComplaintRepository:
                 "assigned_to": complaint_data.get("assigned_to", None),
                 "assigned_engineer": complaint_data.get("assigned_engineer", "Tim HSSE / Safety Officer"),
                 "follow_up_notes": "",
+                "admin_message": "",
                 "history": initial_history,
                 "created_at": now_iso,
                 "updated_at": now_iso,
@@ -229,6 +230,9 @@ class ComplaintRepository:
                 target["finding_type"] = update_data["finding_type"]
             if update_data.get("risk_level"):
                 target["risk_level"] = update_data["risk_level"]
+            # Pesan Admin ke Pelapor (tampil di portal cek tiket publik)
+            if "admin_message" in update_data:
+                target["admin_message"] = str(update_data.get("admin_message") or "").strip()
 
             target["updated_at"] = now_iso
 

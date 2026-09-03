@@ -3412,3 +3412,201 @@ function formatReferensiHtml(teks) {
   return `${sanitasiHtml(label)} <a href="${sanitasiHtml(url)}" target="_blank" rel="noopener noreferrer">Buka sumber resmi</a>`;
 }
 function escapeHtml(text) { return sanitasiHtml(text); }
+
+// ==========================================
+// TICKET CHECK LOGIC
+// ==========================================
+function openTicketCheckModal() {
+  const modal = document.getElementById('ticket-check-modal');
+  if (modal) {
+    modal.classList.add('active');
+    document.getElementById('check-ticket-id').value = '';
+    document.getElementById('ticket-check-result').style.display = 'none';
+    document.getElementById('ticket-check-error').style.display = 'none';
+    document.getElementById('check-ticket-id').focus();
+  }
+}
+
+function closeTicketCheckModal() {
+  const modal = document.getElementById('ticket-check-modal');
+  if (modal) modal.classList.remove('active');
+}
+
+async function checkTicketStatus() {
+  const ticketIdInput = document.getElementById('check-ticket-id');
+  const errorBox = document.getElementById('ticket-check-error');
+  const resultBox = document.getElementById('ticket-check-result');
+  
+  const ticketId = (ticketIdInput.value || '').trim();
+  if (!ticketId) {
+    errorBox.textContent = 'Harap masukkan nomor tiket terlebih dahulu.';
+    errorBox.style.display = 'block';
+    resultBox.style.display = 'none';
+    return;
+  }
+  
+  errorBox.style.display = 'none';
+  resultBox.style.display = 'none';
+  
+  try {
+    const response = await fetch(`${API_BASE_URL}/complaints/${encodeURIComponent(ticketId)}`);
+    const data = await response.json();
+    
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || 'Gagal memeriksa tiket');
+    }
+    
+    renderTicketResult(data.data.complaint);
+    resultBox.style.display = 'block';
+  } catch (error) {
+    errorBox.textContent = error.message;
+    if (error.message.includes('tidak ditemukan')) {
+      errorBox.textContent += ' Pastikan nomor tiket (HSE-YYYYMMDD-XXXX) diketik dengan benar.';
+    }
+    errorBox.style.display = 'block';
+  }
+}
+
+function renderTicketResult(ticket) {
+  const status = ticket.status || 'Open';
+  const history = ticket.history || [];
+
+  // ---- Helpers ----
+  const statusConfig = {
+    open:                { icon: '🕐', label: 'Menunggu Penanganan',   bg: '#fef3c7', color: '#92400e', border: '#fcd34d', badgeBg: '#f59e0b' },
+    'in progress':       { icon: '⚙️', label: 'Sedang Ditangani',      bg: '#dbeafe', color: '#1e3a5f', border: '#93c5fd', badgeBg: '#3b82f6' },
+    'closed / resolved': { icon: '✅', label: 'Selesai Ditangani',     bg: '#dcfce7', color: '#14532d', border: '#86efac', badgeBg: '#10b981' },
+  };
+  const sc = statusConfig[status.toLowerCase()] || statusConfig['open'];
+
+  const timelineStatusColor = {
+    'open':                '#f59e0b',
+    'in progress':         '#3b82f6',
+    'closed / resolved':   '#10b981',
+  };
+
+  const formatTanggal = (iso) => {
+    if (!iso) return '-';
+    const d = new Date(iso);
+    return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+  };
+
+  const formatTanggalPendek = (iso) => {
+    if (!iso) return '-';
+    const d = new Date(iso);
+    return d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+  };
+
+  // ---- SECTION 1: DASHBOARD ----
+  const urgencyColor = ticket.urgency === 'Tinggi' ? '#dc2626' : ticket.urgency === 'Sedang' ? '#d97706' : '#16a34a';
+  const adminMsg = ticket.admin_message ? `
+    <div style="margin-top:16px; background: #f0fdf4; border: 1px solid #86efac; border-left: 4px solid #10b981; border-radius: 10px; padding: 14px 16px;">
+      <div style="font-size: 11px; font-weight: 700; color: #15803d; letter-spacing: 0.05em; margin-bottom: 6px;">💬 PESAN DARI TIM HSSE</div>
+      <div style="font-size: 14px; color: #14532d; line-height: 1.6;">${escapeHtml(ticket.admin_message)}</div>
+    </div>` : '';
+
+  document.getElementById('tc-section-dashboard').innerHTML = `
+    <div style="background: ${sc.bg}; border: 1px solid ${sc.border}; border-radius: 12px; padding: 16px 20px; margin-bottom: 20px; display: flex; align-items: center; gap: 14px;">
+      <div style="font-size: 32px; line-height:1;">${sc.icon}</div>
+      <div>
+        <div style="font-size: 13px; font-weight: 700; color: ${sc.color}; letter-spacing: 0.04em;">STATUS LAPORAN</div>
+        <div style="font-size: 18px; font-weight: 800; color: ${sc.color};">${escapeHtml(sc.label)}</div>
+        <div style="font-size: 12px; color: ${sc.color}; opacity: 0.75; margin-top: 2px;">Tiket: <strong>${escapeHtml(ticket.ticket_number || ticket.complaint_id)}</strong></div>
+      </div>
+    </div>
+
+    <div class="tc-section-title">📊 Dashboard Laporan</div>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 4px;">
+      <div class="tc-info-card">
+        <div class="tc-info-label">📅 Tanggal Kejadian</div>
+        <div class="tc-info-value">${formatTanggalPendek(ticket.occurrence_date)}</div>
+      </div>
+      <div class="tc-info-card">
+        <div class="tc-info-label">📍 Lokasi</div>
+        <div class="tc-info-value">${escapeHtml(ticket.location || '-')}</div>
+      </div>
+      <div class="tc-info-card">
+        <div class="tc-info-label">🏷️ Kategori Bahaya</div>
+        <div class="tc-info-value">${escapeHtml(ticket.category || '-')}</div>
+      </div>
+      <div class="tc-info-card">
+        <div class="tc-info-label">⚠️ Tingkat Urgensi</div>
+        <div class="tc-info-value" style="color: ${urgencyColor}; font-weight: 700;">${escapeHtml(ticket.urgency || '-')}</div>
+      </div>
+      <div class="tc-info-card">
+        <div class="tc-info-label">👤 Pelapor</div>
+        <div class="tc-info-value">${escapeHtml(ticket.reporter_name || '-')} <span style="font-size:11px; color:#64748b;">(${escapeHtml(ticket.division || '-')})</span></div>
+      </div>
+      <div class="tc-info-card">
+        <div class="tc-info-label">👷 Petugas Penanganan</div>
+        <div class="tc-info-value">${escapeHtml(ticket.assigned_to || ticket.assigned_engineer || 'Belum Ditugaskan')}</div>
+      </div>
+    </div>
+
+    <div style="margin-top: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px 16px;">
+      <div style="font-size: 11px; font-weight: 700; color: #64748b; letter-spacing: 0.05em; margin-bottom: 6px;">📝 DESKRIPSI LAPORAN</div>
+      <div style="font-size: 14px; color: #0f172a; line-height: 1.6;">${escapeHtml(ticket.description || ticket.complaint_description || '-')}</div>
+    </div>
+    ${adminMsg}
+  `;
+
+  // ---- SECTION 2: TIMELINE ----
+  const timelineEl = document.getElementById('tc-ticket-timeline');
+  if (history.length === 0) {
+    timelineEl.innerHTML = '<div style="font-size: 13px; color: #64748b; padding: 8px 0;">Belum ada riwayat perubahan.</div>';
+  } else {
+    timelineEl.innerHTML = history.map((h, i) => {
+      const stColor = timelineStatusColor[h.status?.toLowerCase()] || '#64748b';
+      const isLast = i === history.length - 1;
+      return `
+        <div style="display: flex; gap: 14px; margin-bottom: ${isLast ? '0' : '16px'}; position: relative;">
+          <div style="display: flex; flex-direction: column; align-items: center; min-width: 20px;">
+            <div style="width: 12px; height: 12px; border-radius: 50%; background: ${stColor}; border: 2px solid white; box-shadow: 0 0 0 2px ${stColor}; flex-shrink: 0; margin-top: 3px;"></div>
+            ${!isLast ? `<div style="width: 2px; flex: 1; background: #e2e8f0; margin-top: 4px;"></div>` : ''}
+          </div>
+          <div style="flex: 1; padding-bottom: ${isLast ? '0' : '4px'};">
+            <div style="font-size: 11px; color: #64748b; margin-bottom: 2px;">${formatTanggal(h.timestamp)} &bull; <strong style="color: #374151;">${escapeHtml(h.actor || 'Sistem')}</strong></div>
+            <div style="font-size: 13px; font-weight: 700; color: #0f172a;">${escapeHtml(h.action || h.status)}</div>
+            <div style="display:inline-block; background: ${stColor}18; color: ${stColor}; font-size: 10.5px; font-weight: 700; padding: 1px 8px; border-radius: 20px; margin: 3px 0;">${escapeHtml(h.status || '')}</div>
+            ${h.notes ? `<div style="font-size: 13px; color: #475569; margin-top: 5px; line-height: 1.5;">${escapeHtml(h.notes)}</div>` : ''}
+          </div>
+        </div>`;
+    }).join('');
+  }
+
+  // ---- SECTION 3: REKAPITULASI ----
+  const createdAt = new Date(ticket.created_at);
+  const updatedAt = new Date(ticket.updated_at);
+  const diffMs = updatedAt - createdAt;
+  const diffHours = Math.floor(diffMs / 3600000);
+  const diffMins = Math.floor((diffMs % 3600000) / 60000);
+  let durasiStr = diffHours > 0 ? `${diffHours} jam ${diffMins} menit` : `${diffMins} menit`;
+  if (diffMs <= 0) durasiStr = 'Baru saja diterima';
+
+  document.getElementById('tc-section-rekap').innerHTML = `
+    <div class="tc-section-title">📈 Rekapitulasi</div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px;">
+      <div style="text-align: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 8px;">
+        <div style="font-size: 24px; font-weight: 800; color: #0284c7;">${history.length}</div>
+        <div style="font-size: 11px; color: #64748b; font-weight: 600;">Tahap Proses</div>
+      </div>
+      <div style="text-align: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 8px;">
+        <div style="font-size: 14px; font-weight: 800; color: #0f172a;">${durasiStr}</div>
+        <div style="font-size: 11px; color: #64748b; font-weight: 600;">Durasi Penanganan</div>
+      </div>
+      <div style="text-align: center; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 14px 8px;">
+        <div style="font-size: 14px; font-weight: 800; color: ${sc.badgeBg};">${escapeHtml(status)}</div>
+        <div style="font-size: 11px; color: #64748b; font-weight: 600;">Status Akhir</div>
+      </div>
+    </div>
+    ${ticket.follow_up_notes ? `
+    <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 10px; padding: 12px 16px; margin-bottom: 14px;">
+      <div style="font-size: 11px; font-weight: 700; color: #0369a1; letter-spacing: 0.05em; margin-bottom: 6px;">📋 CATATAN TINDAK LANJUT AKHIR</div>
+      <div style="font-size: 13px; color: #0f172a; line-height: 1.6;">${escapeHtml(ticket.follow_up_notes)}</div>
+    </div>` : ''}
+    <button class="btn btn-primary" onclick="closeTicketCheckModal(); setTimeout(openConsultationModal, 200);" style="width: 100%; margin-top: 4px;">
+      + Laporkan Kejadian Baru
+    </button>
+  `;
+}
+

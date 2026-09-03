@@ -596,6 +596,10 @@ function renderReportDetail(report) {
   if (notesInput) {
     notesInput.value = report.follow_up_notes || '';
   }
+  const adminMsgInput = document.getElementById('update-admin-message');
+  if (adminMsgInput) {
+    adminMsgInput.value = report.admin_message || '';
+  }
 
   // Render Audit Trail Timeline
   renderAuditTimeline(report.history || []);
@@ -648,7 +652,8 @@ async function submitReportUpdate() {
         status,
         assigned_to: document.getElementById('update-assigned-officer')?.value?.trim() || '',
         assigned_engineer: document.getElementById('update-assigned-officer')?.value?.trim() || '',
-        follow_up_notes
+        follow_up_notes,
+        admin_message: document.getElementById('update-admin-message')?.value?.trim() || ''
       })
     });
 

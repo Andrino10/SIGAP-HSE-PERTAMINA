@@ -1,5 +1,144 @@
 [
   {
+    "id": "HSE-20260903-DEMO1",
+    "ticket_number": "HSE-20260903-DEMO1",
+    "source": "direct_form",
+    "chat_session_id": null,
+    "reporter_name": "Budi Santoso",
+    "division": "Production Operation (PO)",
+    "location": "SP 1 Lirik",
+    "occurrence_date": "2026-09-03",
+    "category": "Alat Pemadam Api",
+    "categories": ["Alat Pemadam Api"],
+    "finding_type": "Unsafe Condition",
+    "description": "APAR di area kompresor GI-01 sudah habis terpakai setelah insiden kecil bulan lalu. Posisi APAR terlihat kosong dan belum ada penggantian hingga saat ini.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Open",
+    "assigned_to": null,
+    "assigned_engineer": "Tim HSSE / Safety Officer",
+    "follow_up_notes": "",
+    "admin_message": "",
+    "history": [
+      {
+        "timestamp": "2026-09-03T08:15:22.000000",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Budi Santoso",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      }
+    ],
+    "created_at": "2026-09-03T08:15:22.000000",
+    "updated_at": "2026-09-03T08:15:22.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260903-DEMO2",
+    "ticket_number": "HSE-20260903-DEMO2",
+    "source": "chatbot_escalation",
+    "chat_session_id": "SESS-20260903-AB12",
+    "reporter_name": "Rini Handayani",
+    "division": "WO/WS",
+    "location": "Bengkel Mekanik Lirik",
+    "occurrence_date": "2026-09-03",
+    "category": "Alat Pelindung Diri (APD)",
+    "categories": ["Alat Pelindung Diri (APD)"],
+    "finding_type": "Unsafe Act",
+    "description": "Ditemukan 3 orang mekanik bekerja di area bising tanpa menggunakan earplug dan safety glasses saat proses pembubutan komponen pompa.",
+    "urgency": "Sedang",
+    "risk_level": "Sedang",
+    "status": "In Progress",
+    "assigned_to": "Juni Trihardiyanto",
+    "assigned_engineer": "Juni Trihardiyanto",
+    "follow_up_notes": "Petugas safety sedang melakukan pembinaan langsung ke pekerja dan mendistribusikan APD tambahan ke bengkel.",
+    "admin_message": "Laporan Anda sudah kami terima dan Tim Safety sedang menangani langsung di lapangan. Pekerja yang bersangkutan akan diberikan pembinaan penggunaan APD. Terima kasih atas kepedulian Anda, Saudari Rini.",
+    "history": [
+      {
+        "timestamp": "2026-09-03T09:30:00.000000",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Rini Handayani",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-09-03T10:05:47.000000",
+        "action": "Tiket didisposisikan ke: Juni Trihardiyanto",
+        "previous_status": "Open",
+        "status": "Open",
+        "actor": "Admin HSSE",
+        "notes": "Tanggung jawab tiket dialihkan ke Juni Trihardiyanto."
+      },
+      {
+        "timestamp": "2026-09-03T10:07:12.000000",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Admin HSSE",
+        "notes": "Petugas safety sedang melakukan pembinaan langsung ke pekerja dan mendistribusikan APD tambahan ke bengkel."
+      }
+    ],
+    "created_at": "2026-09-03T09:30:00.000000",
+    "updated_at": "2026-09-03T10:07:12.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260903-DEMO3",
+    "ticket_number": "HSE-20260903-DEMO3",
+    "source": "direct_form",
+    "chat_session_id": null,
+    "reporter_name": "Darmawan",
+    "division": "Fire",
+    "location": "Produksi Lirik",
+    "occurrence_date": "2026-09-02",
+    "category": "Kelistrikan",
+    "categories": ["Kelistrikan"],
+    "finding_type": "Unsafe Condition",
+    "description": "Panel listrik panel distribution board (PDB) di area wellpad W-07 ditemukan dalam kondisi terbuka tanpa cover dan ada percikan kecil saat disentuh.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_to": "M. Solihin",
+    "assigned_engineer": "M. Solihin",
+    "follow_up_notes": "Panel listrik telah diperbaiki oleh tim elektrikal, cover panel baru telah dipasang, dan area telah dinyatakan aman. Dilakukan tes aliran listrik dan hasilnya normal.",
+    "admin_message": "Selamat, Saudara Darmawan. Laporan Anda telah selesai ditangani. Panel listrik di wellpad W-07 sudah diperbaiki dan dinyatakan aman untuk beroperasi kembali. Penanganan diselesaikan dalam waktu kurang dari 24 jam. Terima kasih atas pelaporan yang cepat dan tepat.",
+    "history": [
+      {
+        "timestamp": "2026-09-02T14:20:00.000000",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Darmawan",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-09-02T14:45:33.000000",
+        "action": "Tiket didisposisikan ke: M. Solihin",
+        "previous_status": "Open",
+        "status": "Open",
+        "actor": "Admin HSSE",
+        "notes": "Tanggung jawab tiket dialihkan ke M. Solihin."
+      },
+      {
+        "timestamp": "2026-09-02T14:50:11.000000",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Admin HSSE",
+        "notes": "Tim elektrikal dikirim ke lokasi. Area wellpad W-07 sementara ditutup akses listriknya."
+      },
+      {
+        "timestamp": "2026-09-03T07:30:00.000000",
+        "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'",
+        "previous_status": "In Progress",
+        "status": "Closed / Resolved",
+        "actor": "Admin HSSE",
+        "notes": "Panel listrik telah diperbaiki oleh tim elektrikal, cover panel baru telah dipasang, dan area telah dinyatakan aman."
+      }
+    ],
+    "created_at": "2026-09-02T14:20:00.000000",
+    "updated_at": "2026-09-03T07:30:00.000000",
+    "attachment": null
+  },
+  {
     "id": "HSE-20260827-0024",
     "ticket_number": "HSE-20260827-0024",
     "reporter_name": "Ahmad Fauzi",
