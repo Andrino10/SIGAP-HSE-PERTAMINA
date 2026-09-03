@@ -1,0 +1,1132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SIGAP-AI HSSE Companion — Sistem Pendamping Keselamatan Kerja Cerdas</title>
+  <meta name="description" content="Platform pendamping keselamatan kerja (HSSE) berbasis AI untuk identifikasi bahaya, analisis risiko, dan rekomendasi solusi K3 di area kerja konstruksi." />
+
+  <!-- Modern Typography (Outfit & Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <a class="skip-link" href="#view-home">Lewati ke konten utama</a>
+
+  <!-- ==========================================
+       MAIN APP WRAPPER
+  ========================================== -->
+  <div class="app-container">
+
+    <!-- TOP NAVIGATION BAR -->
+    <header class="navbar">
+      <button class="nav-brand" type="button" onclick="switchView('home')" title="Kembali ke beranda SIGAP-AI">
+        <!-- Logo Pertamina EP (transparan) -->
+        <img src="pertamina-ep-logo-transparent.png" alt="Logo Pertamina EP" class="nav-logo-pertamina-ep" />
+        <!-- Divider -->
+        <div class="nav-logo-divider"></div>
+        <!-- Logo PERTAMINA ONE (transparan) -->
+        <img src="pertamina-one-logo-transparent.png" alt="Logo PERTAMINA ONE" class="nav-logo-pertamina-one" />
+        <!-- Divider -->
+        <div class="nav-logo-divider"></div>
+        <!-- Logo SATU-IT SIGAP (transparan) -->
+        <img src="satu-it-sigap-logo-transparent.png" alt="Logo SIGAP-AI HSSE" class="nav-logo-sigap" />
+      </button>
+
+      <!-- Main Navigation Menu -->
+      <nav class="nav-menu" id="nav-menu" aria-label="Navigasi utama">
+        <button class="nav-link active" data-view="home" onclick="switchView('home')">
+          <span class="nav-icon" aria-hidden="true"></span> Beranda
+        </button>
+        <button class="nav-link" data-view="services" onclick="switchView('services')">
+          <span class="nav-icon" aria-hidden="true"></span> Knowledge Base
+        </button>
+        <button class="nav-link" data-view="chatbot" onclick="switchView('chatbot')">
+          <span class="nav-icon" aria-hidden="true"></span> Asisten HSSE
+        </button>
+        <button class="nav-link nav-link-contact" data-view="contact" onclick="openDirectWhatsApp()">
+          <span class="nav-icon" aria-hidden="true"></span> Kontak HSSE
+        </button>
+      </nav>
+
+      <!-- System Status Indicator & Mobile Toggle -->
+      <div class="nav-actions">
+        <div class="status-indicator checking" id="status-indicator" title="Memeriksa status layanan HSSE">
+          <span class="status-dot"></span>
+          <span class="status-label">MEMERIKSA</span>
+        </div>
+        <a href="/admin/login" class="btn btn-sm btn-secondary" style="font-size: 12px; padding: 6px 12px; text-decoration: none; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.3); color: #38bdf8; display: inline-flex; align-items: center; gap: 4px;" title="Masuk ke Portal Admin">
+          🔒 Portal Admin
+        </a>
+        <button class="mobile-toggle" type="button" onclick="toggleMobileMenu()" aria-label="Buka menu navigasi" aria-controls="nav-menu" aria-expanded="false">
+          <span class="mobile-toggle-bars" aria-hidden="true"></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ==========================================
+         VIEW 1: BERANDA (HOME / LANDING)
+    ========================================== -->
+    <main class="view-panel active" id="view-home">
+
+      <!-- 1. HERO SECTION -->
+      <section class="hero-card" aria-labelledby="hero-title">
+        <div class="hero-content">
+          <div class="hero-badge"><span class="hero-badge-dot"></span> SISTEM HSSE DIGITAL · LIRIK FIELD</div>
+          <h1 class="hero-title" id="hero-title">Keselamatan kerja, ditangani lebih cepat dan tepat.</h1>
+          <p class="hero-desc">
+            Laporkan kondisi bahaya, dapatkan analisis berbasis Knowledge Base K3 internal, dan eskalasikan langsung ke Tim HSSE. Tersedia tanpa login untuk seluruh pekerja.
+          </p>
+          <div class="hero-btn-group">
+            <button class="btn btn-primary" onclick="openConsultationModal()">
+              Laporkan kondisi bahaya
+            </button>
+            <button class="btn btn-secondary" onclick="switchView('chatbot')">
+              Konsultasi dengan Asisten HSSE
+            </button>
+          </div>
+          <div class="hero-quick-links" aria-label="Akses cepat">
+            <button type="button" onclick="openTicketCheckModal()" style="color: #0284c7; font-weight: 600;">🔍 Cek Status Tiket</button>
+            <span aria-hidden="true"></span>
+            <button type="button" onclick="switchView('services')">Buka Knowledge Base</button>
+            <span aria-hidden="true"></span>
+            <button type="button" onclick="openDirectWhatsApp()">Hubungi Tim HSSE</button>
+            <span aria-hidden="true"></span>
+            <a href="/admin/login" style="color: var(--text-muted); text-decoration: none; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px;" title="Buka Portal Pengelolaan Admin">🔒 Portal Admin HSSE</a>
+          </div>
+          <div class="hero-safety-note">
+            <strong>Kondisi darurat:</strong> hentikan pekerjaan, amankan area, lalu hubungi Tim HSSE.
+          </div>
+        </div>
+
+        <!-- Hero Graphic Illustration -->
+        <div class="hero-graphic" aria-hidden="true">
+          <div class="hero-graphic-label">HSSE OPERATIONS</div>
+          <svg width="220" height="220" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L3 7v6c0 5 4 9.5 9 10.5 5-1 9-5.5 9-10.5V7l-9-5z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+          <div class="hero-graphic-status"><span></span> Knowledge Base terhubung</div>
+        </div>
+      </section>
+
+      <!-- HERO STATS COUNTER BAR -->
+      <section class="hero-stats" aria-label="Ringkasan sistem">
+        <div class="stat-box">
+          <span class="stat-icon" aria-hidden="true"></span>
+          <span class="stat-copy">
+            <strong class="stat-value">540+</strong>
+            <span class="stat-label">Artikel HSSE terstruktur</span>
+          </span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-icon" aria-hidden="true"></span>
+          <span class="stat-copy">
+            <strong class="stat-value">27</strong>
+            <span class="stat-label">Kategori bahaya K3</span>
+          </span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-icon" aria-hidden="true"></span>
+          <span class="stat-copy">
+            <strong class="stat-value">5 Officer</strong>
+            <span class="stat-label">Tim HSSE terdedikasi</span>
+          </span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-icon" aria-hidden="true"></span>
+          <span class="stat-copy">
+            <strong class="stat-value">Tanpa login</strong>
+            <span class="stat-label">Akses langsung bagi pekerja</span>
+          </span>
+        </div>
+      </section>
+
+      <!-- 2. PANDUAN 4 LANGKAH PELAPORAN & KONSULTASI K3 -->
+      <section class="home-section">
+        <div class="section-header">
+          <span class="section-kicker">ALUR PENANGANAN</span>
+          <h2>Dari temuan lapangan ke tindakan yang terarah</h2>
+          <p>Empat langkah ringkas untuk mengidentifikasi bahaya dan mendapatkan dukungan K3 dengan cepat.</p>
+        </div>
+        <div class="home-guide-grid">
+          <div class="guide-step-card">
+            <div class="guide-step-num">1</div>
+            <div class="guide-step-icon" aria-hidden="true"></div>
+            <h4>Tulis temuan atau pilih kategori</h4>
+            <p>Tuliskan kondisi yang Anda temukan. Jika perlu, pilih satu kategori utama yang paling mendekati.</p>
+          </div>
+          <div class="guide-step-card">
+            <div class="guide-step-num">2</div>
+            <div class="guide-step-icon" aria-hidden="true"></div>
+            <h4>Dapatkan analisis berbasis referensi</h4>
+            <p>Sistem mencocokkan <span data-knowledge-total>540</span> artikel dari <code>knowledge.json</code> dan menampilkan referensi yang benar-benar relevan pada setiap analisis.</p>
+          </div>
+          <div class="guide-step-card">
+            <div class="guide-step-num">3</div>
+            <div class="guide-step-icon" aria-hidden="true"></div>
+            <h4>Terapkan pengendalian K3</h4>
+            <p>Ikuti tindakan segera, pengendalian spesifik, serta verifikasi Supervisor atau Tim HSSE yang tercantum pada artikel terkait.</p>
+          </div>
+          <div class="guide-step-card">
+            <div class="guide-step-num">4</div>
+            <div class="guide-step-icon" aria-hidden="true"></div>
+            <h4>Eskalasi kepada Tim HSSE</h4>
+            <p>Jika kondisi berisiko tinggi, sistem otomatis menyusun pesan laporan resmi ke HSSE Officer penanggung jawab via WhatsApp.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. KATEGORI BAHAYA & TIM HSSE PENANGGUNG JAWAB -->
+      <section class="home-section" id="section-services">
+        <div class="section-header">
+          <span class="section-kicker">CAKUPAN KESELAMATAN</span>
+          <h2>Pilih kategori utama</h2>
+          <p>Pilih yang paling sesuai dengan kondisi di lapangan. Jika ragu, langsung tulis laporan dan sistem akan membantu.</p>
+        </div>
+        <div class="category-grid">
+          <!-- Diisi oleh app.js dengan enam kategori utama yang ringkas. -->
+        </div>
+        <div class="category-toolbar">
+          <span>Pilih kategori yang paling sesuai, atau langsung tulis laporan jika belum yakin.</span>
+          <button class="btn btn-secondary" id="toggle-category-list" type="button" data-ui-icon="book" onclick="switchView('services-panel')">
+            Buka Knowledge Base
+          </button>
+        </div>
+      </section>
+
+      <!-- 4. PERTAMINA CORPORATE GOLDEN RULES & CLIC PROTOCOL -->
+      <section class="home-section">
+        <div class="section-header">
+          <span class="section-kicker">BUDAYA KESELAMATAN</span>
+          <h2>Golden Rules: patuhi, peduli, dan berani mengintervensi</h2>
+          <p>Prinsip budaya keselamatan kerja utama yang wajib diterapkan oleh seluruh pekerja dan kontraktor</p>
+        </div>
+        <div class="golden-rules-grid">
+          <div class="golden-rule-card">
+            <div class="rule-badge-header rule-comply">
+              COMPLY (PATUHI)
+            </div>
+            <h4>Kepatuhan Prosedur K3</h4>
+            <p>Patuhi seluruh regulasi K3, Standar Operasional Prosedur (SOP), Sistem Izin Kerja (PTW), dan instruksi keselamatan di seluruh area kerja tanpa kompromi.</p>
+          </div>
+          <div class="golden-rule-card">
+            <div class="rule-badge-header rule-listen">
+              LISTEN (PEDULI)
+            </div>
+            <h4>Kepedulian Lingkungan Kerja</h4>
+            <p>Peduli terhadap kondisi lingkungan sekitar, dengarkan pengarahan Safety Briefing / Toolbox Meeting (TBM), dan aktif melaporkan temuan bahaya/near miss.</p>
+          </div>
+          <div class="golden-rule-card">
+            <div class="rule-badge-header rule-intervene">
+              INTERVENE (TEGUR)
+            </div>
+            <h4>Wewenang Hentikan Pekerjaan</h4>
+            <p>Berani menegur dan menghentikan pekerjaan secara langsung (Stop Work Authority) apabila menemukan tindakan atau kondisi tidak aman di lapangan.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. MATRIKS RISIKO K3 & STANDAR PENGENDALIAN -->
+      <section class="home-section">
+        <div class="section-header">
+          <span class="section-kicker">PRIORITAS TINDAKAN</span>
+          <h2>Kenali tingkat risiko sebelum menentukan tindakan</h2>
+          <p>Klasifikasi tingkat risiko kondisi bahaya beserta prosedur pengendalian K3 yang dipersyaratkan</p>
+        </div>
+        <div class="risk-matrix-grid">
+
+          <div class="risk-card-info high">
+            <div class="risk-card-header">
+              <span class="risk-badge-label high">RISIKO TINGGI (HIGH RISK)</span>
+            </div>
+            <h4>Potensi Cedera Fatal / Kerusakan Berat</h4>
+            <p>Kondisi yang berpotensi memicu cedera serius, cacat permanen, fatality, ledakan, atau pencemaran lingkungan berat.</p>
+            <div class="risk-actions-list">
+              <strong>Prosedur Kendali K3:</strong>
+              <ul>
+                <li>Hentikan Pekerjaan Seketika (Stop Work)</li>
+                <li>Wajibkan Izin Kerja Khusus & Pendampingan HSSE</li>
+                <li>Eskalasi Langsung ke Tim HSSE Officer via WA</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="risk-card-info medium">
+            <div class="risk-card-header">
+              <span class="risk-badge-label medium">RISIKO SEDANG (MEDIUM RISK)</span>
+            </div>
+            <h4>Potensi Cedera Ringan / Gangguan Alat</h4>
+            <p>Kondisi bahaya yang dapat memicu luka fisik ringan, pusing, iritasi, atau kecelakaan kerja yang memerlukan P3K.</p>
+            <div class="risk-actions-list">
+              <strong>Prosedur Kendali K3:</strong>
+              <ul>
+                <li>Lakukan Pengendalian Teknis & Kelengkapan APD</li>
+                <li>Lakukan Pengecekan oleh Supervisor K3</li>
+                <li>Terapkan Prosedur Kerja Aman Sesuai SOP</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="risk-card-info low">
+            <div class="risk-card-header">
+              <span class="risk-badge-label low">RISIKO RENDAH (LOW RISK)</span>
+            </div>
+            <h4>Potensi Bahaya Ringan / Kerapian Area</h4>
+            <p>Kondisi bahaya yang memiliki dampak minimal terhadap keselamatan dan dapat diatasi dengan tindakan mandiri.</p>
+            <div class="risk-actions-list">
+              <strong>Prosedur Kendali K3:</strong>
+              <ul>
+                <li>Perbaiki Langsung & Rapikan Tempat Kerja</li>
+                <li>Pertahankan Budaya Kebersihan (Housekeeping)</li>
+                <li>Lakukan Pemantauan Rutin Setiap Shift</li>
+              </ul>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 6. OFFICIAL ROSTER TIM HSSE PT PERTAMINA EP LIRIK FIELD 2026 -->
+      <section class="home-section">
+        <div class="section-header">
+          <span class="section-kicker">TIM PENDAMPING</span>
+          <h2>Tim HSSE Pertamina EP Lirik Field</h2>
+          <p>Personel & Divisi Keselamatan Kerja resmi yang siap mendampingi, mengawasi, dan menerima eskalasi WhatsApp</p>
+        </div>
+        <div class="roster-grid">
+
+          <div class="roster-card">
+            <div class="roster-avatar"></div>
+            <h4>M. Solihin</h4>
+            <div class="roster-role">Superintendent HSSE</div>
+            <div class="roster-spec">Penanggung Jawab Utama HSSE PT Pertamina EP Lirik Field</div>
+            <button class="btn btn-sm btn-primary roster-contact-btn" onclick="openDirectWhatsApp('M. Solihin')">
+               Hubungi via WhatsApp
+            </button>
+          </div>
+
+          <div class="roster-card">
+            <div class="roster-avatar"></div>
+            <h4>Juni Trihardiyanto</h4>
+            <div class="roster-role">SAFETY Lead</div>
+            <div class="roster-spec">Ketersediaan APD, Dokumen SIKA & JSA (Tim: Defrizon, Ibnu Zalda, Iman Khairuddin)</div>
+            <button class="btn btn-sm btn-primary roster-contact-btn" onclick="openDirectWhatsApp('Juni Trihardiyanto')">
+               Hubungi via WhatsApp
+            </button>
+          </div>
+
+          <div class="roster-card">
+            <div class="roster-avatar"></div>
+            <h4>Dr. Irsyad Yoga</h4>
+            <div class="roster-role">HEALTH Lead</div>
+            <div class="roster-spec">Prosedur MCU, Medis & Wellness (Tim: Dr. Fauzan, Amri, Yossy, Diana, Kiki)</div>
+            <button class="btn btn-sm btn-primary roster-contact-btn" onclick="openDirectWhatsApp('Dr. Irsyad Yoga')">
+               Hubungi via WhatsApp
+            </button>
+          </div>
+
+          <div class="roster-card">
+            <div class="roster-avatar"></div>
+            <h4>Jayadi</h4>
+            <div class="roster-role">SECURITY Lead</div>
+            <div class="roster-spec">Sistem Keamanan, Izin Masuk SIML (Tim: Budi Santoso, Iwan, Dudung, Heris)</div>
+            <button class="btn btn-sm btn-primary roster-contact-btn" onclick="openDirectWhatsApp('Jayadi')">
+               Hubungi via WhatsApp
+            </button>
+          </div>
+
+          <div class="roster-card">
+            <div class="roster-avatar"></div>
+            <h4>Ronny Pribadi</h4>
+            <div class="roster-role">ENVIRO Lead</div>
+            <div class="roster-spec">Dokumen & Compliance Lingkungan B3 (Tim: Tsabitha Nabilla)</div>
+            <button class="btn btn-sm btn-primary roster-contact-btn" onclick="openDirectWhatsApp('Ronny Pribadi')">
+               Hubungi via WhatsApp
+            </button>
+          </div>
+
+          <div class="roster-card">
+            <div class="roster-avatar"></div>
+            <h4>Andre & Della</h4>
+            <div class="roster-role">ADMIN HSSE</div>
+            <div class="roster-spec">Andre (Finance HSSE) & Della (Administrasi Pekerja Field)</div>
+            <button class="btn btn-sm btn-primary roster-contact-btn" onclick="openDirectWhatsApp('Andre & Della')">
+               Hubungi via WhatsApp
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 7. DEDICATED LAYANAN WHATSAPP TIM HSSE -->
+      <section class="home-section">
+        <div class="wa-showcase-card">
+          <div class="wa-showcase-header">
+            <div class="wa-badge">INTEGRASI WHATSAPP REAL-TIME — 24/7</div>
+            <h2>Layanan Pengaduan & Eskalasi WhatsApp Tim HSSE</h2>
+            <p>
+              Setiap laporan kondisi bahaya, temuan tidak aman, atau konsultasi K3 dapat langsung dieskalasikan secara otomatis ke ponsel Tim HSSE Officer melalui WhatsApp resmi PT Pertamina EP Lirik Field.
+            </p>
+          </div>
+          <div class="wa-features-grid">
+            <div class="wa-feat-item">
+              <div class="wa-feat-icon"></div>
+              <h4>Kontak Sesuai Penanggung Jawab</h4>
+              <p>Terhubung ke HSSE Officer atau Supervisor yang relevan dengan kategori temuan lapangan.</p>
+            </div>
+            <div class="wa-feat-item">
+              <div class="wa-feat-icon"></div>
+              <h4>Draf Laporan Terisi Otomatis</h4>
+              <p>Formulir sistem menyusun draf pesan rapi berisi Nama, Divisi, Lokasi, Kategori, & Urgensi tanpa ketik ulang.</p>
+            </div>
+            <div class="wa-feat-item">
+              <div class="wa-feat-icon"></div>
+              <h4>Tindakan Lapangan Seketika</h4>
+              <p>Pesan langsung dibaca petugas di ponsel mereka untuk verifikasi Stop Work Authority atau inspeksi K3.</p>
+            </div>
+            <div class="wa-feat-item">
+              <div class="wa-feat-icon"></div>
+              <h4>Identitas Pelapor Jelas</h4>
+              <p>Nama pelapor dicantumkan agar Tim HSSE dapat melakukan verifikasi dan tindak lanjut laporan secara tepat.</p>
+            </div>
+          </div>
+          <div class="wa-showcase-actions">
+            <button class="btn btn-whatsapp wa-showcase-primary" onclick="openDirectWhatsApp()">
+               Hubungi WhatsApp Tim HSSE Sekarang
+            </button>
+            <button class="btn btn-secondary wa-showcase-secondary" onclick="openConsultationModal()">
+               Susun Draf Laporan WhatsApp
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. FAQ PELAPORAN KESELAMATAN KERJA -->
+      <section class="home-section">
+        <div class="section-header">
+          <span class="section-kicker">INFORMASI PENTING</span>
+          <h2>Pertanyaan umum seputar pelaporan keselamatan</h2>
+          <p>Jawaban cepat atas pertanyaan umum mengenai penggunaan sistem SIGAP-AI HSSE Companion</p>
+        </div>
+        <div class="home-faq-grid">
+          <details class="faq-disclosure" open>
+            <summary>Apakah saya perlu mendaftar akun untuk melaporkan bahaya?</summary>
+            <p><strong>Tidak perlu.</strong> SIGAP-AI dapat langsung digunakan tanpa login agar pekerja bisa melaporkan kondisi bahaya saat itu juga.</p>
+          </details>
+          <details class="faq-disclosure">
+            <summary>Apa yang harus dilakukan untuk kondisi berisiko tinggi?</summary>
+            <p>Hentikan pekerjaan bila diperlukan, amankan area, lalu gunakan eskalasi WhatsApp untuk menghubungi HSSE Officer beserta draf laporan otomatis.</p>
+          </details>
+          <details class="faq-disclosure">
+            <summary>Dari mana rekomendasi Asisten HSSE dihasilkan?</summary>
+            <p>Rekomendasi dicocokkan dengan <span data-knowledge-total>540</span> artikel dari <code>knowledge.json</code>. Kode artikel dan nilai kecocokannya ditampilkan secara transparan; verifikasi lapangan tetap wajib dilakukan.</p>
+          </details>
+          <details class="faq-disclosure">
+            <summary>Apakah laporan WhatsApp dapat disesuaikan?</summary>
+            <p>Ya. Nama pelapor, divisi, lokasi, tanggal kejadian, kategori, urgensi, dan deskripsi kondisi bahaya wajib dilengkapi sebelum pesan dapat dikirim.</p>
+          </details>
+        </div>
+      </section>
+
+      <!-- 9. CTA BANNER -->
+      <section class="cta-banner-card">
+        <div class="cta-banner-content">
+          <h2>Temukan bahaya? Ambil tindakan sekarang.</h2>
+          <p>Menemukan kondisi atau potensi bahaya di lokasi operasional Anda? Konsultasikan atau laporkan seketika kepada Tim HSSE.</p>
+          <div class="cta-btn-group">
+            <button class="btn btn-primary cta-primary" onclick="openConsultationModal()">
+               Laporkan kondisi bahaya
+            </button>
+            <button class="btn btn-secondary cta-secondary" onclick="switchView('chatbot')">
+               Buka Chatbot AI HSSE
+            </button>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ==========================================
+         VIEW 2: CHATBOT HSSE KNOWLEDGE BASE
+    ========================================== -->
+    <main class="view-panel" id="view-chatbot">
+
+      <button class="chat-drawer-backdrop" id="chat-drawer-backdrop" type="button" aria-label="Tutup riwayat percakapan" onclick="closeChatDrawer()" hidden></button>
+      <aside class="chat-session-drawer" id="chat-session-drawer" aria-labelledby="chat-drawer-title" aria-hidden="true" inert>
+        <div class="chat-drawer-header">
+          <div>
+            <span>Asisten HSSE</span>
+            <strong id="chat-drawer-title">Riwayat percakapan</strong>
+          </div>
+          <button class="chat-drawer-close" type="button" aria-label="Tutup riwayat percakapan" onclick="closeChatDrawer()">×</button>
+        </div>
+
+        <button class="chat-drawer-new btn btn-primary" type="button" data-ui-icon="message" onclick="startNewChatFromDrawer()">
+          Percakapan Baru
+        </button>
+
+        <div class="chat-drawer-history" id="chat-session-list" aria-live="polite">
+          <div class="chat-drawer-empty">Belum ada riwayat percakapan.</div>
+        </div>
+
+        <nav class="chat-drawer-nav" aria-label="Akses cepat Asisten HSSE">
+          <button type="button" data-ui-icon="book" onclick="openKnowledgeFromChatDrawer()">Knowledge Base</button>
+          <button type="button" data-ui-icon="message" onclick="openHsseContactFromChatDrawer()">Hubungi Tim HSSE</button>
+        </nav>
+
+        <div class="chat-drawer-device-note">
+          Riwayat disimpan pada perangkat ini tanpa login.
+        </div>
+      </aside>
+
+      <!-- Step 1: Guided Category Selector Panel -->
+      <button class="mobile-category-backdrop" id="mobile-category-backdrop" type="button" aria-label="Tutup pilihan kategori" onclick="closeMobileCategoryPanel()" hidden></button>
+      <div class="guided-cat-section" id="category-selector-bar" aria-labelledby="guided-category-title">
+        <div class="guided-cat-header">
+          <span class="guided-step-badge" id="guided-step-1">KATEGORI OPSIONAL</span>
+          <span class="guided-cat-title" id="guided-category-title">Pilih kategori utama</span>
+          <button class="btn-clear-cat btn btn-sm btn-secondary" id="btn-clear-cat" onclick="clearSelectedCategory()" hidden>Hapus Pilihan</button>
+          <button class="mobile-category-close" type="button" aria-label="Tutup pilihan kategori" onclick="closeMobileCategoryPanel()">×</button>
+        </div>
+        <p class="guided-cat-help">Pilih yang paling sesuai. Jika ragu, langsung tulis laporan.</p>
+
+        <div class="guided-cat-grid">
+          <button class="guided-cat-group-card" type="button" data-category-group="aktivitas-berisiko" aria-pressed="false" onclick="selectCategoryGroup('aktivitas-berisiko')">
+            <span class="gcat-icon"></span>
+            <div class="gcat-info">
+              <span class="gcat-name">Pekerjaan Berisiko</span>
+              <span class="gcat-tech">Kegiatan kerja dengan bahaya tinggi</span>
+            </div>
+          </button>
+
+          <button class="guided-cat-group-card" type="button" data-category-group="peralatan-kendaraan" aria-pressed="false" onclick="selectCategoryGroup('peralatan-kendaraan')">
+            <span class="gcat-icon"></span>
+            <div class="gcat-info">
+              <span class="gcat-name">Peralatan &amp; Kendaraan</span>
+              <span class="gcat-tech">Alat pelindung, alat kerja, dan kendaraan</span>
+            </div>
+          </button>
+
+          <button class="guided-cat-group-card" type="button" data-category-group="kesehatan-lingkungan" aria-pressed="false" onclick="selectCategoryGroup('kesehatan-lingkungan')">
+            <span class="gcat-icon"></span>
+            <div class="gcat-info">
+              <span class="gcat-name">Kesehatan &amp; Lingkungan</span>
+              <span class="gcat-tech">Kondisi pekerja dan area kerja</span>
+            </div>
+          </button>
+
+          <button class="guided-cat-group-card" type="button" data-category-group="sistem-risiko" aria-pressed="false" onclick="selectCategoryGroup('sistem-risiko')">
+            <span class="gcat-icon"></span>
+            <div class="gcat-info">
+              <span class="gcat-name">Aturan &amp; Pengawasan</span>
+              <span class="gcat-tech">Prosedur, izin kerja, dan pengawasan</span>
+            </div>
+          </button>
+
+          <button class="guided-cat-group-card" type="button" data-category-group="budaya-kompetensi" aria-pressed="false" onclick="selectCategoryGroup('budaya-kompetensi')">
+            <span class="gcat-icon"></span>
+            <div class="gcat-info">
+              <span class="gcat-name">Perilaku &amp; Pelatihan</span>
+              <span class="gcat-tech">Perilaku aman dan kemampuan pekerja</span>
+            </div>
+          </button>
+
+          <button class="guided-cat-group-card" type="button" data-category-group="insiden-koordinasi" aria-pressed="false" onclick="selectCategoryGroup('insiden-koordinasi')">
+            <span class="gcat-icon"></span>
+            <div class="gcat-info">
+              <span class="gcat-name">Insiden &amp; Darurat</span>
+              <span class="gcat-tech">Kecelakaan, hampir celaka, atau darurat</span>
+            </div>
+          </button>
+
+        </div>
+        <div class="mobile-category-footer">
+          <button class="btn btn-primary" type="button" onclick="finishMobileCategorySelection()">Tutup Pilihan</button>
+        </div>
+      </div>
+
+      <!-- Main Chat Console Container -->
+      <div class="chat-container">
+
+        <!-- Chat Header Bar -->
+        <div class="chat-header">
+          <button class="chat-drawer-toggle" id="chat-drawer-trigger" type="button" aria-label="Buka riwayat percakapan" aria-controls="chat-session-drawer" aria-expanded="false" onclick="openChatDrawer()">
+            <span class="chat-drawer-toggle-lines" aria-hidden="true"></span>
+          </button>
+          <div class="chat-title-group">
+            <div class="chat-icon-badge"></div>
+            <div>
+              <h3>SIGAP-AI HSSE Companion</h3>
+              <div class="chat-subtitle">Sistem Pendamping Keselamatan Kerja Cerdas berbasis Knowledge Base</div>
+            </div>
+          </div>
+          <button class="chat-new-button btn btn-sm btn-secondary" onclick="resetChatConversation()" title="Mulai Percakapan Baru">
+             Baru
+          </button>
+        </div>
+
+        <!-- Mandatory Category Required Alert Banner -->
+        <div class="cat-required-wrap">
+          <div class="cat-req-banner optional" id="cat-req-banner">
+            <span></span>
+            <div id="cat-req-text">
+              <strong>Kategori tidak wajib dipilih.</strong> Langsung tulis kondisi yang ditemukan jika Anda belum yakin.
+            </div>
+          </div>
+        </div>
+
+        <!-- Category Starter Pills -->
+        <div class="starter-chips-section" id="starter-bar">
+          <div class="starter-chips-label">Contoh laporan bahaya cepat</div>
+          <div class="starter-chips-wrapper" id="starter-chips">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Saran permasalahan tampil hanya di dalam kotak chat -->
+        <section class="chat-suggestion-popover" id="group-suggestion-popover" aria-labelledby="group-suggestion-title" aria-describedby="group-suggestion-description" aria-hidden="true" hidden>
+          <div class="group-suggestion-header">
+            <div>
+              <span class="group-suggestion-eyebrow">SARAN PESAN</span>
+              <h4 id="group-suggestion-title">Contoh pesan</h4>
+            </div>
+            <button class="chat-suggestion-close" type="button" aria-label="Tutup saran permasalahan" onclick="closeGroupSuggestionModal()">Tutup</button>
+          </div>
+          <p id="group-suggestion-description">Pilih contoh untuk dijadikan draf, atau langsung tulis laporan Anda sendiri.</p>
+          <div class="group-suggestion-list" id="group-suggestion-list"></div>
+          <small class="group-suggestion-note">Draf tidak dikirim otomatis dan tetap dapat disesuaikan dengan kondisi sebenarnya.</small>
+        </section>
+
+        <!-- Chat Stream Messages -->
+        <div class="chat-messages-stream" id="chat-messages">
+          <div class="chat-bubble system-bubble">
+            <div class="bubble-sender">SIGAP-AI HSSE Companion</div>
+            <div class="bubble-text">
+              Selamat datang di Sistem Pendamping Keselamatan Kerja! Langsung tuliskan kondisi bahaya yang Anda temui. Sistem akan membantu menentukan kategorinya secara otomatis.
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Resolution Feedback Bar -->
+        <div class="resolution-bar" id="resolution-bar" hidden>
+          <span class="res-bar-label">Apakah analisis dan solusi K3 di atas membantu menangani kondisi bahaya?</span>
+          <div class="res-bar-actions">
+            <button class="btn btn-success btn-sm" onclick="handleIssueResolved(true)">
+               Selesai
+            </button>
+            <button class="btn btn-warning btn-sm" onclick="handleIssueResolved(false)">
+               Belum, Hubungi Tim HSSE
+            </button>
+          </div>
+        </div>
+
+        <div class="chat-mobile-category-bar">
+          <div class="chat-mobile-category-copy">
+            <span>Kategori laporan</span>
+            <strong id="mobile-category-summary">Otomatis dari laporan</strong>
+          </div>
+          <button class="btn btn-sm btn-secondary" id="mobile-category-trigger" type="button" aria-controls="mobile-inline-category-picker" aria-expanded="false" onclick="openMobileCategoryPanel()">
+            Pilih kategori
+          </button>
+        </div>
+
+        <section class="mobile-inline-category-picker" id="mobile-inline-category-picker" aria-labelledby="mobile-inline-category-title" aria-hidden="true">
+          <div class="mobile-inline-category-header">
+            <div>
+              <strong id="mobile-inline-category-title">Pilih kategori laporan</strong>
+              <span>Enam pilihan utama tersedia. Pilih yang paling sesuai.</span>
+            </div>
+            <button class="mobile-inline-category-close" type="button" aria-label="Tutup daftar kategori" onclick="closeMobileCategoryPanel()">×</button>
+          </div>
+          <div class="mobile-inline-category-options" id="mobile-inline-category-options"></div>
+        </section>
+
+        <!-- Chat Input Footer -->
+        <div class="chat-input-bar">
+          <textarea id="chat-input" class="chat-input-field" rows="2" placeholder="Ceritakan kondisi bahaya, lokasi, dan aktivitas yang sedang berlangsung…" onkeydown="handleChatKeyDown(event)"></textarea>
+          <button class="btn btn-primary" id="btn-send-chat" onclick="sendChatMessage()">
+            Kirim
+          </button>
+        </div>
+
+      </div>
+    </main>
+
+    <!-- ==========================================
+         VIEW 3: DIREKTORI KNOWLEDGE BASE HSSE
+    ========================================== -->
+    <main class="view-panel" id="view-services-panel">
+      <div class="panel-header">
+        <span class="section-kicker">KNOWLEDGE BASE</span>
+        <h2>Direktori keselamatan kerja HSSE</h2>
+        <p>Seluruh artikel dari <code>knowledge.json</code>, lengkap dengan identifikasi bahaya, tingkat risiko, kata kunci, dan tindakan pengendalian.</p>
+      </div>
+
+      <!-- FAQ Search & Category Filter Bar -->
+      <div class="faq-search-box">
+        <div class="faq-search-meta">
+          <span id="faq-counter-badge">
+             Memuat data Knowledge Base HSSE...
+          </span>
+        </div>
+
+        <div class="faq-search-controls">
+          <!-- Category Select Dropdown -->
+          <div class="faq-category-control">
+            <select id="faq-cat-select" class="faq-cat-select" onchange="onFaqSelectCategory(this.value)">
+              <option value="Semua">Memuat seluruh kategori...</option>
+            </select>
+          </div>
+
+          <!-- Keyword Search Input -->
+          <div class="faq-keyword-control">
+            <input type="text" id="faq-search-input" class="faq-search-input" placeholder="Cari kata kunci bahaya... (misal: helm, harness, kabel terbuka, confined space, APAR, tumpahan B3)" oninput="debouncedFilterFaq()" />
+          </div>
+        </div>
+
+        <!-- Category Filter Chips in FAQ View -->
+        <div class="faq-filter-scroll" id="faq-cat-filters">
+          <button class="chip-btn active" type="button" data-filter="Semua">Semua Kategori</button>
+        </div>
+      </div>
+
+      <div class="faq-list" id="faq-list">
+        <!-- Injected via JS -->
+      </div>
+    </main>
+
+    <div class="mobile-action-bar" aria-label="Aksi cepat">
+      <button type="button" class="mobile-action-report" data-ui-icon="alert" onclick="openConsultationModal()">Lapor bahaya</button>
+      <button type="button" class="mobile-action-chat" data-ui-icon="bot" onclick="switchView('chatbot')">Asisten HSSE</button>
+    </div>
+
+    <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+
+    <!-- ==========================================
+         CONSULTATION REPORT FORM MODAL
+    ========================================== -->
+    <div class="modal-overlay" id="consultation-modal">
+      <div class="modal-card">
+        <button class="modal-close-btn" onclick="closeConsultationModal()"></button>
+        <h3>Formulir Laporan Kondisi Bahaya</h3>
+        <p class="modal-sub">
+          Lengkapi detail kondisi bahaya untuk membantu sistem dan Tim HSSE mengidentifikasi risiko dan menentukan tindakan.
+        </p>
+
+        <form id="consultation-form" onsubmit="event.preventDefault(); submitConsultationForm();">
+          <div class="form-group">
+            <label for="cons-name">Nama Pelapor <span class="field-required">*</span></label>
+            <input type="text" id="cons-name" class="form-input" placeholder="Masukkan nama lengkap pelapor" autocomplete="name" minlength="2" maxlength="150" required />
+          </div>
+
+          <div class="form-group">
+            <label for="cons-division">Fungsi / Divisi <span class="field-required">*</span></label>
+            <select id="cons-division" class="form-input" required>
+              <option value="">— Pilih fungsi Anda —</option>
+              <option value="FM (Field Manager)">FM (Field Manager)</option>
+              <option value="HC">HC</option>
+              <option value="Plan Eval">Plan Eval</option>
+              <option value="PE">PE</option>
+              <option value="WO/WS">WO/WS</option>
+              <option value="Finance">Finance</option>
+              <option value="RAM">RAM</option>
+              <option value="Legal & Relation">Legal &amp; Relation</option>
+              <option value="PO (Production Operation)">PO (Production Operation)</option>
+              <option value="SCM">SCM</option>
+              <option value="HSSE">HSSE</option>
+              <option value="IT">IT</option>
+              <option value="Security">Security</option>
+              <option value="Transport">Transport</option>
+              <option value="Fire">Fire</option>
+              <option value="Bengkel / Mekanik">Bengkel / Mekanik</option>
+              <option value="Kontraktor / Vendor">Kontraktor / Vendor</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cons-location">Lokasi Temuan Bahaya <span class="field-required">*</span></label>
+            <select id="cons-location" class="form-input" required>
+              <option value="">— Pilih lokasi Anda —</option>
+              <optgroup label="Buatan">
+                <option value="Kantor Besar Buatan">Kantor Besar Buatan</option>
+                <option value="Operator Buatan">Operator Buatan</option>
+              </optgroup>
+              <optgroup label="Ukui">
+                <option value="Pumper UKUI">Pumper UKUI</option>
+                <option value="P3 Operator UKUI">P3 Operator UKUI</option>
+                <option value="SP 5, 6, 7 UKUI">SP 5, 6, 7 UKUI</option>
+                <option value="Klinik UKUI">Klinik UKUI</option>
+              </optgroup>
+              <optgroup label="Lirik">
+                <option value="HSSE Demo Room Lirik">HSSE Demo Room Lirik</option>
+                <option value="Produksi Lirik">Produksi Lirik</option>
+                <option value="WS Lirik">WS Lirik</option>
+                <option value="PE Lirik">PE Lirik</option>
+                <option value="Finance Lirik">Finance Lirik</option>
+                <option value="HC Lirik">HC Lirik</option>
+                <option value="RAM Lirik">RAM Lirik</option>
+                <option value="PO Lirik">PO Lirik</option>
+                <option value="LR Lirik">LR Lirik</option>
+                <option value="FM Lirik">FM Lirik</option>
+                <option value="IT Lirik">IT Lirik</option>
+                <option value="Fire Lirik">Fire Lirik</option>
+                <option value="Transport Lirik">Transport Lirik</option>
+                <option value="SCM Lirik">SCM Lirik</option>
+                <option value="Bengkel TOPSIP Lirik">Bengkel TOPSIP Lirik</option>
+                <option value="Bengkel Mekanik Lirik">Bengkel Mekanik Lirik</option>
+                <option value="Bengkel Instrumen Umum dan Las Lirik">Bengkel Instrumen Umum dan Las Lirik</option>
+                <option value="Bengkel Listrik Lirik">Bengkel Listrik Lirik</option>
+                <option value="Security Kantor Besar Lirik">Security Kantor Besar Lirik</option>
+                <option value="Pos Camp 1 Lirik">Pos Camp 1 Lirik</option>
+                <option value="Security Industrial Lirik">Security Industrial Lirik</option>
+                <option value="Security Japura Lirik">Security Japura Lirik</option>
+                <option value="SP 2, 3, 4 Lirik">SP 2, 3, 4 Lirik</option>
+                <option value="SP 1 Lirik">SP 1 Lirik</option>
+                <option value="Klinik Lirik">Klinik Lirik</option>
+                <option value="Mess Lirik">Mess Lirik</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cons-occurrence-date">Tanggal Kejadian <span class="field-required">*</span></label>
+            <input type="date" id="cons-occurrence-date" class="form-input" required />
+          </div>
+
+          <div class="form-group">
+            <label for="cons-category">Kategori Utama <span class="field-required">*</span></label>
+            <select id="cons-category" class="form-input" required>
+              <option value="">-- Pilih kategori utama --</option>
+              <option value="aktivitas-berisiko">Pekerjaan Berisiko</option>
+              <option value="peralatan-kendaraan">Peralatan &amp; Kendaraan</option>
+              <option value="kesehatan-lingkungan">Kesehatan &amp; Lingkungan</option>
+              <option value="sistem-risiko">Aturan &amp; Pengawasan</option>
+              <option value="budaya-kompetensi">Perilaku &amp; Pelatihan</option>
+              <option value="insiden-koordinasi">Insiden &amp; Darurat</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cons-urgency">Tingkat Urgensi <span class="field-required">*</span></label>
+            <select id="cons-urgency" class="form-input" required>
+              <option value="Ringan">Ringan (Potensi bahaya kecil)</option>
+              <option value="Sedang" selected>Sedang (Perlu tindakan korektif)</option>
+              <option value="Berat">Berat (Bahaya serius / hentikan pekerjaan)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="cons-description">Deskripsi Kondisi Bahaya <span class="field-required">*</span></label>
+            <textarea id="cons-description" class="form-input" rows="3" placeholder="Jelaskan kondisi bahaya yang ditemukan di area kerja..." required></textarea>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn btn-secondary" onclick="closeConsultationModal()">Batal</button>
+            <button type="submit" class="btn btn-primary" id="btn-submit-consultation">Lanjutkan analisis</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+    <!-- ==========================================
+         CONSULTATION CHOICE & CONFIRMATION MODAL
+    ========================================== -->
+    <div class="modal-overlay" id="consultation-choice-modal">
+      <div class="modal-card modal-choice-card">
+        <button class="modal-close-btn" onclick="closeChoiceModal()"></button>
+        
+        <div id="confirmation-success-block" style="display: block;">
+          <div class="confirmation-badge-success" style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0, 166, 81, 0.15); border: 1px solid rgba(0, 166, 81, 0.35); color: #34d399; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; letter-spacing: 0.8px; margin-bottom: 12px;">
+            ✓ LAPORAN BERHASIL DISAMPAIKAN
+          </div>
+          <h3 style="margin: 0 0 10px 0;">Konfirmasi Laporan Keselamatan</h3>
+          
+          <div class="confirmation-ticket-box" style="background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 10px; padding: 14px 18px; margin-bottom: 16px; text-align: left; display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+            <div>
+              <span style="font-size: 11px; color: #94a3b8; text-transform: uppercase; font-weight: 600; display: block;">Nomor Tiket:</span>
+              <strong id="confirmation-ticket-number" style="font-family: 'Outfit', monospace; color: #38bdf8; font-size: 16px; font-weight: 700;">HSE-20260827-0001</strong>
+            </div>
+            <div>
+              <span style="font-size: 11px; color: #94a3b8; text-transform: uppercase; font-weight: 600; display: block;">Status:</span>
+              <span id="confirmation-ticket-status" class="status-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 700;">Open</span>
+            </div>
+          </div>
+        </div>
+
+        <div id="confirmation-error-block" style="display: none;">
+          <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.35); color: #f87171; padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 700; margin-bottom: 12px;">
+            ⚠ PERINGATAN PENYIMPANAN
+          </div>
+          <h3 style="color: #f87171; margin: 0 0 10px 0;">Laporan Gagal Disampaikan ke Server</h3>
+        </div>
+
+        <p class="modal-sub" id="consultation-choice-message" style="margin-bottom: 18px; font-size: 13px; line-height: 1.5;">
+          Laporan Anda telah berhasil diterima oleh sistem SIGAP HSE. Simpan nomor tiket untuk keperluan identifikasi laporan.
+        </p>
+
+        <div class="handling-choice-grid">
+          <button type="button" class="handling-choice option-ai" onclick="proceedToChatbotConsultation()">
+            <span class="handling-choice-icon" data-choice-icon="bot"></span>
+            <span class="handling-choice-label">DISARANKAN</span>
+            <strong>Analisis AI HSSE</strong>
+            <span>Dapatkan identifikasi risiko dan solusi K3 secara instan.</span>
+          </button>
+
+          <button type="button" class="handling-choice option-whatsapp" onclick="proceedToDirectWhatsAppConsultation()">
+            <span class="handling-choice-icon" data-choice-icon="message"></span>
+            <span class="handling-choice-label">KONTAK LANGSUNG</span>
+            <strong>WhatsApp Tim HSSE</strong>
+            <span>Terhubung langsung ke HSSE Officer penanggung jawab.</span>
+          </button>
+        </div>
+
+        <div class="modal-actions modal-actions-centered">
+          <button class="btn btn-secondary" onclick="closeChoiceModal()">Tutup</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         WHATSAPP HSSE OFFICER SELECTION MODAL
+    ========================================== -->
+    <div class="modal-overlay" id="whatsapp-modal">
+      <div class="modal-card">
+        <button class="modal-close-btn" onclick="closeWhatsAppModal()"></button>
+        <div class="modal-header-centered">
+          <h3>Hubungi Tim HSSE via WhatsApp</h3>
+          <p class="modal-sub">Semua kolom wajib dilengkapi. Pesan WhatsApp baru dapat dikirim setelah seluruh data valid.</p>
+        </div>
+
+        <!-- Recommended HSSE Officer Card -->
+        <div class="tech-assigned-card" id="tech-assigned-card">
+          <div class="tech-avatar"></div>
+          <div class="tech-details">
+            <h4 id="tech-assigned-name">M. Solihin</h4>
+            <span class="tech-role-badge" id="tech-assigned-role">Superintendent HSSE PT Pertamina EP Lirik Field</span>
+          </div>
+        </div>
+
+        <!-- HSSE Officer Selector Dropdown -->
+        <div class="form-group">
+          <label for="wa-tech-select">HSSE Officer tujuan <span class="field-required">*</span></label>
+          <select id="wa-tech-select" class="form-input" onchange="onTechnicianSelected()" required aria-describedby="wa-form-status">
+            <!-- Injected via JS -->
+          </select>
+        </div>
+
+        <!-- Interactive Reporter Form inside WhatsApp Modal -->
+        <div class="wa-report-form">
+          <div class="wa-form-title">
+            Detail laporan kondisi bahaya
+          </div>
+
+          <div class="wa-form-grid">
+            <div class="form-group">
+              <label for="wa-input-name">Nama pelapor <span class="field-required">*</span></label>
+              <input type="text" id="wa-input-name" class="form-input" placeholder="Masukkan nama lengkap" autocomplete="name" minlength="2" maxlength="150" oninput="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status" />
+            </div>
+
+            <div class="form-group">
+              <label for="wa-input-division">Fungsi / Divisi <span class="field-required">*</span></label>
+              <select id="wa-input-division" class="form-input" onchange="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status">
+                <option value="">— Pilih fungsi Anda —</option>
+                <option value="FM (Field Manager)">FM (Field Manager)</option>
+                <option value="HC">HC</option>
+                <option value="Plan Eval">Plan Eval</option>
+                <option value="PE">PE</option>
+                <option value="WO/WS">WO/WS</option>
+                <option value="Finance">Finance</option>
+                <option value="RAM">RAM</option>
+                <option value="Legal &amp; Relation">Legal &amp; Relation</option>
+                <option value="PO (Production Operation)">PO (Production Operation)</option>
+                <option value="SCM">SCM</option>
+                <option value="HSSE">HSSE</option>
+                <option value="IT">IT</option>
+                <option value="Security">Security</option>
+                <option value="Transport">Transport</option>
+                <option value="Fire">Fire</option>
+                <option value="Bengkel / Mekanik">Bengkel / Mekanik</option>
+                <option value="Kontraktor / Vendor">Kontraktor / Vendor</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="wa-form-grid">
+            <div class="form-group">
+              <label for="wa-input-location">Lokasi temuan <span class="field-required">*</span></label>
+              <select id="wa-input-location" class="form-input" onchange="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status">
+                <option value="">— Pilih lokasi Anda —</option>
+                <optgroup label="Buatan">
+                  <option value="Kantor Besar Buatan">Kantor Besar Buatan</option>
+                  <option value="Operator Buatan">Operator Buatan</option>
+                </optgroup>
+                <optgroup label="Ukui">
+                  <option value="Pumper UKUI">Pumper UKUI</option>
+                  <option value="P3 Operator UKUI">P3 Operator UKUI</option>
+                  <option value="SP 5, 6, 7 UKUI">SP 5, 6, 7 UKUI</option>
+                  <option value="Klinik UKUI">Klinik UKUI</option>
+                </optgroup>
+                <optgroup label="Lirik">
+                  <option value="HSSE Demo Room Lirik">HSSE Demo Room Lirik</option>
+                  <option value="Produksi Lirik">Produksi Lirik</option>
+                  <option value="WS Lirik">WS Lirik</option>
+                  <option value="PE Lirik">PE Lirik</option>
+                  <option value="Finance Lirik">Finance Lirik</option>
+                  <option value="HC Lirik">HC Lirik</option>
+                  <option value="RAM Lirik">RAM Lirik</option>
+                  <option value="PO Lirik">PO Lirik</option>
+                  <option value="LR Lirik">LR Lirik</option>
+                  <option value="FM Lirik">FM Lirik</option>
+                  <option value="IT Lirik">IT Lirik</option>
+                  <option value="Fire Lirik">Fire Lirik</option>
+                  <option value="Transport Lirik">Transport Lirik</option>
+                  <option value="SCM Lirik">SCM Lirik</option>
+                  <option value="Bengkel TOPSIP Lirik">Bengkel TOPSIP Lirik</option>
+                  <option value="Bengkel Mekanik Lirik">Bengkel Mekanik Lirik</option>
+                  <option value="Bengkel Instrumen Umum dan Las Lirik">Bengkel Instrumen Umum dan Las Lirik</option>
+                  <option value="Bengkel Listrik Lirik">Bengkel Listrik Lirik</option>
+                  <option value="Security Kantor Besar Lirik">Security Kantor Besar Lirik</option>
+                  <option value="Pos Camp 1 Lirik">Pos Camp 1 Lirik</option>
+                  <option value="Security Industrial Lirik">Security Industrial Lirik</option>
+                  <option value="Security Japura Lirik">Security Japura Lirik</option>
+                  <option value="SP 2, 3, 4 Lirik">SP 2, 3, 4 Lirik</option>
+                  <option value="SP 1 Lirik">SP 1 Lirik</option>
+                  <option value="Klinik Lirik">Klinik Lirik</option>
+                  <option value="Mess Lirik">Mess Lirik</option>
+                </optgroup>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="wa-input-occurrence-date">Tanggal kejadian <span class="field-required">*</span></label>
+              <input type="date" id="wa-input-occurrence-date" class="form-input" onchange="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status" />
+            </div>
+          </div>
+
+          <div class="wa-form-grid">
+            <div class="form-group">
+              <label for="wa-input-category">Kategori utama <span class="field-required">*</span></label>
+              <select id="wa-input-category" class="form-input" onchange="onCategorySelectInWaModal()" required aria-describedby="wa-form-status">
+                <option value="">-- Pilih kategori utama --</option>
+                <option value="aktivitas-berisiko">Pekerjaan Berisiko</option>
+                <option value="peralatan-kendaraan">Peralatan &amp; Kendaraan</option>
+                <option value="kesehatan-lingkungan">Kesehatan &amp; Lingkungan</option>
+                <option value="sistem-risiko">Aturan &amp; Pengawasan</option>
+                <option value="budaya-kompetensi">Perilaku &amp; Pelatihan</option>
+                <option value="insiden-koordinasi">Insiden &amp; Darurat</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="wa-input-urgency">Tingkat urgensi <span class="field-required">*</span></label>
+              <select id="wa-input-urgency" class="form-input urgency-select" onchange="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status">
+                <option value="">-- Pilih Tingkat Urgensi --</option>
+                <option value="Ringan">Ringan (Potensi kecil)</option>
+                <option value="Sedang">Sedang (Perlu tindakan)</option>
+                <option value="Berat">Berat (Hentikan pekerjaan)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group wa-description-field">
+            <label for="wa-input-description">Deskripsi kondisi bahaya <span class="field-required">*</span></label>
+            <textarea id="wa-input-description" class="form-input" rows="3" placeholder="Jelaskan kondisi bahaya yang ditemukan (minimal 10 karakter)" minlength="10" maxlength="3000" oninput="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status"></textarea>
+          </div>
+        </div>
+
+        <div class="wa-form-status" id="wa-form-status" role="status" aria-live="polite">
+          Lengkapi seluruh kolom wajib untuk mengaktifkan pengiriman WhatsApp.
+        </div>
+
+        <!-- Pre-filled Message Preview -->
+        <div class="wa-preview-label">Pratinjau pesan WhatsApp</div>
+        <div class="wa-preview-box" id="wa-preview-text">
+          <!-- Injected via JS -->
+        </div>
+
+        <div class="modal-actions">
+          <button class="btn btn-secondary" onclick="closeWhatsAppModal()">Batal</button>
+          <button type="button" class="btn btn-success" id="wa-action-link" onclick="sendWhatsAppReport()" disabled aria-disabled="true">
+             Kirim WhatsApp ke Tim HSSE
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         MODAL: CEK STATUS TIKET
+    ========================================== -->
+    <div class="modal-overlay" id="ticket-check-modal" aria-labelledby="ticket-check-title" role="dialog" aria-modal="true">
+      <div class="modal-container" style="max-width: 640px; max-height: 90vh; overflow-y: auto;">
+        <div class="modal-header">
+          <h2 class="modal-title" id="ticket-check-title">🔍 Cek Status Tiket</h2>
+          <button class="modal-close" onclick="closeTicketCheckModal()" aria-label="Tutup modal">&times;</button>
+        </div>
+        <div class="modal-body">
+          <p class="modal-sub">Masukkan Nomor Tiket Anda untuk melihat status dan perkembangan penanganan laporan bahaya secara real-time.</p>
+
+          <!-- Input Pencarian -->
+          <div style="display: flex; gap: 10px; margin-bottom: 8px;">
+            <input type="text" id="check-ticket-id" class="form-input" placeholder="Contoh: HSE-20260903-0001" style="flex: 1; font-family: monospace;" onkeydown="if(event.key==='Enter') checkTicketStatus()" />
+            <button class="btn btn-primary" onclick="checkTicketStatus()" id="btn-cari-tiket">Cari Tiket</button>
+          </div>
+          <div style="font-size: 12px; color: #64748b; margin-bottom: 16px;">
+            💡 <em>Nomor tiket terdapat pada email/notifikasi konfirmasi saat laporan dikirimkan, atau tanyakan ke Tim HSSE.</em>
+          </div>
+
+          <!-- Error Box -->
+          <div id="ticket-check-error" style="display: none; color: #b91c1c; background: #fef2f2; border: 1px solid #fca5a5; padding: 12px 16px; border-radius: 8px; margin-bottom: 12px; font-size: 14px;"></div>
+
+          <!-- RESULT AREA (injected by JS) -->
+          <div id="ticket-check-result" style="display: none; margin-top: 4px;">
+
+            <!-- ===== SECTION 1: DASHBOARD ===== -->
+            <div id="tc-section-dashboard">
+              <!-- Injected by JS -->
+            </div>
+
+            <!-- ===== SECTION 2: DAFTAR LAPORAN / TIMELINE ===== -->
+            <div class="tc-section-block" style="margin-top: 24px;">
+              <div class="tc-section-title">📋 Daftar Riwayat Laporan</div>
+              <div style="font-size: 13px; color: #64748b; margin-bottom: 14px;">Kronologis setiap pembaruan status yang dilakukan oleh Tim HSSE.</div>
+              <div id="tc-ticket-timeline">
+                <!-- Injected by JS -->
+              </div>
+            </div>
+
+            <!-- ===== SECTION 3: REKAPITULASI ===== -->
+            <div class="tc-section-block" style="margin-top: 24px;" id="tc-section-rekap">
+              <!-- Injected by JS -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ==========================================
+         FOOTER
+    ========================================== -->
+    <footer class="footer">
+      <div class="footer-content">
+        <div class="footer-brand">SIGAP-AI HSSE COMPANION — Sistem Pendamping Keselamatan Kerja 2026</div>
+        <div>
+          Identifikasi Bahaya · Analisis Risiko · Solusi K3 · Tanpa Login · Tanpa Registrasi
+          <a href="/admin/login" style="color: rgba(255,255,255,0.4); text-decoration: none; margin-left: 14px; font-size: 11px; transition: color 0.2s;" onmouseover="this.style.color='#38bdf8'" onmouseout="this.style.color='rgba(255,255,255,0.4)'">
+            🔒 Portal Admin HSSE
+          </a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

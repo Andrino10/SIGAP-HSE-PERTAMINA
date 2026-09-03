@@ -1,0 +1,1801 @@
+[
+  {
+    "id": "HSE-20260903-D001",
+    "ticket_number": "HSE-20260903-D001",
+    "source": "direct_form",
+    "chat_session_id": null,
+    "reporter_name": "Slamet Riyadi",
+    "division": "WO/WS",
+    "location": "SP 2, 3, 4 Lirik",
+    "occurrence_date": "2026-09-03",
+    "category": "Pekerjaan di Ketinggian",
+    "categories": ["Pekerjaan di Ketinggian"],
+    "finding_type": "Unsafe Condition",
+    "description": "Scaffolding di area tangki T-03 ditemukan tidak memiliki toe-board dan handrail di sisi barat. Pekerja bekerja di ketinggian 8 meter tanpa ada pengaman tepi.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "In Progress",
+    "assigned_to": "Juni Trihardiyanto",
+    "assigned_engineer": "Juni Trihardiyanto",
+    "follow_up_notes": "Pekerjaan di area tangki T-03 telah dihentikan sementara. Tim safety sedang memasang handrail dan toe-board tambahan.",
+    "admin_message": "Laporan Anda telah kami tindaklanjuti, Saudara Slamet. Pekerjaan di ketinggian dihentikan sementara hingga scaffolding diperbaiki. Terima kasih atas kewaspadaan Anda.",
+    "history": [
+      {"timestamp": "2026-09-03T07:00:00.000000", "action": "Laporan Dibuat", "status": "Open", "actor": "Slamet Riyadi", "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."},
+      {"timestamp": "2026-09-03T07:25:00.000000", "action": "Tiket didisposisikan ke: Juni Trihardiyanto", "previous_status": "Open", "status": "Open", "actor": "Admin HSSE", "notes": "Tanggung jawab tiket dialihkan ke Juni Trihardiyanto."},
+      {"timestamp": "2026-09-03T07:30:00.000000", "action": "Status diubah dari 'Open' menjadi 'In Progress'", "previous_status": "Open", "status": "In Progress", "actor": "Admin HSSE", "notes": "Pekerjaan di area tangki T-03 telah dihentikan sementara. Tim safety sedang memasang handrail dan toe-board tambahan."}
+    ],
+    "created_at": "2026-09-03T07:00:00.000000",
+    "updated_at": "2026-09-03T07:30:00.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260903-D002",
+    "ticket_number": "HSE-20260903-D002",
+    "source": "chatbot_escalation",
+    "chat_session_id": "SESS-20260903-CC99",
+    "reporter_name": "Wahyu Pratama",
+    "division": "Bengkel / Mekanik",
+    "location": "Bengkel TOPSIP Lirik",
+    "occurrence_date": "2026-09-03",
+    "category": "Pekerjaan Panas (Hot Work)",
+    "categories": ["Pekerjaan Panas (Hot Work)"],
+    "finding_type": "Unsafe Act",
+    "description": "Ditemukan kegiatan pengelasan (welding) di area bengkel tanpa Hot Work Permit yang aktif. Tidak ada fire watch yang berdiri dan APAR tidak berada dalam jarak 3 meter.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_to": "M. Solihin",
+    "assigned_engineer": "M. Solihin",
+    "follow_up_notes": "Hot Work Permit telah diterbitkan retroaktif. Pekerja pengelasan diberikan safety briefing ulang. Prosedur hot work akan diperkuat dengan pengawasan langsung Safety Officer.",
+    "admin_message": "Saudara Wahyu, laporan Anda sangat penting. Kegiatan las telah dihentikan dan izin kerja panas telah diterbitkan sesuai prosedur. Pekerja terkait mendapatkan pembinaan khusus. Terima kasih.",
+    "history": [
+      {"timestamp": "2026-09-03T08:45:00.000000", "action": "Laporan Dibuat", "status": "Open", "actor": "Wahyu Pratama", "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."},
+      {"timestamp": "2026-09-03T09:00:00.000000", "action": "Tiket didisposisikan ke: M. Solihin", "previous_status": "Open", "status": "Open", "actor": "Admin HSSE", "notes": "Tanggung jawab tiket dialihkan ke M. Solihin."},
+      {"timestamp": "2026-09-03T09:05:00.000000", "action": "Status diubah dari 'Open' menjadi 'In Progress'", "previous_status": "Open", "status": "In Progress", "actor": "Admin HSSE", "notes": "Kegiatan pengelasan dihentikan. Superintendent menuju lokasi untuk verifikasi."},
+      {"timestamp": "2026-09-03T11:30:00.000000", "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'", "previous_status": "In Progress", "status": "Closed / Resolved", "actor": "Admin HSSE", "notes": "Hot Work Permit telah diterbitkan retroaktif. Pekerja pengelasan diberikan safety briefing ulang."}
+    ],
+    "created_at": "2026-09-03T08:45:00.000000",
+    "updated_at": "2026-09-03T11:30:00.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260903-D003",
+    "ticket_number": "HSE-20260903-D003",
+    "source": "direct_form",
+    "chat_session_id": null,
+    "reporter_name": "Fitri Yani",
+    "division": "HC",
+    "location": "Kantor Besar Buatan",
+    "occurrence_date": "2026-09-03",
+    "category": "Bahan Kimia B3",
+    "categories": ["Bahan Kimia B3"],
+    "finding_type": "Unsafe Condition",
+    "description": "Terjadi tumpahan solar (± 20 liter) di area parkir dekat tangki penyimpanan. Cairan merembes ke drainase dan belum ada upaya containment. Tidak ada rambu peringatan dipasang.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Open",
+    "assigned_to": null,
+    "assigned_engineer": "Tim HSSE / Safety Officer",
+    "follow_up_notes": "",
+    "admin_message": "",
+    "history": [
+      {"timestamp": "2026-09-03T10:55:00.000000", "action": "Laporan Dibuat", "status": "Open", "actor": "Fitri Yani", "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."}
+    ],
+    "created_at": "2026-09-03T10:55:00.000000",
+    "updated_at": "2026-09-03T10:55:00.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260903-D004",
+    "ticket_number": "HSE-20260903-D004",
+    "source": "direct_form",
+    "chat_session_id": null,
+    "reporter_name": "Eko Prasetyo",
+    "division": "Security",
+    "location": "Security Industrial Lirik",
+    "occurrence_date": "2026-09-02",
+    "category": "Keamanan (Security)",
+    "categories": ["Keamanan (Security)"],
+    "finding_type": "Unsafe Condition",
+    "description": "CCTV di pintu masuk gate 2 area industrial tidak berfungsi sejak 3 hari lalu. Lampu area juga mati di sepanjang pagar sisi timur, mengurangi visibilitas pada malam hari.",
+    "urgency": "Sedang",
+    "risk_level": "Sedang",
+    "status": "In Progress",
+    "assigned_to": "Jayadi",
+    "assigned_engineer": "Jayadi",
+    "follow_up_notes": "Tim IT sedang melakukan penggantian kamera CCTV gate 2. Lampu pagar akan diganti oleh tim maintenance dalam 2 hari ke depan.",
+    "admin_message": "Saudara Eko, laporan diterima. Tim Security bersama IT sedang menangani kerusakan CCTV dan lampu pagar. Target perbaikan selesai dalam 2 hari kerja.",
+    "history": [
+      {"timestamp": "2026-09-02T18:30:00.000000", "action": "Laporan Dibuat", "status": "Open", "actor": "Eko Prasetyo", "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."},
+      {"timestamp": "2026-09-03T08:00:00.000000", "action": "Tiket didisposisikan ke: Jayadi", "previous_status": "Open", "status": "Open", "actor": "Admin HSSE", "notes": "Tanggung jawab tiket dialihkan ke Jayadi."},
+      {"timestamp": "2026-09-03T08:10:00.000000", "action": "Status diubah dari 'Open' menjadi 'In Progress'", "previous_status": "Open", "status": "In Progress", "actor": "Admin HSSE", "notes": "Tim IT sedang melakukan penggantian kamera CCTV gate 2."}
+    ],
+    "created_at": "2026-09-02T18:30:00.000000",
+    "updated_at": "2026-09-03T08:10:00.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260903-D005",
+    "ticket_number": "HSE-20260903-D005",
+    "source": "chatbot_escalation",
+    "chat_session_id": "SESS-20260903-FF21",
+    "reporter_name": "Hendra Gunawan",
+    "division": "PO (Production Operation)",
+    "location": "Produksi Lirik",
+    "occurrence_date": "2026-09-03",
+    "category": "Ruang Terbatas (Confined Space)",
+    "categories": ["Ruang Terbatas (Confined Space)"],
+    "finding_type": "Unsafe Act",
+    "description": "Pekerja memasuki sump pit area wellpad L-12 tanpa prosedur confined space entry: tidak ada gas test, tidak ada attendant di luar, dan tidak menggunakan SCBA.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_to": "Juni Trihardiyanto",
+    "assigned_engineer": "Juni Trihardiyanto",
+    "follow_up_notes": "Pekerja segera dievakuasi. Gas test dilakukan dan hasilnya normal. Pekerja mendapatkan coaching confined space entry procedure. Toolbox talk wajib dilakukan sebelum pekerjaan serupa.",
+    "admin_message": "Saudara Hendra, tindakan Anda melaporkan ini sangat tepat. Pekerja telah dievakuasi dengan aman dan prosedur confined space telah ditegakkan kembali. Terima kasih.",
+    "history": [
+      {"timestamp": "2026-09-03T11:00:00.000000", "action": "Laporan Dibuat", "status": "Open", "actor": "Hendra Gunawan", "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."},
+      {"timestamp": "2026-09-03T11:05:00.000000", "action": "Tiket didisposisikan ke: Juni Trihardiyanto", "previous_status": "Open", "status": "Open", "actor": "Admin HSSE", "notes": "Tanggung jawab tiket dialihkan ke Juni Trihardiyanto."},
+      {"timestamp": "2026-09-03T11:08:00.000000", "action": "Status diubah dari 'Open' menjadi 'In Progress'", "previous_status": "Open", "status": "In Progress", "actor": "Admin HSSE", "notes": "Pekerja segera dievakuasi dari confined space. Tim menuju lokasi."},
+      {"timestamp": "2026-09-03T13:00:00.000000", "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'", "previous_status": "In Progress", "status": "Closed / Resolved", "actor": "Admin HSSE", "notes": "Gas test normal. Coaching selesai. Toolbox talk wajib ditetapkan sebelum pekerjaan serupa."}
+    ],
+    "created_at": "2026-09-03T11:00:00.000000",
+    "updated_at": "2026-09-03T13:00:00.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260903-D006",
+    "ticket_number": "HSE-20260903-D006",
+    "source": "direct_form",
+    "chat_session_id": null,
+    "reporter_name": "Agus Setiawan",
+    "division": "Transport",
+    "location": "Transport Lirik",
+    "occurrence_date": "2026-09-03",
+    "category": "Alat Berat & Kendaraan",
+    "categories": ["Alat Berat & Kendaraan"],
+    "finding_type": "Unsafe Condition",
+    "description": "Kendaraan operasional L-08 (pick-up) ditemukan ban belakang kiri gundul dan lampu rem tidak berfungsi. Kendaraan masih digunakan untuk antar-jemput pekerja di area wellpad.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Open",
+    "assigned_to": null,
+    "assigned_engineer": "Tim HSSE / Safety Officer",
+    "follow_up_notes": "",
+    "admin_message": "",
+    "history": [
+      {"timestamp": "2026-09-03T13:20:00.000000", "action": "Laporan Dibuat", "status": "Open", "actor": "Agus Setiawan", "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."}
+    ],
+    "created_at": "2026-09-03T13:20:00.000000",
+    "updated_at": "2026-09-03T13:20:00.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260901-D007",
+    "ticket_number": "HSE-20260901-D007",
+    "source": "direct_form",
+    "chat_session_id": null,
+    "reporter_name": "Nur Aisyah",
+    "division": "Klinik UKUI",
+    "location": "Klinik UKUI",
+    "occurrence_date": "2026-09-01",
+    "category": "Kesehatan Kerja (Medis)",
+    "categories": ["Kesehatan Kerja (Medis)"],
+    "finding_type": "Unsafe Condition",
+    "description": "Penyimpanan obat di klinik UKUI ditemukan pada suhu di luar rentang yang dianjurkan (>30°C) akibat AC rusak sejak 2 hari lalu. Beberapa obat berpotensi rusak kualitasnya.",
+    "urgency": "Sedang",
+    "risk_level": "Sedang",
+    "status": "Closed / Resolved",
+    "assigned_to": "Dr. Irsyad Yoga",
+    "assigned_engineer": "Dr. Irsyad Yoga",
+    "follow_up_notes": "AC klinik UKUI telah diperbaiki. Seluruh stok obat diperiksa dan yang terindikasi rusak dimusnahkan sesuai prosedur. Lemari penyimpanan obat panas kini menggunakan pendingin portabel sebagai backup.",
+    "admin_message": "Saudari Nur Aisyah, laporan Anda sangat membantu. AC klinik telah diperbaiki dan stok obat yang berpotensi rusak telah ditangani. Sistem pendingin backup kini tersedia. Terima kasih.",
+    "history": [
+      {"timestamp": "2026-09-01T09:00:00.000000", "action": "Laporan Dibuat", "status": "Open", "actor": "Nur Aisyah", "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."},
+      {"timestamp": "2026-09-01T09:30:00.000000", "action": "Tiket didisposisikan ke: Dr. Irsyad Yoga", "previous_status": "Open", "status": "Open", "actor": "Admin HSSE", "notes": "Tanggung jawab tiket dialihkan ke Dr. Irsyad Yoga."},
+      {"timestamp": "2026-09-01T09:35:00.000000", "action": "Status diubah dari 'Open' menjadi 'In Progress'", "previous_status": "Open", "status": "In Progress", "actor": "Admin HSSE", "notes": "Teknisi AC dipanggil ke lokasi. Stok obat diamankan sementara dalam cooler box."},
+      {"timestamp": "2026-09-02T10:00:00.000000", "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'", "previous_status": "In Progress", "status": "Closed / Resolved", "actor": "Admin HSSE", "notes": "AC klinik UKUI telah diperbaiki. Seluruh stok obat diperiksa dan yang rusak dimusnahkan sesuai prosedur."}
+    ],
+    "created_at": "2026-09-01T09:00:00.000000",
+    "updated_at": "2026-09-02T10:00:00.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260901-D008",
+    "ticket_number": "HSE-20260901-D008",
+    "source": "chatbot_escalation",
+    "chat_session_id": "SESS-20260901-XZ55",
+    "reporter_name": "Teguh Wibowo",
+    "division": "RAM",
+    "location": "Produksi Lirik",
+    "occurrence_date": "2026-09-01",
+    "category": "Pengangkatan & Rigging",
+    "categories": ["Pengangkatan & Rigging"],
+    "finding_type": "Unsafe Condition",
+    "description": "Sling baja yang digunakan untuk pengangkatan pompa di area wellpad L-15 ditemukan ada kink (bengkok permanen) dan beberapa wire putus. Sling tersebut melebihi batas umur pakainya.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_to": "Ronny Pribadi",
+    "assigned_engineer": "Ronny Pribadi",
+    "follow_up_notes": "Sling yang rusak telah ditarik dari peredaran dan dimusnahkan. Seluruh sling di area wellpad L-15 dilakukan inspeksi ulang. Sling baru telah disediakan dengan sertifikat yang masih berlaku.",
+    "admin_message": "Saudara Teguh, terima kasih atas laporan yang sangat kritis ini. Sling berbahaya telah dimusnahkan dan semua alat rigging di area tersebut sudah diinspeksi ulang. Keselamatan Anda adalah prioritas kami.",
+    "history": [
+      {"timestamp": "2026-09-01T14:00:00.000000", "action": "Laporan Dibuat", "status": "Open", "actor": "Teguh Wibowo", "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."},
+      {"timestamp": "2026-09-01T14:20:00.000000", "action": "Tiket didisposisikan ke: Ronny Pribadi", "previous_status": "Open", "status": "Open", "actor": "Admin HSSE", "notes": "Tanggung jawab tiket dialihkan ke Ronny Pribadi."},
+      {"timestamp": "2026-09-01T14:25:00.000000", "action": "Status diubah dari 'Open' menjadi 'In Progress'", "previous_status": "Open", "status": "In Progress", "actor": "Admin HSSE", "notes": "Kegiatan pengangkatan dihentikan. Sling diisolasi. Inspeksi seluruh rigging gear di area L-15 dimulai."},
+      {"timestamp": "2026-09-01T17:00:00.000000", "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'", "previous_status": "In Progress", "status": "Closed / Resolved", "actor": "Admin HSSE", "notes": "Sling yang rusak telah ditarik dari peredaran. Sling baru dengan sertifikat aktif telah disediakan."}
+    ],
+    "created_at": "2026-09-01T14:00:00.000000",
+    "updated_at": "2026-09-01T17:00:00.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260903-DEMO1",
+    "ticket_number": "HSE-20260903-DEMO1",
+    "source": "direct_form",
+    "chat_session_id": null,
+    "reporter_name": "Budi Santoso",
+    "division": "Production Operation (PO)",
+    "location": "SP 1 Lirik",
+    "occurrence_date": "2026-09-03",
+    "category": "Alat Pemadam Api",
+    "categories": ["Alat Pemadam Api"],
+    "finding_type": "Unsafe Condition",
+    "description": "APAR di area kompresor GI-01 sudah habis terpakai setelah insiden kecil bulan lalu. Posisi APAR terlihat kosong dan belum ada penggantian hingga saat ini.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Open",
+    "assigned_to": null,
+    "assigned_engineer": "Tim HSSE / Safety Officer",
+    "follow_up_notes": "",
+    "admin_message": "",
+    "history": [
+      {
+        "timestamp": "2026-09-03T08:15:22.000000",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Budi Santoso",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      }
+    ],
+    "created_at": "2026-09-03T08:15:22.000000",
+    "updated_at": "2026-09-03T08:15:22.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260903-DEMO2",
+    "ticket_number": "HSE-20260903-DEMO2",
+    "source": "chatbot_escalation",
+    "chat_session_id": "SESS-20260903-AB12",
+    "reporter_name": "Rini Handayani",
+    "division": "WO/WS",
+    "location": "Bengkel Mekanik Lirik",
+    "occurrence_date": "2026-09-03",
+    "category": "Alat Pelindung Diri (APD)",
+    "categories": ["Alat Pelindung Diri (APD)"],
+    "finding_type": "Unsafe Act",
+    "description": "Ditemukan 3 orang mekanik bekerja di area bising tanpa menggunakan earplug dan safety glasses saat proses pembubutan komponen pompa.",
+    "urgency": "Sedang",
+    "risk_level": "Sedang",
+    "status": "In Progress",
+    "assigned_to": "Juni Trihardiyanto",
+    "assigned_engineer": "Juni Trihardiyanto",
+    "follow_up_notes": "Petugas safety sedang melakukan pembinaan langsung ke pekerja dan mendistribusikan APD tambahan ke bengkel.",
+    "admin_message": "Laporan Anda sudah kami terima dan Tim Safety sedang menangani langsung di lapangan. Pekerja yang bersangkutan akan diberikan pembinaan penggunaan APD. Terima kasih atas kepedulian Anda, Saudari Rini.",
+    "history": [
+      {
+        "timestamp": "2026-09-03T09:30:00.000000",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Rini Handayani",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-09-03T10:05:47.000000",
+        "action": "Tiket didisposisikan ke: Juni Trihardiyanto",
+        "previous_status": "Open",
+        "status": "Open",
+        "actor": "Admin HSSE",
+        "notes": "Tanggung jawab tiket dialihkan ke Juni Trihardiyanto."
+      },
+      {
+        "timestamp": "2026-09-03T10:07:12.000000",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Admin HSSE",
+        "notes": "Petugas safety sedang melakukan pembinaan langsung ke pekerja dan mendistribusikan APD tambahan ke bengkel."
+      }
+    ],
+    "created_at": "2026-09-03T09:30:00.000000",
+    "updated_at": "2026-09-03T10:07:12.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260903-DEMO3",
+    "ticket_number": "HSE-20260903-DEMO3",
+    "source": "direct_form",
+    "chat_session_id": null,
+    "reporter_name": "Darmawan",
+    "division": "Fire",
+    "location": "Produksi Lirik",
+    "occurrence_date": "2026-09-02",
+    "category": "Kelistrikan",
+    "categories": ["Kelistrikan"],
+    "finding_type": "Unsafe Condition",
+    "description": "Panel listrik panel distribution board (PDB) di area wellpad W-07 ditemukan dalam kondisi terbuka tanpa cover dan ada percikan kecil saat disentuh.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_to": "M. Solihin",
+    "assigned_engineer": "M. Solihin",
+    "follow_up_notes": "Panel listrik telah diperbaiki oleh tim elektrikal, cover panel baru telah dipasang, dan area telah dinyatakan aman. Dilakukan tes aliran listrik dan hasilnya normal.",
+    "admin_message": "Selamat, Saudara Darmawan. Laporan Anda telah selesai ditangani. Panel listrik di wellpad W-07 sudah diperbaiki dan dinyatakan aman untuk beroperasi kembali. Penanganan diselesaikan dalam waktu kurang dari 24 jam. Terima kasih atas pelaporan yang cepat dan tepat.",
+    "history": [
+      {
+        "timestamp": "2026-09-02T14:20:00.000000",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Darmawan",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-09-02T14:45:33.000000",
+        "action": "Tiket didisposisikan ke: M. Solihin",
+        "previous_status": "Open",
+        "status": "Open",
+        "actor": "Admin HSSE",
+        "notes": "Tanggung jawab tiket dialihkan ke M. Solihin."
+      },
+      {
+        "timestamp": "2026-09-02T14:50:11.000000",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Admin HSSE",
+        "notes": "Tim elektrikal dikirim ke lokasi. Area wellpad W-07 sementara ditutup akses listriknya."
+      },
+      {
+        "timestamp": "2026-09-03T07:30:00.000000",
+        "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'",
+        "previous_status": "In Progress",
+        "status": "Closed / Resolved",
+        "actor": "Admin HSSE",
+        "notes": "Panel listrik telah diperbaiki oleh tim elektrikal, cover panel baru telah dipasang, dan area telah dinyatakan aman."
+      }
+    ],
+    "created_at": "2026-09-02T14:20:00.000000",
+    "updated_at": "2026-09-03T07:30:00.000000",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260827-0024",
+    "ticket_number": "HSE-20260827-0024",
+    "reporter_name": "Ahmad Fauzi",
+    "division": "Konstruksi & Fasilitas",
+    "location": "Scaffolding Tangki 04",
+    "occurrence_date": "2026-08-27",
+    "category": "Pekerjaan di Ketinggian",
+    "categories": [
+      "Pekerjaan di Ketinggian"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan pipa perancah goyang dan clamp pengunci kendor di ketinggian 6 meter.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_engineer": "Juni Trihardiyanto (Safety Lead)",
+    "follow_up_notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang.",
+    "history": [
+      {
+        "timestamp": "2026-08-27T12:03:47.553535",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Ahmad Fauzi",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-08-27T12:03:47.560187",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tim HSSE menuju lokasi untuk inspeksi ulang perancah dan memasang safety tag merah."
+      },
+      {
+        "timestamp": "2026-08-27T12:03:47.562966",
+        "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'",
+        "previous_status": "In Progress",
+        "status": "Closed / Resolved",
+        "actor": "Administrator HSSE",
+        "notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang."
+      }
+    ],
+    "created_at": "2026-08-27T12:03:47.553535",
+    "updated_at": "2026-08-27T12:03:47.562966",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260827-0023",
+    "ticket_number": "HSE-20260827-0023",
+    "reporter_name": "Ahmad Fauzi",
+    "division": "Konstruksi & Fasilitas",
+    "location": "Scaffolding Tangki 04",
+    "occurrence_date": "2026-08-27",
+    "category": "Pekerjaan di Ketinggian",
+    "categories": [
+      "Pekerjaan di Ketinggian"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan pipa perancah goyang dan clamp pengunci kendor di ketinggian 6 meter.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_engineer": "Juni Trihardiyanto (Safety Lead)",
+    "follow_up_notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang.",
+    "history": [
+      {
+        "timestamp": "2026-08-27T12:00:08.645837",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Ahmad Fauzi",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-08-27T12:00:08.652566",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tim HSSE menuju lokasi untuk inspeksi ulang perancah dan memasang safety tag merah."
+      },
+      {
+        "timestamp": "2026-08-27T12:00:08.655577",
+        "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'",
+        "previous_status": "In Progress",
+        "status": "Closed / Resolved",
+        "actor": "Administrator HSSE",
+        "notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang."
+      }
+    ],
+    "created_at": "2026-08-27T12:00:08.645837",
+    "updated_at": "2026-08-27T12:00:08.655577",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260827-0022",
+    "ticket_number": "HSE-20260827-0022",
+    "reporter_name": "Ahmad Fauzi",
+    "division": "Konstruksi & Fasilitas",
+    "location": "Scaffolding Tangki 04",
+    "occurrence_date": "2026-08-27",
+    "category": "Pekerjaan di Ketinggian",
+    "categories": [
+      "Pekerjaan di Ketinggian"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan pipa perancah goyang dan clamp pengunci kendor di ketinggian 6 meter.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_engineer": "Juni Trihardiyanto (Safety Lead)",
+    "follow_up_notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang.",
+    "history": [
+      {
+        "timestamp": "2026-08-27T11:55:54.374828",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Ahmad Fauzi",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-08-27T11:55:54.381275",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tim HSSE menuju lokasi untuk inspeksi ulang perancah dan memasang safety tag merah."
+      },
+      {
+        "timestamp": "2026-08-27T11:55:54.383962",
+        "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'",
+        "previous_status": "In Progress",
+        "status": "Closed / Resolved",
+        "actor": "Administrator HSSE",
+        "notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang."
+      }
+    ],
+    "created_at": "2026-08-27T11:55:54.374828",
+    "updated_at": "2026-08-27T11:55:54.383962",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260827-0021",
+    "ticket_number": "HSE-20260827-0021",
+    "reporter_name": "Ahmad Fauzi",
+    "division": "Konstruksi & Fasilitas",
+    "location": "Scaffolding Tangki 04",
+    "occurrence_date": "2026-08-27",
+    "category": "Pekerjaan di Ketinggian",
+    "categories": [
+      "Pekerjaan di Ketinggian"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan pipa perancah goyang dan clamp pengunci kendor di ketinggian 6 meter.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_engineer": "Juni Trihardiyanto (Safety Lead)",
+    "follow_up_notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang.",
+    "history": [
+      {
+        "timestamp": "2026-08-27T11:54:01.234638",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Ahmad Fauzi",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-08-27T11:54:01.240860",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tim HSSE menuju lokasi untuk inspeksi ulang perancah dan memasang safety tag merah."
+      },
+      {
+        "timestamp": "2026-08-27T11:54:01.244076",
+        "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'",
+        "previous_status": "In Progress",
+        "status": "Closed / Resolved",
+        "actor": "Administrator HSSE",
+        "notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang."
+      }
+    ],
+    "created_at": "2026-08-27T11:54:01.234638",
+    "updated_at": "2026-08-27T11:54:01.244076",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260827-0020",
+    "ticket_number": "HSE-20260827-0020",
+    "reporter_name": "Ahmad Fauzi",
+    "division": "Konstruksi & Fasilitas",
+    "location": "Scaffolding Tangki 04",
+    "occurrence_date": "2026-08-27",
+    "category": "Pekerjaan di Ketinggian",
+    "categories": [
+      "Pekerjaan di Ketinggian"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan pipa perancah goyang dan clamp pengunci kendor di ketinggian 6 meter.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_engineer": "Juni Trihardiyanto (Safety Lead)",
+    "follow_up_notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang.",
+    "history": [
+      {
+        "timestamp": "2026-08-27T11:40:34.681294",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Ahmad Fauzi",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-08-27T11:40:34.688302",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tim HSSE menuju lokasi untuk inspeksi ulang perancah dan memasang safety tag merah."
+      },
+      {
+        "timestamp": "2026-08-27T11:40:34.691167",
+        "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'",
+        "previous_status": "In Progress",
+        "status": "Closed / Resolved",
+        "actor": "Administrator HSSE",
+        "notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang."
+      }
+    ],
+    "created_at": "2026-08-27T11:40:34.681294",
+    "updated_at": "2026-08-27T11:40:34.691167",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260827-0019",
+    "ticket_number": "HSE-20260827-0019",
+    "reporter_name": "Ahmad Fauzi",
+    "division": "Konstruksi & Fasilitas",
+    "location": "Scaffolding Tangki 04",
+    "occurrence_date": "2026-08-27",
+    "category": "Pekerjaan di Ketinggian",
+    "categories": [
+      "Pekerjaan di Ketinggian"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan pipa perancah goyang dan clamp pengunci kendor di ketinggian 6 meter.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_engineer": "Juni Trihardiyanto (Safety Lead)",
+    "follow_up_notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang.",
+    "history": [
+      {
+        "timestamp": "2026-08-27T11:35:55.238197",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Ahmad Fauzi",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-08-27T11:35:55.244456",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tim HSSE menuju lokasi untuk inspeksi ulang perancah dan memasang safety tag merah."
+      },
+      {
+        "timestamp": "2026-08-27T11:35:55.247032",
+        "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'",
+        "previous_status": "In Progress",
+        "status": "Closed / Resolved",
+        "actor": "Administrator HSSE",
+        "notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang."
+      }
+    ],
+    "created_at": "2026-08-27T11:35:55.238197",
+    "updated_at": "2026-08-27T11:35:55.247032",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260827-0018",
+    "ticket_number": "HSE-20260827-0018",
+    "reporter_name": "Ahmad Fauzi",
+    "division": "Konstruksi & Fasilitas",
+    "location": "Scaffolding Tangki 04",
+    "occurrence_date": "2026-08-27",
+    "category": "Pekerjaan di Ketinggian",
+    "categories": [
+      "Pekerjaan di Ketinggian"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan pipa perancah goyang dan clamp pengunci kendor di ketinggian 6 meter.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "Closed / Resolved",
+    "assigned_engineer": "Juni Trihardiyanto (Safety Lead)",
+    "follow_up_notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang.",
+    "history": [
+      {
+        "timestamp": "2026-08-27T08:16:56.280060",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Ahmad Fauzi",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-08-27T08:16:56.285747",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tim HSSE menuju lokasi untuk inspeksi ulang perancah dan memasang safety tag merah."
+      },
+      {
+        "timestamp": "2026-08-27T08:16:56.288530",
+        "action": "Status diubah dari 'In Progress' menjadi 'Closed / Resolved'",
+        "previous_status": "In Progress",
+        "status": "Closed / Resolved",
+        "actor": "Administrator HSSE",
+        "notes": "Pengencangan clamp telah selesai, perancah dinyatakan aman dan tagging hijau telah dipasang."
+      }
+    ],
+    "created_at": "2026-08-27T08:16:56.280060",
+    "updated_at": "2026-08-27T08:16:56.288530",
+    "attachment": null
+  },
+  {
+    "complaint_id": "CMP-20260731-001",
+    "session_id": "SESSION-20260731-9YUCR",
+    "ticket_number": "TKT-20260731-001",
+    "submitted_at": "2026-07-31T09:40:32.643819",
+    "resolved_at": "2026-07-31T09:40:56.441960",
+    "status": "Closed / Resolved",
+    "priority": "medium",
+    "category": "Printer",
+    "sub_category": "Paper Jam",
+    "device": "Canon LBP6030",
+    "device_serial": null,
+    "location": "Gedung A - Lantai 2, Ruang Administrasi",
+    "reporter": {
+      "name": "Budi Santoso",
+      "department": "Administrasi Umum",
+      "employee_id": "ADM-2201",
+      "contact": "ext.2201",
+      "email": "budi.santoso@asset1.co.id"
+    },
+    "complaint_description": "Printer Canon LBP6030 di ruang administrasi mengalami paper jam. Kertas tersangkut di bagian tray belakang dan tidak bisa ditarik keluar. Pekerjaan administrasi tertunda.",
+    "symptoms_reported": [
+      "kertas macet",
+      "paper jam berulang",
+      "error E02"
+    ],
+    "error_code": "E02",
+    "kb_id_matched": "ICT-PRINTER-002",
+    "confidence_score": 0.8468,
+    "resolution_method": "user_self_resolved",
+    "resolution_description": "User berhasil mengeluarkan kertas yang macet melalui pintu akses belakang printer mengikuti panduan dari SIGAP AI.",
+    "resolution_time_minutes": 16,
+    "steps_taken": [
+      "Mematikan printer",
+      "Membuka pintu akses belakang Canon LBP6030",
+      "Menarik kertas perlahan searah alur cetak",
+      "Memeriksa tidak ada serpihan tersisa",
+      "Menyalakan kembali dan test print"
+    ],
+    "escalated": false,
+    "technician_assigned": null,
+    "technician_visit_required": false,
+    "parts_replaced": [],
+    "satisfaction_rating": null,
+    "follow_up_required": false,
+    "notes": "Paper jam berhasil diselesaikan mandiri oleh user. Disarankan untuk pembersihan roller secara berkala.",
+    "tags": [
+      "printer",
+      "paper jam",
+      "self-resolved",
+      "canon"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T09:40:32.643819",
+        "action": "Laporan Dibuat",
+        "status": "Closed / Resolved",
+        "actor": "Budi Santoso",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-002",
+    "session_id": "SESSION-20260731-56B0P",
+    "ticket_number": "TKT-20260731-002",
+    "submitted_at": "2026-07-31T09:41:39.048468",
+    "resolved_at": null,
+    "status": "Open",
+    "priority": "medium",
+    "category": "Printer",
+    "sub_category": "Paper Jam",
+    "device": null,
+    "device_serial": null,
+    "location": "Gedung B - Lantai 1",
+    "reporter": {
+      "name": "Dewi Rahayu",
+      "department": "Keuangan",
+      "employee_id": "KEU-1105",
+      "contact": "ext.1105",
+      "email": "dewi.rahayu@asset1.co.id"
+    },
+    "complaint_description": "Printer paper jam kertas macet tersangkut. User tidak melanjutkan sesi setelah mendapat respons pertama.",
+    "symptoms_reported": [
+      "kertas macet"
+    ],
+    "error_code": null,
+    "kb_id_matched": null,
+    "confidence_score": null,
+    "resolution_method": null,
+    "resolution_description": null,
+    "resolution_time_minutes": null,
+    "steps_taken": [],
+    "escalated": false,
+    "technician_assigned": null,
+    "technician_visit_required": false,
+    "parts_replaced": [],
+    "satisfaction_rating": null,
+    "follow_up_required": true,
+    "notes": "Sesi abandonned - user tidak melanjutkan percakapan. Perlu follow-up untuk memastikan masalah sudah teratasi.",
+    "tags": [
+      "printer",
+      "paper jam",
+      "abandoned",
+      "follow-up"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T09:41:39.048468",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Dewi Rahayu",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-003",
+    "session_id": "SESSION-20260731-UMLUM",
+    "ticket_number": "TKT-20260731-003",
+    "submitted_at": "2026-07-31T10:12:26.027538",
+    "resolved_at": null,
+    "status": "Open",
+    "priority": "high",
+    "category": "Printer",
+    "sub_category": "Paper Jam - Serpihan Tertinggal",
+    "device": "HP LaserJet Pro M404n",
+    "device_serial": "VND2K18765",
+    "location": "Gedung C - Lantai 3, Ruang Operasional",
+    "reporter": {
+      "name": "Ahmad Fauzi",
+      "department": "Operasional Lapangan",
+      "employee_id": "OPS-3302",
+      "contact": "ext.3302",
+      "email": "ahmad.fauzi@asset1.co.id"
+    },
+    "complaint_description": "Printer HP LaserJet Pro M404n mengalami paper jam parah. Saat mencoba mengeluarkan kertas, kertas sobek dan meninggalkan serpihan di dalam mesin. Serpihan terlihat berada di dekat area modul fuser.",
+    "symptoms_reported": [
+      "kertas macet",
+      "printer berbunyi keras",
+      "kertas sobek tertinggal di dalam"
+    ],
+    "error_code": "Paper Jam - Open Rear Door",
+    "kb_id_matched": "ICT-PRINTER-002",
+    "confidence_score": 0.8468,
+    "resolution_method": null,
+    "resolution_description": null,
+    "resolution_time_minutes": null,
+    "steps_taken": [
+      "Mematikan printer",
+      "Membuka pintu belakang",
+      "Mencoba menarik kertas - kertas sobek",
+      "Menghubungi teknisi ICT"
+    ],
+    "escalated": true,
+    "technician_assigned": null,
+    "technician_visit_required": true,
+    "technician_visit_scheduled": null,
+    "parts_replaced": [],
+    "satisfaction_rating": null,
+    "follow_up_required": true,
+    "notes": "Serpihan kertas berada di area modul fuser yang berisiko tinggi. JANGAN coba nyalakan printer sebelum teknisi membersihkan serpihan. Printer harus tetap dalam keadaan mati.",
+    "tags": [
+      "printer",
+      "paper jam",
+      "fuser",
+      "serpihan",
+      "eskalasi",
+      "hp"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T10:12:26.027538",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Ahmad Fauzi",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-004",
+    "session_id": "SESSION-20260731-0HI4S",
+    "ticket_number": "TKT-20260731-004",
+    "submitted_at": "2026-07-31T10:32:27.231671",
+    "resolved_at": null,
+    "status": "Open",
+    "priority": "medium",
+    "category": "Printer",
+    "sub_category": "Paper Jam + Kualitas Cetak Buruk",
+    "device": "Epson L3210",
+    "device_serial": "X7Q219820L",
+    "location": "Gedung D - Lantai 1, Ruang SDM",
+    "reporter": {
+      "name": "Siti Nurhaliza",
+      "department": "SDM",
+      "employee_id": "SDM-1001",
+      "contact": "ext.1001",
+      "email": "siti.nurhaliza@asset1.co.id"
+    },
+    "complaint_description": "Printer Epson L3210 mengalami dua masalah sekaligus: paper jam yang berulang dan hasil cetakan bergaris hitam serta pudar. Printer sudah coba direstart namun masalah tetap ada.",
+    "symptoms_reported": [
+      "kertas macet",
+      "hasil cetak pudar",
+      "bergaris hitam",
+      "printer error indicator"
+    ],
+    "error_code": "Error Indicator Blinking",
+    "kb_id_matched": "ICT-PRINTER-002",
+    "confidence_score": 0.7359,
+    "resolution_method": null,
+    "resolution_description": null,
+    "resolution_time_minutes": null,
+    "steps_taken": [
+      "Restart printer - masih error",
+      "Mencoba menghubungi SIGAP AI"
+    ],
+    "escalated": false,
+    "technician_assigned": null,
+    "technician_visit_required": false,
+    "parts_replaced": [],
+    "satisfaction_rating": null,
+    "follow_up_required": true,
+    "notes": "Multi-issue complaint: paper jam + kualitas cetak. Perlu pemeriksaan kondisi roller dan head print. Sesi percakapan tidak selesai (user mengirim pesan tidak relevan di akhir sesi).",
+    "tags": [
+      "printer",
+      "paper jam",
+      "kualitas cetak",
+      "multi-issue",
+      "epson"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T10:32:27.231671",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Siti Nurhaliza",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-005",
+    "session_id": "SESS-0065E435",
+    "ticket_number": "TKT-20260731-005",
+    "submitted_at": "2026-07-31T10:49:20.814722",
+    "resolved_at": null,
+    "status": "Open",
+    "priority": "high",
+    "category": "CCTV",
+    "sub_category": "No Video Signal",
+    "device": "Hikvision DS-2CD2143G2-I",
+    "device_serial": "DS2CD2143G2I-012",
+    "location": "Pos Keamanan Utama - Kamera Area Parkir",
+    "reporter": {
+      "name": "Rudi Hermawan",
+      "department": "Keamanan",
+      "employee_id": "SEC-100",
+      "contact": "ext.100",
+      "email": "rudi.hermawan@asset1.co.id"
+    },
+    "complaint_description": "Kamera CCTV Hikvision di area parkir menampilkan black screen dan 'No Signal' di monitor NVR. Kamera sudah tidak menampilkan gambar sejak pagi. Area parkir menjadi blind spot keamanan.",
+    "symptoms_reported": [
+      "kamera tidak ada gambar",
+      "black screen",
+      "no signal"
+    ],
+    "error_code": "No Signal",
+    "kb_id_matched": "ICT-CCTV-001",
+    "confidence_score": 0.7774,
+    "resolution_method": null,
+    "resolution_description": null,
+    "resolution_time_minutes": null,
+    "steps_taken": [],
+    "escalated": false,
+    "technician_assigned": null,
+    "technician_visit_required": false,
+    "parts_replaced": [],
+    "satisfaction_rating": null,
+    "follow_up_required": true,
+    "notes": "Sesi tidak dilanjutkan setelah respons pertama. Perlu follow-up - area parkir tanpa CCTV merupakan risiko keamanan. Prioritas penanganan tinggi.",
+    "security_impact": "Blind spot area parkir tanpa rekaman",
+    "tags": [
+      "cctv",
+      "no signal",
+      "keamanan",
+      "blind spot",
+      "hikvision"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T10:49:20.814722",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Rudi Hermawan",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-006",
+    "session_id": "SESS-752316ED",
+    "ticket_number": "TKT-20260731-006",
+    "submitted_at": "2026-07-31T10:49:20.908979",
+    "resolved_at": null,
+    "status": "Open",
+    "priority": "high",
+    "category": "FTTH OPTIC (Internet Perumahan)",
+    "sub_category": "LOS Merah - Fiber Terputus",
+    "device": "ZTE F660 ONT Modem",
+    "device_serial": "ZTE-F660-A5001",
+    "location": "Perumahan Dinas Blok A No. 5",
+    "reporter": {
+      "name": "Hendra Kusuma",
+      "department": "IT Asset 1",
+      "employee_id": "ICT-101",
+      "contact": "08123456789",
+      "email": "hendra.kusuma@asset1.co.id"
+    },
+    "complaint_description": "Modem ONT FTTP di rumah dinas Blok A-5 menampilkan indikator LOS merah berkedip. Internet dan intranet perumahan mati total. Sudah dicoba restart modem dan memeriksa kabel patchcord namun LOS tetap merah.",
+    "symptoms_reported": [
+      "lampu indikator LOS merah",
+      "internet mati total",
+      "patchcord sudah dicek normal"
+    ],
+    "error_code": "LOS RED",
+    "kb_id_matched": "ICT-FTTP-001",
+    "confidence_score": 0.8307,
+    "resolution_method": null,
+    "resolution_description": null,
+    "resolution_time_minutes": null,
+    "steps_taken": [
+      "Memeriksa kabel patchcord - tidak ada yang tertekuk",
+      "Restart modem ONT 30 detik",
+      "LOS masih merah setelah restart"
+    ],
+    "escalated": true,
+    "technician_assigned": null,
+    "technician_visit_required": true,
+    "technician_visit_scheduled": null,
+    "parts_replaced": [],
+    "satisfaction_rating": null,
+    "follow_up_required": true,
+    "notes": "Kemungkinan ada kerusakan pada jalur kabel fiber optic outdoor atau gangguan di sisi ODP. Perlu teknisi fiber optic untuk pengukuran dengan OTDR dan pemeriksaan ODP.",
+    "tags": [
+      "fiber optic",
+      "los",
+      "internet",
+      "ont",
+      "zte",
+      "perumahan dinas"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T10:49:20.908979",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Hendra Kusuma",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-007",
+    "session_id": "SESS-7B4A4544",
+    "ticket_number": "TKT-20260731-007",
+    "submitted_at": "2026-07-31T10:49:20.989488",
+    "resolved_at": "2026-07-31T10:57:22.334000",
+    "status": "Closed / Resolved",
+    "priority": "medium",
+    "category": "Printer",
+    "sub_category": "Paper Jam",
+    "device": "Canon PIXMA G3010",
+    "device_serial": "PXG3010-20001",
+    "location": "Gedung E - Lantai 2, Ruang Pemasaran",
+    "reporter": {
+      "name": "Margareta Wulandari",
+      "department": "Pemasaran",
+      "employee_id": "MKT-2510",
+      "contact": "ext.2510",
+      "email": "margareta.wulandari@asset1.co.id"
+    },
+    "complaint_description": "Printer Canon PIXMA G3010 di ruang pemasaran mengalami paper jam. Kertas tersangkut dan tidak bisa ditarik keluar secara manual.",
+    "symptoms_reported": [
+      "kertas macet"
+    ],
+    "error_code": null,
+    "kb_id_matched": "ICT-PRINTER-002",
+    "confidence_score": 0.8421,
+    "resolution_method": "user_self_resolved",
+    "resolution_description": "User berhasil mengeluarkan kertas yang macet secara manual mengikuti panduan SIGAP AI.",
+    "resolution_time_minutes": 8,
+    "steps_taken": [
+      "Mematikan printer",
+      "Membuka akses belakang",
+      "Mengeluarkan kertas perlahan"
+    ],
+    "escalated": false,
+    "technician_assigned": null,
+    "technician_visit_required": false,
+    "parts_replaced": [],
+    "satisfaction_rating": 5,
+    "follow_up_required": false,
+    "notes": "Masalah terselesaikan cepat (8 menit) oleh user sendiri. User memberikan rating kepuasan 5/5.",
+    "tags": [
+      "printer",
+      "paper jam",
+      "self-resolved",
+      "canon",
+      "resolved"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T10:49:20.989488",
+        "action": "Laporan Dibuat",
+        "status": "Closed / Resolved",
+        "actor": "Margareta Wulandari",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-008",
+    "session_id": "SESS-D6AD4352",
+    "ticket_number": "TKT-20260731-008",
+    "submitted_at": "2026-07-31T10:49:21.075406",
+    "resolved_at": null,
+    "status": "Open",
+    "priority": "critical",
+    "category": "RADIO HT & MOBILE",
+    "sub_category": "PTT Fail - Gangguan Operasional",
+    "device": "Kenwood TK-3407",
+    "device_serial": "KW-TK3407-L08",
+    "location": "Area Lapangan Stasiun B",
+    "reporter": {
+      "name": "Suprianto",
+      "department": "Operasional Lapangan",
+      "employee_id": "OPS-B001",
+      "contact": "08198765432",
+      "email": "suprianto@asset1.co.id"
+    },
+    "complaint_description": "Radio HT Kenwood TK-3407 tidak bisa transmit. Tombol PTT ditekan namun lampu TX tidak menyala. Baterai penuh. Kondisi ini mengganggu komunikasi operasional lapangan yang kritis. Tidak ada unit HT cadangan yang tersedia.",
+    "symptoms_reported": [
+      "tidak bisa transmit",
+      "PTT fail",
+      "tombol PTT tidak merespons",
+      "TX LED tidak menyala"
+    ],
+    "error_code": "TX LED tidak menyala",
+    "kb_id_matched": "ICT-RAD-001",
+    "confidence_score": 0.8385,
+    "resolution_method": null,
+    "resolution_description": null,
+    "resolution_time_minutes": null,
+    "steps_taken": [
+      "Mengganti baterai - tetap tidak bisa transmit",
+      "Mengencangkan antena",
+      "Menekan PTT lebih kuat - tidak ada respons TX"
+    ],
+    "escalated": true,
+    "technician_assigned": null,
+    "technician_visit_required": true,
+    "technician_visit_scheduled": null,
+    "operational_impact": "Komunikasi operasional lapangan Stasiun B terganggu",
+    "temporary_workaround": "Menggunakan telepon seluler untuk koordinasi sementara",
+    "parts_replaced": [],
+    "satisfaction_rating": null,
+    "follow_up_required": true,
+    "notes": "KRITIS - Unit HT Kenwood TK-3407 kemungkinan mengalami kerusakan modul PTT internal. Prioritas kunjungan teknisi radio tinggi. Pastikan ada HT cadangan dikirim ke Stasiun B segera.",
+    "tags": [
+      "radio",
+      "ht",
+      "ptt",
+      "kritis",
+      "operasional",
+      "kenwood"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T10:49:21.075406",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Suprianto",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Tinggi"
+  },
+  {
+    "complaint_id": "CMP-20260731-009",
+    "session_id": "SESS-D2242ED5",
+    "ticket_number": "TKT-20260731-009",
+    "submitted_at": "2026-07-31T10:49:21.158309",
+    "resolved_at": null,
+    "status": "Open",
+    "priority": "low",
+    "category": "Printer",
+    "sub_category": "Out of Scope - Mesin Cetak 3D",
+    "device": "Mesin Cetak 3D (Tidak Terdaftar)",
+    "device_serial": null,
+    "location": "Laboratorium Ruang A5",
+    "reporter": {
+      "name": "Dr. Irwan Setiawan",
+      "department": "Laboratorium R&D",
+      "employee_id": "LAB-5005",
+      "contact": "ext.5005",
+      "email": "irwan.setiawan@asset1.co.id"
+    },
+    "complaint_description": "Mesin cetak 3D di laboratorium ruang A5 mengalami error keramik meledak. Ini bukan perangkat yang terdaftar dalam Knowledge Base ICT Asset 1.",
+    "symptoms_reported": [
+      "error mesin cetak 3D",
+      "keramik meledak"
+    ],
+    "error_code": null,
+    "kb_id_matched": "ICT-PRINTER-002",
+    "confidence_score": 0.3364,
+    "resolution_method": "redirected_to_specialist",
+    "resolution_description": "Masalah berada di luar cakupan Knowledge Base ICT Asset 1. User diarahkan untuk menghubungi Teknisi Spesialis dan vendor mesin cetak 3D.",
+    "resolution_time_minutes": null,
+    "steps_taken": [],
+    "escalated": false,
+    "technician_assigned": null,
+    "technician_visit_required": false,
+    "parts_replaced": [],
+    "satisfaction_rating": null,
+    "follow_up_required": false,
+    "notes": "Pelaporan ini mengindikasikan perlunya penambahan kategori 'Peralatan Lab' dalam Knowledge Base ICT Asset 1 untuk masa depan. Confidence score rendah (0.3364) menunjukkan tidak ada kecocokan yang baik dalam KB.",
+    "tags": [
+      "out-of-scope",
+      "lab",
+      "mesin cetak 3d",
+      "redirect"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T10:49:21.158309",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Dr. Irwan Setiawan",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-010",
+    "session_id": "SESSION-20260731-MR5HT",
+    "ticket_number": "TKT-20260731-010",
+    "submitted_at": "2026-07-31T11:12:02.526229",
+    "resolved_at": "2026-07-31T11:17:10.820000",
+    "status": "Closed / Resolved",
+    "priority": "medium",
+    "category": "Printer",
+    "sub_category": "Paper Jam",
+    "device": "HP LaserJet P1102",
+    "device_serial": "HP-P1102-001",
+    "location": "Gudang Logistik - Lantai 1",
+    "reporter": {
+      "name": "Yusuf Pratama",
+      "department": "Logistik",
+      "employee_id": "LOG-4401",
+      "contact": "ext.4401",
+      "email": "yusuf.pratama@asset1.co.id"
+    },
+    "complaint_description": "Printer HP LaserJet P1102 di ruang logistik mengalami paper jam. Kertas tidak bisa ditarik keluar.",
+    "symptoms_reported": [
+      "kertas macet"
+    ],
+    "error_code": "Paper Jam",
+    "kb_id_matched": "ICT-PRINTER-002",
+    "confidence_score": 0.8468,
+    "resolution_method": "user_self_resolved",
+    "resolution_description": "User berhasil mengeluarkan kertas yang macet secara mandiri.",
+    "resolution_time_minutes": 5,
+    "steps_taken": [
+      "Mengikuti panduan SIGAP AI",
+      "Kertas berhasil dikeluarkan"
+    ],
+    "escalated": false,
+    "technician_assigned": null,
+    "technician_visit_required": false,
+    "parts_replaced": [],
+    "satisfaction_rating": 4,
+    "follow_up_required": false,
+    "notes": "Penyelesaian cepat 5 menit. Rating kepuasan 4/5.",
+    "tags": [
+      "printer",
+      "paper jam",
+      "self-resolved",
+      "hp",
+      "resolved"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T11:12:02.526229",
+        "action": "Laporan Dibuat",
+        "status": "Closed / Resolved",
+        "actor": "Yusuf Pratama",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-011",
+    "session_id": "SESS-LAN-A1B2C3",
+    "ticket_number": "TKT-20260731-011",
+    "submitted_at": "2026-07-31T11:30:00.000000",
+    "resolved_at": "2026-07-31T11:45:22.000000",
+    "status": "Closed / Resolved",
+    "priority": "medium",
+    "category": "LAN",
+    "sub_category": "Unidentified Network - DHCP Failure",
+    "device": "Dell OptiPlex 7090",
+    "device_serial": "DLOPTIPLEX-001",
+    "location": "Gedung A - Lantai 3, Ruang Perencanaan",
+    "reporter": {
+      "name": "Fitri Handayani",
+      "department": "Perencanaan",
+      "employee_id": "REN-3101",
+      "contact": "ext.3101",
+      "email": "fitri.handayani@asset1.co.id"
+    },
+    "complaint_description": "Komputer Dell OptiPlex 7090 tidak bisa konek internet. Ada tanda seru kuning di ikon jaringan LAN dengan status 'Unidentified Network'. Sudah dicoba restart komputer namun masih tidak bisa konek.",
+    "symptoms_reported": [
+      "koneksi LAN terputus",
+      "unidentified network",
+      "tanda seru kuning",
+      "tidak bisa akses internet"
+    ],
+    "error_code": "Unidentified Network - No Internet Access",
+    "kb_id_matched": "ICT-LAN-001",
+    "confidence_score": 0.875,
+    "resolution_method": "user_self_resolved",
+    "resolution_description": "Masalah teratasi dengan melakukan disable dan enable kembali adapter Ethernet di Windows Network Settings.",
+    "resolution_time_minutes": 15,
+    "steps_taken": [
+      "Restart komputer - masih tidak konek",
+      "Cek lampu LED LAN - menyala",
+      "Jalankan ipconfig /release dan /renew - error media disconnected",
+      "Cek Device Manager - tidak ada tanda error pada adapter",
+      "Disable lalu Enable adapter Ethernet di Network Settings",
+      "IP Address berhasil diperoleh dan koneksi internet normal"
+    ],
+    "escalated": false,
+    "technician_assigned": null,
+    "technician_visit_required": false,
+    "parts_replaced": [],
+    "satisfaction_rating": 5,
+    "follow_up_required": false,
+    "notes": "Root cause: Windows Network Adapter perlu di-refresh. Solusi: disable/enable adapter Ethernet. Rating kepuasan 5/5. Disarankan untuk nonaktifkan Power Management pada adapter untuk mencegah masalah serupa.",
+    "tags": [
+      "lan",
+      "unidentified network",
+      "dhcp",
+      "ethernet adapter",
+      "resolved"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T11:30:00.000000",
+        "action": "Laporan Dibuat",
+        "status": "Closed / Resolved",
+        "actor": "Fitri Handayani",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-012",
+    "session_id": "SESS-PC-X9Y8Z7",
+    "ticket_number": "TKT-20260731-012",
+    "submitted_at": "2026-07-31T13:00:00.000000",
+    "resolved_at": "2026-07-31T13:20:45.000000",
+    "status": "Closed / Resolved",
+    "priority": "medium",
+    "category": "Komputer dan Laptop",
+    "sub_category": "High CPU Usage - Windows Defender",
+    "device": "Lenovo ThinkCentre M720",
+    "device_serial": "LNV-M720-2205",
+    "location": "Gedung B - Lantai 2, Ruang Keuangan",
+    "reporter": {
+      "name": "Rizky Aditya",
+      "department": "Keuangan",
+      "employee_id": "KEU-2205",
+      "contact": "ext.2205",
+      "email": "rizky.aditya@asset1.co.id"
+    },
+    "complaint_description": "Komputer Lenovo ThinkCentre M720 sangat lambat, semua aplikasi not responding, CPU usage terus di 100%. Kondisi ini mengganggu pekerjaan keuangan yang membutuhkan pengolahan data besar.",
+    "symptoms_reported": [
+      "komputer sangat lambat",
+      "CPU 100%",
+      "RAM hampir penuh",
+      "aplikasi not responding"
+    ],
+    "error_code": "Application Not Responding",
+    "kb_id_matched": "ICT-PC-001",
+    "confidence_score": 0.91,
+    "resolution_method": "user_self_resolved",
+    "resolution_description": "CPU 100% disebabkan oleh Windows Defender (MsMpEng.exe) yang sedang melakukan full scan. Masalah teratasi dengan menghentikan scan yang sedang berjalan.",
+    "resolution_time_minutes": 20,
+    "steps_taken": [
+      "Buka Task Manager - identifikasi MsMpEng.exe 80% CPU",
+      "Buka Windows Security - temukan Full Scan sedang berjalan",
+      "Cancel scan Windows Defender",
+      "CPU turun ke 15% - komputer normal kembali"
+    ],
+    "escalated": false,
+    "technician_assigned": null,
+    "technician_visit_required": false,
+    "parts_replaced": [],
+    "satisfaction_rating": 5,
+    "follow_up_required": false,
+    "notes": "Root cause: Windows Defender Full Scan di jam kerja. Rekomendasi: atur jadwal scan Windows Defender di luar jam kerja (18.00 - 06.00 WIB) melalui Task Scheduler. Rating 5/5.",
+    "tags": [
+      "komputer",
+      "cpu tinggi",
+      "windows defender",
+      "msmeng",
+      "self-resolved"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T13:00:00.000000",
+        "action": "Laporan Dibuat",
+        "status": "Closed / Resolved",
+        "actor": "Rizky Aditya",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-013",
+    "session_id": "SESS-CCTV-B2C3D4",
+    "ticket_number": "TKT-20260731-013",
+    "submitted_at": "2026-07-31T13:30:00.000000",
+    "resolved_at": null,
+    "status": "Open",
+    "priority": "critical",
+    "category": "CCTV",
+    "sub_category": "HDD NVR Rusak - Sistem Rekaman Down",
+    "device": "Dahua NVR5216-16P-4KS2E",
+    "device_serial": "DAHUA-NVR-CR001",
+    "location": "Control Room Keamanan",
+    "reporter": {
+      "name": "Anton Wijaya",
+      "department": "Keamanan & Pengamanan",
+      "employee_id": "SEC-101",
+      "contact": "ext.101",
+      "email": "anton.wijaya@asset1.co.id"
+    },
+    "complaint_description": "NVR CCTV Dahua terus berbunyi beep dan rekaman tidak bisa diputar. Ada notifikasi 'HDD Error'. Sudah dicoba restart NVR namun masih beep. Cek di menu HDD Management status HDD 'Error'. Percobaan format HDD gagal (Format Failed). Sistem rekaman CCTV seluruh area mati.",
+    "symptoms_reported": [
+      "playback rekaman freeze",
+      "NVR bunyi beep terus",
+      "HDD Error",
+      "format gagal"
+    ],
+    "error_code": "HDD Error - Format Failed",
+    "kb_id_matched": "ICT-CCTV-002",
+    "confidence_score": 0.88,
+    "resolution_method": null,
+    "resolution_description": null,
+    "resolution_time_minutes": null,
+    "steps_taken": [
+      "Restart NVR - masih beep",
+      "Cek HDD Management - status Error",
+      "Coba format HDD - Format Failed",
+      "Lapor ke ICT - menunggu teknisi"
+    ],
+    "escalated": true,
+    "technician_assigned": null,
+    "technician_visit_required": true,
+    "technician_visit_scheduled": null,
+    "operational_impact": "Sistem rekaman CCTV seluruh area down. Area tanpa rekaman CCTV.",
+    "temporary_workaround": "Peningkatan patrol manual di seluruh area",
+    "replacement_needed": "HDD Seagate SkyHawk surveillance 4TB",
+    "parts_replaced": [],
+    "satisfaction_rating": null,
+    "follow_up_required": true,
+    "notes": "KRITIS - HDD NVR rusak fisik, tidak bisa diformat. Perlu penggantian HDD surveillance segera. Rekaman CCTV tidak berfungsi merupakan risiko keamanan tinggi. Pastikan HDD pengganti adalah tipe surveillance (Seagate SkyHawk / WD Purple), bukan HDD desktop biasa.",
+    "security_impact": "Seluruh rekaman CCTV area tidak berfungsi",
+    "tags": [
+      "cctv",
+      "nvr",
+      "hdd error",
+      "kritis",
+      "dahua",
+      "rekaman down"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T13:30:00.000000",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Anton Wijaya",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-014",
+    "session_id": "SESS-WIN-E5F6G7",
+    "ticket_number": "TKT-20260731-014",
+    "submitted_at": "2026-07-31T14:05:00.000000",
+    "resolved_at": "2026-07-31T14:25:00.000000",
+    "status": "Closed / Resolved",
+    "priority": "high",
+    "category": "Komputer dan Laptop",
+    "sub_category": "BSOD - Driver Grafis Konflik Windows Update",
+    "device": "HP ProDesk 400 G7",
+    "device_serial": "HP-PD400G7-2601",
+    "location": "Gedung F - Lantai 2, Ruang Hukum",
+    "reporter": {
+      "name": "Nurul Azizah",
+      "department": "Hukum & Kepatuhan",
+      "employee_id": "HKM-2601",
+      "contact": "ext.2601",
+      "email": "nurul.azizah@asset1.co.id"
+    },
+    "complaint_description": "Komputer HP ProDesk 400 G7 mengalami BSOD (Blue Screen of Death) berulang dengan stop code SYSTEM_SERVICE_EXCEPTION. BSOD pertama kali muncul setelah Windows Update kemarin. Setelah restart bisa masuk Windows tapi BSOD muncul lagi setelah 30 menit.",
+    "symptoms_reported": [
+      "blue screen berulang",
+      "BSOD SYSTEM_SERVICE_EXCEPTION",
+      "windows restart sendiri"
+    ],
+    "error_code": "SYSTEM_SERVICE_EXCEPTION - Stop Code: 0x0000003B - dxgkrnl.sys",
+    "kb_id_matched": "ICT-WIN-002",
+    "confidence_score": 0.895,
+    "resolution_method": "user_self_resolved",
+    "resolution_description": "BSOD disebabkan oleh konflik driver grafis (dxgkrnl.sys) akibat Windows Update terbaru. Masalah teratasi dengan rollback Windows Update yang bermasalah.",
+    "resolution_time_minutes": 20,
+    "steps_taken": [
+      "Analisis Event Log - temukan dxgkrnl.sys sebagai penyebab",
+      "Konfirmasi BSOD terjadi setelah Windows Update",
+      "Rollback Windows Update kemarin melalui Settings > Windows Update > Update History > Uninstall",
+      "Restart komputer",
+      "Monitor 20 menit - tidak ada BSOD"
+    ],
+    "escalated": false,
+    "technician_assigned": null,
+    "technician_visit_required": false,
+    "parts_replaced": [],
+    "satisfaction_rating": 5,
+    "follow_up_required": true,
+    "notes": "Rollback berhasil. Rekomendasi: Pause Windows Update sementara dan laporkan ke ICT sebagai known issue. Update driver grafis HP ProDesk 400 G7 secara manual dari website HP jika tersedia patch yang sudah diuji. Rating 5/5.",
+    "known_issue": "Windows Update [KB-UNKNOWN] menyebabkan konflik dxgkrnl.sys pada HP ProDesk 400 G7",
+    "tags": [
+      "komputer",
+      "bsod",
+      "windows update",
+      "driver grafis",
+      "dxgkrnl",
+      "hp"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T14:05:00.000000",
+        "action": "Laporan Dibuat",
+        "status": "Closed / Resolved",
+        "actor": "Nurul Azizah",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Tinggi"
+  },
+  {
+    "complaint_id": "CMP-20260731-015",
+    "session_id": "SESS-TEL-H8I9J0",
+    "ticket_number": "TKT-20260731-015",
+    "submitted_at": "2026-07-31T14:30:00.000000",
+    "resolved_at": null,
+    "status": "Open",
+    "priority": "critical",
+    "category": "Telepon Kantor",
+    "sub_category": "IP Phone Direksi Mati - PoE Failure",
+    "device": "Polycom VVX 601 IP Phone",
+    "device_serial": "PLC-VVX601-4001",
+    "location": "Gedung Utama - Lantai 4, Ruang Direksi",
+    "reporter": {
+      "name": "Bambang Susilo",
+      "department": "Direksi",
+      "employee_id": "DIR-4001",
+      "contact": "ext.4001",
+      "email": "bambang.susilo@asset1.co.id"
+    },
+    "complaint_description": "Telepon IP Phone Polycom VVX 601 di ruang direksi tidak ada dial tone dan layar mati total. Sudah dicoba restart dan cabut-pasang kabel LAN namun layar tetap mati. Direksi tidak bisa menerima atau melakukan panggilan telepon kantor.",
+    "symptoms_reported": [
+      "telepon tidak ada dial tone",
+      "layar IP Phone mati",
+      "tidak bisa menerima panggilan"
+    ],
+    "error_code": "No Dial Tone - Screen Off - PoE Not Detected",
+    "kb_id_matched": "ICT-TEL-001",
+    "confidence_score": 0.89,
+    "resolution_method": null,
+    "resolution_description": null,
+    "resolution_time_minutes": null,
+    "steps_taken": [
+      "Restart IP Phone (cabut-pasang kabel LAN) - layar tetap mati",
+      "Pastikan kabel LAN rapat - tidak berpengaruh",
+      "Menghubungi teknisi ICT - teknisi sedang menuju lokasi"
+    ],
+    "escalated": true,
+    "technician_assigned": "Tim ICT Gedung Utama",
+    "technician_visit_required": true,
+    "technician_visit_scheduled": "2026-07-31T14:45:00.000000",
+    "operational_impact": "Telepon Direksi tidak berfungsi",
+    "temporary_workaround": "Menggunakan telepon seluler pribadi",
+    "parts_replaced": [],
+    "satisfaction_rating": null,
+    "follow_up_required": true,
+    "notes": "KRITIS - Telepon di ruang Direksi adalah prioritas tertinggi. Dugaan kuat: port PoE switch yang digunakan untuk IP Phone Direksi rusak atau kabel dari panel patch ke ruang Direksi putus. Teknisi ICT sudah dihubungi dan sedang menuju lokasi.",
+    "tags": [
+      "telepon",
+      "ip phone",
+      "direksi",
+      "poe",
+      "kritis",
+      "polycom"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T14:30:00.000000",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Bambang Susilo",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-016",
+    "session_id": "SESS-WAN-K1L2M3",
+    "ticket_number": "TKT-20260731-016",
+    "submitted_at": "2026-07-31T08:00:00.000000",
+    "resolved_at": null,
+    "status": "Open",
+    "priority": "critical",
+    "category": "WAN",
+    "sub_category": "Radio Outdoor Mati - WAN Stasiun Down",
+    "device": "MikroTik RB1100AHx4 + Ubiquiti AirFiber 5XHD",
+    "device_serial": "MTIK-RB1100-C001 / UB-AF5XHD-C01",
+    "location": "Stasiun Lapangan C - Ruang Kontrol",
+    "reporter": {
+      "name": "Eko Prasetyo",
+      "department": "IT Asset 1 - Tim WAN",
+      "employee_id": "ICT-WAN-001",
+      "contact": "08211234567",
+      "email": "eko.prasetyo@asset1.co.id"
+    },
+    "complaint_description": "Link WAN Stasiun C down total sejak pagi. VPN site-to-site ke pusat tidak bisa konek. Aplikasi sinkronisasi data semua gagal. Di Winbox MikroTik, interface ether1-WAN berstatus 'No Carrier'. Radio Ubiquiti AirFiber 5XHD outdoor tidak menyala meskipun PoE Injector menyala hijau. Cuaca cerah, bukan karena cuaca.",
+    "symptoms_reported": [
+      "link WAN terputus",
+      "VPN site-to-site down",
+      "aplikasi sinkronisasi gagal",
+      "radio outdoor tidak menyala",
+      "No Carrier pada interface WAN"
+    ],
+    "error_code": "WAN Interface Down - No Carrier - Radio Outdoor Off",
+    "kb_id_matched": "ICT-WAN-001",
+    "confidence_score": 0.91,
+    "resolution_method": null,
+    "resolution_description": null,
+    "resolution_time_minutes": null,
+    "steps_taken": [
+      "Ping ke gateway pusat - RTO (timeout)",
+      "Cek fisik router MikroTik - menyala normal",
+      "Cek Winbox - interface WAN 'No Carrier'",
+      "Cek PoE Injector radio - menyala hijau",
+      "Observasi visual radio outdoor - tidak menyala",
+      "Lapor ke Tim WAN ICT - ETA 2 jam"
+    ],
+    "escalated": true,
+    "technician_assigned": "Tim WAN ICT Asset 1",
+    "technician_visit_required": true,
+    "technician_visit_scheduled": "2026-07-31T10:00:00.000000",
+    "operational_impact": "Seluruh operasional data dan sinkronisasi Stasiun C ke pusat terhenti",
+    "temporary_workaround": "Koordinasi via telepon seluler dan HT. Pencatatan data operasional manual. Mobile hotspot untuk kebutuhan mendesak.",
+    "parts_replaced": [],
+    "satisfaction_rating": null,
+    "follow_up_required": true,
+    "notes": "Dugaan kuat: kabel ethernet outdoor dari PoE Injector ke unit radio Ubiquiti AirFiber 5XHD rusak/putus, ATAU unit radio itu sendiri rusak (mungkin dampak petir sebelumnya). Tim WAN perlu membawa kabel ethernet outdoor pengganti dan/atau unit radio cadangan. Perlu akses ketinggian ke menara.",
+    "estimated_repair_parts": [
+      "Ubiquiti AirFiber 5XHD unit pengganti",
+      "Kabel ethernet outdoor Cat6 UV-resistant"
+    ],
+    "tags": [
+      "wan",
+      "radio outdoor",
+      "ubiquiti",
+      "mikrotik",
+      "stasiun",
+      "kritis",
+      "down"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T08:00:00.000000",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Eko Prasetyo",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  },
+  {
+    "complaint_id": "CMP-20260731-017",
+    "session_id": "SESS-PRINTER-OFFLINE-N4O5",
+    "ticket_number": "TKT-20260731-017",
+    "submitted_at": "2026-07-31T09:00:00.000000",
+    "resolved_at": "2026-07-31T09:12:00.000000",
+    "status": "Closed / Resolved",
+    "priority": "medium",
+    "category": "Printer",
+    "sub_category": "Printer Offline - Use Printer Offline Aktif",
+    "device": "Brother MFC-L2710DW",
+    "device_serial": "BRO-MFC-1010",
+    "location": "Gedung Utama - Lantai 1, Ruang Sekretariat",
+    "reporter": {
+      "name": "Lestari Indah",
+      "department": "Sekretariat",
+      "employee_id": "SKR-1010",
+      "contact": "ext.1010",
+      "email": "lestari.indah@asset1.co.id"
+    },
+    "complaint_description": "Printer Brother MFC-L2710DW di ruang sekretariat berstatus offline di Windows padahal sudah dinyalakan dan menyala normal. Dokumen surat-surat resmi tidak bisa dicetak, mengganggu pekerjaan administrasi.",
+    "symptoms_reported": [
+      "printer offline",
+      "tidak bisa cetak",
+      "dokumen tertahan di antrean"
+    ],
+    "error_code": "Printer Status: Offline",
+    "kb_id_matched": "ICT-PRINTER-001",
+    "confidence_score": 0.92,
+    "resolution_method": "user_self_resolved",
+    "resolution_description": "Ditemukan bahwa opsi 'Use Printer Offline' pada Windows tercentang secara tidak sengaja. Setelah centang dihilangkan, printer langsung kembali online.",
+    "resolution_time_minutes": 12,
+    "steps_taken": [
+      "Buka Settings > Bluetooth & Devices > Printers & Scanners",
+      "Klik Brother MFC-L2710DW > Open print queue",
+      "Klik menu Printer > temukan 'Use Printer Offline' tercentang",
+      "Hilangkan centang 'Use Printer Offline'",
+      "Printer langsung berstatus Ready dan bisa mencetak"
+    ],
+    "escalated": false,
+    "technician_assigned": null,
+    "technician_visit_required": false,
+    "parts_replaced": [],
+    "satisfaction_rating": 5,
+    "follow_up_required": false,
+    "notes": "Masalah umum terjadi saat koneksi printer sempat terputus dan Windows mengaktifkan mode offline secara otomatis. Penyelesaian cepat 12 menit. Rating kepuasan 5/5.",
+    "tags": [
+      "printer",
+      "offline",
+      "use printer offline",
+      "brother",
+      "self-resolved"
+    ],
+    "history": [
+      {
+        "timestamp": "2026-07-31T09:00:00.000000",
+        "action": "Laporan Dibuat",
+        "status": "Closed / Resolved",
+        "actor": "Lestari Indah",
+        "notes": "Laporan kondisi bahaya dicatat di sistem."
+      }
+    ],
+    "finding_type": "Unsafe Condition",
+    "risk_level": "Sedang"
+  }
+]

@@ -1,0 +1,10 @@
+-r requirements.txt
+
+# Opsional untuk semantic search di lingkungan lokal/non-serverless.
+sentence-transformers==3.0.1
+faiss-cpu==1.8.0
+numpy==1.26.4
+scipy==1.13.1
+torch==2.3.1
+transformers==4.41.2
+scikit-learn>=1.5.0
