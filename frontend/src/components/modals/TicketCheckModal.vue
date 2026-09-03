@@ -7,7 +7,7 @@
       </div>
 
       <div class="modal-body">
-        <p class="modal-sub" style="font-size: 13px; color: #94a3b8; margin-bottom: 16px;">
+        <p class="modal-sub" style="font-size: 13px; color: #cbd5e1; margin-bottom: 16px;">
           Masukkan Nomor Tiket Anda untuk melihat status dan perkembangan penanganan laporan bahaya secara real-time.
         </p>
 
@@ -26,10 +26,9 @@
           </button>
         </div>
 
-        <div style="font-size: 11.5px; color: #64748b; margin-bottom: 16px;">
+        <div style="font-size: 12px; color: #cbd5e1; margin-bottom: 16px;">
           💡 <em>Contoh data demo:</em>
-          <button type="button" @click="setDemo('HSE-20260903-DEMO2')" style="background:none; border:1px solid rgba(56,189,248,0.3); color:#38bdf8; padding:1px 6px; border-radius:4px; margin:0 4px; cursor:pointer;">DEMO2</button>
-          <button type="button" @click="setDemo('HSE-20260903-DEMO3')" style="background:none; border:1px solid rgba(56,189,248,0.3); color:#38bdf8; padding:1px 6px; border-radius:4px; margin:0 4px; cursor:pointer;">DEMO3</button>
+          <button type="button" @click="ticketQuery='HSE-20260903-DEMO2'; handleSearch()" style="background:none; border:1px solid rgba(56,189,248,0.4); color:#38bdf8; padding:2px 8px; border-radius:4px; font-size:11px; margin-left:6px; cursor:pointer;">HSE-20260903-DEMO2</button>
         </div>
 
         <!-- Error Box -->
@@ -40,10 +39,10 @@
         <!-- Hasil Pencarian -->
         <div v-if="ticketData" style="margin-top: 16px;">
           <!-- Section 1: Dashboard -->
-          <div style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 12px; padding: 16px; margin-bottom: 16px;">
+          <div style="background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 16px; margin-bottom: 16px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
               <div>
-                <span style="font-size: 11px; color: #94a3b8; text-transform: uppercase; font-weight: 700;">Nomor Tiket</span>
+                <span style="font-size: 11px; color: #cbd5e1; text-transform: uppercase; font-weight: 700;">Nomor Tiket</span>
                 <div style="font-family: monospace; font-size: 16px; font-weight: 700; color: #38bdf8;">
                   {{ ticketData.ticket_number || ticketData.complaint_id }}
                 </div>
@@ -54,36 +53,36 @@
             </div>
 
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 13px;">
-              <div><span style="color:#94a3b8;">Lokasi:</span> <strong>{{ ticketData.location || '-' }}</strong></div>
-              <div><span style="color:#94a3b8;">Kategori:</span> <strong>{{ ticketData.category || '-' }}</strong></div>
-              <div><span style="color:#94a3b8;">Pelapor:</span> <strong>{{ ticketData.reporter_name || '-' }} ({{ ticketData.division || '-' }})</strong></div>
-              <div><span style="color:#94a3b8;">Urgensi:</span> <strong :style="{ color: getUrgencyColor(ticketData.urgency) }">{{ ticketData.urgency || '-' }}</strong></div>
-              <div><span style="color:#94a3b8;">Petugas:</span> <strong>{{ ticketData.assigned_to || ticketData.assigned_engineer || 'Tim HSSE Lapangan' }}</strong></div>
+              <div><span style="color:#cbd5e1;">Lokasi:</span> <strong style="color:#ffffff;">{{ ticketData.location || '-' }}</strong></div>
+              <div><span style="color:#cbd5e1;">Kategori:</span> <strong style="color:#ffffff;">{{ ticketData.category || '-' }}</strong></div>
+              <div><span style="color:#cbd5e1;">Pelapor:</span> <strong style="color:#ffffff;">{{ ticketData.reporter_name || '-' }} ({{ ticketData.division || '-' }})</strong></div>
+              <div><span style="color:#cbd5e1;">Urgensi:</span> <strong :style="{ color: getUrgencyColor(ticketData.urgency) }">{{ ticketData.urgency || '-' }}</strong></div>
+              <div><span style="color:#cbd5e1;">Petugas:</span> <strong style="color:#ffffff;">{{ ticketData.assigned_to || ticketData.assigned_engineer || 'Tim HSSE Lapangan' }}</strong></div>
             </div>
 
-            <div v-if="ticketData.admin_message" style="margin-top: 12px; background: rgba(16,185,129,0.1); border-left: 3px solid #10b981; padding: 10px 12px; border-radius: 6px;">
-              <div style="font-size: 11px; font-weight: 700; color: #10b981; margin-bottom: 2px;">💬 Pesan dari Tim HSSE:</div>
-              <div style="font-size: 13px;">{{ ticketData.admin_message }}</div>
+            <div v-if="ticketData.admin_message" style="margin-top: 12px; background: rgba(16,185,129,0.15); border-left: 3px solid #10b981; padding: 10px 12px; border-radius: 6px;">
+              <div style="font-size: 11px; font-weight: 700; color: #34d399; margin-bottom: 2px;">💬 Pesan dari Tim HSSE:</div>
+              <div style="font-size: 13px; color: #f1f5f9;">{{ ticketData.admin_message }}</div>
             </div>
           </div>
 
           <!-- Section 2: Timeline -->
           <div style="margin-bottom: 16px;">
-            <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 10px; color: #f8fafc;">📋 Daftar Riwayat Laporan</h4>
+            <h4 style="font-size: 14px; font-weight: 700; margin-bottom: 10px; color: #ffffff;">📋 Daftar Riwayat Laporan</h4>
             <div v-if="ticketData.history && ticketData.history.length > 0">
               <div v-for="(h, idx) in ticketData.history" :key="idx" style="display: flex; gap: 12px; margin-bottom: 12px;">
                 <div style="display:flex; flex-direction:column; align-items:center;">
                   <div style="width: 10px; height: 10px; border-radius: 50%; background: #0284c7; margin-top: 4px;"></div>
-                  <div v-if="idx < ticketData.history.length - 1" style="width: 2px; flex: 1; background: rgba(255,255,255,0.1); margin-top: 4px;"></div>
+                  <div v-if="idx < ticketData.history.length - 1" style="width: 2px; flex: 1; background: rgba(255,255,255,0.2); margin-top: 4px;"></div>
                 </div>
                 <div style="flex: 1; font-size: 13px;">
-                  <div style="color: #94a3b8; font-size: 11px;">{{ formatDate(h.timestamp) }} &bull; {{ h.actor || 'Sistem' }}</div>
-                  <div style="font-weight: 600; color: #f8fafc;">{{ h.action || h.status }}</div>
-                  <div v-if="h.notes" style="color: #cbd5e1; font-size: 12px; margin-top: 2px;">{{ h.notes }}</div>
+                  <div style="color: #cbd5e1; font-size: 11.5px;">{{ formatDate(h.timestamp) }} &bull; {{ h.actor || 'Sistem' }}</div>
+                  <div style="font-weight: 600; color: #ffffff;">{{ h.action || h.status }}</div>
+                  <div v-if="h.notes" style="color: #e2e8f0; font-size: 12px; margin-top: 2px;">{{ h.notes }}</div>
                 </div>
               </div>
             </div>
-            <div v-else style="font-size: 12px; color: #64748b;">Belum ada riwayat tercatat.</div>
+            <div v-else style="font-size: 12px; color: #94a3b8;">Belum ada riwayat tercatat.</div>
           </div>
         </div>
       </div>

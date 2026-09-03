@@ -17,15 +17,15 @@
           </router-link>
         </div>
         <div class="hero-quick-links" aria-label="Akses cepat">
-          <router-link to="/ticket" style="color: #0284c7; font-weight: 600; text-decoration: none;">
+          <router-link to="/ticket" style="color: #38bdf8; font-weight: 600; text-decoration: none;">
             🔍 Cek Status Tiket
           </router-link>
-          <span aria-hidden="true"></span>
+          <span aria-hidden="true" style="color: rgba(255, 255, 255, 0.4);">&bull;</span>
           <button type="button" @click="openWhatsAppModal()">Hubungi Tim HSSE</button>
-          <span aria-hidden="true"></span>
+          <span aria-hidden="true" style="color: rgba(255, 255, 255, 0.4);">&bull;</span>
           <router-link
             to="/admin/login"
-            style="color: var(--text-muted, #94a3b8); text-decoration: none; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px;"
+            style="color: #cbd5e1; text-decoration: none; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px;"
             title="Buka Portal Pengelolaan Admin"
           >
             🔒 Portal Admin HSSE
@@ -50,28 +50,28 @@
     <!-- HERO STATS COUNTER BAR -->
     <section class="hero-stats" aria-label="Ringkasan sistem">
       <div class="stat-box">
-        <span class="stat-icon" aria-hidden="true"></span>
+        <span class="stat-icon" aria-hidden="true">📖</span>
         <span class="stat-copy">
           <strong class="stat-value">540+</strong>
           <span class="stat-label">Artikel HSSE terstruktur</span>
         </span>
       </div>
       <div class="stat-box">
-        <span class="stat-icon" aria-hidden="true"></span>
+        <span class="stat-icon" aria-hidden="true">🛡️</span>
         <span class="stat-copy">
           <strong class="stat-value">27</strong>
           <span class="stat-label">Kategori bahaya K3</span>
         </span>
       </div>
       <div class="stat-box">
-        <span class="stat-icon" aria-hidden="true"></span>
+        <span class="stat-icon" aria-hidden="true">👥</span>
         <span class="stat-copy">
           <strong class="stat-value">6 Officer</strong>
           <span class="stat-label">Tim HSSE terdedikasi</span>
         </span>
       </div>
       <div class="stat-box">
-        <span class="stat-icon" aria-hidden="true"></span>
+        <span class="stat-icon" aria-hidden="true">🔓</span>
         <span class="stat-copy">
           <strong class="stat-value">Tanpa login</strong>
           <span class="stat-label">Akses langsung bagi pekerja</span>
@@ -133,11 +133,11 @@
           <div class="category-card-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
             <span style="font-size: 24px;">{{ getCategoryIcon(group.id) }}</span>
             <div>
-              <h3 style="margin: 0; font-size: 16px; font-weight: 700;">{{ group.nama }}</h3>
-              <small style="color: var(--text-muted, #94a3b8);">{{ group.kategori.length }} sub-kategori</small>
+              <h3 style="margin: 0; font-size: 16px; font-weight: 700; color: #0f172a;">{{ group.nama }}</h3>
+              <small style="color: #64748b; font-weight: 600;">{{ group.kategori.length }} sub-kategori</small>
             </div>
           </div>
-          <p style="font-size: 13px; color: var(--text-secondary, #cbd5e1); line-height: 1.5; margin: 0;">{{ group.deskripsi }}</p>
+          <p style="font-size: 13px; color: #475569; line-height: 1.5; margin: 0;">{{ group.deskripsi }}</p>
         </div>
       </div>
 

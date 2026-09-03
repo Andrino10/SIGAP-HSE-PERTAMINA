@@ -127,15 +127,15 @@
                 <div class="knowledge-detail-label">Analisis risiko K3</div>
                 <span>Ringkasan dan poin penting untuk memudahkan pemahaman</span>
               </div>
-              <p style="font-size: 13.5px; line-height: 1.6; margin: 4px 0 0 0; color: var(--text-primary, #f8fafc);">
+              <p style="font-size: 13.5px; line-height: 1.6; margin: 4px 0 0 0; color: #334155;">
                 {{ item.penjelasan_risiko }}
               </p>
             </div>
 
             <div v-if="item.solusi" class="knowledge-detail-block solution-detail">
               <div class="knowledge-detail-label">Prosedur solusi dan pengendalian</div>
-              <div class="knowledge-solution-list" style="margin-top: 6px;">
-                <div v-for="(step, sIdx) in parseSteps(item.solusi)" :key="sIdx" style="margin-bottom: 4px; font-size: 13.5px; line-height: 1.55;">
+              <div class="knowledge-solution-list" style="margin-top: 6px; color: #334155;">
+                <div v-for="(step, sIdx) in parseSteps(item.solusi)" :key="sIdx" style="margin-bottom: 4px; font-size: 13.5px; line-height: 1.55; color: #334155;">
                   &bull; {{ step }}
                 </div>
               </div>
@@ -143,7 +143,7 @@
 
             <div v-if="item.referensi && item.referensi.length > 0" class="knowledge-detail-block" style="margin-top: 10px;">
               <div class="knowledge-detail-label">Referensi &amp; Regulasi Terkait</div>
-              <ul style="margin: 4px 0 0 18px; padding: 0; font-size: 12.5px; color: #38bdf8;">
+              <ul style="margin: 4px 0 0 18px; padding: 0; font-size: 12.5px; color: #0284c7;">
                 <li v-for="(refItem, rIdx) in item.referensi" :key="rIdx">
                   {{ refItem.judul || refItem }}
                 </li>

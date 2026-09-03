@@ -78,11 +78,11 @@
           <div class="bubble-text" style="white-space: pre-wrap;" v-html="formatMessage(msg.text)"></div>
 
           <!-- Structured Escalation Card if available -->
-          <div v-if="msg.escalation" class="escalation-prompt-block" style="margin-top: 14px; background: rgba(2, 132, 199, 0.1); border: 1px solid rgba(2, 132, 199, 0.3); border-radius: 10px; padding: 14px;">
-            <div style="font-size: 11px; font-weight: 700; color: #38bdf8; text-transform: uppercase; margin-bottom: 4px;">
+          <div v-if="msg.escalation" class="escalation-prompt-block" style="margin-top: 14px; background: rgba(2, 132, 199, 0.08); border: 1px solid rgba(2, 132, 199, 0.3); border-radius: 10px; padding: 14px;">
+            <div style="font-size: 11px; font-weight: 700; color: #0284c7; text-transform: uppercase; margin-bottom: 4px;">
               ⚠️ Rekomendasi Tindak Lanjut Resmi
             </div>
-            <div style="font-size: 13px; margin-bottom: 12px; color: var(--text-primary, #f8fafc);">
+            <div style="font-size: 13px; margin-bottom: 12px; color: #1e293b; font-weight: 500;">
               Kondisi ini memerlukan verifikasi lapangan atau penerbitan izin kerja. Lanjutkan laporan sebagai tiket resmi atau kontak tim langsung:
             </div>
             <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -107,8 +107,8 @@
       </div>
 
       <!-- Resolution Bar -->
-      <div v-if="showResolutionBar" class="resolution-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: rgba(255,255,255,0.04); border-top: 1px solid rgba(255,255,255,0.08); flex-wrap: wrap; gap: 10px;">
-        <span class="res-bar-label" style="font-size: 13px; color: var(--text-muted, #94a3b8);">
+      <div v-if="showResolutionBar" class="resolution-bar" style="display: flex; align-items: center; justify-content: space-between; padding: 12px 18px; background: #f8fafc; border-top: 1px solid #e2e8f0; flex-wrap: wrap; gap: 10px;">
+        <span class="res-bar-label" style="font-size: 13px; color: #334155; font-weight: 500;">
           Apakah analisis dan solusi K3 di atas membantu menangani kondisi bahaya?
         </span>
         <div class="res-bar-actions" style="display: flex; gap: 8px;">
