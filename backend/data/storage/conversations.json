@@ -3184,5 +3184,220 @@
         }
       }
     ]
+  },
+  "SESI-20260903-UVLWC": {
+    "session_id": "SESI-20260903-UVLWC",
+    "created_at": "2026-09-03T16:22:29.301501",
+    "updated_at": "2026-09-03T16:22:29.517476",
+    "context": {
+      "category": "Pekerjaan di Ketinggian",
+      "categories": [
+        "Pekerjaan di Ketinggian"
+      ],
+      "kategori_list": [
+        "Pekerjaan di Ketinggian"
+      ],
+      "category_source": "explicit",
+      "assigned_category": "Pekerjaan di Ketinggian",
+      "location": null,
+      "occurrence_date": null,
+      "initial_description": "Pekerja berada di ketinggian tanpa safety harness dan lifeline yang terpasang.",
+      "last_user_message": "Pekerja berada di ketinggian tanpa safety harness dan lifeline yang terpasang.",
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": "HSSE-KETINGGIAN-001",
+      "kategori": "Pekerjaan di Ketinggian",
+      "category_group": "aktivitas-berisiko",
+      "kelompok_kategori": "aktivitas-berisiko"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "Pekerja berada di ketinggian tanpa safety harness dan lifeline yang terpasang.",
+        "timestamp": "2026-09-03T16:22:29.301517",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPekerja berada di ketinggian tanpa safety harness dan lifeline yang terpasang.\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Pekerja bekerja di ketinggian tanpa safety harness'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan di ketinggian, instruksikan pekerja turun melalui akses aman, lalu kosongkan dan batasi area bawah sampai sistem penahan jatuh tersedia.\n\nKONDISI TERIDENTIFIKASI\nPekerja bekerja di ketinggian tanpa safety harness [Kategori: Pekerjaan di Ketinggian] [Kode KB: HSSE-KETINGGIAN-001].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja bekerja di ketinggian tanpa safety harness' pada kategori Pekerjaan di Ketinggian menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini meningkatkan risiko jatuh fatal dari ketinggian. Mekanisme bahayanya berkaitan dengan ketiadaan sistem pencegah atau penahan jatuh dapat membuat pekerja, alat, dan material jatuh dari elevasi tanpa perlindungan yang memadai. Konsekuensi yang perlu dicegah adalah kejadian dapat menyebabkan cedera berat atau fatal pada pekerja di atas maupun orang yang berada di area jatuhan. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan di ketinggian, instruksikan pekerja turun melalui akses aman, lalu kosongkan dan batasi area bawah sampai sistem penahan jatuh tersedia.\n2. Pengendalian: Hentikan pekerjaan, gunakan full body harness + lifeline, dan pastikan anchor point sesuai standar.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead - Height & Scaffolding).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-KETINGGIAN-001 — Pekerja bekerja di ketinggian tanpa safety harness (Pekerjaan di Ketinggian); kecocokan 80%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 9 Tahun 2016 tentang K3 dalam Pekerjaan Ketinggian: https://jdih.kemnaker.go.id/peraturan/detail/1210/peraturan-menteri-nomor-9-tahun-2016\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:22:29.517467",
+        "meta": {
+          "confidence": 0.7961,
+          "kb_id": "HSSE-KETINGGIAN-001"
+        }
+      }
+    ]
+  },
+  "SESI-20260903-NLIS9": {
+    "session_id": "SESI-20260903-NLIS9",
+    "created_at": "2026-09-03T16:24:30.480457",
+    "updated_at": "2026-09-03T16:24:30.687953",
+    "context": {
+      "category": "Alat Pelindung Diri (APD)",
+      "categories": [
+        "Alat Pelindung Diri (APD)"
+      ],
+      "kategori_list": [
+        "Alat Pelindung Diri (APD)"
+      ],
+      "category_source": "explicit",
+      "assigned_category": "Alat Pelindung Diri (APD)",
+      "location": null,
+      "occurrence_date": null,
+      "initial_description": "Pekerja tidak menggunakan APD lengkap dilokasi kerja",
+      "last_user_message": "Pekerja tidak menggunakan APD lengkap dilokasi kerja",
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": "HSSE-APD-012",
+      "kategori": "Alat Pelindung Diri (APD)",
+      "category_group": "peralatan-kendaraan",
+      "kelompok_kategori": "peralatan-kendaraan"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "Pekerja tidak menggunakan APD lengkap dilokasi kerja",
+        "timestamp": "2026-09-03T16:24:30.480467",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPekerja tidak menggunakan APD lengkap dilokasi kerja\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Pekerja tidak menggunakan APD karena tidak nyaman'. Tindakan pertama yang perlu dilakukan: Hentikan paparan pekerja yang melepas APD karena tidak nyaman dan pindahkan ke area aman sampai tersedia APD dengan ukuran dan jenis yang sesuai.\n\nKONDISI TERIDENTIFIKASI\nPekerja tidak menggunakan APD karena tidak nyaman [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSSE-APD-012].\n\nTINGKAT RISIKO\nRISIKO SEDANG — lakukan tindakan korektif dan verifikasi pengawas sebelum aktivitas dilanjutkan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja tidak menggunakan APD karena tidak nyaman' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, APD yang tidak nyaman dapat mendorong pekerja melepas atau tidak menggunakannya sehingga tubuh terpapar bahaya pekerjaan. Mekanisme bahayanya berkaitan dengan kegagalan memilih, memasang, menggunakan, atau merawat APD membuat penghalang terakhir terhadap bahaya tidak bekerja sebagaimana direncanakan. Konsekuensi yang perlu dicegah adalah pekerja dapat mengalami benturan, paparan kimia, gangguan pernapasan, gangguan pendengaran, atau cedera serius sesuai sumber bahayanya. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan paparan pekerja yang melepas APD karena tidak nyaman dan pindahkan ke area aman sampai tersedia APD dengan ukuran dan jenis yang sesuai.\n2. Pengendalian: Sediakan APD berstandar ergonomis yang pas dengan ukuran tubuh pekerja agar nyaman dipakai tanpa mengurangi fleksibilitas gerak.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead (APD & SIKA/JSA)).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-APD-012 — Pekerja tidak menggunakan APD karena tidak nyaman (Alat Pelindung Diri (APD)); kecocokan 66%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenakertrans PER.08/MEN/VII/2010 tentang Alat Pelindung Diri: https://jdih.kemnaker.go.id/peraturan/detail/158/peraturan-menteri-nomor-8-tahun-2010\n\nSTATUS PENANGANAN\nDapat ditindaklanjuti oleh Supervisor dengan pengawasan K3 dan verifikasi sebelum pekerjaan dilanjutkan.",
+        "timestamp": "2026-09-03T16:24:30.687946",
+        "meta": {
+          "confidence": 0.6598,
+          "kb_id": "HSSE-APD-012"
+        }
+      }
+    ]
+  },
+  "SESI-20260903-3O6WM": {
+    "session_id": "SESI-20260903-3O6WM",
+    "created_at": "2026-09-03T16:26:57.747648",
+    "updated_at": "2026-09-03T16:44:18.826641",
+    "context": {
+      "category": "Pengawasan & Prosedur",
+      "categories": [
+        "Pengawasan & Prosedur"
+      ],
+      "kategori_list": [
+        "Pengawasan & Prosedur"
+      ],
+      "category_source": "inferred",
+      "assigned_category": null,
+      "location": null,
+      "occurrence_date": null,
+      "initial_description": "Pekerjaan pengelasan dilakukan tanpa izin kerja dan tanpa Fire Watcher di area kerja.",
+      "last_user_message": "Pekerjaan berisiko berlangsung tanpa briefing dan tanpa verifikasi supervisor.",
+      "symptoms": [
+        "bekerja tanpa izin kerja",
+        "tumpahan bahan berbahaya"
+      ],
+      "error_message": null,
+      "steps_tried": [],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": null,
+      "kategori": "Pengawasan & Prosedur",
+      "category_group": "sistem-risiko",
+      "kelompok_kategori": "sistem-risiko"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "Pekerjaan pengelasan dilakukan tanpa izin kerja dan tanpa Fire Watcher di area kerja.",
+        "timestamp": "2026-09-03T16:26:57.747659",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPekerjaan pengelasan dilakukan tanpa izin kerja dan tanpa Fire Watcher di area kerja.\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Fire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan panas pada temuan 'Fire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung', matikan sumber panas, isolasi area, dan pantau bara tanpa memasuki zona atmosfer yang belum diuji.\n\nKONDISI TERIDENTIFIKASI\nFire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung [Kategori: Pekerjaan Panas (Hot Work)] [Kode KB: HSSE-HOTWORK-016].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Fire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung' merupakan ketidaksesuaian penting pada kategori Pekerjaan Panas (Hot Work). Mekanisme bahayanya berkaitan dengan api terbuka, busur, permukaan panas, dan percikan dapat menyulut uap, gas, debu, residu proses, atau material mudah terbakar. Bila tidak segera dikendalikan, penyalaan dapat berkembang menjadi kebakaran, ledakan, luka bakar, paparan asap, serta kerusakan fasilitas proses. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus diverifikasi terhadap kondisi aktual, JSA, SOP, izin kerja, dan ketentuan pada referensi artikel; penilaian sistem tidak menggantikan keputusan personel HSSE yang berwenang.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan panas pada temuan 'Fire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung', matikan sumber panas, isolasi area, dan pantau bara tanpa memasuki zona atmosfer yang belum diuji.\n2. Pengendalian: Gunakan hot work permit, gas test, isolasi proses, pembersihan bahan mudah terbakar, fire blanket atau screen, peralatan laik, ventilasi, dan fire watch dengan pemadam sesuai.\n3. Inspeksi & Pengawasan: Fire Watcher dan Supervisor memverifikasi permit, gas test, area percikan, tabung dan selang, grounding, pemadam, serta pemantauan setelah pekerjaan selesai.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead - Hot Work Permit & Fire Safety).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-HOTWORK-016 — Fire Watcher meninggalkan lokasi saat pekerjaan masih berlangsung (Pekerjaan Panas (Hot Work)); kecocokan 62%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 37 Tahun 2016 tentang K3 Bejana Tekanan dan Tangki Timbun: https://jdih.kemnaker.go.id/peraturan/detail/1429/peraturan-menteri-nomor-37-tahun-2016\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:26:57.843140",
+        "meta": {
+          "confidence": 0.615,
+          "kb_id": "HSSE-HOTWORK-016"
+        }
+      },
+      {
+        "role": "user",
+        "content": "Percikan api dari pengelasan tidak dikendalikan",
+        "timestamp": "2026-09-03T16:31:00.442961",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPercikan api dari pengelasan tidak dikendalikan\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Percikan api dari pengelasan tidak dikendalikan'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan panas, matikan sumber api, dan padamkan percikan atau bara kecil dengan sarana yang sesuai bila aman dilakukan.\n\nKONDISI TERIDENTIFIKASI\nPercikan api dari pengelasan tidak dikendalikan [Kategori: Pekerjaan Panas (Hot Work)] [Kode KB: HSSE-HOTWORK-002].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Percikan api dari pengelasan tidak dikendalikan' pada kategori Pekerjaan Panas (Hot Work) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan bahan B3 yang mudah terbakar diposisikan dekat percikan pengelasan atau sumber panas dapat menyambar dan membakar area kerja. Mekanisme bahayanya berkaitan dengan api terbuka, busur, permukaan panas, dan percikan dapat menyulut uap, gas, debu, residu proses, atau material mudah terbakar. Konsekuensi yang perlu dicegah adalah penyalaan dapat berkembang menjadi kebakaran, ledakan, luka bakar, paparan asap, serta kerusakan fasilitas proses. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan panas, matikan sumber api, dan padamkan percikan atau bara kecil dengan sarana yang sesuai bila aman dilakukan.\n2. Pengendalian: Pasang tirai pemadam percikan (fire blanket) di sekeliling area las dan tunjuk petugas pengawas api (fire watch) dengan APAR.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead - Hot Work Permit & Fire Safety).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-HOTWORK-002 — Percikan api dari pengelasan tidak dikendalikan (Pekerjaan Panas (Hot Work)); kecocokan 100%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 37 Tahun 2016 tentang K3 Bejana Tekanan dan Tangki Timbun: https://jdih.kemnaker.go.id/peraturan/detail/1429/peraturan-menteri-nomor-37-tahun-2016\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:31:00.534106",
+        "meta": {
+          "confidence": 1.0,
+          "kb_id": "HSSE-HOTWORK-002"
+        }
+      },
+      {
+        "role": "user",
+        "content": "Percikan api dari pengelasan tidak dikendalikan",
+        "timestamp": "2026-09-03T16:39:40.799685",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPercikan api dari pengelasan tidak dikendalikan\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Percikan api dari pengelasan tidak dikendalikan'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan panas, matikan sumber api, dan padamkan percikan atau bara kecil dengan sarana yang sesuai bila aman dilakukan.\n\nKONDISI TERIDENTIFIKASI\nPercikan api dari pengelasan tidak dikendalikan [Kategori: Pekerjaan Panas (Hot Work)] [Kode KB: HSSE-HOTWORK-002].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Percikan api dari pengelasan tidak dikendalikan' pada kategori Pekerjaan Panas (Hot Work) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan bahan B3 yang mudah terbakar diposisikan dekat percikan pengelasan atau sumber panas dapat menyambar dan membakar area kerja. Mekanisme bahayanya berkaitan dengan api terbuka, busur, permukaan panas, dan percikan dapat menyulut uap, gas, debu, residu proses, atau material mudah terbakar. Konsekuensi yang perlu dicegah adalah penyalaan dapat berkembang menjadi kebakaran, ledakan, luka bakar, paparan asap, serta kerusakan fasilitas proses. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan panas, matikan sumber api, dan padamkan percikan atau bara kecil dengan sarana yang sesuai bila aman dilakukan.\n2. Pengendalian: Pasang tirai pemadam percikan (fire blanket) di sekeliling area las dan tunjuk petugas pengawas api (fire watch) dengan APAR.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead - Hot Work Permit & Fire Safety).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-HOTWORK-002 — Percikan api dari pengelasan tidak dikendalikan (Pekerjaan Panas (Hot Work)); kecocokan 100%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenaker Nomor 37 Tahun 2016 tentang K3 Bejana Tekanan dan Tangki Timbun: https://jdih.kemnaker.go.id/peraturan/detail/1429/peraturan-menteri-nomor-37-tahun-2016\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:39:40.885859",
+        "meta": {
+          "confidence": 1.0,
+          "kb_id": "HSSE-HOTWORK-002"
+        }
+      },
+      {
+        "role": "user",
+        "content": "Terdapat tumpahan bahan kimia yang belum diisolasi dan belum dibersihkan.",
+        "timestamp": "2026-09-03T16:42:28.085913",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nTerdapat tumpahan bahan kimia yang belum diisolasi dan belum dibersihkan.\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Tumpahan bahan kimia tidak dibersihkan'. Tindakan pertama yang perlu dilakukan: Hentikan aktivitas di sekitar tumpahan, isolasi area, jauhi uap atau kontak langsung, dan aktifkan prosedur tanggap tumpahan sesuai SDS.\n\nKONDISI TERIDENTIFIKASI\nTumpahan bahan kimia tidak dibersihkan [Kategori: Bahan Kimia & B3] [Kode KB: HSSE-KIMIA-004].\n\nTINGKAT RISIKO\nRISIKO SEDANG — lakukan tindakan korektif dan verifikasi pengawas sebelum aktivitas dilanjutkan.\n\nPENJELASAN RISIKO\nKondisi 'Tumpahan bahan kimia tidak dibersihkan' pada kategori Bahan Kimia & B3 menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini meningkatkan risiko terpeleset/paparan. Mekanisme bahayanya berkaitan dengan bahan beracun, korosif, reaktif, mudah terbakar, atau bertekanan dapat masuk melalui inhalasi, kontak kulit, tertelan, atau pelepasan energi. Konsekuensi yang perlu dicegah adalah kejadian dapat menimbulkan keracunan, luka bakar kimia, kebakaran, ledakan, pencemaran, dan dampak kesehatan jangka panjang. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan aktivitas di sekitar tumpahan, isolasi area, jauhi uap atau kontak langsung, dan aktifkan prosedur tanggap tumpahan sesuai SDS.\n2. Pengendalian: Tebarkan bahan penyerap (spill kit/pasir), netralkan tumpahan kimia, bersihkan dengan alat non-sparking, dan buang ke limbah B3.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Ronny Pribadi (Senior Environmental & Compliance Specialist).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-KIMIA-004 — Tumpahan bahan kimia tidak dibersihkan (Bahan Kimia & B3); kecocokan 85%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Kepmenaker KEP.187/MEN/1999 tentang Pengendalian Bahan Kimia Berbahaya: https://jdih.kemnaker.go.id/peraturan/detail/2608/keputusan-menteri-nomor-187-tahun-1999\n\nSTATUS PENANGANAN\nDapat ditindaklanjuti oleh Supervisor dengan pengawasan K3 dan verifikasi sebelum pekerjaan dilanjutkan.",
+        "timestamp": "2026-09-03T16:42:28.177406",
+        "meta": {
+          "confidence": 0.8512,
+          "kb_id": "HSSE-KIMIA-004"
+        }
+      },
+      {
+        "role": "user",
+        "content": "Pekerjaan berisiko berlangsung tanpa briefing dan tanpa verifikasi supervisor.",
+        "timestamp": "2026-09-03T16:43:13.316327",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPekerjaan berisiko berlangsung tanpa briefing dan tanpa verifikasi supervisor.\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan berisiko tinggi yang belum memiliki izin dan amankan area sampai seluruh prasyarat izin dipenuhi.\n\nKONDISI TERIDENTIFIKASI\nTidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi [Kategori: Manajemen Risiko] [Kode KB: HSSE-RISIKO-003].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi' pada kategori Manajemen Risiko menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan melakukan pekerjaan panas atau ketinggian tanpa izin kerja resmi (PTW) menghilangkan verifikasi bahaya oleh safety officer. Mekanisme bahayanya berkaitan dengan bahaya, perubahan, interaksi, atau kegagalan barrier yang tidak dinilai membuat tingkat risiko dan kecukupan pengendalian disalahpahami. Konsekuensi yang perlu dicegah adalah pekerjaan dapat disetujui dengan residual risk yang tidak dapat diterima dan tanpa pemilik pengendalian yang jelas. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan berisiko tinggi yang belum memiliki izin dan amankan area sampai seluruh prasyarat izin dipenuhi.\n2. Pengendalian: Wajibkan pengurusan dokumen Izin Kerja Resmi (Permit to Work) untuk pekerjaan panas, ketinggian, ruang terbatas, dan kelistrikan sebelum aktivitas dimulai.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-RISIKO-003 — Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi (Manajemen Risiko); kecocokan 58%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Peraturan Pemerintah Nomor 50 Tahun 2012 tentang Penerapan SMK3: https://peraturan.bpk.go.id/Details/5263/pp-no-50-tahun2012\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:43:13.414244",
+        "meta": {
+          "confidence": 0.592,
+          "kb_id": "HSSE-RISIKO-011"
+        }
+      },
+      {
+        "role": "user",
+        "content": "Pekerjaan berisiko berlangsung tanpa briefing dan tanpa verifikasi supervisor.",
+        "timestamp": "2026-09-03T16:44:18.804519",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\nPekerjaan berisiko berlangsung tanpa briefing dan tanpa verifikasi supervisor.\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan berisiko tinggi yang belum memiliki izin dan amankan area sampai seluruh prasyarat izin dipenuhi.\n\nKONDISI TERIDENTIFIKASI\nTidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi [Kategori: Manajemen Risiko] [Kode KB: HSSE-RISIKO-003].\n\nTINGKAT RISIKO\nRISIKO TINGGI — hentikan aktivitas bila terdapat paparan langsung atau bahaya segera, amankan area, dan minta verifikasi Tim HSSE.\n\nPENJELASAN RISIKO\nKondisi 'Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi' pada kategori Manajemen Risiko menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan melakukan pekerjaan panas atau ketinggian tanpa izin kerja resmi (PTW) menghilangkan verifikasi bahaya oleh safety officer. Mekanisme bahayanya berkaitan dengan bahaya, perubahan, interaksi, atau kegagalan barrier yang tidak dinilai membuat tingkat risiko dan kecukupan pengendalian disalahpahami. Konsekuensi yang perlu dicegah adalah pekerjaan dapat disetujui dengan residual risk yang tidak dapat diterima dan tanpa pemilik pengendalian yang jelas. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan berisiko tinggi yang belum memiliki izin dan amankan area sampai seluruh prasyarat izin dipenuhi.\n2. Pengendalian: Wajibkan pengurusan dokumen Izin Kerja Resmi (Permit to Work) untuk pekerjaan panas, ketinggian, ruang terbatas, dan kelistrikan sebelum aktivitas dimulai.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-RISIKO-003 — Tidak ada izin kerja (permit to work) untuk pekerjaan berisiko tinggi (Manajemen Risiko); kecocokan 58%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Peraturan Pemerintah Nomor 50 Tahun 2012 tentang Penerapan SMK3: https://peraturan.bpk.go.id/Details/5263/pp-no-50-tahun2012\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-03T16:44:18.826634",
+        "meta": {
+          "cached": true
+        }
+      }
+    ]
   }
 }
