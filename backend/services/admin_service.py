@@ -81,12 +81,15 @@ class AdminService:
     def get_reports(self, filters=None, page=1, limit=50):
         all_complaints = complaint_repo.get_all()
         filters = filters or {}
-        
+
         search = str(filters.get("search", "")).strip().lower()
         status_filter = str(filters.get("status", "")).strip()
         category_filter = str(filters.get("category", "")).strip()
         urgency_filter = str(filters.get("urgency", "")).strip()
         finding_type_filter = str(filters.get("finding_type", "")).strip()
+        location_filter = str(filters.get("location", "")).strip().lower()
+        assigned_to_filter = str(filters.get("assigned_to", "")).strip().lower()
+        source_filter = str(filters.get("source", "")).strip().lower()
         start_date = filters.get("start_date")
         end_date = filters.get("end_date")
 
@@ -128,6 +131,21 @@ class AdminService:
                 if str(c.get("finding_type", "")).lower() != finding_type_filter.lower():
                     continue
 
+            # Location filter (PRD §5.2)
+            if location_filter and location_filter != "semua":
+                if location_filter not in str(c.get("location", "")).lower():
+                    continue
+
+            # Assigned-to filter (PRD §5.2)
+            if assigned_to_filter and assigned_to_filter != "semua":
+                if assigned_to_filter not in str(c.get("assigned_to", "") or c.get("assigned_engineer", "")).lower():
+                    continue
+
+            # Source filter
+            if source_filter and source_filter != "semua":
+                if str(c.get("source", "")).lower() != source_filter:
+                    continue
+
             # Date range filter
             dt_str = c.get("occurrence_date") or (c.get("created_at") or "")[:10]
             if start_date and dt_str and dt_str < start_date:
@@ -155,6 +173,17 @@ class AdminService:
 
     def update_report(self, ticket_no, update_data, admin_user="Admin HSSE"):
         return complaint_repo.update(ticket_no, update_data, updated_by=admin_user)
+
+    def get_officers(self):
+        """Kembalikan daftar 6 HSSE Officer sesuai PRD §4.1 untuk dropdown disposisi tiket."""
+        return [
+            {"id": "solihin",      "nama": "M. Solihin",           "jabatan": "Superintendent HSSE PT Pertamina EP Lirik Field",          "kategori": "Umum"},
+            {"id": "juni",         "nama": "Juni Trihardiyanto",   "jabatan": "Senior Safety Lead (SIKA, JSA & APD)",                   "kategori": "Keselamatan & APD"},
+            {"id": "irsyad",       "nama": "Dr. Irsyad Yoga",      "jabatan": "Chief Medical Officer & Health Lead (MCU & Wellness)",    "kategori": "Kesehatan & Medis"},
+            {"id": "jayadi",       "nama": "Jayadi",               "jabatan": "Chief Security Officer (SIML & Keamanan Field)",           "kategori": "Keamanan"},
+            {"id": "ronny",        "nama": "Ronny Pribadi",        "jabatan": "Senior Environmental & Compliance Specialist",            "kategori": "Lingkungan"},
+            {"id": "andre_della",  "nama": "Andre & Della",        "jabatan": "HSSE Finance & Administrasi Pekerja",                     "kategori": "Administrasi"}
+        ]
 
     def get_recap(self, filters=None):
         """Generate recap aggregated data for reporting period."""

@@ -4693,6 +4693,115 @@ textarea:focus-visible,
   margin-top: 0.6rem;
 }
 
+/* ============================================================
+   PRD §5.1 — Escalation Prompt Block (Chatbot → Tiket)
+   Muncul di bawah bubble chatbot setelah solusi diberikan.
+   ============================================================ */
+.escalation-prompt-block {
+  width: 100%;
+  max-width: 640px;
+  margin: 0.75rem auto 0.25rem;
+  animation: fadeInUp 0.3s ease both;
+}
+
+.escalation-prompt-inner {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.96), rgba(15, 23, 42, 0.98));
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  border-radius: 14px;
+  padding: 1rem 1.25rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(251, 191, 36, 0.1);
+  backdrop-filter: blur(8px);
+}
+
+.escalation-prompt-header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+}
+
+.escalation-prompt-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.12);
+  border: 1px solid rgba(251, 191, 36, 0.3);
+  border-radius: 999px;
+  padding: 0.2rem 0.65rem;
+  width: fit-content;
+}
+
+.escalation-prompt-text {
+  margin: 0;
+  font-size: 0.9rem;
+  color: rgba(226, 232, 240, 0.92);
+  line-height: 1.5;
+}
+
+.escalation-prompt-actions {
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+}
+
+.escalation-btn-report {
+  flex: 1;
+  min-width: 160px;
+  font-size: 0.85rem;
+  padding: 0.55rem 1rem;
+  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+  border-color: #f59e0b !important;
+  color: #0f172a !important;
+  font-weight: 700;
+  border-radius: 8px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.escalation-btn-report:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
+}
+
+.escalation-btn-dismiss {
+  flex: 1;
+  min-width: 120px;
+  font-size: 0.85rem;
+  padding: 0.55rem 1rem;
+  border-radius: 8px;
+  color: rgba(148, 163, 184, 0.9) !important;
+  border-color: rgba(148, 163, 184, 0.3) !important;
+}
+
+.escalation-btn-dismiss:hover {
+  background: rgba(148, 163, 184, 0.08) !important;
+  color: #e2e8f0 !important;
+}
+
+.escalation-dismissed-note {
+  max-width: 640px;
+  margin: 0.25rem auto;
+  background: rgba(34, 197, 94, 0.08) !important;
+  border: 1px solid rgba(34, 197, 94, 0.2) !important;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+}
+
+@media (max-width: 480px) {
+  .escalation-prompt-actions {
+    flex-direction: column;
+  }
+  .escalation-btn-report,
+  .escalation-btn-dismiss {
+    min-width: unset;
+    width: 100%;
+  }
+}
+
 /* Compact, semantic FAQ */
 .home-faq-grid {
   display: grid;

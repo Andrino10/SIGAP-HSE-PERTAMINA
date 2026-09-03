@@ -36,3 +36,9 @@ def update_report(ticket_no):
 @admin_bp.route("/recap", methods=["GET"])
 def get_recap():
     return admin_controller.get_recap()
+
+# PRD §7: GET /api/admin/officers — daftar 6 HSSE Officer untuk dropdown disposisi
+@admin_bp.route("/officers", methods=["GET"])
+def get_officers():
+    return admin_controller.get_officers()
+

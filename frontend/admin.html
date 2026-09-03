@@ -11,8 +11,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="/style.css?v=20260827_5" />
-  <link rel="stylesheet" href="/admin.css?v=20260827_5" />
+  <link rel="stylesheet" href="/style.css?v=20260901_1" />
+  <link rel="stylesheet" href="/admin.css?v=20260901_1" />
 
   <style>
     /* Clean White & Slate Gray Enterprise Login Theme */
@@ -321,6 +321,50 @@
               <option value="Ringan">Ringan</option>
             </select>
           </div>
+        </div>
+
+        <div class="filter-row">
+          <!-- PRD §5.2: Filter Lokasi -->
+          <div class="filter-col">
+            <label for="filter-location">Lokasi Area</label>
+            <select id="filter-location" class="form-input" onchange="loadAdminReports(1)">
+              <option value="Semua">Semua Lokasi</option>
+              <optgroup label="Buatan">
+                <option value="Kantor Besar Buatan">Kantor Besar Buatan</option>
+                <option value="Operator Buatan">Operator Buatan</option>
+              </optgroup>
+              <optgroup label="Ukui">
+                <option value="UKUI">UKUI (Semua)</option>
+              </optgroup>
+              <optgroup label="Lirik">
+                <option value="Lirik">Lirik (Semua)</option>
+              </optgroup>
+            </select>
+          </div>
+
+          <!-- PRD §5.2: Filter PIC/Assignee (6 HSSE Officer §4.1) -->
+          <div class="filter-col">
+            <label for="filter-assigned-to">PIC / Assignee</label>
+            <select id="filter-assigned-to" class="form-input" onchange="loadAdminReports(1)">
+              <option value="Semua">Semua Officer</option>
+              <option value="M. Solihin">M. Solihin (Superintendent)</option>
+              <option value="Juni Trihardiyanto">Juni Trihardiyanto (Safety Lead)</option>
+              <option value="Dr. Irsyad Yoga">Dr. Irsyad Yoga (Medical)</option>
+              <option value="Jayadi">Jayadi (Security)</option>
+              <option value="Ronny Pribadi">Ronny Pribadi (Environmental)</option>
+              <option value="Andre">Andre &amp; Della (Finance/Admin)</option>
+            </select>
+          </div>
+
+          <!-- Filter sumber laporan -->
+          <div class="filter-col">
+            <label for="filter-source">Sumber Laporan</label>
+            <select id="filter-source" class="form-input" onchange="loadAdminReports(1)">
+              <option value="Semua">Semua Sumber</option>
+              <option value="chatbot_escalation">Dari Chatbot AI</option>
+              <option value="direct_form">Form Langsung</option>
+            </select>
+          </div>
 
           <div class="filter-col filter-actions-col">
             <label>&nbsp;</label>
@@ -328,6 +372,7 @@
           </div>
         </div>
       </div>
+
 
       <!-- DATA TABLE -->
       <div class="admin-panel-card">
@@ -346,12 +391,13 @@
                 <th>Lokasi</th>
                 <th>Pelapor</th>
                 <th>Keparahan</th>
+                <th>Sumber</th>
                 <th>Status</th>
                 <th style="text-align: center;">Aksi</th>
               </tr>
             </thead>
             <tbody id="reports-table-tbody">
-              <tr><td colspan="10" class="text-center py-4">Memuat data laporan...</td></tr>
+              <tr><td colspan="11" class="text-center py-4">Memuat data laporan...</td></tr>
             </tbody>
           </table>
         </div>
@@ -572,6 +618,17 @@
             <strong id="modal-assigned-engineer">Tim HSSE Lapangan</strong>
           </div>
 
+          <!-- PRD §6: Sumber Laporan & Chat Session -->
+          <div class="detail-info-group">
+            <span class="detail-label">Sumber Laporan</span>
+            <span id="modal-source-badge">—</span>
+          </div>
+
+          <div class="detail-info-group" id="modal-chat-session-row" style="display:none;">
+            <span class="detail-label">ID Sesi Chatbot</span>
+            <code id="modal-chat-session-id" style="font-size:0.78rem; color: var(--text-muted, #94a3b8);">—</code>
+          </div>
+
           <div class="detail-desc-box">
             <span class="detail-label">Deskripsi Kondisi Bahaya</span>
             <p id="modal-description">-</p>
@@ -594,8 +651,16 @@
               </div>
 
               <div class="form-group">
-                <label for="update-assigned-officer">Petugas / Tim Penanggung Jawab</label>
-                <input type="text" id="update-assigned-officer" class="form-input" placeholder="Contoh: Juni Trihardiyanto (Safety Lead)" />
+                <label for="update-assigned-officer">Disposisikan ke HSSE Officer (PRD §4.1)</label>
+                <select id="update-assigned-officer" class="form-input">
+                  <option value="">— Pilih HSSE Officer —</option>
+                  <option value="M. Solihin">M. Solihin — Superintendent HSSE (Umum)</option>
+                  <option value="Juni Trihardiyanto">Juni Trihardiyanto — Senior Safety Lead (APD, JSA)</option>
+                  <option value="Dr. Irsyad Yoga">Dr. Irsyad Yoga — Chief Medical Officer (Kesehatan)</option>
+                  <option value="Jayadi">Jayadi — Chief Security Officer (Keamanan)</option>
+                  <option value="Ronny Pribadi">Ronny Pribadi — Environmental Specialist (Lingkungan)</option>
+                  <option value="Andre &amp; Della">Andre &amp; Della — HSSE Finance &amp; Administrasi</option>
+                </select>
               </div>
 
               <div class="form-group">

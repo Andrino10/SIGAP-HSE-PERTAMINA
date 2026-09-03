@@ -49,14 +49,19 @@ html, body.admin-body {
    1. LOGIN VIEW
 ========================================================================== */
 .admin-login-wrapper {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  min-height: 100vh !important;
-  padding: 24px !important;
-  background-color: #f1f5f9 !important;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%) !important;
-  color: #0f172a !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px;
+  background-color: #f1f5f9;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+  color: #0f172a;
+}
+
+/* Utility: hide element regardless of display type */
+.admin-hidden {
+  display: none !important;
 }
 
 .admin-login-card {
@@ -723,6 +728,31 @@ html, body.admin-body {
   font-weight: 600;
 }
 
+/* PRD §6 — Source badge: chatbot_escalation vs direct_form */
+.source-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10.5px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 999px;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+}
+
+.source-chatbot {
+  color: #0e7490;
+  background: #ecfeff;
+  border: 1px solid #a5f3fc;
+}
+
+.source-form {
+  color: #475569;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+}
+
 /* ==========================================================================
    7. FILTER BAR & CONTROLS
 ========================================================================= */
@@ -1080,6 +1110,162 @@ html, body.admin-body {
 @media (max-width: 768px) {
   .recap-breakdown-row {
     grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   MOBILE RESPONSIVE — Navbar, Login Logos, & Layout
+========================================================================== */
+@media (max-width: 768px) {
+
+  /* ---- Login Card ---- */
+  .admin-login-card {
+    padding: 28px 20px !important;
+    border-radius: 16px !important;
+  }
+
+  /* ---- Login Brand Logos ---- */
+  .admin-brand-logos {
+    gap: 10px;
+    padding: 8px 14px;
+    margin-bottom: 14px;
+  }
+
+  .admin-logo-pep {
+    height: 30px !important;
+    max-width: 90px;
+  }
+
+  .admin-logo-sigap {
+    height: 28px !important;
+    max-width: 80px;
+  }
+
+  .admin-logo-divider {
+    height: 22px;
+  }
+
+  /* ---- Login Title ---- */
+  .admin-login-title {
+    font-size: 21px !important;
+  }
+
+  .admin-login-subtitle {
+    font-size: 12.5px !important;
+  }
+
+  /* ---- Navbar ---- */
+  .admin-navbar {
+    padding: 10px 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .admin-nav-left {
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+
+  /* Pertamina EP logo in navbar */
+  .admin-nav-logo {
+    height: 24px !important;
+    max-width: 70px;
+    padding: 2px 5px;
+  }
+
+  .admin-nav-title {
+    font-size: 14px !important;
+  }
+
+  .admin-nav-title span {
+    font-size: 9px;
+    padding: 1px 4px;
+  }
+
+  /* Nav menu — wrap below brand */
+  .admin-nav-menu {
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  .admin-nav-link {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+  /* Right side user info — hide name on very small screens */
+  .admin-nav-right {
+    gap: 8px;
+  }
+
+  .admin-user-info {
+    display: none;
+  }
+
+  .admin-user-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 11px;
+  }
+
+  /* Buttons in nav */
+  .admin-btn-public {
+    display: none;
+  }
+
+  /* Dashboard KPI grid */
+  .admin-kpi-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  /* View padding */
+  .admin-view {
+    padding: 16px 14px 40px;
+  }
+
+  .admin-view-header {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  /* Stack KPI cards to single column on very small phones */
+  .admin-kpi-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  .admin-kpi-card {
+    padding: 14px;
+  }
+
+  .kpi-value {
+    font-size: 26px !important;
+  }
+
+  /* Login logo even smaller */
+  .admin-logo-pep {
+    height: 26px !important;
+    max-width: 75px;
+  }
+
+  .admin-logo-sigap {
+    height: 24px !important;
+    max-width: 70px;
+  }
+
+  .admin-brand-logos {
+    gap: 8px;
+    padding: 6px 10px;
+  }
+
+  /* Smaller navbar */
+  .admin-nav-link {
+    font-size: 11px;
+    padding: 5px 8px;
   }
 }
 

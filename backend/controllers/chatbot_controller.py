@@ -268,7 +268,16 @@ class PengontrolChatbot:
             "technician_roster": list(DAFTAR_PETUGAS_HSSE.values()),
             "whatsapp_url": tautan_wa,
             "whatsapp_message": teks_wa_mentah,
-            "context": konteks
+            "context": konteks,
+            # --- PRD: Eskalasi Chatbot → Tiket ---
+            # show_escalation_prompt = True jika chatbot berhasil memberikan solusi
+            # dari Knowledge Base (bukan fallback "informasi belum cukup").
+            "show_escalation_prompt": bool(entri_teratas and tingkat_relevansi != "low"),
+            "suggested_risk_level": (
+                entri_teratas.get("tingkat_risiko", "Sedang")
+                if entri_teratas
+                else "Sedang"
+            ),
         }
 
         cache_service.set(
@@ -279,6 +288,7 @@ class PengontrolChatbot:
         )
 
         return success_response(data=muatan_data, message="Analisis HSSE berhasil.")
+
 
     def selesaikan_masalah(self, data):
         kesalahan = validate_resolution_request(data)

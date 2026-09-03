@@ -724,12 +724,71 @@
 
           <div class="form-group">
             <label for="cons-division">Fungsi / Divisi <span class="field-required">*</span></label>
-            <input type="text" id="cons-division" class="form-input" placeholder="Contoh: Operations / Konstruksi" autocomplete="organization-title" required />
+            <select id="cons-division" class="form-input" required>
+              <option value="">— Pilih fungsi Anda —</option>
+              <option value="FM (Field Manager)">FM (Field Manager)</option>
+              <option value="HC">HC</option>
+              <option value="Plan Eval">Plan Eval</option>
+              <option value="PE">PE</option>
+              <option value="WO/WS">WO/WS</option>
+              <option value="Finance">Finance</option>
+              <option value="RAM">RAM</option>
+              <option value="Legal & Relation">Legal &amp; Relation</option>
+              <option value="PO (Production Operation)">PO (Production Operation)</option>
+              <option value="SCM">SCM</option>
+              <option value="HSSE">HSSE</option>
+              <option value="IT">IT</option>
+              <option value="Security">Security</option>
+              <option value="Transport">Transport</option>
+              <option value="Fire">Fire</option>
+              <option value="Bengkel / Mekanik">Bengkel / Mekanik</option>
+              <option value="Kontraktor / Vendor">Kontraktor / Vendor</option>
+            </select>
           </div>
 
           <div class="form-group">
             <label for="cons-location">Lokasi Temuan Bahaya <span class="field-required">*</span></label>
-            <input type="text" id="cons-location" class="form-input" placeholder="Contoh: Area Scaffolding Blok A / Workshop Welding" required />
+            <select id="cons-location" class="form-input" required>
+              <option value="">— Pilih lokasi Anda —</option>
+              <optgroup label="Buatan">
+                <option value="Kantor Besar Buatan">Kantor Besar Buatan</option>
+                <option value="Operator Buatan">Operator Buatan</option>
+              </optgroup>
+              <optgroup label="Ukui">
+                <option value="Pumper UKUI">Pumper UKUI</option>
+                <option value="P3 Operator UKUI">P3 Operator UKUI</option>
+                <option value="SP 5, 6, 7 UKUI">SP 5, 6, 7 UKUI</option>
+                <option value="Klinik UKUI">Klinik UKUI</option>
+              </optgroup>
+              <optgroup label="Lirik">
+                <option value="HSSE Demo Room Lirik">HSSE Demo Room Lirik</option>
+                <option value="Produksi Lirik">Produksi Lirik</option>
+                <option value="WS Lirik">WS Lirik</option>
+                <option value="PE Lirik">PE Lirik</option>
+                <option value="Finance Lirik">Finance Lirik</option>
+                <option value="HC Lirik">HC Lirik</option>
+                <option value="RAM Lirik">RAM Lirik</option>
+                <option value="PO Lirik">PO Lirik</option>
+                <option value="LR Lirik">LR Lirik</option>
+                <option value="FM Lirik">FM Lirik</option>
+                <option value="IT Lirik">IT Lirik</option>
+                <option value="Fire Lirik">Fire Lirik</option>
+                <option value="Transport Lirik">Transport Lirik</option>
+                <option value="SCM Lirik">SCM Lirik</option>
+                <option value="Bengkel TOPSIP Lirik">Bengkel TOPSIP Lirik</option>
+                <option value="Bengkel Mekanik Lirik">Bengkel Mekanik Lirik</option>
+                <option value="Bengkel Instrumen Umum dan Las Lirik">Bengkel Instrumen Umum dan Las Lirik</option>
+                <option value="Bengkel Listrik Lirik">Bengkel Listrik Lirik</option>
+                <option value="Security Kantor Besar Lirik">Security Kantor Besar Lirik</option>
+                <option value="Pos Camp 1 Lirik">Pos Camp 1 Lirik</option>
+                <option value="Security Industrial Lirik">Security Industrial Lirik</option>
+                <option value="Security Japura Lirik">Security Japura Lirik</option>
+                <option value="SP 2, 3, 4 Lirik">SP 2, 3, 4 Lirik</option>
+                <option value="SP 1 Lirik">SP 1 Lirik</option>
+                <option value="Klinik Lirik">Klinik Lirik</option>
+                <option value="Mess Lirik">Mess Lirik</option>
+              </optgroup>
+            </select>
           </div>
 
           <div class="form-group">
@@ -873,14 +932,73 @@
 
             <div class="form-group">
               <label for="wa-input-division">Fungsi / Divisi <span class="field-required">*</span></label>
-              <input type="text" id="wa-input-division" class="form-input" placeholder="Contoh: Operations" autocomplete="organization-title" minlength="2" maxlength="150" oninput="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status" />
+              <select id="wa-input-division" class="form-input" onchange="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status">
+                <option value="">— Pilih fungsi Anda —</option>
+                <option value="FM (Field Manager)">FM (Field Manager)</option>
+                <option value="HC">HC</option>
+                <option value="Plan Eval">Plan Eval</option>
+                <option value="PE">PE</option>
+                <option value="WO/WS">WO/WS</option>
+                <option value="Finance">Finance</option>
+                <option value="RAM">RAM</option>
+                <option value="Legal &amp; Relation">Legal &amp; Relation</option>
+                <option value="PO (Production Operation)">PO (Production Operation)</option>
+                <option value="SCM">SCM</option>
+                <option value="HSSE">HSSE</option>
+                <option value="IT">IT</option>
+                <option value="Security">Security</option>
+                <option value="Transport">Transport</option>
+                <option value="Fire">Fire</option>
+                <option value="Bengkel / Mekanik">Bengkel / Mekanik</option>
+                <option value="Kontraktor / Vendor">Kontraktor / Vendor</option>
+              </select>
             </div>
           </div>
 
           <div class="wa-form-grid">
             <div class="form-group">
               <label for="wa-input-location">Lokasi temuan <span class="field-required">*</span></label>
-              <input type="text" id="wa-input-location" class="form-input" placeholder="Contoh: Workshop Welding" minlength="3" maxlength="250" oninput="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status" />
+              <select id="wa-input-location" class="form-input" onchange="updateLiveWhatsAppMessage()" required aria-describedby="wa-form-status">
+                <option value="">— Pilih lokasi Anda —</option>
+                <optgroup label="Buatan">
+                  <option value="Kantor Besar Buatan">Kantor Besar Buatan</option>
+                  <option value="Operator Buatan">Operator Buatan</option>
+                </optgroup>
+                <optgroup label="Ukui">
+                  <option value="Pumper UKUI">Pumper UKUI</option>
+                  <option value="P3 Operator UKUI">P3 Operator UKUI</option>
+                  <option value="SP 5, 6, 7 UKUI">SP 5, 6, 7 UKUI</option>
+                  <option value="Klinik UKUI">Klinik UKUI</option>
+                </optgroup>
+                <optgroup label="Lirik">
+                  <option value="HSSE Demo Room Lirik">HSSE Demo Room Lirik</option>
+                  <option value="Produksi Lirik">Produksi Lirik</option>
+                  <option value="WS Lirik">WS Lirik</option>
+                  <option value="PE Lirik">PE Lirik</option>
+                  <option value="Finance Lirik">Finance Lirik</option>
+                  <option value="HC Lirik">HC Lirik</option>
+                  <option value="RAM Lirik">RAM Lirik</option>
+                  <option value="PO Lirik">PO Lirik</option>
+                  <option value="LR Lirik">LR Lirik</option>
+                  <option value="FM Lirik">FM Lirik</option>
+                  <option value="IT Lirik">IT Lirik</option>
+                  <option value="Fire Lirik">Fire Lirik</option>
+                  <option value="Transport Lirik">Transport Lirik</option>
+                  <option value="SCM Lirik">SCM Lirik</option>
+                  <option value="Bengkel TOPSIP Lirik">Bengkel TOPSIP Lirik</option>
+                  <option value="Bengkel Mekanik Lirik">Bengkel Mekanik Lirik</option>
+                  <option value="Bengkel Instrumen Umum dan Las Lirik">Bengkel Instrumen Umum dan Las Lirik</option>
+                  <option value="Bengkel Listrik Lirik">Bengkel Listrik Lirik</option>
+                  <option value="Security Kantor Besar Lirik">Security Kantor Besar Lirik</option>
+                  <option value="Pos Camp 1 Lirik">Pos Camp 1 Lirik</option>
+                  <option value="Security Industrial Lirik">Security Industrial Lirik</option>
+                  <option value="Security Japura Lirik">Security Japura Lirik</option>
+                  <option value="SP 2, 3, 4 Lirik">SP 2, 3, 4 Lirik</option>
+                  <option value="SP 1 Lirik">SP 1 Lirik</option>
+                  <option value="Klinik Lirik">Klinik Lirik</option>
+                  <option value="Mess Lirik">Mess Lirik</option>
+                </optgroup>
+              </select>
             </div>
 
             <div class="form-group">

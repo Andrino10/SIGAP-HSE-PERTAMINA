@@ -129,6 +129,11 @@ class LayananPencarian:
                 + (0.05 if active_match else 0.0)
             )
 
+            print(f"\n[AI TRACE] Sedang mengevaluasi artikel: '{entry.get('judul')}'")
+            print(f"  -> Semantic (FAISS) Score : {semantic_score:.4f}")
+            print(f"  -> Lexical Title Score    : {title_score:.4f}")
+            print(f"  -> Final Hybrid Score     : {hybrid_score:.4f}")
+
             # Jangan menjadikan kemiripan embedding yang lemah sebagai fakta.
             lexical_evidence = max(title_score, keyword_score)
             significant_query_tokens = self._token_signifikan(query_text)

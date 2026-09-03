@@ -193,8 +193,8 @@ let percobaanKesehatanBackend = 0;
 const KONFIGURASI_KOLOM_WHATSAPP = [
   { id: 'wa-tech-select', label: 'HSSE Officer tujuan', jenis: 'petugas' },
   { id: 'wa-input-name', label: 'Nama pelapor', min: 2, larangan: ['pelapor anonim', 'anonim'] },
-  { id: 'wa-input-division', label: 'Fungsi / Divisi', min: 2 },
-  { id: 'wa-input-location', label: 'Lokasi temuan', min: 3 },
+  { id: 'wa-input-division', label: 'Fungsi / Divisi', jenis: 'pilihan' },
+  { id: 'wa-input-location', label: 'Lokasi temuan', jenis: 'pilihan' },
   { id: 'wa-input-occurrence-date', label: 'Tanggal kejadian', jenis: 'tanggal' },
   { id: 'wa-input-category', label: 'Kategori utama' },
   { id: 'wa-input-urgency', label: 'Tingkat urgensi' },
@@ -1514,9 +1514,15 @@ async function kirimFormulirKonsultasi() {
     tombolKirim.setAttribute('aria-busy', 'true');
     tombolKirim.innerHTML = '<span class="button-spinner" aria-hidden="true"></span> Menyimpan laporan';
   }
+  // Ambil metadata sumber dari prefill chatbot (jika ada)
+  const sumberLaporan = muatanKonsultasiTertunda?._source || 'direct_form';
+  const chatSessionIdPrefill = muatanKonsultasiTertunda?._chatSessionId || null;
+
   muatanKonsultasiTertunda = {
-    session_id: idSesiSaatIni,
-    id_sesi: idSesiSaatIni,
+    session_id: chatSessionIdPrefill || idSesiSaatIni,
+    id_sesi: chatSessionIdPrefill || idSesiSaatIni,
+    source: sumberLaporan,
+    chat_session_id: chatSessionIdPrefill,
     reporter_name: namaPelapor,
     nama_pelapor: namaPelapor,
     division: document.getElementById('cons-division').value.trim(),
@@ -1536,6 +1542,7 @@ async function kirimFormulirKonsultasi() {
     urgensi: elemenUrgensi ? elemenUrgensi.value : 'Sedang'
   };
   pendingConsultationPayload = muatanKonsultasiTertunda;
+
 
   let berhasilTersimpan = false;
   try {
@@ -1977,6 +1984,8 @@ async function kirimPesanChat() {
 
   aturStatusPengirimanChat(true);
   sembunyikanBilahPenyelesaian();
+  // Sembunyikan prompt eskalasi sebelumnya jika ada
+  document.querySelectorAll('.escalation-prompt-block').forEach(el => el.remove());
   tambahkanGelembungChat('user', 'Pelapor', teksPesan);
   elemenInput.value = '';
   elemenInput.disabled = true;
@@ -2039,7 +2048,17 @@ async function kirimPesanChat() {
 
       tampilkanBilahPenyelesaian();
 
-      if (data.data.needs_escalation || data.data.perlu_eskalasi) {
+      // === PRD §5.1: Prompt Eskalasi Chatbot → Tiket ===
+      // Tampilkan CTA "Laporkan Kejadian Ini" jika chatbot menemukan solusi dari KB
+      if (data.data.show_escalation_prompt) {
+        tampilkanPromptEskalasi({
+          pesanPengguna: teksPesan,
+          kategori: kategoriRespons,
+          kelompokKategori: kelompokKategoriTerpilih,
+          tingkatRisiko: data.data.suggested_risk_level || 'Sedang',
+          sessionId: idSesiSaatIni
+        });
+      } else if (data.data.needs_escalation || data.data.perlu_eskalasi) {
         tambahkanPetunjukEskalasi(data.data.whatsapp_url);
       }
     } else {
@@ -2060,6 +2079,119 @@ async function kirimPesanChat() {
   }
 }
 function sendChatMessage() { kirimPesanChat(); }
+
+// === PRD §5.1: Fungsi Prompt Eskalasi Chatbot ===
+
+/**
+ * Menampilkan dua tombol CTA di bawah bubble chatbot:
+ *   "Laporkan Kejadian Ini" → buka form Modal 1 dengan data pre-filled dari chat
+ *   "Cukup, Terima Kasih"  → log sesi tanpa tiket, sembunyikan prompt
+ */
+function tampilkanPromptEskalasi(dataEskalasi) {
+  const aliran = document.getElementById('chat-messages');
+  if (!aliran) return;
+
+  // Hapus prompt eskalasi sebelumnya agar tidak duplikat
+  aliran.querySelectorAll('.escalation-prompt-block').forEach(el => el.remove());
+
+  const risikoLabel = {
+    'tinggi': '🔴 Risiko Tinggi',
+    'sedang': '🟡 Risiko Sedang',
+    'rendah': '🟢 Risiko Rendah'
+  }[(dataEskalasi.tingkatRisiko || '').toLowerCase()] || '⚠️ Perlu Ditindaklanjuti';
+
+  const blok = document.createElement('div');
+  blok.className = 'escalation-prompt-block';
+  blok.setAttribute('role', 'region');
+  blok.setAttribute('aria-label', 'Opsi tindak lanjut laporan');
+  blok.innerHTML = `
+    <div class="escalation-prompt-inner">
+      <div class="escalation-prompt-header">
+        <span class="escalation-prompt-badge">${risikoLabel}</span>
+        <p class="escalation-prompt-text">
+          Apakah Anda ingin menjadikan ini laporan resmi HSSE dengan nomor tiket?
+        </p>
+      </div>
+      <div class="escalation-prompt-actions">
+        <button
+          class="btn btn-primary escalation-btn-report"
+          id="btn-escalate-report"
+          type="button"
+          onclick="prefillFormDariChatbot(${JSON.stringify(dataEskalasi).replace(/"/g, '&quot;')})"
+          aria-label="Buat laporan resmi dari sesi chatbot ini">
+          📋 Laporkan Kejadian Ini
+        </button>
+        <button
+          class="btn btn-outline escalation-btn-dismiss"
+          id="btn-escalate-dismiss"
+          type="button"
+          onclick="dismissEscalationPrompt(this)"
+          aria-label="Selesaikan sesi tanpa laporan resmi">
+          ✅ Cukup, Terima Kasih
+        </button>
+      </div>
+    </div>
+  `;
+
+  aliran.appendChild(blok);
+  aliran.scrollTop = aliran.scrollHeight;
+}
+
+/**
+ * Prefill Modal 1 (Form Pelaporan) dari data sesi chatbot, lalu buka modal.
+ * Field yang diisi otomatis: deskripsi, kategori, tingkat urgensi.
+ */
+function prefillFormDariChatbot(dataEskalasi) {
+  // Hapus prompt agar tidak muncul lagi setelah modal dibuka
+  document.querySelectorAll('.escalation-prompt-block').forEach(el => el.remove());
+
+  // Simpan metadata sumber untuk dikirim bersama form submit
+  muatanKonsultasiTertunda = muatanKonsultasiTertunda || {};
+  muatanKonsultasiTertunda._source = 'chatbot_escalation';
+  muatanKonsultasiTertunda._chatSessionId = dataEskalasi.sessionId || idSesiSaatIni;
+
+  // Buka modal (ini juga memanggil siapkanInputTanggalKejadian)
+  bukaModalKonsultasi();
+
+  // Prefill field deskripsi
+  const elDesc = document.getElementById('cons-description');
+  if (elDesc && dataEskalasi.pesanPengguna && !elDesc.value) {
+    elDesc.value = dataEskalasi.pesanPengguna;
+  }
+
+  // Prefill kategori utama (dropdown)
+  const elCat = document.getElementById('cons-category');
+  if (elCat && dataEskalasi.kelompokKategori) {
+    elCat.value = dataEskalasi.kelompokKategori;
+  }
+
+  // Prefill tingkat urgensi berdasarkan suggested_risk_level dari chatbot
+  const elUrgensi = document.getElementById('cons-urgency');
+  if (elUrgensi && dataEskalasi.tingkatRisiko) {
+    const peta = { 'tinggi': 'Berat', 'sedang': 'Sedang', 'rendah': 'Ringan' };
+    const nilaiUrgensi = peta[(dataEskalasi.tingkatRisiko || '').toLowerCase()] || 'Sedang';
+    elUrgensi.value = nilaiUrgensi;
+  }
+}
+
+/**
+ * Pengguna memilih "Cukup, Terima Kasih" — sembunyikan prompt & beri konfirmasi.
+ */
+function dismissEscalationPrompt(tombol) {
+  const blok = tombol?.closest('.escalation-prompt-block');
+  if (blok) blok.remove();
+  // Tambahkan pesan ringkas sebagai konfirmasi sesi selesai
+  const aliran = document.getElementById('chat-messages');
+  if (aliran) {
+    const konfirmasi = document.createElement('div');
+    konfirmasi.className = 'chat-bubble system-bubble escalation-dismissed-note';
+    konfirmasi.innerHTML = '<p style="color: var(--success, #22c55e); font-size: 0.85rem; margin: 0;">✅ Sesi konsultasi dicatat. Tidak ada laporan resmi yang dibuat.</p>';
+    aliran.appendChild(konfirmasi);
+    aliran.scrollTop = aliran.scrollHeight;
+  }
+}
+function dismissChatbotEscalationPrompt(tombol) { dismissEscalationPrompt(tombol); }
+
 
 function tampilkanBilahPenyelesaian() {
   const bilah = document.getElementById('resolution-bar');
@@ -2496,6 +2628,13 @@ function inisialisasiValidasiWhatsApp() {
       elemen.dataset.waTouched = 'true';
       perbaruiPesanWhatsAppLangsung();
     });
+    // Select dropdowns fire 'change' not 'input', so also listen to change
+    if (elemen.tagName === 'SELECT') {
+      elemen.addEventListener('change', () => {
+        elemen.dataset.waTouched = 'true';
+        perbaruiPesanWhatsAppLangsung();
+      });
+    }
   });
   perbaruiPesanWhatsAppLangsung();
 }

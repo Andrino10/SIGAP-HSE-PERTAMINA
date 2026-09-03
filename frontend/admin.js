@@ -244,15 +244,17 @@ function getInitialViewFromPath() {
 // 3. Navigation & Views Management
 // ==========================================================================
 function showLoginView() {
-  document.getElementById('view-admin-login').style.display = 'flex';
-  document.getElementById('admin-app-container').style.display = 'none';
+  document.getElementById('view-admin-login').classList.remove('admin-hidden');
+  document.getElementById('admin-app-container').classList.add('admin-hidden');
   if (window.location.pathname !== '/admin/login' && window.location.pathname.startsWith('/admin')) {
     window.history.replaceState({}, '', '/admin/login');
   }
 }
 
 function showAppView(targetView = 'dashboard') {
-  document.getElementById('view-admin-login').style.display = 'none';
+  document.getElementById('view-admin-login').classList.add('admin-hidden');
+  document.getElementById('admin-app-container').classList.remove('admin-hidden');
+  // Ensure app container is flex (its default display)
   document.getElementById('admin-app-container').style.display = 'flex';
 
   // Update profile banner
@@ -408,6 +410,12 @@ function resetReportFilters() {
   document.getElementById('filter-status').value = 'Semua';
   document.getElementById('filter-category').value = 'Semua';
   document.getElementById('filter-urgency').value = 'Semua';
+  const loc = document.getElementById('filter-location');
+  const asgn = document.getElementById('filter-assigned-to');
+  const src = document.getElementById('filter-source');
+  if (loc) loc.value = 'Semua';
+  if (asgn) asgn.value = 'Semua';
+  if (src) src.value = 'Semua';
   loadAdminReports(1);
 }
 
@@ -417,6 +425,9 @@ async function loadAdminReports(page = 1) {
   const status = document.getElementById('filter-status')?.value || 'Semua';
   const category = document.getElementById('filter-category')?.value || 'Semua';
   const urgency = document.getElementById('filter-urgency')?.value || 'Semua';
+  const location = document.getElementById('filter-location')?.value || 'Semua';
+  const assigned_to = document.getElementById('filter-assigned-to')?.value || 'Semua';
+  const source = document.getElementById('filter-source')?.value || 'Semua';
 
   const params = new URLSearchParams({
     page: currentReportsPage,
@@ -424,7 +435,10 @@ async function loadAdminReports(page = 1) {
     search: search.trim(),
     status,
     category,
-    urgency
+    urgency,
+    location,
+    assigned_to,
+    source
   });
 
   try {
@@ -464,12 +478,16 @@ function renderReportsTable(data) {
   if (!tbody) return;
 
   if (reports.length === 0) {
-    tbody.innerHTML = `<tr><td colspan="10" class="text-center py-4">Tidak ada laporan yang sesuai dengan filter.</td></tr>`;
+    tbody.innerHTML = `<tr><td colspan="11" class="text-center py-4">Tidak ada laporan yang sesuai dengan filter.</td></tr>`;
     return;
   }
 
   const startIdx = (page - 1) * currentReportsLimit;
-  tbody.innerHTML = reports.map((r, i) => `
+  tbody.innerHTML = reports.map((r, i) => {
+    const sourceBadge = r.source === 'chatbot_escalation'
+      ? '<span class="source-badge source-chatbot">🤖 Chatbot AI</span>'
+      : '<span class="source-badge source-form">📋 Form</span>';
+    return `
     <tr>
       <td>${startIdx + i + 1}</td>
       <td><strong>${escapeHtml(r.ticket_number || r.complaint_id)}</strong></td>
@@ -479,6 +497,7 @@ function renderReportsTable(data) {
       <td>${escapeHtml(r.location)}</td>
       <td>${escapeHtml(r.reporter_name || (r.reporter || {}).name || '-')}</td>
       <td>${getUrgencyBadgeHtml(r.urgency, r.risk_level)}</td>
+      <td>${sourceBadge}</td>
       <td>${getStatusBadgeHtml(r.status)}</td>
       <td style="text-align: center;">
         <button class="btn btn-xs btn-primary" onclick="openReportDetailModal('${escapeHtml(r.ticket_number || r.complaint_id)}')">
@@ -486,7 +505,8 @@ function renderReportsTable(data) {
         </button>
       </td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function changeReportsPage(delta) {
@@ -517,15 +537,38 @@ function renderReportDetail(report) {
   document.getElementById('modal-ticket-no').textContent = report.ticket_number || report.complaint_id;
   document.getElementById('modal-occurrence-date').textContent = formatIndonesianDate(report.occurrence_date || report.created_at);
   document.getElementById('modal-location').textContent = report.location || '-';
-  
+
   const reporterName = report.reporter_name || (report.reporter || {}).name || 'Pekerja Lapangan';
   const division = report.division || (report.reporter || {}).department || 'Operasi';
   document.getElementById('modal-reporter').textContent = `${reporterName} (${division})`;
-  
+
   document.getElementById('modal-category').textContent = report.category || 'Umum';
   document.getElementById('modal-finding-type').textContent = report.finding_type || 'Unsafe Condition';
-  document.getElementById('modal-assigned-engineer').textContent = report.assigned_engineer || 'Tim HSSE Lapangan';
+  document.getElementById('modal-assigned-engineer').textContent =
+    report.assigned_to || report.assigned_engineer || 'Tim HSSE Lapangan';
   document.getElementById('modal-description').textContent = report.description || report.complaint_description || '-';
+
+  // PRD §6: Tampilkan sumber laporan & chat session ID
+  const sourceBadgeEl = document.getElementById('modal-source-badge');
+  if (sourceBadgeEl) {
+    if (report.source === 'chatbot_escalation') {
+      sourceBadgeEl.innerHTML = '<span class="source-badge source-chatbot">🤖 Dari Chatbot AI</span>';
+    } else if (report.source === 'direct_form') {
+      sourceBadgeEl.innerHTML = '<span class="source-badge source-form">📋 Form Langsung</span>';
+    } else {
+      sourceBadgeEl.textContent = '—';
+    }
+  }
+  const chatSessionRow = document.getElementById('modal-chat-session-row');
+  const chatSessionId = document.getElementById('modal-chat-session-id');
+  if (chatSessionRow && chatSessionId) {
+    if (report.chat_session_id) {
+      chatSessionRow.style.display = '';
+      chatSessionId.textContent = report.chat_session_id;
+    } else {
+      chatSessionRow.style.display = 'none';
+    }
+  }
 
   // Badges
   const statusBadge = document.getElementById('modal-status-badge');
@@ -543,9 +586,11 @@ function renderReportDetail(report) {
     const curStatus = report.status || 'Open';
     statusSelect.value = curStatus;
   }
-  const officerInput = document.getElementById('update-assigned-officer');
-  if (officerInput) {
-    officerInput.value = report.assigned_engineer || '';
+  const officerSelect = document.getElementById('update-assigned-officer');
+  if (officerSelect) {
+    // Gunakan assigned_to (PRD) jika ada, fallback ke assigned_engineer (legacy)
+    const currentOfficer = report.assigned_to || report.assigned_engineer || '';
+    officerSelect.value = currentOfficer;
   }
   const notesInput = document.getElementById('update-follow-up-notes');
   if (notesInput) {
@@ -601,7 +646,8 @@ async function submitReportUpdate() {
       method: 'PATCH',
       body: JSON.stringify({
         status,
-        assigned_engineer,
+        assigned_to: document.getElementById('update-assigned-officer')?.value?.trim() || '',
+        assigned_engineer: document.getElementById('update-assigned-officer')?.value?.trim() || '',
         follow_up_notes
       })
     });

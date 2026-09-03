@@ -98,12 +98,16 @@ class AdminController:
             "category": category,
             "urgency": urgency,
             "finding_type": finding_type,
+            "location": request.args.get("location"),
+            "assigned_to": request.args.get("assigned_to"),
+            "source": request.args.get("source"),
             "start_date": start_date,
             "end_date": end_date
         }
 
         result = admin_service.get_reports(filters=filters, page=page, limit=limit)
         return success_response(data=result, message="Daftar laporan berhasil diambil.")
+
 
     def get_report_detail(self, ticket_no):
         token = get_auth_token_from_request()
@@ -145,5 +149,12 @@ class AdminController:
 
         recap_data = admin_service.get_recap(filters=filters)
         return success_response(data=recap_data, message="Data rekapitulasi laporan berhasil dibuat.")
+
+    def get_officers(self):
+        """Kembalikan daftar HSSE Officer untuk dropdown disposisi (PRD §4.1).
+        Endpoint ini tidak memerlukan autentikasi agar frontend publik (Modal WA)
+        dapat memuat daftar yang sama dengan Portal Admin."""
+        officers = admin_service.get_officers()
+        return success_response(data={"officers": officers}, message="Daftar HSSE Officer berhasil dimuat.")
 
 admin_controller = AdminController()

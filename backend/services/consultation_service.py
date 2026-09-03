@@ -14,7 +14,7 @@ class ConsultationService:
             categories = [clean_data.get("category") or "Umum"]
         categories = [item.strip() for item in categories if isinstance(item, str) and item.strip()]
         session_id = clean_data.get("session_id") or f"SESSION-{datetime.datetime.now().strftime('%Y%m%d')}-{uuid.uuid4().hex[:5].upper()}"
-        
+
         consultation_record = {
             "session_id": session_id,
             "asset": "Area Kerja",
@@ -26,15 +26,20 @@ class ConsultationService:
             "categories": categories,
             "description": clean_data.get("description", ""),
             "urgency": clean_data.get("urgency") or "Sedang",
+            # PRD §6: Field source & chat_session_id
+            "source": clean_data.get("source"),           # akan diteruskan ke complaint_repo
+            "risk_level": clean_data.get("risk_level"),   # dari suggested_risk_level chatbot
             "created_at": datetime.datetime.now().isoformat(),
             "status": "active"
         }
-        
+
         # Save ticket reference if description is long enough
         if len(clean_data.get("description", "")) >= 10:
             ticket = complaint_repo.create(consultation_record)
             consultation_record["ticket_number"] = ticket.get("ticket_number")
+            consultation_record["source"] = ticket.get("source")
 
         return consultation_record
 
 consultation_service = ConsultationService()
+

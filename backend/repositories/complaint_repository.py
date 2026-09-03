@@ -99,6 +99,11 @@ class ComplaintRepository:
             finding_type = complaint_data.get("finding_type") or infer_finding_type(category_primary, description)
             risk_level = complaint_data.get("risk_level") or infer_risk_level(urgency, description)
 
+            # Tentukan sumber laporan: dari eskalasi chatbot atau form langsung
+            raw_session_id = complaint_data.get("session_id") or complaint_data.get("id_sesi") or ""
+            is_chatbot_source = bool(raw_session_id and str(raw_session_id).upper().startswith("SESS-"))
+            source = complaint_data.get("source") or ("chatbot_escalation" if is_chatbot_source else "direct_form")
+
             initial_history = [{
                 "timestamp": now_iso,
                 "action": "Laporan Dibuat",
@@ -110,6 +115,8 @@ class ComplaintRepository:
             record = {
                 "id": ticket_no,
                 "ticket_number": ticket_no,
+                "source": source,
+                "chat_session_id": raw_session_id if is_chatbot_source else None,
                 "reporter_name": reporter_name,
                 "division": complaint_data.get("division", "Operasi Lapangan"),
                 "location": complaint_data.get("location", "Area Kerja Konstruksi"),
@@ -121,6 +128,7 @@ class ComplaintRepository:
                 "urgency": urgency,
                 "risk_level": risk_level,
                 "status": "Open",
+                "assigned_to": complaint_data.get("assigned_to", None),
                 "assigned_engineer": complaint_data.get("assigned_engineer", "Tim HSSE / Safety Officer"),
                 "follow_up_notes": "",
                 "history": initial_history,
@@ -136,6 +144,7 @@ class ComplaintRepository:
                 self.complaints.pop(0)
                 raise
             return dict(record)
+
 
     def get_all(self):
         with self._lock:
@@ -193,8 +202,29 @@ class ComplaintRepository:
             target["status"] = new_status
             if notes:
                 target["follow_up_notes"] = notes
-            if update_data.get("assigned_engineer"):
+
+            # PRD §6: assigned_to (structured 6-officer field)
+            new_assigned_to = update_data.get("assigned_to")
+            if new_assigned_to is not None:
+                prev_assigned = target.get("assigned_to") or target.get("assigned_engineer", "")
+                if new_assigned_to and new_assigned_to != prev_assigned:
+                    if "history" not in target or not isinstance(target["history"], list):
+                        target["history"] = []
+                    target["history"].append({
+                        "timestamp": now_iso,
+                        "action": f"Tiket didisposisikan ke: {new_assigned_to}",
+                        "previous_status": target.get("status", "Open"),
+                        "status": target.get("status", "Open"),
+                        "actor": updated_by,
+                        "notes": f"Tanggung jawab tiket dialihkan ke {new_assigned_to}."
+                    })
+                target["assigned_to"] = new_assigned_to
+                target["assigned_engineer"] = new_assigned_to  # jaga kompatibilitas legacy
+
+            # Legacy field (jika hanya assigned_engineer yang dikirim tanpa assigned_to)
+            elif update_data.get("assigned_engineer"):
                 target["assigned_engineer"] = update_data["assigned_engineer"]
+
             if update_data.get("finding_type"):
                 target["finding_type"] = update_data["finding_type"]
             if update_data.get("risk_level"):
