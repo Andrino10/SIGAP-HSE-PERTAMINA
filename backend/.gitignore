@@ -1,0 +1,10 @@
+.pytest_cache/
+.vercel/
+**/__pycache__/
+**/*.py[cod]
+.env
+.env.*
+!.env.example
+backend/data/storage/*.json
+
+.vercel

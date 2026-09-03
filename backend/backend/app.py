@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import sys
 import os
 from pathlib import Path
@@ -157,18 +156,3 @@ def server_error_handler(e):
 if __name__ == "__main__":
     logger.info(f"Starting {SYSTEM_NAME} Backend Service on port 5000...")
     app.run(host="0.0.0.0", port=5000, debug=True)
-=======
-"""Entrypoint Flask untuk platform hosting dari root repository."""
-
-import sys
-from pathlib import Path
-
-
-BACKEND_DIR = Path(__file__).resolve().parent / "backend"
-backend_path = str(BACKEND_DIR)
-if backend_path not in sys.path:
-    sys.path.insert(0, backend_path)
-
-from backend.app import app  # noqa: E402,F401
-
->>>>>>> 92dd06f336fd1f2256ff25486d0c0158f513b526

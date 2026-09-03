@@ -42,8 +42,8 @@
         <button class="nav-link active" data-view="home" onclick="switchView('home')">
           <span class="nav-icon" aria-hidden="true"></span> Beranda
         </button>
-        <button class="nav-link" data-view="ticket" onclick="switchView('ticket')">
-          <span class="nav-icon" aria-hidden="true"></span> Cek Tiket
+        <button class="nav-link" data-view="services" onclick="switchView('services')">
+          <span class="nav-icon" aria-hidden="true"></span> Knowledge Base
         </button>
         <button class="nav-link" data-view="chatbot" onclick="switchView('chatbot')">
           <span class="nav-icon" aria-hidden="true"></span> Asisten HSSE
@@ -90,7 +90,9 @@
             </button>
           </div>
           <div class="hero-quick-links" aria-label="Akses cepat">
-            <button type="button" onclick="switchView('ticket')" style="color: #0284c7; font-weight: 600;">🔍 Cek Status Tiket</button>
+            <button type="button" onclick="openTicketCheckModal()" style="color: #0284c7; font-weight: 600;">🔍 Cek Status Tiket</button>
+            <span aria-hidden="true"></span>
+            <button type="button" onclick="switchView('services')">Buka Knowledge Base</button>
             <span aria-hidden="true"></span>
             <button type="button" onclick="openDirectWhatsApp()">Hubungi Tim HSSE</button>
             <span aria-hidden="true"></span>
@@ -656,119 +658,7 @@
     </main>
 
     <!-- ==========================================
-         VIEW 3: CEK STATUS TIKET (HALAMAN PENUH)
-    ========================================== -->
-    <main class="view-panel" id="view-ticket">
-      <div class="panel-header">
-        <span class="section-kicker">TRACKING LAPORAN</span>
-        <h2>Cek Perkembangan Tiket</h2>
-        <p>Masukkan Nomor Tiket untuk melacak status dan riwayat penanganan laporan bahaya Anda secara <em>real-time</em>.</p>
-      </div>
-
-      <!-- SEARCH BOX -->
-      <div class="ticket-page-search-wrap">
-        <div class="ticket-page-search-card">
-          <div class="ticket-page-search-label">🔍 Nomor Tiket</div>
-          <div class="ticket-page-search-row">
-            <input
-              type="text"
-              id="ticket-page-input"
-              class="form-input ticket-page-input"
-              placeholder="Contoh: HSE-20260903-0001"
-              onkeydown="if(event.key==='Enter') cekTiketHalaman()"
-            />
-            <button class="btn btn-primary" id="btn-ticket-page-search" onclick="cekTiketHalaman()">
-              Cari Tiket
-            </button>
-          </div>
-          <div class="ticket-page-hint">
-            💡 Nomor tiket terdapat pada konfirmasi saat laporan dikirimkan. Contoh data: <button type="button" class="ticket-sample-btn" onclick="document.getElementById('ticket-page-input').value='HSE-20260903-DEMO2'; cekTiketHalaman()">HSE-20260903-DEMO2</button> · <button type="button" class="ticket-sample-btn" onclick="document.getElementById('ticket-page-input').value='HSE-20260903-DEMO3'; cekTiketHalaman()">HSE-20260903-DEMO3</button>
-          </div>
-        </div>
-
-        <!-- Status Legend -->
-        <div class="ticket-page-legend">
-          <span class="legend-item"><span class="legend-dot" style="background:#f59e0b;"></span> Open</span>
-          <span class="legend-sep">·</span>
-          <span class="legend-item"><span class="legend-dot" style="background:#3b82f6;"></span> In Progress</span>
-          <span class="legend-sep">·</span>
-          <span class="legend-item"><span class="legend-dot" style="background:#10b981;"></span> Closed / Resolved</span>
-        </div>
-      </div>
-
-      <!-- ERROR BOX -->
-      <div id="ticket-page-error" class="ticket-page-error" style="display:none;"></div>
-
-      <!-- RESULT CONTAINER -->
-      <div id="ticket-page-result" class="ticket-page-result" style="display:none;">
-
-        <!-- SECTION 1: DASHBOARD -->
-        <div class="ticket-page-section">
-          <div id="tp-section-dashboard">
-            <!-- Injected by JS -->
-          </div>
-        </div>
-
-        <!-- SECTION 2: DAFTAR RIWAYAT LAPORAN -->
-        <div class="ticket-page-section">
-          <div class="ticket-page-section-header">
-            <span class="ticket-page-section-icon">📋</span>
-            <div>
-              <div class="ticket-page-section-title">Daftar Riwayat Laporan</div>
-              <div class="ticket-page-section-sub">Kronologis setiap pembaruan status yang dilakukan oleh Tim HSSE.</div>
-            </div>
-          </div>
-          <div id="tp-ticket-timeline" class="tp-timeline-wrap">
-            <!-- Injected by JS -->
-          </div>
-        </div>
-
-        <!-- SECTION 3: REKAPITULASI -->
-        <div class="ticket-page-section" id="tp-section-rekap">
-          <!-- Injected by JS -->
-        </div>
-
-        <!-- CTA FOOTER -->
-        <div class="ticket-page-cta">
-          <p>Ada kondisi bahaya lain yang perlu dilaporkan?</p>
-          <button class="btn btn-primary" onclick="switchView('home'); setTimeout(openConsultationModal, 300)">
-            + Buat Laporan Baru
-          </button>
-          <button class="btn btn-secondary" onclick="switchView('chatbot')">
-            Konsultasi Asisten HSSE
-          </button>
-        </div>
-
-      </div>
-
-      <!-- EMPTY STATE (sebelum pencarian) -->
-      <div id="ticket-page-empty" class="ticket-page-empty-state">
-        <div class="ticket-empty-icon">🎫</div>
-        <h3>Lacak Laporan Anda</h3>
-        <p>Setelah Anda mengirimkan laporan bahaya, sistem akan menerbitkan <strong>Nomor Tiket</strong> unik. Masukkan nomor tersebut di atas untuk melihat status penanganan secara transparan.</p>
-        <div class="ticket-empty-steps">
-          <div class="ticket-step">
-            <div class="ticket-step-num">1</div>
-            <div class="ticket-step-text">Pelapor mengisi form laporan atau konsultasi via chatbot</div>
-          </div>
-          <div class="ticket-step">
-            <div class="ticket-step-num">2</div>
-            <div class="ticket-step-text">Sistem menerbitkan Nomor Tiket unik secara otomatis</div>
-          </div>
-          <div class="ticket-step">
-            <div class="ticket-step-num">3</div>
-            <div class="ticket-step-text">Admin HSSE memproses dan mengupdate status tiket</div>
-          </div>
-          <div class="ticket-step">
-            <div class="ticket-step-num">4</div>
-            <div class="ticket-step-text">Pelapor cek perkembangan tiket kapan saja di halaman ini</div>
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <!-- ==========================================
-         VIEW 4: DIREKTORI KNOWLEDGE BASE HSSE
+         VIEW 3: DIREKTORI KNOWLEDGE BASE HSSE
     ========================================== -->
     <main class="view-panel" id="view-services-panel">
       <div class="panel-header">
