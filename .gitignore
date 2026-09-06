@@ -10,5 +10,6 @@ backend/data/storage/*.json
 .vercel
 
 node_modules/
-dist/
 *.local
+!frontend/dist/
+!frontend/dist/**

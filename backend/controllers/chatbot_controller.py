@@ -370,7 +370,7 @@ class PengontrolChatbot:
         for entry in knowledge_repo.get_all():
             kategori = entry["kategori"]
             per_kategori.setdefault(kategori, [])
-            if len(per_kategori[kategori]) < 4:
+            if len(per_kategori[kategori]) < 3:
                 per_kategori[kategori].append(
                     {
                         "kategori": kategori,

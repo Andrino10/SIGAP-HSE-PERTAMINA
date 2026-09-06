@@ -42,6 +42,8 @@ class TestSIGAPKnowledgeBackend(unittest.TestCase):
         self.assertIn("text/css", stylesheet.content_type)
         self.assertEqual(script.status_code, 200)
         self.assertIn("javascript", script.content_type)
+        chatbot_page = self.client.get("/chatbot")
+        self.assertEqual(chatbot_page.status_code, 200)
         self.assertEqual(health.status_code, 200)
         self.assertEqual(health.get_json()["data"]["status"], "ready")
 

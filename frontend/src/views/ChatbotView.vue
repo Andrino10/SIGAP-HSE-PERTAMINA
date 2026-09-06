@@ -156,7 +156,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, nextTick } from 'vue';
+import { ref, computed, onMounted, nextTick, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { useModal } from '../composables/useModal';
 import { useToast } from '../composables/useToast';
@@ -169,13 +169,32 @@ const route = useRoute();
 const { openConsultationModal, openWhatsAppModal } = useModal();
 const { showToast } = useToast();
 
-const sessionId = ref(getOrCreateSessionId());
-const messages = ref([
-  {
-    sender: 'system',
-    text: 'Selamat datang di Sistem Pendamping Keselamatan Kerja! Langsung tuliskan kondisi bahaya yang Anda temui di area kerja. Sistem akan menganalisis risiko dan merekomendasikan solusi K3 secara otomatis.'
+const STORAGE_KEY_MESSAGES = 'sigap_chat_messages_v1';
+const STORAGE_KEY_GROUP = 'sigap_chat_selected_group_v1';
+const STORAGE_KEY_RESOLUTION = 'sigap_chat_show_resolution_v1';
+
+const DEFAULT_WELCOME = {
+  sender: 'system',
+  text: 'Selamat datang di Sistem Pendamping Keselamatan Kerja! Langsung tuliskan kondisi bahaya yang Anda temui di area kerja. Sistem akan menganalisis risiko dan merekomendasikan solusi K3 secara otomatis.'
+};
+
+function loadStoredMessages() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY_MESSAGES);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch (e) {
+    console.warn('Gagal memuat pesan dari storage:', e);
   }
-]);
+  return [DEFAULT_WELCOME];
+}
+
+const sessionId = ref(getOrCreateSessionId());
+const messages = ref(loadStoredMessages());
 
 const inputText = ref('');
 const isTyping = ref(false);
@@ -183,6 +202,37 @@ const showResolutionBar = ref(false);
 const selectedGroup = ref(null);
 const chatStreamRef = ref(null);
 const serverByGroup = ref({});
+
+// Simpan setiap pesan baru ke localStorage secara otomatis
+watch(
+  messages,
+  (newVal) => {
+    try {
+      localStorage.setItem(STORAGE_KEY_MESSAGES, JSON.stringify(newVal));
+    } catch (e) {
+      console.warn('Gagal menyimpan riwayat chat ke localStorage:', e);
+    }
+  },
+  { deep: true }
+);
+
+// Simpan kategori yang dipilih ke localStorage
+watch(selectedGroup, (newVal) => {
+  try {
+    if (newVal) {
+      localStorage.setItem(STORAGE_KEY_GROUP, newVal);
+    } else {
+      localStorage.removeItem(STORAGE_KEY_GROUP);
+    }
+  } catch (e) {}
+});
+
+// Simpan status bar konfirmasi resolusi
+watch(showResolutionBar, (newVal) => {
+  try {
+    localStorage.setItem(STORAGE_KEY_RESOLUTION, newVal ? '1' : '0');
+  } catch (e) {}
+});
 
 const groups = [
   { id: 'aktivitas-berisiko', nama: 'Pekerjaan Berisiko', deskripsi: 'Kegiatan kerja dengan bahaya tinggi' },
@@ -198,15 +248,12 @@ const selectedGroupName = computed(() => {
   return g ? g.nama : '';
 });
 
-// Pilihan Cepat Bahaya: Tepat 4 Opsi per Kategori Terpilih
+// Pilihan Cepat Bahaya: Selalu tepat 4 opsi kurasi terbaik per kategori terpilih
 const activeStarters = computed(() => {
-  if (selectedGroup.value) {
-    if (serverByGroup.value[selectedGroup.value] && serverByGroup.value[selectedGroup.value].length > 0) {
-      return serverByGroup.value[selectedGroup.value].slice(0, 4);
-    }
-    return (HSSE_QUICK_REPORTS[selectedGroup.value] || HSSE_QUICK_REPORTS['default']).slice(0, 4);
-  }
-  return HSSE_QUICK_REPORTS['default'].slice(0, 4);
+  const currentList = selectedGroup.value && HSSE_QUICK_REPORTS[selectedGroup.value]
+    ? HSSE_QUICK_REPORTS[selectedGroup.value]
+    : HSSE_QUICK_REPORTS['default'];
+  return (currentList || []).slice(0, 4);
 });
 
 function getOrCreateSessionId() {
@@ -386,6 +433,14 @@ async function resetConversation() {
     }
   ];
   showResolutionBar.value = false;
+  selectedGroup.value = null;
+
+  try {
+    localStorage.removeItem(STORAGE_KEY_MESSAGES);
+    localStorage.removeItem(STORAGE_KEY_GROUP);
+    localStorage.removeItem(STORAGE_KEY_RESOLUTION);
+  } catch (e) {}
+
   showToast('Sesi percakapan direset.', 'info');
   scrollToBottom();
 }
@@ -405,7 +460,23 @@ function formatMessage(raw, sender) {
 onMounted(async () => {
   if (route.query.category) {
     selectedGroup.value = route.query.category;
+  } else {
+    try {
+      const savedGroup = localStorage.getItem(STORAGE_KEY_GROUP);
+      if (savedGroup) {
+        selectedGroup.value = savedGroup;
+      }
+    } catch (e) {}
   }
+
+  try {
+    const savedRes = localStorage.getItem(STORAGE_KEY_RESOLUTION);
+    if (savedRes === '1' && messages.value.length > 1) {
+      showResolutionBar.value = true;
+    }
+  } catch (e) {}
+
+  scrollToBottom();
 
   try {
     const res = await getChatStarters();
