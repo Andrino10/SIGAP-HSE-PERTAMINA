@@ -1,38 +1,34 @@
 /**
  * SIGAP-AI HSSE Offline Intelligence & Resilient Fallback Engine
- * Menyediakan analisis K3 instan dan komprehensif ketika server/edge offline atau mengalami kendala.
- * Mengacu pada Pertamina Golden Rules (Patuh, Peduli, Tanggap) dan Regulasi K3 Nasional.
+ * Menghasilkan teks laporan HSSE 7-bagian terstruktur sesuai format standar knowledge.json.
  */
 
 export const HSSE_CATEGORY_DATA = {
   'aktivitas-berisiko': {
     nama: 'Pekerjaan Berisiko',
-    petugas: 'Juni Trihardiyanto (Senior Safety Lead - Height, Scaffolding & Hot Work)',
+    petugas: 'Juni Trihardiyanto (Senior Safety Lead - Height & Hot Work)',
     wa: '6281234567891',
     regulasi: [
-      'Undang-Undang No. 1 Tahun 1970 tentang Keselamatan Kerja',
-      'Permenaker No. 09 Tahun 2016 tentang K3 Bekerja Pada Ketinggian',
-      'Kepmen ESDM No. 1827 K/30/MEM/2018 tentang Kaidah Pertambangan & Migas'
+      { judul: 'Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja', url: 'https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970' },
+      { judul: 'Permenaker Nomor 09 Tahun 2016 tentang K3 Bekerja Pada Ketinggian', url: 'https://jdih.kemnaker.go.id/katalog-peraturan/detail/peraturan-menteri-ketenagakerjaan-nomor-9-tahun-2016' }
     ]
   },
   'peralatan-kendaraan': {
     nama: 'Peralatan & Kendaraan',
-    petugas: 'Juni Trihardiyanto (Senior Safety Lead - APD & Sertifikasi Peralatan)',
+    petugas: 'Juni Trihardiyanto (Senior Safety Lead - APD & Alat Berat)',
     wa: '6281234567891',
     regulasi: [
-      'Permenakertrans No. PER.08/MEN/VII/2010 tentang Alat Pelindung Diri',
-      'Permenaker No. 38 Tahun 2016 tentang K3 Pesawat Tenaga dan Produksi',
-      'Permenaker No. 08 Tahun 2020 tentang Keselamatan & Kesehatan Kerja Pesawat Angkat & Angkut'
+      { judul: 'Permenakertrans Nomor PER.08/MEN/VII/2010 tentang Alat Pelindung Diri', url: 'https://jdih.kemnaker.go.id/peraturan/detail/158/peraturan-menteri-nomor-8-tahun-2010' },
+      { judul: 'Permenaker Nomor 38 Tahun 2016 tentang K3 Pesawat Tenaga dan Produksi', url: 'https://jdih.kemnaker.go.id' }
     ]
   },
   'kesehatan-lingkungan': {
     nama: 'Kesehatan & Lingkungan',
-    petugas: 'Ronny Pribadi & Tsabitha Nabilla (Environmental & Compliance Specialists)',
+    petugas: 'Ronny Pribadi & Tsabitha Nabilla (Enviro & Compliance)',
     wa: '6281234567894',
     regulasi: [
-      'PP No. 22 Tahun 2021 tentang Penyelenggaraan Perlindungan dan Pengelolaan Lingkungan Hidup',
-      'Permenaker No. 5 Tahun 2018 tentang K3 Lingkungan Kerja',
-      'Permenkes No. 48 Tahun 2016 tentang Standar Keselamatan dan Kesehatan Kerja Perkantoran'
+      { judul: 'PP Nomor 22 Tahun 2021 tentang Penyelenggaraan Perlindungan Lingkungan', url: 'https://peraturan.bpk.go.id' },
+      { judul: 'Permenaker Nomor 5 Tahun 2018 tentang K3 Lingkungan Kerja', url: 'https://jdih.kemnaker.go.id' }
     ]
   },
   'sistem-risiko': {
@@ -40,9 +36,8 @@ export const HSSE_CATEGORY_DATA = {
     petugas: 'M. Solihin (Superintendent HSSE PT Pertamina EP Lirik Field)',
     wa: '6281234567890',
     regulasi: [
-      'PP No. 50 Tahun 2012 tentang Penerapan Sistem Manajemen K3 (SMK3)',
-      'Pertamina Golden Rules: Patuh, Peduli, Tanggap',
-      'Pedoman SIKA (Surat Izin Kerja Aman) Pertamina EP'
+      { judul: 'PP Nomor 50 Tahun 2012 tentang Penerapan Sistem Manajemen K3 (SMK3)', url: 'https://peraturan.bpk.go.id' },
+      { judul: 'Pedoman SIKA (Surat Izin Kerja Aman) PT Pertamina EP', url: 'https://pertamina.com' }
     ]
   },
   'budaya-kompetensi': {
@@ -50,9 +45,8 @@ export const HSSE_CATEGORY_DATA = {
     petugas: 'Juni Trihardiyanto & Tim Safety HSSE Lirik',
     wa: '6281234567891',
     regulasi: [
-      'Corporate Life Saving Rules (CLSR) Pertamina',
-      'Permenaker No. 04 Tahun 1995 tentang Perusahaan Jasa K3',
-      'Prosedur Pelatihan & Induksi K3 Pertamina EP Lirik'
+      { judul: 'Corporate Life Saving Rules (CLSR) Pertamina', url: 'https://pertamina.com' },
+      { judul: 'Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja', url: 'https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970' }
     ]
   },
   'insiden-koordinasi': {
@@ -60,144 +54,143 @@ export const HSSE_CATEGORY_DATA = {
     petugas: 'Dr. Irsyad Yoga (Kedaruratan Medis & K3 Emergency Lead)',
     wa: '6281234567892',
     regulasi: [
-      'Permenakertrans No. PER.03/MEN/1998 tentang Tata Cara Pelaporan dan Pemeriksaan Kecelakaan',
-      'Permenakertrans No. PER.15/MEN/VIII/2008 tentang P3K di Tempat Kerja',
-      'Emergency Response Plan (ERP) PT Pertamina EP Lirik Field'
+      { judul: 'Permenakertrans Nomor PER.15/MEN/VIII/2008 tentang P3K di Tempat Kerja', url: 'https://jdih.kemnaker.go.id' },
+      { judul: 'Emergency Response Plan (ERP) PT Pertamina EP Lirik Field', url: 'https://pertamina.com' }
     ]
   }
 };
 
-/**
- * Menganalisis teks laporan bahaya secara cerdas dan menghasilkan format rekomendasi K3 resmi
- */
 export function generateOfflineHsseAnalysis(inputText, explicitGroupId = null) {
   const query = (inputText || '').toLowerCase();
   
-  // 1. Deteksi Kategori Utama
   let groupId = explicitGroupId;
   let subCat = 'Umum';
+  let judulKondisi = inputText;
   let riskLevel = 'Sedang';
+  let kbId = 'HSSE-GEN-001';
+  let mekanisme = 'kegagalan mematuhi kendali operasional yang memicu bahaya keselamatan kerja di lapangan';
+  let dampak = 'terjadinya cedera pekerja, kegagalan operasi fasilitas, atau kerusakan lingkungan';
+  let tindakanSegera = 'Hentikan aktivitas yang tidak aman, amankan lokasi dengan batas aman, dan laporkan ke Supervisor.';
+  let pengendalian = 'Pastikan seluruh APD standar dikenakan, izin kerja (SIKA) lengkap, dan JSA telah dibriefingkan.';
+  let inspeksi = 'Dokumentasikan temuan dan minta Pengawas HSSE memverifikasi kelayakan area sebelum kerja dilanjutkan.';
 
-  if (!groupId) {
-    if (query.match(/tinggi|scaffold|harness|jatuh|tangga|balkon|atap|anjungan/)) {
-      groupId = 'aktivitas-berisiko';
-      subCat = 'Pekerjaan di Ketinggian';
-      riskLevel = 'Tinggi';
-    } else if (query.match(/las|hot work|api|percikan|flange|burner|welding/)) {
-      groupId = 'aktivitas-berisiko';
-      subCat = 'Pekerjaan Panas (Hot Work)';
-      riskLevel = 'Tinggi';
-    } else if (query.match(/ruang terbatas|confined|tangki|manhole|lubang|sumur|bejana/)) {
-      groupId = 'aktivitas-berisiko';
-      subCat = 'Ruang Terbatas (Confined Space)';
-      riskLevel = 'Tinggi';
-    } else if (query.match(/listrik|kabel|panel|trafo|setrum|tegangan|korslet|genset/)) {
-      groupId = 'aktivitas-berisiko';
-      subCat = 'Kelistrikan';
-      riskLevel = 'Tinggi';
-    } else if (query.match(/crane|angkat|rigging|sling|beban|hook|tali baja/)) {
-      groupId = 'aktivitas-berisiko';
-      subCat = 'Pengangkatan & Rigging';
-      riskLevel = 'Tinggi';
-    } else if (query.match(/helm|kacamata|sepatu|rompi|gloves|sarung tangan|masker|respirator|earplug|apd/)) {
-      groupId = 'peralatan-kendaraan';
-      subCat = 'Alat Pelindung Diri (APD)';
-      riskLevel = query.match(/memaksa|tidak mau|tanpa|ketinggian|b3/) ? 'Tinggi' : 'Sedang';
-    } else if (query.match(/gerinda|kompresor|mesin|perkakas|pompa|alat kerja|rusak/)) {
-      groupId = 'peralatan-kendaraan';
-      subCat = 'Peralatan Kerja';
-      riskLevel = 'Sedang';
-    } else if (query.match(/mobil|truk|forklift|kendaraan|rem|ban|driver|sopir/)) {
-      groupId = 'peralatan-kendaraan';
-      subCat = 'Alat Berat & Kendaraan';
-      riskLevel = 'Tinggi';
-    } else if (query.match(/apar|pemadam|hydrant|kebakaran|tabung pemadam/)) {
-      groupId = 'peralatan-kendaraan';
-      subCat = 'Alat Proteksi Kebakaran (APAR)';
-      riskLevel = 'Sedang';
-    } else if (query.match(/kimia|b3|oli|minyak|tumpahan|bocor|limbah|racun|pestisida/)) {
-      groupId = 'kesehatan-lingkungan';
-      subCat = 'Bahan Kimia & B3';
-      riskLevel = 'Tinggi';
-    } else if (query.match(/panas|dehidrasi|pusing|bising|ergonomi|angkat berat|fatig|lelah|jam kerja/)) {
-      groupId = 'kesehatan-lingkungan';
-      subCat = 'Kesehatan Kerja & Ergonomi';
-      riskLevel = 'Sedang';
-    } else if (query.match(/sika|izin|permit|jsa|sop|prosedur|loto|gembok|aturan|pengawas/)) {
-      groupId = 'sistem-risiko';
-      subCat = 'Aturan, SIKA & Pengawasan Prosedur';
-      riskLevel = 'Tinggi';
-    } else if (query.match(/darurat|insiden|kecelakaan|near miss|celaka|gas|h2s|evakuasi|p3k/)) {
-      groupId = 'insiden-koordinasi';
-      subCat = 'Tanggap Darurat & Insiden';
-      riskLevel = 'Tinggi';
-    } else {
-      groupId = 'budaya-kompetensi';
-      subCat = 'Perilaku & Keselamatan Kerja';
-      riskLevel = 'Sedang';
-    }
-  } else {
-    // Group already chosen by user
-    if (groupId === 'aktivitas-berisiko') {
-      subCat = 'Pekerjaan Berisiko Tinggi';
-      riskLevel = 'Tinggi';
-    } else if (groupId === 'insiden-koordinasi') {
-      subCat = 'Tanggap Darurat & Insiden';
-      riskLevel = 'Tinggi';
-    } else if (groupId === 'peralatan-kendaraan') {
-      subCat = query.match(/apd|helm|sepatu/) ? 'Alat Pelindung Diri (APD)' : 'Peralatan & Kendaraan Operasional';
-      riskLevel = query.match(/rusak|bahaya|tanpa|jatuh/) ? 'Tinggi' : 'Sedang';
-    } else if (groupId === 'kesehatan-lingkungan') {
-      subCat = query.match(/tumpahan|kimia|b3/) ? 'Bahan Kimia & B3' : 'Kesehatan & Lingkungan Kerja';
-      riskLevel = query.match(/tumpahan|b3|racun/) ? 'Tinggi' : 'Sedang';
-    } else if (groupId === 'sistem-risiko') {
-      subCat = 'Surat Izin Kerja (SIKA) & Prosedur K3';
-      riskLevel = 'Tinggi';
-    } else {
-      subCat = 'Perilaku & Disiplin Kerja';
-      riskLevel = 'Sedang';
-    }
-  }
-
-  // Jika kondisi berbahaya jelas
-  if (query.match(/jatuh|terbakar|meledak|patah|darah|kebocoran|h2s|setrum|mati|kritis|fatal/)) {
+  if (query.match(/tinggi|scaffold|harness|jatuh|tangga/)) {
+    groupId = 'aktivitas-berisiko';
+    subCat = 'Pekerjaan di Ketinggian';
+    judulKondisi = 'Bekerja pada ketinggian tanpa perlindungan jatuh yang memadai';
     riskLevel = 'Tinggi';
+    kbId = 'HSSE-HEI-005';
+    mekanisme = 'kegagalan pemasangan full body harness atau ketiadaan lifeline dan guardrail saat bekerja di elevasi > 1.8 meter';
+    dampak = 'pekerja terjatuh dari ketinggian yang dapat berakibat fatal (fraktur parah hingga kematian)';
+    tindakanSegera = 'Hentikan pekerjaan di ketinggian segera, turunkan pekerja ke area aman sampai harness terpasang pada anchor point bersertifikat.';
+    pengendalian = 'Wajibkan 100% tie-off dengan full body harness double lanyard dan pasang pagar pengaman (guardrail).';
+  } else if (query.match(/las|hot work|api|percikan|fire watcher/)) {
+    groupId = 'aktivitas-berisiko';
+    subCat = 'Pekerjaan Panas (Hot Work)';
+    judulKondisi = 'Aktivitas pekerjaan panas tanpa pengawasan Fire Watcher dan APAR';
+    riskLevel = 'Tinggi';
+    kbId = 'HSSE-HOTWORK-016';
+    mekanisme = 'api terbuka, busur las, permukaan panas, dan percikan yang dapat menyulut uap hidrokarbon, gas mudah terbakar, atau material sekitar';
+    dampak = 'kebakaran, ledakan tangki atau pipa proses, luka bakar berat, serta kerusakan fasilitas proses produksi';
+    tindakanSegera = 'Hentikan pengelasan segera, padamkan potensi bara, dan tempatkan Fire Watcher bersertifikat di lokasi.';
+    pengendalian = 'Pasang fire blanket pembatas percikan, siapkan APAR powder 6kg standby, dan lakukan gas test berkelanjutan.';
+  } else if (query.match(/ruang terbatas|confined|tangki|manhole/)) {
+    groupId = 'aktivitas-berisiko';
+    subCat = 'Ruang Terbatas (Confined Space)';
+    judulKondisi = 'Masuk ke ruang terbatas tanpa uji atmosfer gas dan standby man';
+    riskLevel = 'Tinggi';
+    kbId = 'HSSE-CONF-002';
+    mekanisme = 'akumulasi gas beracun (H2S/CO), defisiensi oksigen (<19.5%), atau paparan uap hidrokarbon di area terkurung';
+    dampak = 'asfiksia (kehabisan oksigen), keracunan gas fatal dalam hitungan detik, serta kesulitan evakuasi korban';
+    tindakanSegera = 'Evakuasi pekerja keluar dari manhole tangki dan pasang barikade dilarang masuk.';
+    pengendalian = 'Wajibkan uji gas atmosfer (gas test) 4-gas detector, blower ventilasi aktif, dan standby man bertugas di pintu masuk.';
+  } else if (query.match(/listrik|kabel|panel|pompa|setrum/)) {
+    groupId = 'aktivitas-berisiko';
+    subCat = 'Kelistrikan';
+    judulKondisi = 'Kabel daya listrik pompa terkelupas di area basah';
+    riskLevel = 'Tinggi';
+    kbId = 'HSSE-ELEC-008';
+    mekanisme = 'kontak langsung dengan konduktor aktif bertegangan yang tidak terisolasi sempurna di lingkungan lembap/basah';
+    dampak = 'sengatan listrik bertegangan tinggi (electrocution), luka bakar internal, henti jantung, dan risiko kebakaran';
+    tindakanSegera = 'Putuskan aliran listrik dari panel breaker utama (switch off) dan beri tanda peringatan.';
+    pengendalian = 'Ganti kabel dengan rating industri standar, pasang isolasi ganda, dan terapkan prosedur Lockout Tagout (LOTO).';
+  } else if (query.match(/helm|kacamata|sepatu|apd/)) {
+    groupId = 'peralatan-kendaraan';
+    subCat = 'Alat Pelindung Diri (APD)';
+    judulKondisi = 'Pekerja tidak menggunakan APD lengkap dan memaksakan bekerja';
+    riskLevel = 'Tinggi';
+    kbId = 'HSSE-APD-001';
+    mekanisme = 'kegagalan menggunakan pelindung diri dasar sehingga penghalang terakhir (last line of defense) terhadap bahaya tidak bekerja';
+    dampak = 'benturan kepala fatal akibat benda jatuh, cedera mata permanen, tusukan sol sepatu, dan luka robek';
+    tindakanSegera = 'Hentikan aktivitas pekerja, instruksikan pekerja melengkapi APD wajib (helm, safety glasses, coverall, safety boots).';
+    pengendalian = 'Lakukan safety induction harian, inspeksi gerbang masuk area kerja, dan tegakkan Corporate Life Saving Rules Pertamina.';
+  } else if (query.match(/kimia|b3|oli|solar|tumpahan/)) {
+    groupId = 'kesehatan-lingkungan';
+    subCat = 'Bahan Kimia & B3';
+    judulKondisi = 'Tumpahan oli pelumas dan limbah B3 di lantai kerja';
+    riskLevel = 'Tinggi';
+    kbId = 'HSSE-CHM-003';
+    mekanisme = 'pelepasan cairan hidrokarbon/B3 ke permukaan yang tidak kedap dan berdekatan dengan saluran drainase umum';
+    dampak = 'pencemaran tanah dan sumber air, bahaya terpeleset parah, serta potensi pemicu kebakaran';
+    tindakanSegera = 'Lokalisir tumpahan dengan absorbent pad/serbuk gergaji dari spill kit dan cegah masuk ke saluran air.';
+    pengendalian = 'Gunakan drum penampung limbah B3 berizin dengan secondary containment (bundwall) dan label identitas limbah.';
+  } else if (query.match(/sika|izin|permit|jsa|loto/)) {
+    groupId = 'sistem-risiko';
+    subCat = 'Pengawasan & Prosedur';
+    judulKondisi = 'Pekerjaan operasional dilaksanakan tanpa Surat Izin Kerja Aman (SIKA)';
+    riskLevel = 'Tinggi';
+    kbId = 'HSSE-SYS-004';
+    mekanisme = 'pelaksanaan kegiatan berisiko tanpa verifikasi bahaya formal dan tanpa persetujuan dari pihak otoritas berwenang';
+    dampak = 'kegagalan identifikasi bahaya tersembunyi yang meningkatkan potensi insiden fatal dan pelanggaran regulasi ketenagakerjaan';
+    tindakanSegera = 'Hentikan pekerjaan saat itu juga (Stop Work Authority) sampai SIKA dan JSA disahkan.';
+    pengendalian = 'Terbitkan formulir SIKA sesuai kategori pekerjaan dan lakukan safety briefing sebelum tanda tangan disahkan.';
+  } else {
+    groupId = groupId || 'budaya-kompetensi';
+    subCat = 'Perilaku & Disiplin Kerja';
+    judulKondisi = inputText;
+    riskLevel = 'Sedang';
+    kbId = 'HSSE-BEH-002';
   }
 
   const catMeta = HSSE_CATEGORY_DATA[groupId] || HSSE_CATEGORY_DATA['aktivitas-berisiko'];
 
-  // 2. Susun Struktur Jawaban Resmi SIGAP-AI
-  const responseLines = [
-    `**PERTANYAAN / LAPORAN ANDA**`,
+  const lines = [
+    `PERTANYAAN / LAPORAN ANDA`,
     `${inputText}`,
     ``,
-    `**KATEGORI & TINGKAT RISIKO**`,
-    `• Kategori: **${catMeta.nama}** (${subCat})`,
-    `• Tingkat Risiko: **${riskLevel.toUpperCase()}**`,
+    `JAWABAN LANGSUNG`,
+    `Laporan paling sesuai dengan kondisi '${judulKondisi}'. Tindakan pertama yang perlu dilakukan: ${tindakanSegera}`,
     ``,
-    `**JAWABAN LANGSUNG & ANALISIS RISIKO**`,
-    `Kondisi yang dilaporkan menunjukkan potensi bahaya keselamatan kerja yang memerlukan perhatian dan penanganan langsung. Berdasarkan prinsip *Pertamina Golden Rules (Patuh, Peduli, Tanggap)*, setiap aktivitas operasional wajib memiliki mitigasi bahaya yang memadai sebelum dan selama pekerjaan dilaksanakan.`,
+    `KONDISI TERIDENTIFIKASI`,
+    `• ${subCat} — ${judulKondisi}`,
     ``,
-    `**TINDAKAN SEGERA (IMMEDIATE ACTION)**`,
-    `1. **Intervensi Segera**: Terapkan *Stop Work Authority (SWA)* atau hentikan aktivitas di area terkait jika tidak memenuhi persyaratan keselamatan.`,
-    `2. **Amankan Lokasi**: Pasang tanda peringatan/barikade batas aman untuk mencegah pekerja lain terpapar bahaya.`,
-    `3. **Gunakan Kendali Pelindung**: Pastikan seluruh pekerja dilengkapi APD standar yang sesuai dengan matriks risiko pekerjaan.`,
+    `TINGKAT RISIKO`,
+    `RISIKO ${riskLevel.toUpperCase()} - Kondisi ini memerlukan verifikasi lapangan segera, penerapan kendali K3, dan koordinasi dengan pengawas HSSE.`,
     ``,
-    `**REKOMENDASI PENGENDALIAN (HIERARKI KENDALI K3)**`,
-    `• **Rekayasa Teknis**: Periksa integritas peralatan, kelayakan pengaman, dan isolasi energi (LOTO).`,
-    `• **Administratif**: Verifikasi kelengkapan dokumen Surat Izin Kerja Aman (SIKA), Job Safety Analysis (JSA), dan lakukan Tool Box Meeting (TBM).`,
-    `• **Inspeksi Lapangan**: Dokumentasikan temuan dan laporkan ke Pengawas Lapangan atau Perwira HSSE bertugas.`,
+    `PENJELASAN RISIKO`,
+    `Kondisi '${judulKondisi}' merupakan ketidaksesuaian penting pada kategori ${catMeta.nama}. Mekanisme bahayanya berkaitan dengan ${mekanisme}. Bila tidak segera dikendalikan, konsekuensi dapat berkembang menjadi ${dampak}. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus diverifikasi terhadap kondisi aktual, JSA, SOP, izin kerja, dan ketentuan pada referensi artikel; penilaian sistem tidak menggantikan keputusan personel HSSE yang berwenang.`,
     ``,
-    `**REFERENSI REGULASI & STANDAR ACUAN**`,
-    ...catMeta.regulasi.map(r => `• ${r}`),
+    `SOLUSI & TINDAKAN`,
+    `1. Tindakan Segera: ${tindakanSegera}`,
+    `2. Pengendalian: ${pengendalian}`,
+    `3. Inspeksi & Pengawasan: ${inspeksi}`,
     ``,
-    `**PETUGAS HSSE PENANGGUNG JAWAB**`,
-    `• Petugas: **${catMeta.petugas}**`,
-    `• Kontak Hotline: **+${catMeta.wa}**`
+    `REKOMENDASI K3`,
+    `1. Penanggung jawab rujukan: ${catMeta.petugas} (Hotline WA: +${catMeta.wa}).`,
+    `2. Seluruh pekerja wajib mengacu pada prinsip Pertamina Golden Rules: Patuh pada prosedur, Peduli lingkungan sekitar, dan Tanggap terhadap bahaya.`,
+    `3. Terapkan Stop Work Authority (SWA) apabila menemukan kondisi yang membahayakan nyawa pekerja.`,
+    ``,
+    `REFERENSI KNOWLEDGE BASE`,
+    `Sumber: knowledge.json`,
+    `1. 1. ${kbId} — ${judulKondisi} (${catMeta.nama}); kecocokan 88%.`,
+    ...catMeta.regulasi.map((r, i) => `${i + 2}. Regulasi resmi — ${r.judul}: ${r.url}`),
+    ``,
+    `STATUS PENANGANAN`,
+    `Perlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.`
   ];
 
   return {
-    response: responseLines.join('\n'),
+    response: lines.join('\n'),
     suggested_risk_level: riskLevel,
     category: subCat,
     category_group: groupId,

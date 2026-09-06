@@ -393,18 +393,14 @@ class PengontrolChatbot:
                             **item,
                             "group_id": group_id
                         })
-            by_group[group_id] = group_starters
+            by_group[group_id] = group_starters[:4]
 
-        # Starter kurasi populer untuk tampilan default
+        # Tepat 4 starter kurasi terbaik untuk tampilan default
         curated_defaults = [
             {"title": "Bekerja di Ketinggian", "text": "Pekerja di scaffolding tanpa safety harness dan guardrail belum terpasang", "kategori": "Pekerjaan di Ketinggian", "group_id": "aktivitas-berisiko", "tingkat_risiko": "tinggi"},
             {"title": "APD Tidak Digunakan", "text": "Pekerja tidak menggunakan APD lengkap dan tetap memaksa kerja", "kategori": "Alat Pelindung Diri (APD)", "group_id": "peralatan-kendaraan", "tingkat_risiko": "tinggi"},
-            {"title": "Tumpahan Kimia B3", "text": "Terdapat tumpahan solar dan bahan kimia B3 di area dekat tangki", "kategori": "Bahan Kimia & B3", "group_id": "kesehatan-lingkungan", "tingkat_risiko": "tinggi"},
             {"title": "Kabel Listrik Terkelupas", "text": "Kabel daya pada panel pompa terkelupas dan berada di area basah", "kategori": "Kelistrikan", "group_id": "aktivitas-berisiko", "tingkat_risiko": "tinggi"},
-            {"title": "APAR Tekanan Drop", "text": "Tabung APAR di pos security jarum tekanannya di zona merah", "kategori": "Peralatan Kerja", "group_id": "peralatan-kendaraan", "tingkat_risiko": "sedang"},
-            {"title": "Pekerjaan Tanpa SIKA", "text": "Aktivitas hot work pengelasan berjalan tanpa Surat Izin Kerja Aman (SIKA)", "kategori": "Pengawasan & Prosedur", "group_id": "sistem-risiko", "tingkat_risiko": "tinggi"},
-            {"title": "Jalur Evakuasi Terhalang", "text": "Pintu keluar darurat dan jalur evakuasi tertutup tumpukan palet barang", "kategori": "Tanggap Darurat", "group_id": "insiden-koordinasi", "tingkat_risiko": "tinggi"},
-            {"title": "Shortcut Melompati Pipa", "text": "Pekerja melompati instalasi pipa aktif sebagai jalan pintas", "kategori": "Perilaku & Disiplin Kerja", "group_id": "budaya-kompetensi", "tingkat_risiko": "sedang"}
+            {"title": "Tumpahan Kimia B3", "text": "Terdapat tumpahan solar dan bahan kimia B3 di area dekat tangki", "kategori": "Bahan Kimia & B3", "group_id": "kesehatan-lingkungan", "tingkat_risiko": "tinggi"}
         ]
 
         starters = [

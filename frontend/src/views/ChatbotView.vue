@@ -50,13 +50,13 @@
         </button>
       </div>
 
-      <!-- Starter Chips (Dynamic per Category) -->
+      <!-- Starter Chips (Dynamic per Category: Tepat 4 Pilihan) -->
       <div class="starter-chips-section" id="starter-bar" v-if="activeStarters.length > 0">
         <div class="starter-chips-header">
           <div class="starter-chips-label">
             <span>⚡ CONTOH LAPORAN BAHAYA CEPAT:</span>
             <span class="starter-chips-badge">
-              {{ selectedGroup ? selectedGroupName : 'Semua Kategori' }} ({{ activeStarters.length }} Pilihan)
+              {{ selectedGroup ? selectedGroupName : 'Semua Kategori' }} (4 Pilihan)
             </span>
           </div>
           <button
@@ -98,25 +98,12 @@
           :class="['chat-bubble', msg.sender === 'user' ? 'user-bubble' : 'system-bubble']"
         >
           <div class="bubble-sender">{{ msg.sender === 'user' ? 'Pelapor' : 'SIGAP-AI HSSE' }}</div>
-          <div class="bubble-text" style="white-space: pre-wrap;" v-html="formatMessage(msg.text)"></div>
+          <div
+            class="bubble-text"
+            :style="msg.sender === 'user' ? 'white-space: pre-wrap;' : ''"
+            v-html="formatMessage(msg.text, msg.sender)"
+          ></div>
 
-          <!-- Structured Escalation Card if available -->
-          <div v-if="msg.escalation" class="escalation-prompt-block" style="margin-top: 14px; background: rgba(2, 132, 199, 0.08); border: 1px solid rgba(2, 132, 199, 0.3); border-radius: 10px; padding: 14px;">
-            <div style="font-size: 11px; font-weight: 700; color: #0284c7; text-transform: uppercase; margin-bottom: 4px;">
-              ⚠️ Rekomendasi Tindak Lanjut Resmi
-            </div>
-            <div style="font-size: 13px; margin-bottom: 12px; color: #1e293b; font-weight: 500;">
-              Kondisi ini memerlukan verifikasi lapangan atau penerbitan izin kerja. Lanjutkan laporan sebagai tiket resmi atau kontak tim langsung:
-            </div>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-              <button class="btn btn-sm btn-primary" type="button" @click="handleCreateTicketFromChat(msg.escalation)">
-                🎫 Buat Tiket Laporan
-              </button>
-              <button class="btn btn-sm btn-success" type="button" @click="openWhatsAppModal({ description: msg.escalation.message })" style="background:#16a34a; border-color:#16a34a; color:white;">
-                💬 Hubungi via WhatsApp
-              </button>
-            </div>
-          </div>
         </div>
 
         <!-- Typing indicator -->
@@ -176,6 +163,7 @@ import { useToast } from '../composables/useToast';
 import { getChatStarters, sendChatMessage, resolveChatMessage, resetChatSession, createComplaint } from '../services/api';
 import { HSSE_QUICK_REPORTS } from '../data/hsseQuickReports';
 import { generateOfflineHsseAnalysis } from '../services/hsseOfflineEngine';
+import { formatHtmlResponsTerstruktur } from '../services/structuredResponseFormatter';
 
 const route = useRoute();
 const { openConsultationModal, openWhatsAppModal } = useModal();
@@ -210,17 +198,15 @@ const selectedGroupName = computed(() => {
   return g ? g.nama : '';
 });
 
-// Pilihan Cepat Bahaya yang secara dinamis mengikuti kategori terpilih
+// Pilihan Cepat Bahaya: Tepat 4 Opsi per Kategori Terpilih
 const activeStarters = computed(() => {
   if (selectedGroup.value) {
-    // Jika ada data dari server untuk group ini
     if (serverByGroup.value[selectedGroup.value] && serverByGroup.value[selectedGroup.value].length > 0) {
-      return serverByGroup.value[selectedGroup.value];
+      return serverByGroup.value[selectedGroup.value].slice(0, 4);
     }
-    // Jika tidak, gunakan dataset lokal yang sangat lengkap
-    return HSSE_QUICK_REPORTS[selectedGroup.value] || HSSE_QUICK_REPORTS['default'];
+    return (HSSE_QUICK_REPORTS[selectedGroup.value] || HSSE_QUICK_REPORTS['default']).slice(0, 4);
   }
-  return HSSE_QUICK_REPORTS['default'];
+  return HSSE_QUICK_REPORTS['default'].slice(0, 4);
 });
 
 function getOrCreateSessionId() {
@@ -256,7 +242,6 @@ function getIcon(id) {
 }
 
 function useStarter(chip) {
-  // Jika chip memiliki groupId spesifik dan belum ada group terpilih, auto-set
   if (chip.groupId && !selectedGroup.value) {
     selectedGroup.value = chip.groupId;
   }
@@ -278,10 +263,13 @@ async function scrollToBottom() {
   }
 }
 
+const lastReportText = ref('');
+
 async function sendMessage() {
   const text = inputText.value.trim();
   if (!text || isTyping.value) return;
 
+  lastReportText.value = text;
   messages.value.push({ sender: 'user', text });
   inputText.value = '';
   isTyping.value = true;
@@ -315,7 +303,7 @@ async function sendMessage() {
       throw new Error(res?.message || 'Gagal memproses analisis di backend.');
     }
   } catch (err) {
-    // Mode Cadangan HSSE yang Tangguh: Tidak pernah membiarkan user mandek atau melihat 404
+    // Mode Cadangan HSSE yang Tangguh: Selalu memberikan jawaban berformat kartu terstruktur rapi
     console.warn('Backend server tidak dapat dihubungi atau mengembalikan status offline, menjalankan HSSE Intelligence Fallback:', err);
     
     const fallbackResult = generateOfflineHsseAnalysis(text, selectedGroup.value);
@@ -350,7 +338,7 @@ async function handleResolution(isResolved) {
       text: '✅ Isu telah ditandai selesai. Terima kasih telah menerapkan prinsip K3 Pertamina Golden Rules (Patuh, Peduli, Tanggap)!'
     });
   } else {
-    openWhatsAppModal();
+    openWhatsAppModal({ description: lastReportText.value });
   }
   scrollToBottom();
 }
@@ -402,15 +390,16 @@ async function resetConversation() {
   scrollToBottom();
 }
 
-function formatMessage(raw) {
+function formatMessage(raw, sender) {
   if (!raw) return '';
-  return String(raw)
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/`(.*?)`/g, '<code style="background:rgba(2,132,199,0.08); color:#0284c7; padding:2px 5px; border-radius:4px; font-family:monospace;">$1</code>');
+  if (sender === 'user') {
+    return String(raw)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/\n/g, '<br>');
+  }
+  return formatHtmlResponsTerstruktur(raw);
 }
 
 onMounted(async () => {
@@ -543,5 +532,95 @@ onMounted(async () => {
 .starter-chip-risk-dot.rendah {
   background: #10B981;
   box-shadow: 0 0 4px rgba(16, 185, 129, 0.4);
+}
+
+/* Scoped Styling Kartu Respons Terstruktur agar Tampil Rapi Sesuai Standar Pertamina */
+:deep(.res-card-block) {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  width: 100%;
+}
+
+:deep(.res-analysis-summary) {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  gap: 0.75rem;
+  align-items: start;
+  padding: 0.85rem 1rem;
+  border: 1px solid #ead8b8;
+  border-radius: 10px;
+  background: rgba(255, 251, 240, 0.85);
+}
+
+:deep(.res-analysis-summary > span) {
+  width: 11px;
+  height: 11px;
+  margin-top: 0.35rem;
+  border-radius: 50%;
+  background: #d97706;
+  box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.15);
+}
+
+:deep(.res-analysis-summary p) {
+  margin: 0;
+  color: #334155;
+  font-size: 0.88rem;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+:deep(.res-analysis-points) {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.4rem;
+}
+
+@media (max-width: 640px) {
+  :deep(.res-analysis-points) {
+    grid-template-columns: 1fr;
+  }
+}
+
+:deep(.res-analysis-point) {
+  min-width: 0;
+  padding: 0.85rem 1rem;
+  border: 1px solid #eee1cb;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+:deep(.res-analysis-point > span) {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #92400e;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+:deep(.res-analysis-point p) {
+  margin: 0;
+  color: #334155;
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+
+:deep(.res-reference-block) {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 0.9rem 1.1rem;
+}
+
+:deep(.res-reference-block ol) {
+  margin: 0.4rem 0 0 0;
+  padding-left: 1.3rem;
+  font-size: 0.84rem;
+  line-height: 1.65;
+  color: #334155;
 }
 </style>
