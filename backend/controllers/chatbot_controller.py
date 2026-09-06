@@ -370,16 +370,42 @@ class PengontrolChatbot:
         for entry in knowledge_repo.get_all():
             kategori = entry["kategori"]
             per_kategori.setdefault(kategori, [])
-            if len(per_kategori[kategori]) < 3:
+            if len(per_kategori[kategori]) < 4:
                 per_kategori[kategori].append(
                     {
                         "kategori": kategori,
                         "pertanyaan": entry["judul"],
                         "judul": entry["judul"],
+                        "title": entry["judul"],
+                        "text": entry["judul"],
                         "kb_id": entry["id"],
                         "tingkat_risiko": entry["tingkat_risiko"],
                     }
                 )
+
+        by_group = {}
+        for group_id, group_cats in KELOMPOK_KATEGORI_CHAT.items():
+            group_starters = []
+            for cat in group_cats:
+                if cat in per_kategori:
+                    for item in per_kategori[cat][:2]:
+                        group_starters.append({
+                            **item,
+                            "group_id": group_id
+                        })
+            by_group[group_id] = group_starters
+
+        # Starter kurasi populer untuk tampilan default
+        curated_defaults = [
+            {"title": "Bekerja di Ketinggian", "text": "Pekerja di scaffolding tanpa safety harness dan guardrail belum terpasang", "kategori": "Pekerjaan di Ketinggian", "group_id": "aktivitas-berisiko", "tingkat_risiko": "tinggi"},
+            {"title": "APD Tidak Digunakan", "text": "Pekerja tidak menggunakan APD lengkap dan tetap memaksa kerja", "kategori": "Alat Pelindung Diri (APD)", "group_id": "peralatan-kendaraan", "tingkat_risiko": "tinggi"},
+            {"title": "Tumpahan Kimia B3", "text": "Terdapat tumpahan solar dan bahan kimia B3 di area dekat tangki", "kategori": "Bahan Kimia & B3", "group_id": "kesehatan-lingkungan", "tingkat_risiko": "tinggi"},
+            {"title": "Kabel Listrik Terkelupas", "text": "Kabel daya pada panel pompa terkelupas dan berada di area basah", "kategori": "Kelistrikan", "group_id": "aktivitas-berisiko", "tingkat_risiko": "tinggi"},
+            {"title": "APAR Tekanan Drop", "text": "Tabung APAR di pos security jarum tekanannya di zona merah", "kategori": "Peralatan Kerja", "group_id": "peralatan-kendaraan", "tingkat_risiko": "sedang"},
+            {"title": "Pekerjaan Tanpa SIKA", "text": "Aktivitas hot work pengelasan berjalan tanpa Surat Izin Kerja Aman (SIKA)", "kategori": "Pengawasan & Prosedur", "group_id": "sistem-risiko", "tingkat_risiko": "tinggi"},
+            {"title": "Jalur Evakuasi Terhalang", "text": "Pintu keluar darurat dan jalur evakuasi tertutup tumpukan palet barang", "kategori": "Tanggap Darurat", "group_id": "insiden-koordinasi", "tingkat_risiko": "tinggi"},
+            {"title": "Shortcut Melompati Pipa", "text": "Pekerja melompati instalasi pipa aktif sebagai jalan pintas", "kategori": "Perilaku & Disiplin Kerja", "group_id": "budaya-kompetensi", "tingkat_risiko": "sedang"}
+        ]
 
         starters = [
             starter
@@ -388,7 +414,9 @@ class PengontrolChatbot:
         ]
         return success_response(
             data={
-                "starters": starters,
+                "starters": curated_defaults,
+                "all_starters": starters,
+                "by_group": by_group,
                 "by_category": per_kategori,
                 "total_categories": len(per_kategori),
             },

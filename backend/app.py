@@ -9,6 +9,9 @@ if hasattr(sys.stdout, "reconfigure"):
     except (AttributeError, OSError):
         pass
 
+# Default to fast lexical mode unless explicitly disabled
+os.environ.setdefault("SIGAP_DISABLE_SEMANTIC_SEARCH", "1")
+
 from flask import Flask, abort, jsonify, request, send_from_directory
 from flask_cors import CORS
 

@@ -3399,5 +3399,97 @@
         }
       }
     ]
+  },
+  "TEST1": {
+    "session_id": "TEST1",
+    "created_at": "2026-09-06T12:20:04.533256",
+    "updated_at": "2026-09-06T12:20:04.715342",
+    "context": {
+      "category": "Alat Pelindung Diri (APD)",
+      "categories": [
+        "Alat Pelindung Diri (APD)"
+      ],
+      "kategori_list": [
+        "Alat Pelindung Diri (APD)"
+      ],
+      "category_source": "knowledge_match",
+      "assigned_category": "Alat Pelindung Diri (APD)",
+      "location": null,
+      "occurrence_date": null,
+      "initial_description": "pekerja tidak menggunakan APD lengkap dan tetap memaksa kerja",
+      "last_user_message": "pekerja tidak menggunakan APD lengkap dan tetap memaksa kerja",
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [
+        "pekerja tidak menggunakan APD lengkap dan tetap memaksa kerja"
+      ],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": "HSSE-APD-010",
+      "kategori": "Alat Pelindung Diri (APD)"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "pekerja tidak menggunakan APD lengkap dan tetap memaksa kerja",
+        "timestamp": "2026-09-06T12:20:04.533294",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\npekerja tidak menggunakan APD lengkap dan tetap memaksa kerja\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Pekerja tidak menggunakan APD saat pekerjaan singkat'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan singkat yang dilakukan tanpa APD dan lengkapi pekerja dengan APD wajib sebelum aktivitas sekecil apa pun dilanjutkan.\n\nKONDISI TERIDENTIFIKASI\nPekerja tidak menggunakan APD saat pekerjaan singkat [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSSE-APD-010].\n\nTINGKAT RISIKO\nRISIKO SEDANG — lakukan tindakan korektif dan verifikasi pengawas sebelum aktivitas dilanjutkan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja tidak menggunakan APD saat pekerjaan singkat' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan menganggap pekerjaan berdurasi singkat tidak berbahaya membuat pekerja abai terhadap perlindungan diri, yang sering memicu kecelakaan tak terduga. Mekanisme bahayanya berkaitan dengan kegagalan memilih, memasang, menggunakan, atau merawat APD membuat penghalang terakhir terhadap bahaya tidak bekerja sebagaimana direncanakan. Konsekuensi yang perlu dicegah adalah pekerja dapat mengalami benturan, paparan kimia, gangguan pernapasan, gangguan pendengaran, atau cedera serius sesuai sumber bahayanya. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan singkat yang dilakukan tanpa APD dan lengkapi pekerja dengan APD wajib sebelum aktivitas sekecil apa pun dilanjutkan.\n2. Pengendalian: Terapkan aturan 'no PPE no work' tanpa pengecualian durasi pekerjaan.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead (APD & SIKA/JSA)).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-APD-010 — Pekerja tidak menggunakan APD saat pekerjaan singkat (Alat Pelindung Diri (APD)); kecocokan 57%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenakertrans PER.08/MEN/VII/2010 tentang Alat Pelindung Diri: https://jdih.kemnaker.go.id/peraturan/detail/158/peraturan-menteri-nomor-8-tahun-2010\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-06T12:20:04.715335",
+        "meta": {
+          "confidence": 0.575,
+          "kb_id": "HSSE-APD-010"
+        }
+      }
+    ]
+  },
+  "TEST-RUN": {
+    "session_id": "TEST-RUN",
+    "created_at": "2026-09-06T12:23:24.025890",
+    "updated_at": "2026-09-06T12:23:24.195960",
+    "context": {
+      "category": "Alat Pelindung Diri (APD)",
+      "categories": [
+        "Alat Pelindung Diri (APD)"
+      ],
+      "kategori_list": [
+        "Alat Pelindung Diri (APD)"
+      ],
+      "category_source": "knowledge_match",
+      "assigned_category": "Alat Pelindung Diri (APD)",
+      "location": null,
+      "occurrence_date": null,
+      "initial_description": "pekerja tidak menggunakan APD lengkap dan tetap memaksa kerja",
+      "last_user_message": "pekerja tidak menggunakan APD lengkap dan tetap memaksa kerja",
+      "symptoms": [],
+      "error_message": null,
+      "steps_tried": [
+        "pekerja tidak menggunakan APD lengkap dan tetap memaksa kerja"
+      ],
+      "last_result": null,
+      "status": "initial",
+      "kb_id": "HSSE-APD-010",
+      "kategori": "Alat Pelindung Diri (APD)"
+    },
+    "messages": [
+      {
+        "role": "user",
+        "content": "pekerja tidak menggunakan APD lengkap dan tetap memaksa kerja",
+        "timestamp": "2026-09-06T12:23:24.025942",
+        "meta": {}
+      },
+      {
+        "role": "assistant",
+        "content": "PERTANYAAN / LAPORAN ANDA\npekerja tidak menggunakan APD lengkap dan tetap memaksa kerja\n\nJAWABAN LANGSUNG\nLaporan paling sesuai dengan kondisi 'Pekerja tidak menggunakan APD saat pekerjaan singkat'. Tindakan pertama yang perlu dilakukan: Hentikan pekerjaan singkat yang dilakukan tanpa APD dan lengkapi pekerja dengan APD wajib sebelum aktivitas sekecil apa pun dilanjutkan.\n\nKONDISI TERIDENTIFIKASI\nPekerja tidak menggunakan APD saat pekerjaan singkat [Kategori: Alat Pelindung Diri (APD)] [Kode KB: HSSE-APD-010].\n\nTINGKAT RISIKO\nRISIKO SEDANG — lakukan tindakan korektif dan verifikasi pengawas sebelum aktivitas dilanjutkan.\n\nPENJELASAN RISIKO\nKondisi 'Pekerja tidak menggunakan APD saat pekerjaan singkat' pada kategori Alat Pelindung Diri (APD) menimbulkan potensi bahaya keselamatan yang signifikan di area kerja. Tanpa penerapan kendali K3 yang tepat, kondisi ini berisiko menyebabkan menganggap pekerjaan berdurasi singkat tidak berbahaya membuat pekerja abai terhadap perlindungan diri, yang sering memicu kecelakaan tak terduga. Mekanisme bahayanya berkaitan dengan kegagalan memilih, memasang, menggunakan, atau merawat APD membuat penghalang terakhir terhadap bahaya tidak bekerja sebagaimana direncanakan. Konsekuensi yang perlu dicegah adalah pekerja dapat mengalami benturan, paparan kimia, gangguan pernapasan, gangguan pendengaran, atau cedera serius sesuai sumber bahayanya. Faktor penentu tingkat risiko di lapangan mencakup durasi dan intensitas paparan, jumlah orang terdampak, kondisi alat dan lingkungan, efektivitas barrier, serta kesiapan respons darurat. Temuan harus dicocokkan dengan kondisi aktual, JSA, SOP, izin kerja, dan ketentuan yang tercantum pada referensi artikel sebelum pekerjaan dilanjutkan.\n\nSOLUSI & TINDAKAN\n1. Tindakan Segera: Hentikan pekerjaan singkat yang dilakukan tanpa APD dan lengkapi pekerja dengan APD wajib sebelum aktivitas sekecil apa pun dilanjutkan.\n2. Pengendalian: Terapkan aturan 'no PPE no work' tanpa pengecualian durasi pekerjaan.\n3. Inspeksi & Pengawasan: Dokumentasikan tindakan dan minta Supervisor atau Tim HSSE memverifikasi pengendalian sebelum aktivitas dilanjutkan.\n\nREKOMENDASI K3\n1. Penanggung jawab rujukan: Juni Trihardiyanto (Senior Safety Lead (APD & SIKA/JSA)).\n2. Cocokkan tindakan dengan JSA, SOP, dan izin kerja yang berlaku untuk aktivitas serta lokasi aktual.\n3. Supervisor wajib memverifikasi pengendalian di lapangan; jawaban sistem tidak menggantikan inspeksi dan otorisasi kerja.\n\nREFERENSI KNOWLEDGE BASE\n1. HSSE-APD-010 — Pekerja tidak menggunakan APD saat pekerjaan singkat (Alat Pelindung Diri (APD)); kecocokan 57%.\nRegulasi resmi — Undang-Undang Nomor 1 Tahun 1970 tentang Keselamatan Kerja: https://peraturan.bpk.go.id/Details/47614/uu-no-1-tahun-1970\nRegulasi resmi — Permenakertrans PER.08/MEN/VII/2010 tentang Alat Pelindung Diri: https://jdih.kemnaker.go.id/peraturan/detail/158/peraturan-menteri-nomor-8-tahun-2010\n\nSTATUS PENANGANAN\nPerlu tindakan lapangan segera dan koordinasi dengan Tim HSSE.",
+        "timestamp": "2026-09-06T12:23:24.195955",
+        "meta": {
+          "confidence": 0.575,
+          "kb_id": "HSSE-APD-010"
+        }
+      }
+    ]
   }
 }
