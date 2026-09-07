@@ -22,7 +22,7 @@ async function request(endpoint, options = {}, timeoutMs = 25000) {
   };
 
   const adminToken = localStorage.getItem('sigap_hse_admin_token');
-  if (adminToken && !headers['Authorization']) {
+  if (adminToken && adminToken !== 'undefined' && adminToken !== 'null' && !headers['Authorization']) {
     headers['Authorization'] = `Bearer ${adminToken}`;
   }
 

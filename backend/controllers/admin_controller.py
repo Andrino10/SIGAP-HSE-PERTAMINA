@@ -32,7 +32,11 @@ class AdminController:
             )
 
         response = success_response(
-            data={"session": session_data},
+            data={
+                "session": session_data,
+                "token": session_data.get("token"),
+                "user": session_data
+            },
             message="Autentikasi admin berhasil.",
             code=200
         )

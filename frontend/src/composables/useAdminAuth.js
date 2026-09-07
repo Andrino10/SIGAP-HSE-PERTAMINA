@@ -13,11 +13,16 @@ export function useAdminAuth() {
   async function login(username, password) {
     const res = await apiAdminLogin(username, password);
     if (res && res.success && res.data) {
-      token.value = res.data.token;
-      adminUser.value = res.data.user;
-      localStorage.setItem(TOKEN_KEY, res.data.token);
-      localStorage.setItem(USER_KEY, JSON.stringify(res.data.user));
-      return res.data.user;
+      const tokenValue = res.data.token || res.data.session?.token;
+      const userValue = res.data.user || res.data.session;
+      if (!tokenValue) {
+        throw new Error('Token sesi tidak valid dari server.');
+      }
+      token.value = tokenValue;
+      adminUser.value = userValue;
+      localStorage.setItem(TOKEN_KEY, tokenValue);
+      localStorage.setItem(USER_KEY, JSON.stringify(userValue));
+      return userValue;
     }
     throw new Error(res?.message || 'Login gagal.');
   }
