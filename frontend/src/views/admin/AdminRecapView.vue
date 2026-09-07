@@ -55,7 +55,7 @@
           <div class="recap-doc-brand" style="display: flex; align-items: center; gap: 16px;">
             <img src="/pertamina-ep-logo-transparent.png" alt="Pertamina EP" class="recap-doc-logo" style="height: 48px;" />
             <div>
-              <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #0f172a;">PT PERTAMINA EP — ASSET 2 LIRIK FIELD</h3>
+              <h3 style="margin: 0; font-size: 16px; font-weight: 800; color: #0f172a;">PT PERTAMINA EP — ASSET 1 LIRIK FIELD</h3>
               <h4 style="margin: 2px 0 0 0; font-size: 14px; font-weight: 700; color: #1e40af;">LAPORAN REKAPITULASI TEMUAN KESELAMATAN KERJA (HSSE)</h4>
               <span class="recap-doc-period" style="font-size: 12px; color: #64748b;">Periode: {{ periodLabel }}</span>
             </div>

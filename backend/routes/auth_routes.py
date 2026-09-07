@@ -9,7 +9,7 @@ def get_profile():
         "user_id": "USR-88219",
         "name": "Andrino Syaddani",
         "role": "IT & K3 Staff",
-        "unit": "Pertamina EP — Asset 2 Lirik Field",
+        "unit": "Pertamina EP — Asset 1 Lirik Field",
         "email": "andrino@pertamina.com",
         "status": "Active"
     }
