@@ -134,11 +134,14 @@
         </div>
       </div>
 
+      <!-- Hint jika teks diisi dari pilihan cepat -->
+      <div v-if="fromChip && inputText && !isTyping" class="chip-preview-hint">
+        <span class="chip-hint-text">✏️ Teks dari pilihan cepat telah dimasukkan. Edit jika perlu lalu tekan <strong>Kirim</strong>.</span>
+        <button type="button" class="chip-hint-close" @click="fromChip = false" title="Tutup pemberitahuan">✕</button>
+      </div>
+
       <!-- Chat Input Footer -->
       <div class="chat-input-bar">
-        <div v-if="inputText && !isTyping" class="chip-preview-hint">
-          <span>✏️ Teks dari pilihan cepat telah dimasukkan. Edit jika perlu lalu tekan <strong>Kirim</strong>.</span>
-        </div>
         <textarea
           v-model="inputText"
           ref="chatInputRef"
@@ -204,6 +207,7 @@ const sessionId = ref(getOrCreateSessionId());
 const messages = ref(loadStoredMessages());
 
 const inputText = ref('');
+const fromChip = ref(false);
 const isTyping = ref(false);
 const showResolutionBar = ref(false);
 const selectedGroup = ref(null);
@@ -240,6 +244,13 @@ watch(showResolutionBar, (newVal) => {
   try {
     localStorage.setItem(STORAGE_KEY_RESOLUTION, newVal ? '1' : '0');
   } catch (e) {}
+});
+
+// Reset status fromChip jika input dikosongkan
+watch(inputText, (newVal) => {
+  if (!newVal || !newVal.trim()) {
+    fromChip.value = false;
+  }
 });
 
 const groups = [
@@ -300,6 +311,7 @@ function useStarter(chip) {
   if (chip.groupId && !selectedGroup.value) {
     selectedGroup.value = chip.groupId;
   }
+  fromChip.value = true;
   // Hanya isi textarea — user yang tekan Kirim sendiri
   inputText.value = chip.text || chip.judul || chip.title || chip;
   // Fokus ke textarea agar user bisa langsung mengedit/mengirim
@@ -335,6 +347,7 @@ async function sendMessage() {
   lastReportText.value = text;
   messages.value.push({ sender: 'user', text });
   inputText.value = '';
+  fromChip.value = false;
   isTyping.value = true;
   showResolutionBar.value = false;
   scrollToBottom();
@@ -450,6 +463,7 @@ async function resetConversation() {
   ];
   showResolutionBar.value = false;
   selectedGroup.value = null;
+  fromChip.value = false;
 
   try {
     localStorage.removeItem(STORAGE_KEY_MESSAGES);
@@ -508,20 +522,47 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-/* Chip Preview Hint — muncul saat starter chip mengisi textarea */
+/* Chip Preview Hint — muncul di atas input bar saat starter chip mengisi textarea */
 .chip-preview-hint {
   width: 100%;
-  padding: 0.45rem 0.85rem;
-  background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
-  border: 1px solid #bae6fd;
-  border-radius: 8px 8px 0 0;
-  border-bottom: none;
-  font-size: 0.78rem;
+  padding: 0.55rem 1.25rem;
+  background: #f0f9ff;
+  border-top: 1px solid #bae6fd;
+  border-bottom: 1px solid #bae6fd;
+  font-size: 0.82rem;
   color: #0369a1;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
+  justify-content: space-between;
+  gap: 0.5rem;
   animation: hint-slide-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.chip-hint-text {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  flex: 1;
+}
+
+.chip-hint-close {
+  background: none;
+  border: none;
+  color: #0284c7;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1;
+  opacity: 0.8;
+  transition: opacity 0.15s, background-color 0.15s;
+}
+
+.chip-hint-close:hover {
+  opacity: 1;
+  background-color: rgba(2, 132, 199, 0.12);
 }
 
 @keyframes hint-slide-in {

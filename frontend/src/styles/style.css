@@ -1494,6 +1494,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .chat-input-field {
   flex: 1;
+  min-width: 0;
+  width: 100%;
   border: 2px solid #CBD5E1;
   border-radius: var(--radius-md);
   padding: 0.85rem 1.25rem;
@@ -1502,6 +1504,12 @@ h1, h2, h3, h4, h5, h6 {
   outline: none;
   transition: var(--transition-fast);
   background-color: #FFFFFF;
+  box-sizing: border-box;
+}
+
+.chat-input-bar .btn,
+#btn-send-chat {
+  flex-shrink: 0;
 }
 
 .chat-input-field:focus {
