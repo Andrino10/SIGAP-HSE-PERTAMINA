@@ -121,8 +121,21 @@ def _validate_reporter_name(data, errors, *, required):
     return value
 
 
+CATEGORY_ALIAS_MAP = {
+    "Pekerjaan Berisiko": "Pekerjaan di Ketinggian",
+    "Peralatan & Kendaraan": "Alat Berat & Kendaraan",
+    "Kesehatan & Lingkungan": "Lingkungan Kerja",
+    "Kesehatan dan Lingkungan": "Lingkungan Kerja",
+    "Aturan & Pengawasan": "Pengawasan & Prosedur",
+    "Perilaku & Pelatihan": "Perilaku & Disiplin Kerja",
+    "Insiden & Darurat": "Tanggap Darurat"
+}
+
 def _valid_categories():
-    return {item["nama"] for item in knowledge_repo.get_categories()}
+    cats = {item["nama"] for item in knowledge_repo.get_categories()}
+    cats.update(CATEGORY_ALIAS_MAP.keys())
+    cats.add("Umum")
+    return cats
 
 
 def _validate_category(data, errors, *, required, aliases=()):
@@ -135,13 +148,16 @@ def _validate_category(data, errors, *, required, aliases=()):
         required=required,
         max_length=100,
     )
-    if category and category not in _valid_categories():
-        errors.append(
-            {
-                "field": "category",
-                "message": f"Kategori '{category}' tidak tersedia di knowledge.json.",
-            }
-        )
+    if category:
+        if category in CATEGORY_ALIAS_MAP:
+            category = CATEGORY_ALIAS_MAP[category]
+        elif category not in _valid_categories():
+            errors.append(
+                {
+                    "field": "category",
+                    "message": f"Kategori '{category}' tidak tersedia di knowledge.json.",
+                }
+            )
     return category
 
 

@@ -1,5 +1,169 @@
 [
   {
+    "id": "HSE-20260908-0042",
+    "ticket_number": "HSE-20260908-0042",
+    "source": "direct_form",
+    "chat_session_id": null,
+    "reporter_name": "Rahmat Hidayat",
+    "division": "PO (Production Operation)",
+    "location": "SP 2, 3, 4 Lirik",
+    "occurrence_date": "2026-09-08",
+    "category": "Lingkungan Kerja",
+    "categories": [
+      "Lingkungan Kerja"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan ceceran minyak mentah dekat tangki separator tanpa secondary containment. Berpotensi mencemari tanah dan membahayakan pekerja.",
+    "urgency": "Tinggi",
+    "risk_level": "Tinggi",
+    "status": "In Progress",
+    "assigned_to": "Ronny Pribadi",
+    "assigned_engineer": "Ronny Pribadi",
+    "follow_up_notes": "Tim Enviro telah diterjunkan untuk memasang oil boom.",
+    "admin_message": "Laporan Anda telah kami terima dan saat ini sedang ditindaklanjuti secara langsung oleh Tim Enviro di lokasi.",
+    "history": [
+      {
+        "timestamp": "2026-09-08T19:23:19.594454",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Rahmat Hidayat",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      },
+      {
+        "timestamp": "2026-09-08T19:24:04.746621",
+        "action": "Status diubah dari 'Open' menjadi 'In Progress'",
+        "previous_status": "Open",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tim Enviro & Safety Lirik Field telah diterjunkan untuk memasang oil boom dan membersihkan tumpahan di lokasi."
+      },
+      {
+        "timestamp": "2026-09-08T19:24:42.396688",
+        "action": "Pembaruan Catatan Tindak Lanjut",
+        "previous_status": "In Progress",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tim Enviro telah diterjunkan untuk memasang oil boom."
+      },
+      {
+        "timestamp": "2026-09-08T19:24:42.396688",
+        "action": "Tiket didisposisikan ke: Ronny Pribadi",
+        "previous_status": "In Progress",
+        "status": "In Progress",
+        "actor": "Administrator HSSE",
+        "notes": "Tanggung jawab tiket dialihkan ke Ronny Pribadi."
+      }
+    ],
+    "created_at": "2026-09-08T19:23:19.594454",
+    "updated_at": "2026-09-08T19:24:42.396688",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260908-0041",
+    "ticket_number": "HSE-20260908-0041",
+    "source": "form_laporan",
+    "chat_session_id": null,
+    "reporter_name": "Rahmat Hidayat",
+    "division": "FM (Field Manager)",
+    "location": "Kantor Besar Buatan",
+    "occurrence_date": "2026-09-08",
+    "category": "Alat Pelindung Diri (APD)",
+    "categories": [
+      "Alat Pelindung Diri (APD)"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Tingkat kebisingan area kerja belum pernah diukur di area genset. Membutuhkan pengukuran dan penyediaan APD earplug.",
+    "urgency": "Sedang",
+    "risk_level": "Sedang",
+    "status": "Open",
+    "assigned_to": null,
+    "assigned_engineer": "Tim HSSE / Safety Officer",
+    "follow_up_notes": "",
+    "admin_message": "",
+    "history": [
+      {
+        "timestamp": "2026-09-08T19:18:04.171796",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Rahmat Hidayat",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      }
+    ],
+    "created_at": "2026-09-08T19:18:04.171796",
+    "updated_at": "2026-09-08T19:18:04.171796",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260908-0040",
+    "ticket_number": "HSE-20260908-0040",
+    "source": "form_laporan",
+    "chat_session_id": null,
+    "reporter_name": "Rahmat Hidayat",
+    "division": "FM (Field Manager)",
+    "location": "Kantor Besar Buatan",
+    "occurrence_date": "2026-09-08",
+    "category": "Alat Pelindung Diri (APD)",
+    "categories": [
+      "Alat Pelindung Diri (APD)"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan ceceran minyak mentah dekat tangki separator tanpa secondary containment. Berpotensi mencemari tanah dan membahayakan pekerja.",
+    "urgency": "Sedang",
+    "risk_level": "Sedang",
+    "status": "Open",
+    "assigned_to": null,
+    "assigned_engineer": "Tim HSSE / Safety Officer",
+    "follow_up_notes": "",
+    "admin_message": "",
+    "history": [
+      {
+        "timestamp": "2026-09-08T19:13:18.105548",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Rahmat Hidayat",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      }
+    ],
+    "created_at": "2026-09-08T19:13:18.105548",
+    "updated_at": "2026-09-08T19:13:18.105548",
+    "attachment": null
+  },
+  {
+    "id": "HSE-20260908-0039",
+    "ticket_number": "HSE-20260908-0039",
+    "source": "form_laporan",
+    "chat_session_id": null,
+    "reporter_name": "Rahmat Hidayat",
+    "division": "PO (Production Operation)",
+    "location": "Kantor Besar Buatan",
+    "occurrence_date": "2026-09-08",
+    "category": "Kelelahan & Jam Kerja",
+    "categories": [
+      "Kelelahan & Jam Kerja"
+    ],
+    "finding_type": "Unsafe Condition",
+    "description": "Ditemukan ceceran minyak mentah dekat tangki separator tanpa secondary containment. Berpotensi mencemari tanah dan membahayakan pekerja.",
+    "urgency": "Sedang",
+    "risk_level": "Sedang",
+    "status": "Open",
+    "assigned_to": null,
+    "assigned_engineer": "Tim HSSE / Safety Officer",
+    "follow_up_notes": "",
+    "admin_message": "",
+    "history": [
+      {
+        "timestamp": "2026-09-08T19:03:59.510471",
+        "action": "Laporan Dibuat",
+        "status": "Open",
+        "actor": "Rahmat Hidayat",
+        "notes": "Laporan kondisi bahaya berhasil disampaikan ke sistem SIGAP HSE."
+      }
+    ],
+    "created_at": "2026-09-08T19:03:59.510471",
+    "updated_at": "2026-09-08T19:03:59.510471",
+    "attachment": null
+  },
+  {
     "id": "HSE-20260907-0038",
     "ticket_number": "HSE-20260907-0038",
     "source": "direct_form",
