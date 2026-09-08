@@ -122,22 +122,22 @@
         <p>Pilih yang paling sesuai dengan kondisi di lapangan. Jika ragu, langsung tulis laporan dan sistem akan membantu.</p>
       </div>
 
-      <div class="category-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px;">
+      <div class="category-grid-enhanced">
         <div
           v-for="group in categoryGroups"
           :key="group.id"
-          class="category-card"
+          class="category-card-enhanced"
           @click="selectCategoryGroup(group)"
-          style="cursor: pointer;"
         >
-          <div class="category-card-header" style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-            <span style="font-size: 24px;">{{ getCategoryIcon(group.id) }}</span>
-            <div>
-              <h3 style="margin: 0; font-size: 16px; font-weight: 700; color: #0f172a;">{{ group.nama }}</h3>
-              <small style="color: #64748b; font-weight: 600;">{{ group.kategori.length }} sub-kategori</small>
-            </div>
+          <div class="category-card-icon-wrap">
+            <span class="category-card-icon">{{ getCategoryIcon(group.id) }}</span>
           </div>
-          <p style="font-size: 13px; color: #475569; line-height: 1.5; margin: 0;">{{ group.deskripsi }}</p>
+          <div class="category-card-body">
+            <h3 class="category-card-title">{{ group.nama }}</h3>
+            <span class="category-card-sub">{{ group.kategori.length }} sub-kategori</span>
+            <p class="category-card-desc">{{ group.deskripsi }}</p>
+          </div>
+          <div class="category-card-arrow">→</div>
         </div>
       </div>
 

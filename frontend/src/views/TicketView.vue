@@ -245,10 +245,65 @@ function setSample(ticketNo) {
   searchTicket();
 }
 
+// Demo data fallback jika backend tidak tersedia
+const DEMO_TICKETS = {
+  'HSE-20260903-DEMO2': {
+    ticket_number: 'HSE-20260903-DEMO2',
+    status: 'In Progress',
+    category: 'Kesehatan & Lingkungan',
+    urgency: 'Sedang',
+    location: 'SP 2, 3, 4 Lirik',
+    reporter_name: 'Andi Setiawan',
+    division: 'WO/WS',
+    description: 'Ditemukan tumpahan oli mesin dekat area pumper, berpotensi mencemari tanah dan membahayakan pekerja.',
+    occurrence_date: '2026-09-03',
+    assigned_to: 'Ronny Pribadi',
+    created_at: '2026-09-03T08:30:00',
+    updated_at: '2026-09-04T10:00:00',
+    follow_up_notes: 'Tim Enviro telah diinstruksikan untuk melakukan clean-up dan pemasangan oil boom.',
+    history: [
+      { status: 'Open', action: 'Laporan diterima sistem', actor: 'Sistem SIGAP', timestamp: '2026-09-03T08:30:00', notes: 'Laporan baru masuk dari form digital.' },
+      { status: 'In Progress', action: 'Ditugaskan ke Enviro Lead', actor: 'M. Solihin', timestamp: '2026-09-03T09:15:00', notes: 'Disposisi ke Ronny Pribadi (Environmental Lead).' }
+    ]
+  },
+  'HSE-20260903-DEMO3': {
+    ticket_number: 'HSE-20260903-DEMO3',
+    status: 'Closed / Resolved',
+    category: 'Pekerjaan Berisiko',
+    urgency: 'Tinggi',
+    location: 'Bengkel TOPSIP Lirik',
+    reporter_name: 'Budi Santoso',
+    division: 'Security',
+    description: 'Pekerja melakukan hot work tanpa ijin PTW yang sah di area bengkel, berisiko kebakaran.',
+    occurrence_date: '2026-09-03',
+    assigned_to: 'Juni Trihardiyanto',
+    created_at: '2026-09-03T11:00:00',
+    updated_at: '2026-09-05T16:00:00',
+    follow_up_notes: 'PTW telah diterbitkan, pekerja mendapatkan pelatihan safety hot work. Insiden tidak terjadi.',
+    history: [
+      { status: 'Open', action: 'Laporan diterima', actor: 'Sistem SIGAP', timestamp: '2026-09-03T11:00:00', notes: 'Laporan bahaya urgent masuk.' },
+      { status: 'In Progress', action: 'Stop Work diperintahkan', actor: 'Juni Trihardiyanto', timestamp: '2026-09-03T11:30:00', notes: 'Pekerjaan dihentikan sementara hingga PTW diterbitkan.' },
+      { status: 'Closed / Resolved', action: 'Selesai ditangani', actor: 'M. Solihin', timestamp: '2026-09-05T16:00:00', notes: 'PTW diterbitkan, area aman, pekerja telah mendapat arahan safety.' }
+    ]
+  }
+};
+
+// Validasi format nomor tiket
+function isValidTicketFormat(ticketNo) {
+  return /^HSE-\d{8}-\w+$/i.test(ticketNo.trim());
+}
+
 async function searchTicket() {
-  const q = ticketInput.value.trim();
+  const q = ticketInput.value.trim().toUpperCase();
   if (!q) {
     errorMessage.value = 'Harap masukkan nomor tiket terlebih dahulu.';
+    ticket.value = null;
+    return;
+  }
+
+  // Validasi format tiket
+  if (!isValidTicketFormat(q)) {
+    errorMessage.value = `Format nomor tiket tidak valid. Gunakan format: HSE-YYYYMMDD-XXXX (contoh: HSE-20260903-0001).`;
     ticket.value = null;
     return;
   }
@@ -265,9 +320,17 @@ async function searchTicket() {
       throw new Error(res?.message || 'Tiket tidak ditemukan.');
     }
   } catch (err) {
+    // Cek demo data sebagai fallback
+    if (DEMO_TICKETS[q]) {
+      ticket.value = DEMO_TICKETS[q];
+      return;
+    }
+
     let msg = err.message || 'Tiket tidak ditemukan.';
-    if (msg.includes('tidak ditemukan')) {
-      msg += ' Pastikan nomor tiket sudah benar (format: HSE-YYYYMMDD-XXXX).';
+    if (msg.includes('tidak ditemukan') || msg.includes('404')) {
+      msg = `Tiket "${q}" tidak ditemukan dalam sistem. Pastikan nomor tiket sudah benar. Nomor tiket tertera pada konfirmasi yang dikirim saat laporan dikirimkan.`;
+    } else if (msg.includes('fetch') || msg.includes('network') || msg.includes('Failed')) {
+      msg = `Tidak dapat terhubung ke server. Periksa koneksi internet Anda dan coba lagi.`;
     }
     errorMessage.value = msg;
   } finally {

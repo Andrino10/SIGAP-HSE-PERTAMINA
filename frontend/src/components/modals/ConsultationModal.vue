@@ -128,6 +128,16 @@
           ></textarea>
         </div>
 
+        <div class="form-group">
+          <label for="cons-finding-type">Jenis Temuan <span class="field-required">*</span></label>
+          <select id="cons-finding-type" v-model="form.findingType" class="form-input" required>
+            <option value="Unsafe Condition">Unsafe Condition (Kondisi Tidak Aman)</option>
+            <option value="Unsafe Act">Unsafe Act (Tindakan Tidak Aman)</option>
+            <option value="Near Miss">Near Miss (Hampir Celaka)</option>
+            <option value="Incident">Insiden / Kecelakaan</option>
+          </select>
+        </div>
+
         <div class="modal-actions">
           <button type="button" class="btn btn-secondary" @click="closeConsultationModal">Batal</button>
           <button type="submit" class="btn btn-primary" id="btn-submit-consultation" :disabled="isSubmitting">
@@ -161,6 +171,7 @@ const form = ref({
   occurrenceDate: today,
   category: '',
   urgency: 'Sedang',
+  findingType: 'Unsafe Condition',
   description: ''
 });
 
@@ -183,19 +194,40 @@ watch(isConsultationOpen, (isOpen) => {
   }
 });
 
+// Mapping urgency ke risk_level untuk konsistensi data rekap admin
+function mapUrgencyToRiskLevel(urgency) {
+  const u = String(urgency || '').toLowerCase();
+  if (u.includes('berat')) return 'Tinggi';
+  if (u.includes('sedang')) return 'Sedang';
+  return 'Rendah';
+}
+
 async function handleSubmit() {
   if (isSubmitting.value) return;
   isSubmitting.value = true;
 
   try {
     const payload = {
+      // Field standar konsultasi
       nama: form.value.name,
       divisi: form.value.division,
       lokasi: form.value.location,
       tanggal_kejadian: form.value.occurrenceDate,
       kategori: form.value.category,
       urgensi: form.value.urgency,
-      deskripsi: form.value.description
+      deskripsi: form.value.description,
+      // Field tambahan untuk rekap admin
+      finding_type: form.value.findingType,
+      risk_level: mapUrgencyToRiskLevel(form.value.urgency),
+      // Field complaint API standar
+      reporter_name: form.value.name,
+      division: form.value.division,
+      location: form.value.location,
+      occurrence_date: form.value.occurrenceDate,
+      category: form.value.category,
+      urgency: form.value.urgency,
+      description: form.value.description,
+      source: 'form_laporan'
     };
 
     const res = await createConsultation(payload);
@@ -219,6 +251,7 @@ async function handleSubmit() {
         occurrenceDate: new Date().toISOString().split('T')[0],
         category: '',
         urgency: 'Sedang',
+        findingType: 'Unsafe Condition',
         description: ''
       };
     } else {

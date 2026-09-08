@@ -18,17 +18,18 @@ class ConsultationService:
         consultation_record = {
             "session_id": session_id,
             "asset": "Area Kerja",
-            "reporter_name": clean_data.get("reporter_name") or clean_data.get("nama_pelapor") or "",
-            "division": clean_data.get("division") or "Umum",
-            "location": clean_data.get("location") or "Area Kerja",
+            "reporter_name": clean_data.get("reporter_name") or clean_data.get("nama") or clean_data.get("nama_pelapor") or "",
+            "division": clean_data.get("division") or clean_data.get("divisi") or "Umum",
+            "location": clean_data.get("location") or clean_data.get("lokasi") or "Area Kerja",
             "occurrence_date": clean_data.get("occurrence_date") or clean_data.get("tanggal_kejadian"),
             "category": categories[0],
             "categories": categories,
-            "description": clean_data.get("description", ""),
-            "urgency": clean_data.get("urgency") or "Sedang",
+            "description": clean_data.get("description") or clean_data.get("deskripsi") or "",
+            "urgency": clean_data.get("urgency") or clean_data.get("urgensi") or "Sedang",
             # PRD §6: Field source & chat_session_id
-            "source": clean_data.get("source"),           # akan diteruskan ke complaint_repo
-            "risk_level": clean_data.get("risk_level"),   # dari suggested_risk_level chatbot
+            "source": clean_data.get("source") or "form_laporan",
+            "risk_level": clean_data.get("risk_level"),    # dari suggested_risk_level chatbot
+            "finding_type": clean_data.get("finding_type"),  # Unsafe Condition / Unsafe Act / Near Miss / Incident
             "created_at": datetime.datetime.now().isoformat(),
             "status": "active"
         }

@@ -7277,3 +7277,335 @@ textarea:focus-visible,
   from { opacity: 0; transform: translateY(16px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+/* ==========================================================================
+   MAINTENANCE PATCH — HOME UI POLISH & READABILITY
+   ========================================================================== */
+
+/* ---- Section Header: Background Shape / Pill Kicker Badge ---- */
+.section-header {
+  margin-bottom: 1.75rem;
+  position: relative;
+}
+
+.section-header h2 {
+  font-size: 1.55rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-bottom: 0.4rem;
+  line-height: 1.3;
+}
+
+.section-header p {
+  color: #475569;
+  font-size: 0.96rem;
+  line-height: 1.65;
+  max-width: 640px;
+  background: rgba(248, 250, 252, 0.85);
+  padding: 0.5rem 0.85rem;
+  border-radius: 8px;
+  border-left: 3px solid #3b82f6;
+  display: inline-block;
+}
+
+.section-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.85rem;
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+  color: #ffffff;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.65rem;
+  box-shadow: 0 2px 10px rgba(30, 64, 175, 0.3);
+}
+
+/* ---- Category Card Enhanced — Beranda ---- */
+.category-grid-enhanced {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.category-card-enhanced {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.2rem 1.4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.category-card-enhanced::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1e40af, #2563eb, #0ea5e9);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.category-card-enhanced:hover {
+  border-color: #93c5fd;
+  box-shadow: 0 8px 28px rgba(30, 64, 175, 0.13);
+  transform: translateY(-3px);
+  background: linear-gradient(180deg, #fafbff 0%, #ffffff 100%);
+}
+
+.category-card-enhanced:hover::before {
+  transform: scaleX(1);
+}
+
+.category-card-icon-wrap {
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1.5px solid #bfdbfe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 10px rgba(37, 99, 235, 0.15);
+  transition: transform 0.25s ease;
+}
+
+.category-card-enhanced:hover .category-card-icon-wrap {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.category-card-icon {
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.category-card-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.category-card-title {
+  margin: 0 0 0.15rem 0;
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+  line-height: 1.3;
+}
+
+.category-card-sub {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: #0369a1;
+  background: rgba(2, 132, 199, 0.1);
+  padding: 0.12rem 0.55rem;
+  border-radius: 9999px;
+  margin-bottom: 0.45rem;
+  border: 1px solid rgba(2, 132, 199, 0.2);
+}
+
+.category-card-desc {
+  margin: 0;
+  font-size: 0.84rem;
+  color: #475569;
+  line-height: 1.55;
+}
+
+.category-card-arrow {
+  color: #94a3b8;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+  transition: color 0.2s, transform 0.2s;
+}
+
+.category-card-enhanced:hover .category-card-arrow {
+  color: #1e40af;
+  transform: translateX(3px);
+}
+
+/* ---- Guide Step Cards — Readability ---- */
+.guide-step-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.guide-step-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1e40af, #2563eb);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s ease;
+}
+
+.guide-step-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(30, 64, 175, 0.12);
+  border-color: #93c5fd;
+}
+
+.guide-step-card:hover::after {
+  transform: scaleX(1);
+}
+
+.guide-step-num {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+  color: #ffffff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: 0.85rem;
+  box-shadow: 0 4px 14px rgba(30, 64, 175, 0.3);
+}
+
+.guide-step-icon {
+  font-size: 1.6rem;
+  margin-bottom: 0.6rem;
+  display: block;
+}
+
+.guide-step-card h4 {
+  font-size: 1.02rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.4rem 0;
+}
+
+.guide-step-card p {
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0;
+  background: rgba(248, 250, 252, 0.7);
+  padding: 0.45rem 0.7rem;
+  border-radius: 8px;
+}
+
+/* ---- Golden Rules Cards ---- */
+.golden-rule-card {
+  background: #ffffff;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.5rem 1.6rem;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.golden-rule-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.1);
+}
+
+.golden-rule-card h4 {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0.65rem 0 0.5rem 0;
+}
+
+.golden-rule-card p {
+  font-size: 0.88rem;
+  color: #475569;
+  line-height: 1.65;
+  margin: 0;
+  background: rgba(248, 250, 252, 0.8);
+  padding: 0.55rem 0.75rem;
+  border-radius: 8px;
+}
+
+.rule-badge-header {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.rule-comply {
+  background: linear-gradient(135deg, #1e40af, #2563eb);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(30, 64, 175, 0.3);
+}
+
+.rule-listen {
+  background: linear-gradient(135deg, #0369a1, #0284c7);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
+}
+
+.rule-intervene {
+  background: linear-gradient(135deg, #b45309, #d97706);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(180, 83, 9, 0.3);
+}
+
+/* ---- Risk Matrix Cards ---- */
+.risk-card-info {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 1.5px solid #e2e8f0;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+  transition: all 0.22s ease;
+}
+
+.risk-card-info:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.1);
+}
+
+.risk-card-info h4 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0.6rem 0 0.4rem 0;
+}
+
+.risk-card-info p {
+  font-size: 0.87rem;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0 0 0.85rem 0;
+  background: rgba(248, 250, 252, 0.8);
+  padding: 0.45rem 0.7rem;
+  border-radius: 8px;
+}
+
+.risk-card-info.high { border-color: #fca5a5; }
+.risk-card-info.medium { border-color: #fcd34d; }
+.risk-card-info.low { border-color: #6ee7b7; }
+

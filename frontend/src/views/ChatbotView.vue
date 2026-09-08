@@ -133,8 +133,12 @@
 
       <!-- Chat Input Footer -->
       <div class="chat-input-bar">
+        <div v-if="inputText && !isTyping" class="chip-preview-hint">
+          <span>✏️ Teks dari pilihan cepat telah dimasukkan. Edit jika perlu lalu tekan <strong>Kirim</strong>.</span>
+        </div>
         <textarea
           v-model="inputText"
+          ref="chatInputRef"
           class="chat-input-field"
           rows="2"
           placeholder="Ceritakan kondisi bahaya, lokasi, dan aktivitas yang sedang berlangsung…"
@@ -202,6 +206,7 @@ const showResolutionBar = ref(false);
 const selectedGroup = ref(null);
 const chatStreamRef = ref(null);
 const serverByGroup = ref({});
+const chatInputRef = ref(null);
 
 // Simpan setiap pesan baru ke localStorage secara otomatis
 watch(
@@ -292,8 +297,16 @@ function useStarter(chip) {
   if (chip.groupId && !selectedGroup.value) {
     selectedGroup.value = chip.groupId;
   }
+  // Hanya isi textarea — user yang tekan Kirim sendiri
   inputText.value = chip.text || chip.judul || chip.title || chip;
-  sendMessage();
+  // Fokus ke textarea agar user bisa langsung mengedit/mengirim
+  nextTick(() => {
+    if (chatInputRef.value) {
+      chatInputRef.value.focus();
+      // Scroll ke area input
+      chatInputRef.value.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  });
 }
 
 function handleKeyDown(e) {
@@ -492,6 +505,27 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+/* Chip Preview Hint — muncul saat starter chip mengisi textarea */
+.chip-preview-hint {
+  width: 100%;
+  padding: 0.45rem 0.85rem;
+  background: linear-gradient(135deg, #eff6ff 0%, #f0f9ff 100%);
+  border: 1px solid #bae6fd;
+  border-radius: 8px 8px 0 0;
+  border-bottom: none;
+  font-size: 0.78rem;
+  color: #0369a1;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  animation: hint-slide-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes hint-slide-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 /* Scoped Styling Khusus Starter Chips agar Selaras dan Tidak Kontras / Abu-abu */
 .starter-chips-section {
   padding: 0.85rem 1.75rem;
