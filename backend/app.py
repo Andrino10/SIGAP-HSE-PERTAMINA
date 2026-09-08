@@ -40,9 +40,30 @@ app.register_blueprint(admin_bp)
 FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend"
 DIST_DIR = FRONTEND_DIR / "dist"
 
+# SPA Vue Router paths yang harus selalu dikembalikan index.html
+SPA_ROUTES = {
+    "chatbot", "ticket", "knowledge",
+    "admin", "admin/login", "admin/dashboard", "admin/reports", "admin/recap"
+}
+
 
 def get_static_dir():
     return DIST_DIR if (DIST_DIR / "index.html").exists() else FRONTEND_DIR
+
+
+def serve_spa():
+    """Serve index.html untuk SPA routing — fallback berlapis agar tidak pernah 404."""
+    # Priority 1: dist/index.html (production build)
+    if (DIST_DIR / "index.html").exists():
+        return send_from_directory(DIST_DIR, "index.html")
+    # Priority 2: frontend/index.html (dev fallback)
+    if (FRONTEND_DIR / "index.html").exists():
+        return send_from_directory(FRONTEND_DIR, "index.html")
+    # Priority 3: root index.html
+    root_dir = Path(__file__).resolve().parent.parent
+    if (root_dir / "index.html").exists():
+        return send_from_directory(root_dir, "index.html")
+    return "SIGAP-AI HSSE — Frontend belum di-build. Jalankan: cd frontend && npm run build", 200
 
 
 @app.after_request
@@ -57,8 +78,26 @@ def add_cache_headers(response):
 @app.route("/", methods=["GET"])
 def frontend_index():
     """Menyajikan SPA dari origin yang sama di lokal dan Vercel."""
-    target_dir = get_static_dir()
-    return send_from_directory(target_dir, "index.html")
+    return serve_spa()
+
+
+# === Explicit SPA Routes — Semua path Vue Router agar refresh tidak 404 ===
+@app.route("/chatbot", methods=["GET"])
+@app.route("/chatbot/", methods=["GET"])
+def spa_chatbot():
+    return serve_spa()
+
+
+@app.route("/ticket", methods=["GET"])
+@app.route("/ticket/", methods=["GET"])
+def spa_ticket():
+    return serve_spa()
+
+
+@app.route("/knowledge", methods=["GET"])
+@app.route("/knowledge/", methods=["GET"])
+def spa_knowledge():
+    return serve_spa()
 
 
 @app.route("/admin", methods=["GET"])
@@ -66,23 +105,22 @@ def frontend_index():
 @app.route("/admin/<path:subpath>", methods=["GET"])
 def frontend_admin(subpath=""):
     """Menyajikan SPA Admin Portal dari origin yang sama."""
-    target_dir = get_static_dir()
-    if (target_dir / "index.html").exists():
-        return send_from_directory(target_dir, "index.html")
-    return send_from_directory(FRONTEND_DIR, "admin.html")
+    return serve_spa()
 
 
 @app.route("/<path:asset_path>", methods=["GET"])
 def frontend_asset(asset_path):
-    """Fallback aset frontend; rute /api yang spesifik tetap diprioritaskan Flask."""
+    """Serve aset statis; jika tidak ditemukan, fallback ke SPA index.html."""
     if asset_path.startswith("api/"):
         abort(404)
+    # Coba serve sebagai file statis dari dist/ atau frontend/
     target_dir = get_static_dir()
     if (target_dir / asset_path).exists():
         return send_from_directory(target_dir, asset_path)
     if (FRONTEND_DIR / asset_path).exists():
         return send_from_directory(FRONTEND_DIR, asset_path)
-    return send_from_directory(target_dir, "index.html")
+    # SPA catch-all: semua path yang tidak dikenal dikembalikan index.html
+    return serve_spa()
 
 
 @app.route("/api/health", methods=["GET"])
