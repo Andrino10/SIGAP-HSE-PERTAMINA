@@ -45,7 +45,10 @@
         </button>
       </div>
 
-      <div class="modal-actions modal-actions-centered" style="margin-top: 18px;">
+      <div class="modal-actions modal-actions-centered" style="margin-top: 18px; display: flex; gap: 8px; justify-content: center;">
+        <button class="btn btn-primary" @click="goToTicket" style="background: #0284c7; color: white; font-weight: 600;">
+          🔍 Lacak Status Tiket Ini
+        </button>
         <button class="btn btn-secondary" @click="closeChoiceModal">Tutup</button>
       </div>
     </div>
@@ -74,8 +77,17 @@ function goToChatbot() {
 }
 
 function goToWhatsApp() {
-  const data = choiceModalData.value;
+  const cData = choiceModalData.value?.consultationData || {};
   closeChoiceModal();
-  openWhatsAppModal(data);
+  openWhatsAppModal({
+    ticketNumber: ticketNumber.value,
+    description: cData.deskripsi || cData.description || ''
+  });
+}
+
+function goToTicket() {
+  const tNo = ticketNumber.value;
+  closeChoiceModal();
+  router.push({ path: '/ticket', query: { q: tNo } });
 }
 </script>

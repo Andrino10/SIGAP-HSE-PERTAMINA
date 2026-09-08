@@ -121,12 +121,15 @@
         <span class="res-bar-label" style="font-size: 13px; color: #334155; font-weight: 500;">
           Apakah analisis dan solusi K3 di atas membantu menangani kondisi bahaya?
         </span>
-        <div class="res-bar-actions" style="display: flex; gap: 8px;">
-          <button class="btn btn-success btn-sm" type="button" @click="handleResolution(true)" style="background:#16a34a; color:white; border:none; padding:6px 14px; border-radius:6px;">
+        <div class="res-bar-actions" style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn btn-success btn-sm" type="button" @click="handleResolution(true)" style="background:#16a34a; color:white; border:none; padding:6px 14px; border-radius:6px; font-weight: 600;">
             ✓ Selesai
           </button>
-          <button class="btn btn-warning btn-sm" type="button" @click="handleResolution(false)" style="background:#d97706; color:white; border:none; padding:6px 14px; border-radius:6px;">
-            Belum, Hubungi Tim HSSE
+          <button class="btn btn-primary btn-sm" type="button" @click="openConsultationModal" style="background:#0284c7; color:white; border:none; padding:6px 14px; border-radius:6px; font-weight: 600;">
+            📝 Buat Laporan Resmi (Tiket HSSE)
+          </button>
+          <button class="btn btn-warning btn-sm" type="button" @click="handleResolution(false)" style="background:#d97706; color:white; border:none; padding:6px 14px; border-radius:6px; font-weight: 600;">
+            💬 Kontak WhatsApp Tim HSSE
           </button>
         </div>
       </div>

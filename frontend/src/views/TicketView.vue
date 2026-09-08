@@ -229,16 +229,25 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import { useModal } from '../composables/useModal';
 import { getComplaintByTicket } from '../services/api';
 
+const route = useRoute();
 const { openConsultationModal } = useModal();
 
 const ticketInput = ref('');
 const isLoading = ref(false);
 const errorMessage = ref('');
 const ticket = ref(null);
+
+onMounted(() => {
+  if (route.query.q) {
+    ticketInput.value = String(route.query.q).trim();
+    searchTicket();
+  }
+});
 
 function setSample(ticketNo) {
   ticketInput.value = ticketNo;
