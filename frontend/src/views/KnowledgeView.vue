@@ -245,36 +245,41 @@ async function fetchData(force = false) {
   errorMessage.value = '';
 
   try {
-    const res = await getKnowledgeList();
-    if (res && res.success && res.data) {
-      const list = res.data.knowledge_base || res.data.entri || res.data.entries || res.data;
-      if (Array.isArray(list) && list.length > 0) {
-        allEntries.value = list;
-        return;
+    // 1. Coba dari API backend
+    try {
+      const res = await getKnowledgeList();
+      if (res && res.success && res.data) {
+        const list = res.data.knowledge_base || res.data.entri || res.data.entries || res.data;
+        if (Array.isArray(list) && list.length > 0) {
+          allEntries.value = list;
+          return;
+        }
       }
+    } catch (apiErr) {
+      console.warn('API backend knowledge tidak merespons, mencoba memuat dari dataset statis lokal:', apiErr);
     }
-  } catch (apiErr) {
-    console.warn('API backend knowledge tidak merespons, mencoba memuat dari dataset statis lokal:', apiErr);
-  }
 
-  // Resilient fallback: muat dari dataset statis
-  try {
-    const staticRes = await fetch('/data/knowledge.json');
-    if (staticRes.ok) {
-      const data = await staticRes.json();
-      const list = Array.isArray(data) ? data : (data.knowledge_base || []);
-      if (list.length > 0) {
-        allEntries.value = list;
-        return;
+    // 2. Resilient fallback: muat dari dataset statis
+    try {
+      const staticRes = await fetch('/data/knowledge.json');
+      if (staticRes.ok) {
+        const data = await staticRes.json();
+        const list = Array.isArray(data) ? data : (data.knowledge_base || []);
+        if (list.length > 0) {
+          allEntries.value = list;
+          return;
+        }
       }
+    } catch (staticErr) {
+      console.warn('Fallback dataset statis tidak berhasil:', staticErr);
     }
-  } catch (staticErr) {
-    console.warn('Fallback dataset statis tidak berhasil:', staticErr);
-  }
 
-  // Jika semua gagal, tampilkan pesan ramah
-  if (allEntries.value.length === 0) {
-    errorMessage.value = 'Direktori keselamatan kerja sedang disinkronkan. Silakan coba lagi sebentar lagi.';
+    // 3. Jika semua gagal, tampilkan pesan ramah
+    if (allEntries.value.length === 0) {
+      errorMessage.value = 'Direktori keselamatan kerja sedang disinkronkan. Silakan coba lagi sebentar lagi.';
+    }
+  } finally {
+    isLoading.value = false;
   }
 }
 
