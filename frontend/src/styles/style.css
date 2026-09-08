@@ -1089,8 +1089,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .starter-chip-risk-dot.sedang {
-  background: #F59E0B;
-  box-shadow: 0 0 4px rgba(245, 158, 11, 0.4);
+  background: #ea580c;
+  box-shadow: 0 0 4px rgba(234, 88, 12, 0.4);
 }
 
 .starter-chip-risk-dot.rendah {
@@ -1117,14 +1117,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .guided-step-badge {
-  background: linear-gradient(135deg, #D97706 0%, #F59E0B 100%);
+  background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
   color: #FFFFFF;
   font-size: 0.78rem;
   font-weight: 800;
   padding: 0.3rem 0.85rem;
   border-radius: 20px;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.35);
+  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.35);
 }
 
 .guided-step-badge.step-active {
@@ -1948,7 +1948,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .risk-badge-label.high { background: #DC2626; color: #FFFFFF; }
-.risk-badge-label.medium { background: #D97706; color: #FFFFFF; }
+.risk-badge-label.medium { background: #ea580c; color: #FFFFFF; }
 .risk-badge-label.low { background: #059669; color: #FFFFFF; }
 
 .risk-card-info h4 {
@@ -4844,9 +4844,9 @@ textarea:focus-visible,
   min-width: 160px;
   font-size: 0.85rem;
   padding: 0.55rem 1rem;
-  background: linear-gradient(135deg, #f59e0b, #d97706) !important;
-  border-color: #f59e0b !important;
-  color: #0f172a !important;
+  background: linear-gradient(135deg, #be123c, #e11d48) !important;
+  border-color: #e11d48 !important;
+  color: #ffffff !important;
   font-weight: 700;
   border-radius: 8px;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
@@ -4854,7 +4854,7 @@ textarea:focus-visible,
 
 .escalation-btn-report:hover {
   transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.45);
+  box-shadow: 0 4px 14px rgba(225, 29, 72, 0.45);
 }
 
 .escalation-btn-dismiss {
@@ -7571,9 +7571,9 @@ textarea:focus-visible,
 }
 
 .rule-intervene {
-  background: linear-gradient(135deg, #b45309, #d97706);
+  background: linear-gradient(135deg, #be123c, #e11d48);
   color: #ffffff;
-  box-shadow: 0 2px 8px rgba(180, 83, 9, 0.3);
+  box-shadow: 0 2px 8px rgba(225, 29, 72, 0.3);
 }
 
 /* ---- Risk Matrix Cards ---- */

@@ -128,7 +128,7 @@
           <button class="btn btn-primary btn-sm" type="button" @click="openConsultationModal" style="background:#0284c7; color:white; border:none; padding:6px 14px; border-radius:6px; font-weight: 600;">
             📝 Buat Laporan Resmi (Tiket HSSE)
           </button>
-          <button class="btn btn-warning btn-sm" type="button" @click="handleResolution(false)" style="background:#d97706; color:white; border:none; padding:6px 14px; border-radius:6px; font-weight: 600;">
+          <button class="btn btn-whatsapp btn-sm" type="button" @click="handleResolution(false)" style="background:#16a34a; color:white; border:none; padding:6px 14px; border-radius:6px; font-weight: 600;">
             💬 Kontak WhatsApp Tim HSSE
           </button>
         </div>
@@ -633,8 +633,8 @@ onMounted(async () => {
 }
 
 .starter-chip-risk-dot.sedang {
-  background: #F59E0B;
-  box-shadow: 0 0 4px rgba(245, 158, 11, 0.4);
+  background: #ea580c;
+  box-shadow: 0 0 4px rgba(234, 88, 12, 0.4);
 }
 
 .starter-chip-risk-dot.rendah {
@@ -656,9 +656,9 @@ onMounted(async () => {
   gap: 0.75rem;
   align-items: start;
   padding: 0.85rem 1rem;
-  border: 1px solid #ead8b8;
+  border: 1px solid #bfdbfe;
   border-radius: 10px;
-  background: rgba(255, 251, 240, 0.85);
+  background: rgba(239, 246, 255, 0.85);
 }
 
 :deep(.res-analysis-summary > span) {
@@ -666,8 +666,8 @@ onMounted(async () => {
   height: 11px;
   margin-top: 0.35rem;
   border-radius: 50%;
-  background: #d97706;
-  box-shadow: 0 0 0 4px rgba(217, 119, 6, 0.15);
+  background: #1d4ed8;
+  box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.15);
 }
 
 :deep(.res-analysis-summary p) {
