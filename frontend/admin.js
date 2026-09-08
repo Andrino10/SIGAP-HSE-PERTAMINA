@@ -142,6 +142,24 @@ async function authenticatedFetch(url, options = {}) {
   return response;
 }
 
+// ─── TOGGLE SHOW / HIDE PASSWORD ────────────────────────────────────────────
+function togglePasswordVisibility() {
+  const input = document.getElementById('admin-pass-input');
+  const iconShow = document.getElementById('icon-eye-show');
+  const iconHide = document.getElementById('icon-eye-hide');
+  if (!input) return;
+
+  if (input.type === 'password') {
+    input.type = 'text';
+    if (iconShow) iconShow.style.display = 'none';
+    if (iconHide) iconHide.style.display = 'block';
+  } else {
+    input.type = 'password';
+    if (iconShow) iconShow.style.display = 'block';
+    if (iconHide) iconHide.style.display = 'none';
+  }
+}
+
 async function handleAdminLogin() {
   const usernameInput = document.getElementById('admin-user-input');
   const passwordInput = document.getElementById('admin-pass-input');
