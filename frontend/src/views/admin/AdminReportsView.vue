@@ -272,13 +272,24 @@ function formatDate(isoStr) {
 
 async function fetchReports() {
   isLoading.value = true;
+  let serverList = [];
   try {
     const res = await getAdminReports();
     if (res && res.success && res.data) {
-      allReports.value = res.data.reports || res.data.complaints || res.data || [];
+      serverList = res.data.reports || res.data.complaints || res.data || [];
     }
   } catch (e) {
     // Keep empty
+  }
+
+  // Gabungkan tiket offline dari localStorage jika ada
+  try {
+    const offlineList = JSON.parse(localStorage.getItem('sigap_offline_tickets_v1') || '[]');
+    const existingTicketNos = new Set(serverList.map(r => r.ticket_number || r.complaint_id));
+    const uniqueOffline = offlineList.filter(r => !existingTicketNos.has(r.ticket_number || r.complaint_id));
+    allReports.value = [...uniqueOffline, ...serverList];
+  } catch (err) {
+    allReports.value = serverList;
   } finally {
     isLoading.value = false;
   }

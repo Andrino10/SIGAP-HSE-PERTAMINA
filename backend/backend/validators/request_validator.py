@@ -90,7 +90,9 @@ def _validate_occurrence_date(data, errors, *, required, aliases=("tanggal_kejad
             }
         )
         return ""
-    if parsed > datetime.date.today():
+    # Berikan toleransi +1 hari untuk perbedaan zona waktu (misal: WIB UTC+7 vs Server UTC)
+    max_allowed_date = datetime.date.today() + datetime.timedelta(days=1)
+    if parsed > max_allowed_date:
         errors.append(
             {
                 "field": "occurrence_date",
