@@ -2,6 +2,7 @@ from flask import request
 from services.admin_service import admin_service
 from utils.response_formatter import success_response, error_response
 from utils.logger import logger
+from utils.json_storage import get_storage_status
 
 def get_auth_token_from_request():
     auth_header = request.headers.get("Authorization", "")
@@ -160,5 +161,12 @@ class AdminController:
         dapat memuat daftar yang sama dengan Portal Admin."""
         officers = admin_service.get_officers()
         return success_response(data={"officers": officers}, message="Daftar HSSE Officer berhasil dimuat.")
+
+    def get_storage_status(self):
+        token = get_auth_token_from_request()
+        if not admin_service.validate_session(token):
+            return error_response(message="Akses tidak diizinkan. Silakan login terlebih dahulu.", code=401)
+        status = get_storage_status()
+        return success_response(data=status, message=status["message"])
 
 admin_controller = AdminController()

@@ -42,3 +42,6 @@ def get_recap():
 def get_officers():
     return admin_controller.get_officers()
 
+@admin_bp.route("/storage-status", methods=["GET"])
+def get_storage_status():
+    return admin_controller.get_storage_status()

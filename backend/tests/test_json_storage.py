@@ -40,6 +40,12 @@ class TestRedisBackedJsonStorage(unittest.TestCase):
                 ("https://example.upstash.io", "test-token"),
             )
 
+    def test_status_reports_temporary_storage_without_credentials(self):
+        with patch.dict(os.environ, {}, clear=True):
+            status = json_storage.get_storage_status()
+        self.assertFalse(status["persistent"])
+        self.assertEqual(status["backend"], "filesystem-sementara")
+
 
 if __name__ == "__main__":
     unittest.main()

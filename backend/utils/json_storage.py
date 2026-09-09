@@ -70,6 +70,27 @@ def next_counter(name):
         raise RuntimeError("Penyimpanan Redis memberi urutan tiket yang tidak valid.") from exc
 
 
+def get_storage_status():
+    """Return a non-sensitive storage diagnostic for authenticated admins."""
+    if not _redis_config():
+        return {
+            "backend": "filesystem-sementara",
+            "persistent": False,
+            "healthy": False,
+            "message": "Kredensial Redis belum tersedia pada Function ini.",
+        }
+    try:
+        healthy = _redis_command(["PING"]) == "PONG"
+    except RuntimeError:
+        healthy = False
+    return {
+        "backend": "upstash-redis",
+        "persistent": healthy,
+        "healthy": healthy,
+        "message": "Redis aktif dan tiket tersimpan persisten." if healthy else "Redis terkonfigurasi tetapi belum dapat dihubungi.",
+    }
+
+
 def load_json_file(path, default):
     """Membaca JSON dan mengembalikan default jika file belum tersedia."""
     if _redis_config():
