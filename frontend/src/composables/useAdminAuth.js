@@ -6,13 +6,16 @@ const USER_KEY = 'sigap_hse_admin_user';
 
 // State global (shared across all composable instances)
 const token = ref(localStorage.getItem(TOKEN_KEY) || '');
-const adminUser = ref(() => {
+
+function _parseStoredUser() {
   try {
     return JSON.parse(localStorage.getItem(USER_KEY) || 'null');
   } catch {
     return null;
   }
-})();
+}
+
+const adminUser = ref(_parseStoredUser());
 
 export function useAdminAuth() {
   const isAuthenticated = computed(() => !!token.value);
