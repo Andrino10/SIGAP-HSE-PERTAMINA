@@ -125,6 +125,16 @@
               <button type="submit" class="btn btn-primary btn-block" :disabled="isSaving">
                 {{ isSaving ? 'Menyimpan...' : 'Simpan Pembaruan Laporan' }}
               </button>
+              <button
+                v-if="report.status === 'Open'"
+                type="button"
+                class="btn btn-secondary btn-block"
+                style="margin-top: 10px;"
+                :disabled="isSaving"
+                @click="confirmReport"
+              >
+                Konfirmasi Laporan &amp; Mulai Penanganan
+              </button>
             </form>
           </div>
 
@@ -220,6 +230,35 @@ async function submitUpdate() {
     }
   } catch (err) {
     showToast(err.message || 'Gagal memperbarui laporan.', 'error');
+  } finally {
+    isSaving.value = false;
+  }
+}
+
+async function confirmReport() {
+  if (isSaving.value || !props.report) return;
+
+  isSaving.value = true;
+  const ticketNo = props.report.ticket_number || props.report.complaint_id;
+  const message = updateForm.value.admin_message.trim()
+    || 'Laporan Anda telah diterima oleh Tim HSSE dan sedang dalam proses penanganan.';
+
+  try {
+    const res = await updateAdminReport(ticketNo, {
+      status: 'In Progress',
+      assigned_to: updateForm.value.assigned_officer,
+      follow_up_notes: updateForm.value.follow_up_notes,
+      admin_message: message,
+      confirm_received: true
+    });
+    if (!res?.success) {
+      throw new Error(res?.message || 'Konfirmasi laporan gagal disimpan.');
+    }
+    showToast(`Laporan ${ticketNo} telah dikonfirmasi dan masuk proses penanganan.`, 'success');
+    emit('updated');
+    closeModal();
+  } catch (err) {
+    showToast(err.message || 'Konfirmasi laporan gagal disimpan.', 'error');
   } finally {
     isSaving.value = false;
   }

@@ -275,19 +275,22 @@ python -m flask --app app run --host 127.0.0.1 --port 5000
 ## ☁️ Deploy ke Vercel
 
 1. Push repository ke GitHub (branch `main`)
-2. Import project di vercel.com
-3. Set Framework Preset ke _Other_
+2. Import project di vercel.com dengan **Root Directory = root repository** (`SIGAP-HSSE-LIRIK`), bukan `frontend/`. Root repository memuat Function Flask di `api/index.py`; bila root diarahkan ke `frontend/`, semua request `/api/*` akan jatuh ke halaman SPA dan login/tiket tidak dapat bekerja.
+3. Set Framework Preset ke _Other_. Build dan output frontend sudah ditentukan oleh `vercel.json`.
 4. Set Environment Variables:
 
 ```
 ADMIN_USERNAME=admin
 ADMIN_PASSWORD=<password_kuat>
 ADMIN_JWT_SECRET=<random_string_64_char>
+SIGAP_ADMIN_SESSION_SECRET=<random_string_64_char>
 SIGAP_DISABLE_SEMANTIC_SEARCH=1
 ```
 
 5. Deploy — Vercel otomatis deploy setiap `git push`
 6. Verifikasi: `https://<domain>.vercel.app/api/health`
+
+Endpoint tersebut wajib mengembalikan JSON dengan `"success": true`, bukan HTML aplikasi. Setelah itu uji alur: buat laporan → login admin → konfirmasi/update tiket → cek nomor tiket pada halaman publik.
 
 **Live URL:** https://sigap-hse-pertamina-01.vercel.app
 

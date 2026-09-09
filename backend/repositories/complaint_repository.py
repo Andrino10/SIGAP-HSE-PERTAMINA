@@ -183,11 +183,17 @@ class ComplaintRepository:
             prev_status = target.get("status", "Open")
             new_status = normalize_status(update_data.get("status", prev_status))
             notes = (update_data.get("follow_up_notes") or update_data.get("notes") or "").strip()
+            confirm_received = bool(update_data.get("confirm_received"))
 
             # Record in history if status changed or notes added
             status_changed = new_status != prev_status
-            if status_changed or notes:
-                action_text = f"Status diubah dari '{prev_status}' menjadi '{new_status}'" if status_changed else "Pembaruan Catatan Tindak Lanjut"
+            if status_changed or notes or confirm_received:
+                if confirm_received:
+                    action_text = "Laporan dikonfirmasi oleh Tim HSSE dan mulai ditangani"
+                elif status_changed:
+                    action_text = f"Status diubah dari '{prev_status}' menjadi '{new_status}'"
+                else:
+                    action_text = "Pembaruan Catatan Tindak Lanjut"
                 if "history" not in target or not isinstance(target["history"], list):
                     target["history"] = []
                 
@@ -197,7 +203,10 @@ class ComplaintRepository:
                     "previous_status": prev_status,
                     "status": new_status,
                     "actor": updated_by,
-                    "notes": notes or ("Status laporan diperbarui." if status_changed else "")
+                    "notes": notes or (
+                        "Tim HSSE telah menerima laporan dan memulai penanganan."
+                        if confirm_received else "Status laporan diperbarui." if status_changed else ""
+                    )
                 })
 
             target["status"] = new_status

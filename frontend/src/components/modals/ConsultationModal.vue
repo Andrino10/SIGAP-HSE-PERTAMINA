@@ -235,25 +235,23 @@ async function handleSubmit() {
     source: 'form_laporan'
   };
 
-  let res = null;
   try {
-    res = await createConsultation(payload);
-  } catch (err) {
-    console.warn('Backend API createConsultation offline atau error, mengaktifkan fallback siaga tiket:', err);
-  }
+    const res = await createConsultation(payload);
 
-  if (res && res.success) {
+    if (!res?.success || !res?.data?.ticket_number) {
+      throw new Error(res?.message || 'Nomor tiket tidak berhasil diterbitkan.');
+    }
+
     showToast('Laporan berhasil dikirim ke sistem SIGAP!', 'success');
     closeConsultationModal();
 
-    const ticketNo = res.data?.complaint?.complaint_id || res.data?.ticket_number || res.data?.complaint_id || 'HSE-TERBIT';
+    const ticketNo = res.data.ticket_number;
     openChoiceModal({
       ticketNumber: ticketNo,
-      status: res.data?.complaint?.status || 'Open',
+      status: res.data?.consultation?.status || 'Open',
       consultationData: res.data
     });
 
-    // Reset form
     form.value = {
       name: '',
       division: '',
@@ -264,68 +262,12 @@ async function handleSubmit() {
       findingType: 'Unsafe Condition',
       description: ''
     };
-  } else {
-    // Resilient Fallback: Otomatis terbitkan nomor tiket unik agar alur pengguna tidak pernah terhenti
-    const dateStr = getLocalDateString().replace(/-/g, '');
-    const randomSuffix = Math.random().toString(36).substring(2, 6).toUpperCase();
-    const fallbackTicketNo = `HSE-${dateStr}-${randomSuffix}`;
-
-    const offlineRecord = {
-      ticket_number: fallbackTicketNo,
-      complaint_id: fallbackTicketNo,
-      reporter_name: form.value.name,
-      division: form.value.division,
-      location: form.value.location,
-      occurrence_date: form.value.occurrenceDate,
-      category: form.value.category,
-      urgency: form.value.urgency,
-      risk_level: mapUrgencyToRiskLevel(form.value.urgency),
-      description: form.value.description,
-      finding_type: form.value.findingType,
-      status: 'Open',
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-      source: 'form_laporan',
-      history: [
-        {
-          timestamp: new Date().toISOString(),
-          action: 'Laporan Diterima Sistem SIGAP',
-          actor: 'Sistem SIGAP',
-          status: 'Open',
-          notes: 'Laporan kondisi bahaya berhasil didaftarkan dan nomor tiket diterbitkan.'
-        }
-      ]
-    };
-
-    try {
-      const existing = JSON.parse(localStorage.getItem('sigap_offline_tickets_v1') || '[]');
-      existing.unshift(offlineRecord);
-      localStorage.setItem('sigap_offline_tickets_v1', JSON.stringify(existing));
-    } catch (storageErr) {
-      console.warn('Gagal menyimpan tiket lokal:', storageErr);
-    }
-
-    showToast(`Laporan berhasil didaftarkan! Nomor Tiket: ${fallbackTicketNo}`, 'success');
-    closeConsultationModal();
-
-    openChoiceModal({
-      ticketNumber: fallbackTicketNo,
-      status: 'Open',
-      consultationData: { complaint: offlineRecord, ticket_number: fallbackTicketNo }
-    });
-
-    // Reset form
-    form.value = {
-      name: '',
-      division: '',
-      location: '',
-      occurrenceDate: getLocalDateString(),
-      category: '',
-      urgency: 'Sedang',
-      findingType: 'Unsafe Condition',
-      description: ''
-    };
+  } catch (err) {
+    // Tiket lokal tidak dipakai: admin tidak dapat melihat atau mengonfirmasi
+    // tiket yang hanya tersimpan pada satu browser.
+    showToast(err.message || 'Laporan belum terkirim. Periksa koneksi lalu kirim ulang.', 'error');
+  } finally {
+    isSubmitting.value = false;
   }
-  isSubmitting.value = false;
 }
 </script>

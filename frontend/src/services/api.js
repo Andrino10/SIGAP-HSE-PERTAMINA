@@ -36,6 +36,16 @@ async function request(endpoint, options = {}, timeoutMs = 25000) {
     const isJson = (response.headers.get('content-type') || '').includes('application/json');
     const data = isJson ? await response.json() : await response.text();
 
+    // API SIGAP selalu mengembalikan JSON. Halaman HTML di sini berarti route
+    // deployment salah (biasanya fallback SPA menangkap /api), bukan respons
+    // yang boleh dianggap sebagai tiket atau sesi admin yang valid.
+    if (!isJson) {
+      const err = new Error('Layanan API tidak tersedia atau konfigurasi deployment belum benar. Silakan coba kembali beberapa saat lagi.');
+      err.status = response.status;
+      err.data = data;
+      throw err;
+    }
+
     if (!response.ok) {
       const errorMsg = data?.message || (typeof data === 'string' ? data : 'Terjadi kesalahan sistem.');
       const err = new Error(errorMsg);

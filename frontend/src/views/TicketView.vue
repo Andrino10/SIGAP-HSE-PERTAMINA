@@ -329,17 +329,7 @@ async function searchTicket() {
       throw new Error(res?.message || 'Tiket tidak ditemukan.');
     }
   } catch (err) {
-    // 1. Cek tiket lokal dari penyimpanan browser
-    try {
-      const offlineList = JSON.parse(localStorage.getItem('sigap_offline_tickets_v1') || '[]');
-      const found = offlineList.find(t => (t.ticket_number === q || t.complaint_id === q));
-      if (found) {
-        ticket.value = found;
-        return;
-      }
-    } catch (storageErr) {}
-
-    // 2. Cek demo data sebagai fallback
+    // Data demo hanya untuk contoh tiket yang memang dicantumkan di halaman.
     if (DEMO_TICKETS[q]) {
       ticket.value = DEMO_TICKETS[q];
       return;
