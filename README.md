@@ -292,6 +292,15 @@ SIGAP_DISABLE_SEMANTIC_SEARCH=1
 
 Endpoint tersebut wajib mengembalikan JSON dengan `"success": true`, bukan HTML aplikasi. Setelah itu uji alur: buat laporan → login admin → konfirmasi/update tiket → cek nomor tiket pada halaman publik.
 
+### Penyimpanan tiket production
+
+Function Vercel tidak menyimpan file JSON secara konsisten antar-instance. Untuk
+memakai tiket pada portal admin secara nyata, tambahkan integrasi **Upstash Redis**
+dari Vercel Marketplace dan pilih proyek SIGAP ini. Vercel akan menambahkan
+`UPSTASH_REDIS_REST_URL` dan `UPSTASH_REDIS_REST_TOKEN` secara otomatis.
+Deploy ulang setelah kedua variabel tersedia. Backend akan memakai Redis tersebut
+untuk tiket, riwayat status, dan akun admin; tanpa perubahan kode tambahan.
+
 **Live URL:** https://sigap-hse-pertamina-01.vercel.app
 
 ---

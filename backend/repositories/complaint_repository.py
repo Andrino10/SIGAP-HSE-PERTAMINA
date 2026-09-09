@@ -2,7 +2,7 @@ import os
 import datetime
 import threading
 from config.settings import STORAGE_DIR
-from utils.json_storage import atomic_json_write, load_json_file
+from utils.json_storage import atomic_json_write, load_json_file, next_counter
 from utils.logger import logger
 
 COMPLAINTS_FILE = os.path.join(STORAGE_DIR, "complaints.json")
@@ -76,11 +76,14 @@ class ComplaintRepository:
     def generate_ticket_number(self):
         now = datetime.datetime.now()
         date_str = now.strftime("%Y%m%d")
-        seq = len(self.complaints) + 1
+        # Redis INCR membuat nomor tiket unik antar-instance Vercel. Pada mode
+        # lokal tanpa Redis, tetap gunakan urutan data JSON seperti sebelumnya.
+        seq = next_counter(f"ticket:{date_str}") or (len(self.complaints) + 1)
         return f"HSE-{date_str}-{seq:04d}"
 
     def create(self, complaint_data):
         with self._lock:
+            self._load()
             ticket_no = self.generate_ticket_number()
             now_iso = datetime.datetime.now().isoformat()
             categories = complaint_data.get("categories") or complaint_data.get("kategori_list")
@@ -149,10 +152,12 @@ class ComplaintRepository:
 
     def get_all(self):
         with self._lock:
+            self._load()
             return [dict(record) for record in self.complaints]
 
     def get_by_ticket(self, ticket_no):
         with self._lock:
+            self._load()
             ticket_clean = str(ticket_no).strip().upper()
             for c in self.complaints:
                 if (
@@ -165,6 +170,7 @@ class ComplaintRepository:
 
     def update(self, ticket_no, update_data, updated_by="Admin HSSE"):
         with self._lock:
+            self._load()
             ticket_clean = str(ticket_no).strip().upper()
             target = None
             for c in self.complaints:
