@@ -12,6 +12,16 @@ def _redis_config():
     url = os.getenv("UPSTASH_REDIS_REST_URL") or os.getenv("KV_REST_API_URL")
     token = os.getenv("UPSTASH_REDIS_REST_TOKEN") or os.getenv("KV_REST_API_TOKEN")
     if not url or not token:
+        # Integrasi Upstash Marketplace dapat menambahkan custom prefix, contoh:
+        # UPSTASH_REDIS_REST_KV_REST_API_URL dan pasangan ..._TOKEN.
+        for variable_name, candidate_url in os.environ.items():
+            if not variable_name.endswith("_KV_REST_API_URL"):
+                continue
+            candidate_token = os.getenv(f"{variable_name[:-3]}TOKEN")
+            if candidate_url and candidate_token:
+                url, token = candidate_url, candidate_token
+                break
+    if not url or not token:
         return None
     return url.rstrip("/"), token
 

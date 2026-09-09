@@ -29,6 +29,17 @@ class TestRedisBackedJsonStorage(unittest.TestCase):
         self.assertEqual(command.call_args_list[1].args[0][0], "GET")
         self.assertEqual(command.call_args_list[2].args[0], ["INCR", "sigap-hsse:counter:ticket:20260909"])
 
+    def test_marketplace_custom_prefix_is_detected(self):
+        environment = {
+            "UPSTASH_REDIS_REST_KV_REST_API_URL": "https://example.upstash.io",
+            "UPSTASH_REDIS_REST_KV_REST_API_TOKEN": "test-token",
+        }
+        with patch.dict(os.environ, environment, clear=True):
+            self.assertEqual(
+                json_storage._redis_config(),
+                ("https://example.upstash.io", "test-token"),
+            )
+
 
 if __name__ == "__main__":
     unittest.main()
