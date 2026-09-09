@@ -97,9 +97,13 @@ def load_json_file(path, default):
         raw_value = _redis_command(["GET", _redis_key(path)])
         if raw_value is None:
             return default
-        if not isinstance(raw_value, str):
-            raise ValueError("Nilai penyimpanan Redis bukan teks JSON.")
-        return json.loads(raw_value)
+        # Upstash may return a Redis string or decode JSON into a native list/
+        # dict, depending on the REST integration configuration.
+        if isinstance(raw_value, str):
+            return json.loads(raw_value)
+        if isinstance(raw_value, (list, dict)):
+            return raw_value
+        raise ValueError("Nilai penyimpanan Redis tidak memiliki format JSON yang valid.")
 
     if not os.path.exists(path):
         return default

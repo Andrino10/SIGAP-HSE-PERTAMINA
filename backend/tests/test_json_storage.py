@@ -52,6 +52,17 @@ class TestRedisBackedJsonStorage(unittest.TestCase):
         self.assertEqual(first, "sigap-hsse:json:v1:complaints.json")
         self.assertEqual(first, second)
 
+    def test_redis_load_accepts_native_json_response(self):
+        environment = {
+            "UPSTASH_REDIS_REST_URL": "https://example.upstash.io",
+            "UPSTASH_REDIS_REST_TOKEN": "test-token",
+        }
+        with patch.dict(os.environ, environment, clear=False), patch(
+            "utils.json_storage._redis_command", return_value=[{"ticket_number": "HSE-TEST-0002"}]
+        ):
+            loaded = json_storage.load_json_file("/tmp/complaints.json", [])
+        self.assertEqual(loaded[0]["ticket_number"], "HSE-TEST-0002")
+
 
 if __name__ == "__main__":
     unittest.main()
