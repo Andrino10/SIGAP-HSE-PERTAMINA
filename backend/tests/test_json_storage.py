@@ -46,6 +46,12 @@ class TestRedisBackedJsonStorage(unittest.TestCase):
         self.assertFalse(status["persistent"])
         self.assertEqual(status["backend"], "filesystem-sementara")
 
+    def test_redis_key_is_stable_across_serverless_paths(self):
+        first = json_storage._redis_key("/var/task/backend/data/storage/complaints.json")
+        second = json_storage._redis_key("/var/task/data/storage/complaints.json")
+        self.assertEqual(first, "sigap-hsse:json:v1:complaints.json")
+        self.assertEqual(first, second)
+
 
 if __name__ == "__main__":
     unittest.main()

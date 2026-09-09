@@ -2,7 +2,6 @@ import json
 import os
 import tempfile
 import time
-import hashlib
 from urllib.error import URLError
 from urllib.request import Request, urlopen
 
@@ -27,10 +26,11 @@ def _redis_config():
 
 
 def _redis_key(path):
-    # Path hash keeps separate files (complaints, users, conversations) in one store
-    # without exposing local filesystem layout as a database key.
-    path_hash = hashlib.sha256(os.path.abspath(path).encode("utf-8")).hexdigest()[:20]
-    return f"sigap-hsse:json:{path_hash}"
+    # Serverless bundle paths may differ between Function instances. A stable
+    # logical filename ensures every route reads the same collection instead of
+    # creating a key per absolute deployment path.
+    filename = os.path.basename(path).lower()
+    return f"sigap-hsse:json:v1:{filename}"
 
 
 def _redis_command(command):
