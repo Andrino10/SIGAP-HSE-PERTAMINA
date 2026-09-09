@@ -108,7 +108,7 @@ def _validate_reporter_name(data, errors, *, required):
         "reporter_name",
         errors,
         "Nama pelapor",
-        aliases=("nama_pelapor",),
+        aliases=("nama_pelapor", "nama"),  # 'nama' = alias field dari ConsultationModal
         required=required,
         min_length=2,
         max_length=150,
@@ -365,6 +365,7 @@ def validate_consultation_request(data):
         "division",
         errors,
         "Fungsi/Divisi",
+        aliases=("divisi",),          # alias dari ConsultationModal
         required=True,
         max_length=150,
     )
@@ -373,6 +374,7 @@ def validate_consultation_request(data):
         "location",
         errors,
         "Lokasi temuan",
+        aliases=("lokasi",),          # alias dari ConsultationModal
         required=True,
         max_length=250,
     )
@@ -382,11 +384,17 @@ def validate_consultation_request(data):
         "description",
         errors,
         "Deskripsi kondisi bahaya",
+        aliases=("deskripsi",),       # alias dari ConsultationModal
         required=True,
         min_length=10,
         max_length=3000,
     )
-    _validate_categories(data, errors, required=True)
+    # Kategori: ambil dari 'category' (tunggal) atau 'categories' (list)
+    _validate_categories(
+        data, errors,
+        required=True,
+        aliases=("kategori",)
+    )
     _text_value(data, "session_id", errors, "Session ID", max_length=150)
 
     urgency = _text_value(
@@ -394,6 +402,7 @@ def validate_consultation_request(data):
         "urgency",
         errors,
         "Urgensi",
+        aliases=("urgensi",),         # alias dari ConsultationModal
         max_length=20,
     )
     if urgency and urgency not in {"Ringan", "Sedang", "Berat", "Tinggi"}:

@@ -14,6 +14,12 @@ DIREKTORI_UTAMA = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DIREKTORI_DATA = os.path.join(DIREKTORI_UTAMA, "data")
 JALUR_KNOWLEDGE_JSON = os.path.join(DIREKTORI_DATA, "knowledge.json")
 BERJALAN_DI_VERCEL = bool(os.getenv("VERCEL"))
+
+# Catatan Penting:
+# Di Vercel Serverless, filesystem hanya /tmp yang writable (ephemeral, hilang saat cold start).
+# Kami menggunakan /tmp untuk menyimpan session admin sementara.
+# Data complaints JUGA disimpan di /tmp di Vercel — untuk persistensi penuh, gunakan database eksternal.
+# Admin credentials (username/password) ditentukan via environment variables dan selalu di-seed ulang.
 DIREKTORI_PENYIMPANAN = os.getenv("SIGAP_STORAGE_DIR") or (
     os.path.join(tempfile.gettempdir(), "sigap-ai-hsse", "storage")
     if BERJALAN_DI_VERCEL
